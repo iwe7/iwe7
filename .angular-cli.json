@@ -14,6 +14,14 @@
     {
       "project": "./tsconfig.spec.json",
       "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/test/src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/test/e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
     }
   ],
   "test": {
@@ -22,6 +30,39 @@
     }
   },
   "apps": [
+    {
+      "name": "test",
+      "root": "apps/test/src",
+      "outDir": "dist/apps/test",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "../../../test.js",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
+      "prefix": "",
+      "styles": [
+        "styles.scss"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      },
+      "tags": []
+    },
+    {
+      "name": "icss",
+      "root": "libs/icss/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
     {
       "name": "stateless",
       "root": "libs/stateless/src",

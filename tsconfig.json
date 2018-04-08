@@ -6,6 +6,9 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
     "target": "es5",
     "typeRoots": [
       "node_modules/@types"

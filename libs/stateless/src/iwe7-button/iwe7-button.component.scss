@@ -1,0 +1,43 @@
+:host {
+    display: flex;
+    flex-direction: row;
+}
+
+button {
+    display: block;
+    margin: 0;
+    padding: 17px 16px;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    line-height: 1;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    background: var(--theme-bg);
+    color: var(--theme-color);
+    transition: background .3s ease-in-out;
+    &[disabled] {
+        &:hover {
+            opacity: 1;
+        }
+    }
+    &:hover,
+    &:focus,
+    &:active {
+        opacity: .9;
+    }
+    &:focus {
+        outline: none;
+    }
+    i {
+        display: inline-block;
+        margin-right: 4px;
+        font-size: 100%;
+        transform: scale(1.13);
+        transform-origin: right center;
+    }
+}
