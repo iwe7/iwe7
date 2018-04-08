@@ -1,0 +1,10 @@
+<div class="form-col" [formGroup]="form">
+  <label class="label" [class.success]="form.get(name).valid" [class.required]="!form.get(name).valid" [attr.for]="'input_'+id">
+    <div class="title">{{label}}</div>
+    <div class="content">
+      <input class="error" (blur)="onBlur()" [formControlName]="name" [attr.id]="'input_'+id" #input [attr.name]="name" [attr.value]="value" [attr.placeholder]="placeholder"
+      />
+    </div>
+  </label>
+  <div dir="rtl" class="tip" *ngIf="!form.get(name).valid && !this.form.untouched && showTip">{{form.get(name).errors['msg']}}</div>
+</div>

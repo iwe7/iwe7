@@ -57,6 +57,13 @@
       "tags": []
     },
     {
+      "name": "form",
+      "root": "libs/form/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "icss",
       "root": "libs/icss/src",
       "test": "../../../test.js",
@@ -64,8 +71,22 @@
       "tags": []
     },
     {
+      "name": "pipes",
+      "root": "libs/pipes/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "stateless",
       "root": "libs/stateless/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "themes",
+      "root": "libs/themes/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

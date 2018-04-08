@@ -1,6 +1,42 @@
-<h2 class="title">翻滚吧！我的按钮</h2>
+<form-container [list]="list"></form-container>
 
-<iwe7-button *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" color="random" autoplay="100" (click)="click($event)"
-  style="margin-top: 5px;" direction="column">
-&nbsp;
-</iwe7-button>
+<!-- <div class="row">
+  <iwe7-button color="primary">提交</iwe7-button>
+  <iwe7-button color="default">添加</iwe7-button>
+</div> -->
+
+<ul>
+  <li *ngFor="let item of list">
+    <dl>
+      <dt>类型:
+        <input type="text" [(ngModel)]="item.type" placeholder="类型" />
+      </dt>
+      <dt>名称:
+        <input type="text" [(ngModel)]="item.name" placeholder="名称" />
+      </dt>
+      <dt>标题:
+        <input type="text" [(ngModel)]="item.label" placeholder="标题" />
+      </dt>
+      <dt>提示:
+        <input type="text" [(ngModel)]="item.placeholder" placeholder="提示" />
+      </dt>
+      <dt>默认值:
+        <input type="text" [(ngModel)]="item.value" placeholder="默认值" />
+      </dt>
+      <dt>验证器:
+        <dl>
+          <dt *ngFor="let it of item.validators | map">
+            <dl>
+              <dt>{{it.key}}:
+                <input type="text" [(ngModel)]="it.limit" [attr.placeholder]="it.key" />
+              </dt>
+              <dt>提示:
+                <input type="text" [(ngModel)]="it.msg" placeholder="默认值" />
+              </dt>
+            </dl>
+          </dt>
+        </dl>
+      </dt>
+    </dl>
+  </li>
+</ul>

@@ -11,7 +11,8 @@ import {
   OnChanges,
   SimpleChanges,
   InjectionToken,
-  Inject
+  Inject,
+  Injector
 } from '@angular/core';
 import {
   map,
@@ -51,14 +52,6 @@ export const Iwe7ButtonConfigToken = new InjectionToken<any>(
         primary: {
           bg: '#fc9153',
           color: '#fff'
-        },
-        random: {
-          fn: () => {
-            return {
-              bg: '#' + Math.floor(Math.random() * 16777215).toString(16),
-              color: '#fff'
-            };
-          }
         }
       };
     }
@@ -82,14 +75,16 @@ export class Iwe7ButtonComponent implements OnInit, OnChanges {
   @Input() autoplay: number = 0;
   // 上一个状态
   lastState: any;
+  config: any;
   constructor(
     // 获取父级dom
     private ele: ElementRef,
-    @Inject(Iwe7ButtonConfigToken) private config: any,
-    private icss: IcssService
+    private icss: IcssService,
+    private injector: Injector
   ) {}
 
   ngOnInit() {
+    this.config = this.injector.get(Iwe7ButtonConfigToken);
     const button = this.style$
       .asObservable()
       .pipe(startWith(this.config[this.color]));
@@ -121,20 +116,24 @@ export class Iwe7ButtonComponent implements OnInit, OnChanges {
   }
 
   public setColor(color: string) {
-    if (!!this.config[color] && !this.disabled) {
-      const my = this.config[color];
-      if (my.fn) {
-        if (this.autoplay > 0) {
-          // 自动播放
-          setInterval(() => {
-            this.style$.next(my.fn());
-          }, this.autoplay);
+    if (!this.disabled) {
+      if (!!this.config[color]) {
+        const my = this.config[color];
+        if (my.fn) {
+          if (this.autoplay > 0) {
+            // 自动播放
+            setInterval(() => {
+              this.style$.next(my.fn());
+            }, this.autoplay);
+            return;
+          }
+          this.style$.next(my.fn());
           return;
         }
-        this.style$.next(my.fn());
-        return;
+        this.style$.next(this.config[color]);
+      }else{
+        this.style$.next(this.config['default']);
       }
-      this.style$.next(this.config[color]);
     }
   }
 }
