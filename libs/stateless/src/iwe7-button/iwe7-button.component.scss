@@ -19,7 +19,7 @@ button {
     -webkit-tap-highlight-color: transparent;
     background: var(--theme-bg);
     color: var(--theme-color);
-    transition: background .3s ease-in-out;
+    transition: background .01s ease-in-out;
     &[disabled] {
         &:hover {
             opacity: 1;

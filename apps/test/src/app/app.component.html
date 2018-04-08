@@ -1,11 +1,6 @@
-<iwe7-button direction="column">
-  我是
-</iwe7-button>
+<h2 class="title">翻滚吧！我的按钮</h2>
 
-<iwe7-button [color]="color" (click)="click($event)" style="margin-top: 5px;" direction="column">
-  我是
-</iwe7-button>
-
-<iwe7-button [disabled]="disabled" [color]="color" style="margin-top: 5px;" (click)="click($event)" direction="column">
-  一个按钮
+<iwe7-button *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]" color="random" autoplay="100" (click)="click($event)"
+  style="margin-top: 5px;" direction="column">
+&nbsp;
 </iwe7-button>

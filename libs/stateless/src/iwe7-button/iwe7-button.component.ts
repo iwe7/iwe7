@@ -51,6 +51,14 @@ export const Iwe7ButtonConfigToken = new InjectionToken<any>(
         primary: {
           bg: '#fc9153',
           color: '#fff'
+        },
+        random: {
+          fn: () => {
+            return {
+              bg: '#' + Math.floor(Math.random() * 16777215).toString(16),
+              color: '#fff'
+            };
+          }
         }
       };
     }
@@ -71,6 +79,7 @@ export class Iwe7ButtonComponent implements OnInit, OnChanges {
   @Input() color: string = 'default';
 
   @Output() done: EventEmitter<this> = new EventEmitter();
+  @Input() autoplay: number = 0;
   // 上一个状态
   lastState: any;
   constructor(
@@ -113,6 +122,18 @@ export class Iwe7ButtonComponent implements OnInit, OnChanges {
 
   public setColor(color: string) {
     if (!!this.config[color] && !this.disabled) {
+      const my = this.config[color];
+      if (my.fn) {
+        if (this.autoplay > 0) {
+          // 自动播放
+          setInterval(() => {
+            this.style$.next(my.fn());
+          }, this.autoplay);
+          return;
+        }
+        this.style$.next(my.fn());
+        return;
+      }
       this.style$.next(this.config[color]);
     }
   }
