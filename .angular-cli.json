@@ -57,6 +57,13 @@
       "tags": []
     },
     {
+      "name": "directives",
+      "root": "libs/directives/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "form",
       "root": "libs/form/src",
       "test": "../../../test.js",
@@ -87,6 +94,13 @@
     {
       "name": "themes",
       "root": "libs/themes/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "touch",
+      "root": "libs/touch/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []
