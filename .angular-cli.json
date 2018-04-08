@@ -23,6 +23,13 @@
   },
   "apps": [
     {
+      "name": "stateless",
+      "root": "libs/stateless/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "$workspaceRoot",
       "root": ".",
       "appRoot": ""
@@ -32,8 +39,19 @@
     "schematics": {
       "collection": "@nrwl/schematics"
     },
-    "styleExt": "css",
-    "component": {}
+    "styleExt": "scss",
+    "component": {
+      "spec": false
+    },
+    "directive": {
+      "spec": false
+    },
+    "service": {
+      "spec": false
+    },
+    "pipe": {
+      "spec": false
+    }
   },
   "warnings": {
     "typescriptMismatch": false
