@@ -1,0 +1,21 @@
+{
+  "name": "iwe7",
+  "version": "1.0.0",
+  "repository": "https://github.com/iwe7/iwe7.git",
+  "author": "iwe7 <1037483576@qq.com>",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "@angular/core": "*",
+    "@angular/common": "*",
+    "rxjs": "*"
+  },
+  "main": "bundles/iwe7.umd.js",
+  "module": "esm5/iwe7.js",
+  "es2015": "esm2015/iwe7.js",
+  "typings": "iwe7.d.ts",
+  "metadata": "iwe7.metadata.json",
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}
