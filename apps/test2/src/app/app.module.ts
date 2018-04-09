@@ -11,7 +11,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { Iwe7ElementsModule } from 'iwe7/elements';
-import { LazyLoadModule } from 'iwe7/lazy-load';
+import { Iwe7LazyLoadModule } from 'iwe7/lazy-load';
 
 @NgModule({
   imports: [
@@ -19,7 +19,7 @@ import { LazyLoadModule } from 'iwe7/lazy-load';
     RouterModule.forRoot([]),
     HttpClientModule,
     Iwe7ElementsModule,
-    LazyLoadModule
+    Iwe7LazyLoadModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

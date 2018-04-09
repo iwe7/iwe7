@@ -7,12 +7,12 @@ import { LazyComponentsInterface } from './interface';
   imports: [CommonModule],
   declarations: []
 })
-export class LazyLoadModule {
+export class Iwe7LazyLoadModule {
   public static forRoot(
-    lazyComponents: LazyComponentsInterface
+    lazyComponents: LazyComponentsInterface[]
   ): ModuleWithProviders {
     return {
-      ngModule: LazyLoadModule,
+      ngModule: Iwe7LazyLoadModule,
       providers: [
         {
           provide: ROUTES,
