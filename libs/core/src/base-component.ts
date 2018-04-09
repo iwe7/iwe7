@@ -53,7 +53,6 @@ export class BaseComponent implements OnChanges, OnInit, OnDestroy {
       takeWhile(val => !this.needDestory)
     );
     this.props.subscribe(res => {
-      console.log(res);
       this.cd.markForCheck();
     });
   }

@@ -1,8 +1,10 @@
-import { NgModule, InjectionToken, Injectable, NgModuleFactoryLoader, NgModuleRef, Inject, defineInjectable, inject } from '@angular/core';
+import { __spread } from 'tslib';
+import { NgModule, InjectionToken, Injectable, NgModuleFactoryLoader, NgModuleRef, Inject, Input, defineInjectable, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ROUTES } from '@angular/router';
-import { of } from 'rxjs';
+import { of, merge, Observable } from 'rxjs';
 import { fromPromise } from 'rxjs/observable/fromPromise';
+import { map, scan, first, filter, takeWhile } from 'rxjs/operators';
 
 var Iwe7LazyLoadModule = /** @class */ (function () {
     function Iwe7LazyLoadModule() {
@@ -124,6 +126,128 @@ var LazyComponentModuleBase = /** @class */ (function () {
     }
     return LazyComponentModuleBase;
 }());
+var IcssModule = /** @class */ (function () {
+    function IcssModule() {
+    }
+    return IcssModule;
+}());
+IcssModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule]
+            },] },
+];
+var IcssService = /** @class */ (function () {
+    function IcssService() {
+        this.state = {};
+    }
+    IcssService.prototype.init = function (ob, ele) {
+        var _this = this;
+        var obs = [];
+        var _loop_1 = function (key) {
+            var newOb = ob[key].pipe(map(function (res) {
+                return _a = {}, _a["" + key] = res, _a;
+                var _a;
+            }));
+            obs.push(newOb);
+        };
+        for (var key in ob) {
+            _loop_1(key);
+        }
+        var mer = merge.apply(void 0, __spread(obs)).pipe(scan(function (state, style) {
+            return Object.assign({}, state, style);
+        }, {}), map(function (style) {
+            _this.styledash(ele.nativeElement).set(style);
+            return style;
+        }));
+        mer.pipe(first()).subscribe(function (res) {
+            _this.state = res;
+        });
+        mer.subscribe(function (res) { });
+        return mer;
+    };
+    IcssService.prototype.getState = function (key) {
+        if (!!key) {
+            return this.state[key] || {};
+        }
+        return this.state;
+    };
+    IcssService.prototype.parse = function (val) {
+        return typeof val === 'boolean' ? (!!val ? 1 : 0) : val;
+    };
+    IcssService.prototype.styledash = function (target) {
+        var _this = this;
+        return {
+            set: function (key, val) {
+                if (typeof key === 'object' && val === undefined) {
+                    return Object.keys(key).forEach(function (subKey) { return _this.styledash(target).set(subKey, key[subKey]); });
+                }
+                if (typeof val === 'object') {
+                    return Object.keys(val).forEach(function (subkey) {
+                        _this.styledash(target).set(key + "-" + subkey, val[subkey]);
+                    });
+                }
+                return target.style.setProperty("--" + key, (_this.parse(val)));
+            },
+            get: function (key) { return target.style.getPropertyValue("--" + key); }
+        };
+    };
+    return IcssService;
+}());
+IcssService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root'
+            },] },
+];
+IcssService.ctorParameters = function () { return []; };
+IcssService.ngInjectableDef = defineInjectable({ factory: function IcssService_Factory() { return new IcssService(); }, token: IcssService, providedIn: "root" });
+var Iwe7CoreModule = /** @class */ (function () {
+    function Iwe7CoreModule() {
+    }
+    return Iwe7CoreModule;
+}());
+Iwe7CoreModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule],
+                declarations: [],
+                exports: [],
+                entryComponents: []
+            },] },
+];
+var BaseComponent = /** @class */ (function () {
+    function BaseComponent(cd) {
+        this.cd = cd;
+        this.props = new Observable();
+        this.needDestory = false;
+    }
+    BaseComponent.prototype.ngOnChanges = function (changes) {
+        if ('props' in changes) {
+            if (!changes['props'].isFirstChange) {
+                this.__propsHandler();
+            }
+        }
+    };
+    BaseComponent.prototype.ngOnDestroy = function () {
+        this.needDestory = true;
+    };
+    BaseComponent.prototype.ngOnInit = function () {
+        this.__propsHandler();
+    };
+    BaseComponent.prototype.setProps = function (props) {
+        this.props = merge(this.props, props);
+        this.__propsHandler();
+    };
+    BaseComponent.prototype.__propsHandler = function () {
+        var _this = this;
+        this.props = merge(this.props.pipe(first(function (val, idx) { return idx === 0; }, {})), this.props).pipe(filter(function (val) { return Object.keys(val).length > 0; }), takeWhile(function (val) { return !_this.needDestory; }));
+        this.props.subscribe(function (res) {
+            _this.cd.markForCheck();
+        });
+    };
+    return BaseComponent;
+}());
+BaseComponent.propDecorators = {
+    "props": [{ type: Input },],
+};
 
-export { Iwe7LazyLoadModule, LazyLoaderService, LazyComponentModuleBase, LazyComponentModule, LazyComponentModuleFactory, LAZY_COMPONENTS };
+export { Iwe7LazyLoadModule, LazyLoaderService, LazyComponentModuleBase, LazyComponentModule, LazyComponentModuleFactory, LAZY_COMPONENTS, IcssModule, IcssService, Iwe7CoreModule, BaseComponent };
 //# sourceMappingURL=iwe7.js.map

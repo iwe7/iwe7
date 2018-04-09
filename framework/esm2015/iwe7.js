@@ -1,8 +1,9 @@
-import { NgModule, InjectionToken, Injectable, NgModuleFactoryLoader, NgModuleRef, Inject, defineInjectable, inject } from '@angular/core';
+import { NgModule, InjectionToken, Injectable, NgModuleFactoryLoader, NgModuleRef, Inject, Input, defineInjectable, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ROUTES } from '@angular/router';
-import { of } from 'rxjs';
+import { of, merge, Observable } from 'rxjs';
 import { fromPromise } from 'rxjs/observable/fromPromise';
+import { map, scan, first, filter, takeWhile } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
@@ -197,6 +198,196 @@ class LazyComponentModuleBase {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+class IcssModule {
+}
+IcssModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule]
+            },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @record
+ */
+
+class IcssService {
+    constructor() {
+        this.state = {};
+    }
+    /**
+     * @param {?} ob
+     * @param {?=} ele
+     * @return {?}
+     */
+    init(ob, ele) {
+        const /** @type {?} */ obs = [];
+        for (const /** @type {?} */ key in ob) {
+            const /** @type {?} */ newOb = ob[key].pipe(map(res => {
+                return {
+                    [`${key}`]: res
+                };
+            }));
+            obs.push(newOb);
+        }
+        // 合并流
+        const /** @type {?} */ mer = merge(...obs).pipe(scan((state, style) => {
+            return Object.assign({}, state, style);
+        }, {}), map(style => {
+            this.styledash(ele.nativeElement).set(style);
+            return style;
+        }));
+        mer.pipe(first()).subscribe(res => {
+            this.state = res;
+        });
+        mer.subscribe(res => { });
+        return mer;
+    }
+    /**
+     * @param {?=} key
+     * @return {?}
+     */
+    getState(key) {
+        if (!!key) {
+            return this.state[key] || {};
+        }
+        return this.state;
+    }
+    /**
+     * @param {?} val
+     * @return {?}
+     */
+    parse(val) {
+        return typeof val === 'boolean' ? (!!val ? 1 : 0) : val;
+    }
+    /**
+     * @param {?} target
+     * @return {?}
+     */
+    styledash(target) {
+        return {
+            set: (key, val) => {
+                if (typeof key === 'object' && val === undefined) {
+                    return Object.keys(key).forEach(subKey => this.styledash(target).set(subKey, key[subKey]));
+                }
+                if (typeof val === 'object') {
+                    return Object.keys(val).forEach(subkey => {
+                        this.styledash(target).set(`${key}-${subkey}`, val[subkey]);
+                    });
+                }
+                return target.style.setProperty(`--${key}`, /** @type {?} */ (this.parse(val)));
+            },
+            get: key => target.style.getPropertyValue(`--${key}`)
+        };
+    }
+}
+IcssService.decorators = [
+    { type: Injectable, args: [{
+                providedIn: 'root'
+            },] },
+];
+/** @nocollapse */
+IcssService.ctorParameters = () => [];
+/** @nocollapse */ IcssService.ngInjectableDef = defineInjectable({ factory: function IcssService_Factory() { return new IcssService(); }, token: IcssService, providedIn: "root" });
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+class Iwe7CoreModule {
+}
+Iwe7CoreModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule],
+                declarations: [],
+                exports: [],
+                entryComponents: []
+            },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+class BaseComponent {
+    /**
+     * @param {?} cd
+     */
+    constructor(cd) {
+        this.cd = cd;
+        this.props = new Observable();
+        // 需要注销开关
+        this.needDestory = false;
+    }
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    ngOnChanges(changes) {
+        if ('props' in changes) {
+            if (!changes['props'].isFirstChange) {
+                this.__propsHandler();
+            }
+        }
+    }
+    /**
+     * 注销
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this.needDestory = true;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.__propsHandler();
+    }
+    /**
+     * @param {?} props
+     * @return {?}
+     */
+    setProps(props) {
+        this.props = merge(this.props, props);
+        this.__propsHandler();
+    }
+    /**
+     * @return {?}
+     */
+    __propsHandler() {
+        this.props = merge(
+        // 添加默认值
+        this.props.pipe(first((val, idx) => idx === 0, {})), this.props).pipe(
+        // 去除{}
+        filter(val => Object.keys(val).length > 0),
+        // 自动注销
+        takeWhile(val => !this.needDestory));
+        this.props.subscribe(res => {
+            this.cd.markForCheck();
+        });
+    }
+}
+BaseComponent.propDecorators = {
+    "props": [{ type: Input },],
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * @fileoverview added by tsickle
@@ -206,5 +397,5 @@ class LazyComponentModuleBase {
  * Generated bundle index. Do not edit.
  */
 
-export { Iwe7LazyLoadModule, LazyLoaderService, LazyComponentModuleBase, LazyComponentModule, LazyComponentModuleFactory, LAZY_COMPONENTS };
+export { Iwe7LazyLoadModule, LazyLoaderService, LazyComponentModuleBase, LazyComponentModule, LazyComponentModuleFactory, LAZY_COMPONENTS, IcssModule, IcssService, Iwe7CoreModule, BaseComponent };
 //# sourceMappingURL=iwe7.js.map

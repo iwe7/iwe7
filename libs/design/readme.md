@@ -1,10 +1,16 @@
 ## [项目地址](https://github.com/iwe7/iwe7-design)
+> 所有自定义组件，强制使用[iwe7-lazy-load](https://github.com/iwe7/iwe7-lazy-load)组件懒加载模块。
 
 ## 安装
 
 ```sh
 yarn add iwe7-design
 ```
+
+### 升级
+
+
+
 
 ## 使用
 
