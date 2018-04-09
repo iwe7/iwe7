@@ -22,6 +22,14 @@
     {
       "project": "apps/test/e2e/tsconfig.e2e.json",
       "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/test2/src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/test2/e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
     }
   ],
   "test": {
@@ -57,6 +65,32 @@
       "tags": []
     },
     {
+      "name": "test2",
+      "root": "apps/test2/src",
+      "outDir": "dist/apps/test2",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "../../../test.js",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      },
+      "tags": []
+    },
+    {
       "name": "core",
       "root": "libs/core/src",
       "test": "../../../test.js",
@@ -71,6 +105,13 @@
       "tags": []
     },
     {
+      "name": "elements",
+      "root": "libs/elements/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "form",
       "root": "libs/form/src",
       "test": "../../../test.js",
@@ -80,6 +121,13 @@
     {
       "name": "icss",
       "root": "libs/icss/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "lazy-load",
+      "root": "libs/lazy-load/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

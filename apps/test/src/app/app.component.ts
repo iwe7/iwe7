@@ -8,7 +8,7 @@ import {
 import { IcssService, IcssInterface } from 'iwe7/icss';
 import { Subject } from 'rxjs/Subject';
 import { BaseTestComponent } from 'iwe7/core/src/base-test/base-test.component';
-
+import { startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -74,17 +74,14 @@ export class AppComponent implements OnInit {
     public view: ViewContainerRef
   ) {}
   ngOnInit() {
-    const pinjector = this.view.parentInjector;
-
-    const elInjector = this.view.parentInjector;
-    const componentFactoryResolver = elInjector.get(ComponentFactoryResolver);
-    const componentFactory = componentFactoryResolver.resolveComponentFactory(
-      BaseTestComponent
-    );
-    const componentRef = this.view.createComponent(componentFactory);
-    // 保存一下，方便后面使用
-    const componentInstance = componentRef.instance as any;
-    componentInstance.props = { a: 1, b: 2, c: 3 };
+    let i = 0;
+    setInterval(() => {
+      this.sub2$.next({
+        a: i++,
+        b: i++,
+        c: i++
+      });
+    }, 1000);
   }
   click(e) {
     this.disabled = !this.disabled;

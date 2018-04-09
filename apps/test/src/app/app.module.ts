@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, NgZone } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,12 @@ import { PipesModule } from 'iwe7/pipes';
 import { CoreModule } from 'iwe7/core';
 import { RamdaComponent } from './ramda/ramda.component';
 import { RouterModule } from '@angular/router';
+
+export class MyNgZone extends NgZone {
+  constructor() {
+    super({ enableLongStackTrace: true });
+  }
+}
 
 @NgModule({
   imports: [
@@ -23,6 +29,10 @@ import { RouterModule } from '@angular/router';
       {
         path: '',
         component: RamdaComponent
+      },
+      {
+        path: 'lazy',
+        loadChildren: './lazy/lazy.module#LazyModule'
       }
     ])
   ],
@@ -32,6 +42,10 @@ import { RouterModule } from '@angular/router';
     {
       provide: APP_BASE_HREF,
       useValue: './'
+    },
+    {
+      provide: NgZone,
+      useClass: MyNgZone
     }
   ]
 })

@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapPipe } from './map.pipe';
-import { AsyncPipe } from './async2.pipe';
+import { OfPipe } from './of.pipe';
 @NgModule({
   imports: [CommonModule],
-  declarations: [MapPipe, AsyncPipe],
-  exports: [MapPipe, AsyncPipe]
+  declarations: [MapPipe, OfPipe],
+  exports: [MapPipe, OfPipe]
 })
 export class PipesModule {}

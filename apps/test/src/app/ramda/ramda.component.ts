@@ -1,53 +1,68 @@
-import { Component, OnInit } from '@angular/core';
 import {
-  add,
-  addIndex,
-  map,
-  all,
-  equals,
-  allPass,
-  propEq,
-  always,
-  bind
-} from 'ramda';
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewContainerRef,
+  ComponentFactoryResolver
+} from '@angular/core';
+import { Subject, merge, timer, interval } from 'rxjs';
+import { takeUntil, filter, map, startWith } from 'rxjs/operators';
+import { BaseTestComponent } from 'iwe7/core/src/base-test/base-test.component';
+
 @Component({
   selector: 'ramda',
   templateUrl: './ramda.component.html',
   styleUrls: ['./ramda.component.scss']
 })
-export class RamdaComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit() {
-    this.addIndex();
-    this.all();
-    let a = add(1)(2);
+export class RamdaComponent implements OnInit, OnDestroy {
+  // 某订阅事件1
+  sub: Subject<any> = new Subject();
+  // 某订阅事件2
+  sub2: Subject<any> = new Subject();
+  // 某订阅事件3
+  sub3: Subject<any> = new Subject();
+  // 某订阅事件4
+  sub4: Subject<any> = new Subject();
+  // 需要取消订阅开关
+  needDestory: boolean = false;
+  constructor(public view: ViewContainerRef) {
+    const pinjector = this.view.parentInjector;
+    const elInjector = this.view.parentInjector;
+    const componentFactoryResolver = elInjector.get(ComponentFactoryResolver);
+    const componentFactory = componentFactoryResolver.resolveComponentFactory(
+      BaseTestComponent
+    );
+    const componentRef = this.view.createComponent(componentFactory);
+    // 保存一下，方便后面使用
+    const componentInstance = componentRef.instance as any;
+    console.log(componentInstance);
+    componentInstance.setProps(
+      this.sub2.asObservable().pipe(
+        startWith({
+          a: 1,
+          b: 2,
+          c: 3
+        })
+      )
+    );
+    let i = 0;
+    setInterval(() => {
+      console.log('interval');
+      this.sub2.next({
+        a: i++,
+        b: i++,
+        c: i++
+      });
+    }, 1000);
   }
-  // 通过向列表迭代函数的回调函数添加两个新的参数：当前索引、整个列表，创建新的列表迭代函数。
-  addIndex() {
-    let _addIndex = addIndex(map);
-    let a = _addIndex((val, idx) => `${idx}:${val}`, [1, 2, 3, 4, 5]);
+
+  ngOnDestroy() {
+    this.needDestory = true;
   }
 
-  all() {
-    let a = all(equals(3))([1, 2, 3]);
-    console.log(a);
+  ngOnInit() {}
 
-    const isQueem = propEq('rank', 'Q');
-    const isSpade = propEq('suit', '♠︎');
-    const result = allPass([isQueem, isSpade])({
-      rank: 'Q',
-      suit: '♠︎'
-    });
-    console.log(result);
-
-    const c = always('a');
-    this.log(c());
-
-    bind(console, console.log);
-  }
-
-  log(c) {
-    console.log(c);
+  log(msg) {
+    // console.log(msg);
   }
 }

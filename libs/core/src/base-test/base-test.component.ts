@@ -1,13 +1,18 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  OnInit
+} from '@angular/core';
 import { BaseComponent } from '../base-component';
 @Component({
   selector: 'base-test',
   templateUrl: './base-test.component.html',
-  styleUrls: ['./base-test.component.scss']
+  styleUrls: ['./base-test.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BaseTestComponent extends BaseComponent<any> implements OnInit {
+export class BaseTestComponent extends BaseComponent implements OnInit {
   constructor(cd: ChangeDetectorRef) {
     super(cd);
   }
-  ngOnInit() {}
 }

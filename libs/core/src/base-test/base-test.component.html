@@ -1,6 +1,4 @@
-<p>
-  base-test works!
-</p>
-<p>{{props | async2}}</p>
-<p>{{props | async2}}</p>
-<li>{{props | async2 | map}}</li>
+<li>{{(props | async)?.a}}</li>
+<li>{{(props | async)?.b}}</li>
+<li>{{(props | async)?.c}}</li>
+<p>{{props | async | json}}</p>
