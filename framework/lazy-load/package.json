@@ -1,0 +1,21 @@
+{
+  "name": "iwe7/lazy-load",
+  "version": "1.0.0",
+  "repository": "https://github.com/iwe7/iwe7-lazy-load.git",
+  "author": "iwe7 <1037483576@qq.com>",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "@angular/core": "*",
+    "@angular/common": "*",
+    "rxjs": "*"
+  },
+  "main": "../bundles/iwe7-lazy-load.umd.js",
+  "module": "../esm5/iwe7-lazy-load.js",
+  "es2015": "../esm2015/iwe7-lazy-load.js",
+  "typings": "iwe7-lazy-load.d.ts",
+  "metadata": "iwe7-lazy-load.metadata.json",
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

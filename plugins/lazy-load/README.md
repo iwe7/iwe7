@@ -7,11 +7,6 @@
 ```
 yarn add iwe7-lazy-load
 ```
-> 或者，iwe7-lazy-load是从iwe7项目中独立出来的一个功能构架
-```
-yarn add iwe7
-import { *** } form 'iwe7/lazy-load';
-```
 
 ## 使用
 

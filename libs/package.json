@@ -15,7 +15,7 @@
   },
   "ngPackage": {
     "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
-    "dest": "../build",
+    "dest": "../framework",
     "workingDirectory": "./.ng_build",
     "lib": {
       "entryFile": "./index.ts"
