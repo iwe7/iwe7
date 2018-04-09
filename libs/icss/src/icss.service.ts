@@ -46,11 +46,11 @@ export class IcssService {
     return this.state;
   }
 
-  parse(val: any) {
+  private parse(val: any) {
     return typeof val === 'boolean' ? (!!val ? 1 : 0) : val;
   }
 
-  styledash(target: HTMLElement) {
+  private styledash(target: HTMLElement) {
     return {
       set: (key, val?) => {
         if (typeof key === 'object' && val === undefined) {

@@ -1,0 +1,34 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light bd-navbar">
+  <a class="navbar-brand" href="javascript:;">{{addon.app.name}}</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item" routerLink="/addons" routerLinkActive="active">
+        <a class="nav-link" href="javascript:;">应用</a>
+      </li>
+      <li class="nav-item" routerLink="/template" routerLinkActive="active">
+        <a class="nav-link" href="javascript:;">模板</a>
+      </li>
+      <li class="nav-item" routerLink="/components" routerLinkActive="active">
+        <a class="nav-link" href="javascript:;">组件</a>
+      </li>
+      <li class="nav-item" routerLink="/resource" routerLinkActive="active">
+        <a class="nav-link" href="javascript:;">资源</a>
+      </li>
+      <li class="nav-item" routerLink="/" routerLinkActive="active">
+        <a class="nav-link" href="javascript:;">设计</a>
+      </li>
+    </ul>
+  </div>
+  <form class="form-inline">
+    <ul class="navbar-nav">
+      <li class="nav-item" routerLink="/database" routerLinkActive="active">
+        <a class="nav-link" href="javascript:;">数据管理</a>
+      </li>
+      <li class="nav-item" routerLink="/home" routerLinkActive="active">
+        <a class="nav-link" href="javascript:;">我的</a>
+      </li>
+    </ul>
+  </form>
+</nav>
+
+<router-outlet></router-outlet>

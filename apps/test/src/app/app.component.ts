@@ -3,7 +3,8 @@ import {
   OnInit,
   ElementRef,
   ViewContainerRef,
-  ComponentFactoryResolver
+  ComponentFactoryResolver,
+  ViewChild
 } from '@angular/core';
 import { IcssService, IcssInterface } from 'iwe7/icss';
 import { Subject } from 'rxjs/Subject';
@@ -68,12 +69,34 @@ export class AppComponent implements OnInit {
 
   sub2$: Subject<any> = new Subject();
   sub2: any;
+
+  // cube颜色控制器
+  cubeColorCtrl$: Subject<{ color: string; bg: string }> = new Subject();
+  @ViewChild('cube') cube: ElementRef;
   constructor(
     public icss: IcssService,
     public ele: ElementRef,
     public view: ViewContainerRef
   ) {}
+
+  randomHexColor(): string {
+    return `#${(
+      '00000' + ((Math.random() * 0x1000000) << 0).toString(16)
+    ).substr(-6)}`;
+  }
   ngOnInit() {
+    this.icss.init(
+      {
+        cube: this.cubeColorCtrl$
+      },
+      this.cube
+    );
+    setInterval(() => {
+      this.cubeColorCtrl$.next({
+        color: '#fff',
+        bg: this.randomHexColor()
+      });
+    },100);
     let i = 0;
     setInterval(() => {
       this.sub2$.next({

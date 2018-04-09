@@ -11,12 +11,6 @@ import { CoreModule } from 'iwe7/core';
 import { RamdaComponent } from './ramda/ramda.component';
 import { RouterModule } from '@angular/router';
 
-export class MyNgZone extends NgZone {
-  constructor() {
-    super({ enableLongStackTrace: true });
-  }
-}
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -42,10 +36,6 @@ export class MyNgZone extends NgZone {
     {
       provide: APP_BASE_HREF,
       useValue: './'
-    },
-    {
-      provide: NgZone,
-      useClass: MyNgZone
     }
   ]
 })

@@ -1,0 +1,6 @@
+<div [formGroup]="form">
+  <input type="text" formControlName="text">
+  <div [formGroup]="form.get('class')">
+      <input type="checkbox" formControlName="weui-btn_mini" name="weui-btn_mini"> 小
+  </div>
+</div>

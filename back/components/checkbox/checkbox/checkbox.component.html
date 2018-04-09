@@ -1,0 +1,9 @@
+<label class="weui-cell weui-check__label" [attr.for]="'checkbox_'+props.id">
+  <div class="weui-cell__hd">
+    <input type="checkbox" class="weui-check" [attr.name]="props.code" [attr.id]="'checkbox_'+props.id" checked="checked">
+    <i class="weui-icon-checked"></i>
+  </div>
+  <div class="weui-cell__bd">
+    <p>{{props.label}}</p>
+  </div>
+</label>

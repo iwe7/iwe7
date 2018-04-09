@@ -98,6 +98,13 @@
       "tags": []
     },
     {
+      "name": "design",
+      "root": "libs/design/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "directives",
       "root": "libs/directives/src",
       "test": "../../../test.js",

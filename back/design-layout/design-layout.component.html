@@ -1,0 +1,53 @@
+<div class="row" style="margin-top: 10px;">
+  <div class="col col-lg-2">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          {{activeModule.name}}
+          <a class="btn btn-sm" style="float:right;margin: 0px;padding:0px;color: red;">添加</a>
+        </div>
+      </div>
+      <div class="card-body" style="padding: 0px;">
+        <ul class="list-group">
+          <li (click)="doEditPage(page)" style="border-radius: 0px !important;" [class.active]="editPage.router === page.router" class="list-group-item"
+            *ngFor="let page of activeModule.props">
+            {{page.title}}
+          </li>
+          <li class="list-group-item" [class.active]="editPage.router === 'runner/footer'" (click)="doEditPage(activeModule.footer)"
+            *ngIf="activeModule.footer.show">
+            底部导航
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        {{editPage.title}}-预览
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="iphone-preview">
+            <ng-container *design="editPage;drag true;drop true;debug true;"></ng-container>
+          </div>
+          <div class="col iphone-tools">
+            <ng-container *ngFor="let com of lib.components">
+              <ng-container *ngFor="let c of com | map">
+                <span class="btn btn-outline-primary btn-sm" *ngIf="c.item.show" (click)="addComponent(c)">{{c.item.title}}</span>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-auto" style="max-width: 400px;">
+    <div class="card">
+      <div class="card-header">页面设置</div>
+      <div class="card-body">
+        <ng-container *design="editPage;setting true;"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>
