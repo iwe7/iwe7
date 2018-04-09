@@ -47,6 +47,7 @@
     "@webcomponents/custom-elements": "^1.1.0",
     "core-js": "^2.4.1",
     "mooa": "^0.1.1",
+    "ng-packagr": "^2.4.2",
     "ngrx-store-freeze": "^0.2.1",
     "normalize.css": "^8.0.0",
     "ramda": "^0.25.0",
