@@ -7,3 +7,4 @@ export abstract class Iwe7DesignBase<T> extends Iwe7Base<T> {
     super(cd);
   }
 }
+

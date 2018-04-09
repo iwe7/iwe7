@@ -10,22 +10,16 @@
     "allowUnreachableCode": true,
     "allowUnusedLabels": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
     "baseUrl": ".",
     "paths": {
-      "iwe7/*": [
-        "libs/*"
-      ]
+      "iwe7-core/*": ["libs/core/*"],
+      "iwe7-design/*": ["libs/design/*"],
+      "iwe7-lazy-load/*": ["libs/design/*"],
+      "iwe7-icss/*": ["libs/icss/*"],
+      "iwe7/*": ["libs/*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

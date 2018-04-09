@@ -14,6 +14,7 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { LazyComponentsInterface } from './interface';
 import { LAZY_COMPONENTS } from './token';
 import { LazyComponentModuleFactory } from './lazy-component-module-factory';
+
 import * as _ from 'underscore';
 @Injectable({
   providedIn: 'root'

@@ -6,8 +6,7 @@
   },
   "include": [
     "**/*.ts",
-    "../../../libs/lazy-load/**/*.ts",
-    "../../../libs/design-libs/**/*.ts"
+    "../../../libs/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts"
