@@ -1,7 +1,9 @@
 import { Subject } from 'rxjs';
-import { Input } from '@angular/core';
-export abstract class Iwe7Design {
-  @Input() props: Subject<any> = new Subject();
+import { Input, ChangeDetectorRef } from '@angular/core';
+import { Iwe7Base } from 'iwe7/core';
 
-  setProps(props: Subject<any>) {}
+export abstract class Iwe7DesignBase<T> extends Iwe7Base<T> {
+  constructor(cd: ChangeDetectorRef) {
+    super(cd);
+  }
 }

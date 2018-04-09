@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { Subject, merge, timer, interval } from 'rxjs';
 import { takeUntil, filter, map, startWith } from 'rxjs/operators';
-import { BaseTestComponent } from 'iwe7/core/src/base-test/base-test.component';
 
 @Component({
   selector: 'ramda',
@@ -26,25 +25,6 @@ export class RamdaComponent implements OnInit, OnDestroy {
   // 需要取消订阅开关
   needDestory: boolean = false;
   constructor(public view: ViewContainerRef) {
-    const pinjector = this.view.parentInjector;
-    const elInjector = this.view.parentInjector;
-    const componentFactoryResolver = elInjector.get(ComponentFactoryResolver);
-    const componentFactory = componentFactoryResolver.resolveComponentFactory(
-      BaseTestComponent
-    );
-    const componentRef = this.view.createComponent(componentFactory);
-    // 保存一下，方便后面使用
-    const componentInstance = componentRef.instance as any;
-    console.log(componentInstance);
-    componentInstance.setProps(
-      this.sub2.asObservable().pipe(
-        startWith({
-          a: 1,
-          b: 2,
-          c: 3
-        })
-      )
-    );
     let i = 0;
     setInterval(() => {
       console.log('interval');

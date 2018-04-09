@@ -105,6 +105,13 @@
       "tags": []
     },
     {
+      "name": "design-libs",
+      "root": "libs/design-libs/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "directives",
       "root": "libs/directives/src",
       "test": "../../../test.js",

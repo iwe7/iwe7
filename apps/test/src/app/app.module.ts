@@ -7,7 +7,7 @@ import { NxModule } from '@nrwl/nx';
 import { StatelessModule } from 'iwe7/stateless';
 import { SchemaFormModule } from 'iwe7/form';
 import { PipesModule } from 'iwe7/pipes';
-import { CoreModule } from 'iwe7/core';
+import { Iwe7CoreModule } from 'iwe7/core';
 import { RamdaComponent } from './ramda/ramda.component';
 import { RouterModule } from '@angular/router';
 
@@ -18,7 +18,7 @@ import { RouterModule } from '@angular/router';
     StatelessModule,
     SchemaFormModule,
     PipesModule,
-    CoreModule,
+    Iwe7CoreModule,
     RouterModule.forRoot([
       {
         path: '',

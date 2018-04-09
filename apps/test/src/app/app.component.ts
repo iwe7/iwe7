@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { IcssService, IcssInterface } from 'iwe7/icss';
 import { Subject } from 'rxjs/Subject';
-import { BaseTestComponent } from 'iwe7/core/src/base-test/base-test.component';
 import { startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-root',

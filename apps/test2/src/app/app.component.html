@@ -1,3 +1,8 @@
-<router-outlet></router-outlet>
-<test-lazy-load></test-lazy-load>
-<test-lazy-load-child></test-lazy-load-child>
+<!-- 容器 -->
+<ng-container #ref getViewRef></ng-container>
+
+<!-- 模板 -->
+<div #tpl style="display: none;">
+  <iwe7-button></iwe7-button>
+  <iwe7-button-setting></iwe7-button-setting>
+</div>

@@ -1,14 +1,26 @@
-import { Component, OnInit, NgModuleFactoryLoader, ElementRef, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  NgModuleFactoryLoader,
+  ElementRef,
+  ViewContainerRef,
+  ViewChild,
+  TemplateRef
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LazyLoaderService } from 'iwe7/lazy-load';
-declare var System: any;
-declare var webpackJsonp: any;
+import { GetViewRefDirective } from 'iwe7/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  @ViewChild('ref', { read: GetViewRefDirective })
+  ref: GetViewRefDirective;
+
+  @ViewChild('tpl')
+  tpl: ElementRef<any>;
   constructor(
     private moduleFactoryLoader: NgModuleFactoryLoader,
     public http: HttpClient,
@@ -18,7 +30,11 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.lazyLoader.init(this.ele.nativeElement, this.view);
+    this.lazyLoader
+      .init(this.tpl.nativeElement, this.ref.view)
+      .subscribe(res => {
+        // console.log(res);
+      });
   }
 
   load() {}

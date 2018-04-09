@@ -6,13 +6,15 @@ import {
   Inject,
   ViewContainerRef
 } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { of, Observable, merge } from 'rxjs';
+import { tap, map } from 'rxjs/operators';
+
 import { fromPromise } from 'rxjs/observable/fromPromise';
 
 import { LazyComponentsInterface } from './interface';
 import { LAZY_COMPONENTS } from './token';
 import { LazyComponentModuleFactory } from './lazy-component-module-factory';
-
+import * as _ from 'underscore';
 @Injectable({
   providedIn: 'root'
 })
@@ -30,32 +32,38 @@ export class LazyLoaderService {
     this.lazyComponentModuleFactory = new LazyComponentModuleFactory(
       this.moduleFactoryLoader
     );
+    this.lazyComponentConfig = _.flatten(this.lazyComponentConfig);
     this.lazyComponentConfig.map(res => {
-      this.components.set(res.path, res.loadChildren);
+      this.components.set(res.selector, res.loadChildren);
     });
   }
 
-  init(element: HTMLElement, view: ViewContainerRef): Observable<void> {
+  public init(element: HTMLElement, view: ViewContainerRef): Observable<void> {
     const selectors: any[] = Array.from(this.components.keys()).filter(s =>
       element.querySelector(s)
     );
     if (!selectors.length) {
       return of(undefined);
     }
-    return fromPromise(
-      Promise.all(selectors.map(s => this.create(s, view))).then(
-        result => undefined
-      )
-    );
+    let subs: Observable<any>[] = [];
+    selectors.forEach(s => {
+      subs.push(this.create(s, view));
+    });
+    return merge(...subs);
   }
 
-  private create(selector: string, view: ViewContainerRef) {
+  public create(selector: string, view: ViewContainerRef) {
     let path = this.components.get(selector);
-    return this.lazyComponentModuleFactory
-      .getComponentModuleByPath(path)
-      .then(res => {
+    return fromPromise(
+      this.lazyComponentModuleFactory.getComponentModuleByPath(path)
+    ).pipe(
+      map(res => {
         let instance = res.getComponent(selector, this.moduleRef.injector);
+        return instance;
+      }),
+      tap(instance => {
         view.createComponent(instance);
-      });
+      })
+    );
   }
 }
