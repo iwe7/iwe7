@@ -57,6 +57,13 @@
       "tags": []
     },
     {
+      "name": "core",
+      "root": "libs/core/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "directives",
       "root": "libs/directives/src",
       "test": "../../../test.js",

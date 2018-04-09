@@ -1,6 +1,13 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewContainerRef,
+  ComponentFactoryResolver
+} from '@angular/core';
 import { IcssService, IcssInterface } from 'iwe7/icss';
 import { Subject } from 'rxjs/Subject';
+import { BaseTestComponent } from 'iwe7/core/src/base-test/base-test.component';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +19,8 @@ export class AppComponent implements OnInit {
   sub: Subject<any> = new Subject();
   color: string = 'primary';
 
-  list: any[] = [{
+  list: any[] = [
+    {
       type: 'input',
       name: 'realname',
       label: '姓名',
@@ -55,9 +63,29 @@ export class AppComponent implements OnInit {
           msg: '昵称最大长度为10'
         }
       }
-    }];
-  constructor(public icss: IcssService, public ele: ElementRef) {}
-  ngOnInit() {}
+    }
+  ];
+
+  sub2$: Subject<any> = new Subject();
+  sub2: any;
+  constructor(
+    public icss: IcssService,
+    public ele: ElementRef,
+    public view: ViewContainerRef
+  ) {}
+  ngOnInit() {
+    const pinjector = this.view.parentInjector;
+
+    const elInjector = this.view.parentInjector;
+    const componentFactoryResolver = elInjector.get(ComponentFactoryResolver);
+    const componentFactory = componentFactoryResolver.resolveComponentFactory(
+      BaseTestComponent
+    );
+    const componentRef = this.view.createComponent(componentFactory);
+    // 保存一下，方便后面使用
+    const componentInstance = componentRef.instance as any;
+    componentInstance.props = { a: 1, b: 2, c: 3 };
+  }
   click(e) {
     this.disabled = !this.disabled;
   }
