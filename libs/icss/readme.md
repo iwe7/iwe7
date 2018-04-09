@@ -6,6 +6,8 @@
 yarn add iwe7-icss
 ```
 
+![Alt text](https://github.com/iwe7/iwe7/blob/master/libs/icss/docs/QQ20180410-000015-HD.gif)
+
 ## 使用
 ```ts
 import { IcssService, IcssInterface } from 'iwe7-css';
