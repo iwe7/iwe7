@@ -58,7 +58,7 @@ export class Iwe7DesignDirective implements OnChanges, OnInit {
   private createComponent() {
     this.viewContainerRef.clear();
     let name = this.design.name || null;
-    this.lazyloador.create(name, this._viewContainerRef).subscribe(res => {});
+    this.lazyloador.createComponent(name, this._viewContainerRef).subscribe(res => {});
   }
 
   private setStyle(ele: any) {

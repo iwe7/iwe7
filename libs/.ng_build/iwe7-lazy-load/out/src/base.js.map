@@ -1,1 +1,0 @@
-{"version":3,"file":"base.js","sourceRoot":"","sources":["base.ts"],"names":[],"mappings":";;;;;;;AAEA,MAAM;CAEL","sourcesContent":["import { Type } from '@angular/core';\n// 核心基础\nexport abstract class LazyComponentModuleBase {\n  public abstract getComponentByName(key: string): Type<any>;\n}\n"]}

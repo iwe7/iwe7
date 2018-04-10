@@ -131,7 +131,7 @@ export class Iwe7ButtonComponent implements OnInit, OnChanges {
           return;
         }
         this.style$.next(this.config[color]);
-      }else{
+      } else {
         this.style$.next(this.config['default']);
       }
     }

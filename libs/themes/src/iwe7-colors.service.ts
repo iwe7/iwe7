@@ -1,7 +1,5 @@
 import { Injectable, InjectionToken, Injector } from '@angular/core';
 
-export const Iwe7ColorsDefault = new Set();
-
 export const Iwe7Colors = new InjectionToken('Iwe7ThemesColors', {
   providedIn: 'root',
   factory: () => {
@@ -34,6 +32,6 @@ export class Iwe7ColorsService {
   constructor(public injector: Injector) {}
 
   getColor(key: string) {
-    return this.injector.get(Iwe7ThemesColors).get(key);
+    return (<any>this.injector.get(Iwe7Colors)).get(key);
   }
 }

@@ -48,12 +48,12 @@ export class LazyLoaderService {
     }
     let subs: Observable<any>[] = [];
     selectors.forEach(s => {
-      subs.push(this.create(s, view));
+      subs.push(this.createComponent(s, view));
     });
     return merge(...subs);
   }
 
-  public create(selector: string, view: ViewContainerRef) {
+  public createComponent(selector: string, view: ViewContainerRef): Observable<any> {
     let path = this.components.get(selector);
     return fromPromise(
       this.lazyComponentModuleFactory.getComponentModuleByPath(path)
