@@ -18,7 +18,7 @@ import { RxjsModel, IndexDb } from 'iwe7/rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   props: Subject<any> = new Subject();

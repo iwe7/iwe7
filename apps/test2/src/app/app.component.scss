@@ -1,0 +1,22 @@
+.cube {
+    width: 100px;
+    height: 100px;
+    background: red;
+}
+
+:host {
+    --color-bg: red;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    background: var(--color-bg);
+    border-radius: 50%;
+    margin: 5px;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}

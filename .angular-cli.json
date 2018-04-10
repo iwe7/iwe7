@@ -133,6 +133,13 @@
       "tags": []
     },
     {
+      "name": "hoodle",
+      "root": "libs/hoodle/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "icss",
       "root": "libs/icss/src",
       "test": "../../../test.js",
