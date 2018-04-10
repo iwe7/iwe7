@@ -7,13 +7,24 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import { Observable, merge } from 'rxjs';
-import { first, filter, takeWhile } from 'rxjs/operators';
-
+import { Observable, merge, Subscription } from 'rxjs';
+import {
+  first,
+  filter,
+  takeWhile,
+  distinctUntilChanged,
+  scan,
+  takeUntil,
+  tap
+} from 'rxjs/operators';
+import * as _ from 'underscore';
 export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
+  public _props: T;
   @Input() props: Observable<T> = new Observable();
   // 需要注销开关
   needDestory: boolean = false;
+  subscription: Subscription;
+  id: any = new Date().getTime();
   constructor(public cd: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
@@ -35,25 +46,28 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   }
 
   setProps(props: Observable<T>) {
-    this.props = merge(this.props, props);
+    this.props = props;
     this.__propsHandler();
   }
 
-  private __propsHandler() {
-    this.props = merge(
-      // 添加默认值
-      this.props.pipe(first((val, idx) => idx === 0, {} as T)),
-      this.props
-    ).pipe(
-      // 去除{}
-      filter(val => Object.keys(val).length > 0),
-      // 自动注销
-      takeWhile(val => !this.needDestory)
-    );
-    this.props.subscribe(res => {
-      this.onPropsChange(res);
-      this.cd.markForCheck();
-    });
+  __propsHandler() {
+    this.subscription && this.subscription.unsubscribe();
+    this.subscription = this.props
+      .pipe(
+        // 去重复
+        distinctUntilChanged((x, y) => {
+          return _.isEqual(x, y);
+        })
+      )
+      .subscribe(res => {
+        this._props = res;
+        this.onPropsChange(res);
+        this.cd.markForCheck();
+      });
+  }
+
+  getProps() {
+    return this._props;
   }
 
   public abstract onPropsChange(res: T): void;

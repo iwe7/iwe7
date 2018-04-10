@@ -154,6 +154,13 @@
       "tags": []
     },
     {
+      "name": "rxjs",
+      "root": "libs/rxjs/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "stateless",
       "root": "libs/stateless/src",
       "test": "../../../test.js",

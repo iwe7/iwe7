@@ -1,15 +1,30 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  ChangeDetectorRef,
+  OnInit
+} from '@angular/core';
 import { Iwe7DesignBase } from 'iwe7/design';
 
-export class ButtonProps {}
+export interface Iwe7ButtonProps {
+  text: string;
+  disabled: boolean;
+  selector: string;
+}
 @Component({
   selector: 'iwe7-button',
   templateUrl: './iwe7-button.html',
   styleUrls: ['./iwe7-button.scss']
 })
-export class Iwe7ButtonDesign extends Iwe7DesignBase<ButtonProps> {
+export class Iwe7ButtonDesign extends Iwe7DesignBase<Iwe7ButtonProps>
+  implements OnInit {
   constructor(cd: ChangeDetectorRef) {
     super(cd);
   }
-  onPropsChange(props: ButtonProps) {}
+
+  ngOnInit() {
+    super.ngOnInit();
+  }
+
+  onPropsChange(props: Iwe7ButtonProps) {}
 }

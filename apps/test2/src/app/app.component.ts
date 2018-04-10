@@ -10,32 +10,27 @@ import {
 import { HttpClient } from '@angular/common/http';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { GetViewRefDirective } from 'iwe7/core';
+import { Observable, Subject, animationFrameScheduler, generate } from 'rxjs';
+
+import { defaultIfEmpty } from 'rxjs/operators';
+import { RxjsModel, IndexDb } from 'iwe7/rxjs';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  @ViewChild('ref', { read: GetViewRefDirective })
-  ref: GetViewRefDirective;
+  props: Subject<any> = new Subject();
 
-  @ViewChild('tpl')
-  tpl: ElementRef<any>;
-  constructor(
-    private moduleFactoryLoader: NgModuleFactoryLoader,
-    public http: HttpClient,
-    public lazyLoader: LazyLoaderService,
-    public ele: ElementRef,
-    public view: ViewContainerRef
-  ) {}
+  width: Observable<any>;
+  height: Observable<any>;
 
-  ngOnInit() {
-    this.lazyLoader
-      .init(this.tpl.nativeElement, this.ref.view)
-      .subscribe(res => {
-        // console.log(res);
-      });
+  constructor(public ele: ElementRef) {}
+
+  ngOnInit() {}
+
+  swipeMove(e: string) {
+    console.log(e);
   }
-
-  load() {}
 }

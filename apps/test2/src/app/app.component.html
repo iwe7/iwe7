@@ -1,8 +1,7 @@
-<!-- 容器 -->
-<ng-container #ref getViewRef></ng-container>
+<ng-container iwe7Design [design]="props"></ng-container>
 
-<!-- 模板 -->
-<div #tpl style="display: none;">
-  <iwe7-button></iwe7-button>
-  <iwe7-button-setting></iwe7-button-setting>
-</div>
+
+<div class="cube" (swipeMove)="swipeMove($event)"></div>
+
+
+<div class="cube" dragmove="dragmove-1"></div>

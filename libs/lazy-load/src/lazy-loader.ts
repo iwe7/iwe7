@@ -59,12 +59,12 @@ export class LazyLoaderService {
       this.lazyComponentModuleFactory.getComponentModuleByPath(path)
     ).pipe(
       map(res => {
-        let instance = res.getComponent(selector, this.moduleRef.injector);
+        let component = res.getComponent(selector, this.moduleRef.injector);
+        let viewRef = view.createComponent(component);
+        let instance = viewRef.instance;
         return instance;
       }),
-      tap(instance => {
-        view.createComponent(instance);
-      })
+      tap(instance => {})
     );
   }
 }

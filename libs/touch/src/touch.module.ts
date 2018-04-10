@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragmoveDirective } from './drag-move.directive';
-import { TouchService } from 'iwe7/touch/src/touch.service';
+import { SwipeMoveDirective } from './swipe-move.directive';
 
 @NgModule({
   imports: [CommonModule],
-  declarations: [DragmoveDirective],
-  exports: [DragmoveDirective],
-  providers: [TouchService]
+  declarations: [DragmoveDirective, SwipeMoveDirective],
+  exports: [DragmoveDirective, SwipeMoveDirective],
+  providers: []
 })
 export class Iwe7TouchModule {}

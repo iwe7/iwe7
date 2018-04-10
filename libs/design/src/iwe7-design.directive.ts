@@ -8,105 +8,79 @@ import {
   ComponentFactory,
   SimpleChanges,
   Renderer2,
-  OnInit
+  OnInit,
+  ChangeDetectorRef,
+  ɵisObservable,
+  ɵisPromise
 } from '@angular/core';
 import * as _ from 'underscore';
 import { fromEvent } from 'rxjs/observable/fromEvent';
+import { distinctUntilChanged } from 'rxjs/operators';
+
 import { Iwe7DesignBase } from './iwe7-design';
 import { LazyLoaderService } from 'iwe7/lazy-load';
+import { Observable, Subject } from 'rxjs';
+import { Iwe7Base } from 'iwe7/core';
 /**
  *design="name;class 'class';style 'style';drag true; drop true;"
  */
 export const instanceMap: Map<string, any> = new Map();
 
+export interface Iwe7DesignProps {
+  selector: string;
+}
+
 @Directive({
   selector:
     '[iwe7Design],[design],[designClass],[designStyle],[designDrag],[designDrop],[designInstance]'
 })
-export class Iwe7DesignDirective implements OnChanges, OnInit {
-  @Input() design: any;
-  @Input() designClass: { [key: string]: boolean };
-  @Input() designStyle: { [key: string]: string };
-  @Input() designDrag: boolean;
-  @Input() designDrop: boolean;
-  @Input() designSetting: boolean = false;
-  @Input() designDebug: boolean = false;
-
-  moduleRef: any;
+export class Iwe7DesignDirective extends Iwe7Base<Iwe7DesignProps>
+  implements OnInit {
   viewContainerRef: ViewContainerRef;
-
+  @Input()
+  set design(val: Observable<Iwe7DesignProps> | Subject<Iwe7DesignProps>) {
+    this.props = val;
+  }
+  get design() {
+    return this.props;
+  }
   constructor(
     private _viewContainerRef: ViewContainerRef,
-    private template: TemplateRef<any>,
-    private renderer2: Renderer2,
-    private lazyloador: LazyLoaderService
+    private lazyloador: LazyLoaderService,
+    cd: ChangeDetectorRef
   ) {
+    super(cd);
     this.viewContainerRef = _viewContainerRef;
   }
 
-  ngOnInit() {
-    if (this.designDebug) {
-    }
+  __propsHandler() {
+    this.subscription && this.subscription.unsubscribe();
+    this.subscription = this.props
+      .pipe(
+        // 特殊处理 && 去重复
+        distinctUntilChanged((x, y) => {
+          return x.selector === y.selector;
+        })
+      )
+      .subscribe(res => {
+        this._props = res;
+        this.onPropsChange(res);
+        this.cd.markForCheck();
+      });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if ('design' in changes) {
-      this.createComponent();
-    }
-  }
-
-  private createComponent() {
+  onPropsChange(res: Iwe7DesignProps) {
     this.viewContainerRef.clear();
-    let name = this.design.name || null;
-    this.lazyloador.createComponent(name, this._viewContainerRef).subscribe(res => {});
-  }
-
-  private setStyle(ele: any) {
-    _.map(this.design.style, (s, key) => {
-      this.renderer2.setStyle(ele, '' + key, s);
-    });
-  }
-
-  private setDrag(instance: any) {
-    let ele = instance.ele.nativeElement;
-    this.etAttribute(
-      {
-        draggable: true
-      },
-      ele
-    );
-    let uuid: string;
-    fromEvent(ele, 'dragstart').subscribe((ev: DragEvent) => {
-      uuid = instance.id;
-      ev.dataTransfer.setData('name', 'guid_' + instance.guid);
-      ev.stopPropagation();
-    });
-    fromEvent(ele, 'dragend').subscribe((ev: DragEvent) => {
-      // dragend 删除这一个
-      // this.history.removeComponentByUuid(uuid);
-      console.log(ele);
-    });
-  }
-
-  private setDrop(instance: any) {
-    const ele = instance.ele.nativeElement;
-    fromEvent(ele, 'drop').subscribe((ev: DragEvent) => {});
-  }
-
-  private etAttribute(classObj: { [key: string]: any }, ele?: HTMLElement) {
-    if (!ele) {
-      return '';
-    }
-    for (const key in classObj) {
-      if (typeof classObj[key] === 'boolean') {
-        if (classObj[key]) {
-          this.renderer2.setAttribute(ele, key, 'true');
-        } else {
-          this.renderer2.removeAttribute(ele, key);
-        }
-      } else {
-        this.renderer2.setAttribute(ele, key, classObj[key]);
-      }
+    let name = res.selector || null;
+    if (name) {
+      this.lazyloador
+        .createComponent(name, this._viewContainerRef)
+        .subscribe((instance: Iwe7Base<any>) => {
+          instance.setProps(this.props);
+          instance.props.subscribe(res => {
+            instance.onPropsChange(res);
+          });
+        });
     }
   }
 }
