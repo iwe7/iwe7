@@ -1,0 +1,21 @@
+:host {
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    background: #d66d7d;
+    color: #fff;
+    overflow: auto;
+}
+
+p {
+    margin-top: 10px;
+    font-size: 14px;
+}

@@ -22,13 +22,28 @@ export class IndexComponent implements OnInit {
     public view: ViewContainerRef
   ) {}
   ngOnInit() {
-    this.designGroup.next({
-      view: 'nz-button',
-      text: 'i am a button'
-    });
+    // this.designGroup.next({
+    //   view: 'iwe7-welcome-index',
+    //   text: '你好，iwe7!',
+    //   desc: '双击探索'
+    // });
+    this.designGroup.next([
+      new BehaviorSubject({
+        view: 'nz-button',
+        text: '按钮1'
+      }),
+      new BehaviorSubject({
+        view: 'nz-button',
+        text: '按钮2'
+      }),
+      new BehaviorSubject({
+        view: 'nz-button',
+        text: '按钮3'
+      })
+    ]);
     if (!this.instance) {
       this.lazyload
-        .createComponent('design-group', this.view)
+        .createComponent('design-page', this.view)
         .subscribe((instance: Iwe7DesignSettingBase<any>) => {
           if (instance) {
             instance.setProps(this.designGroup);

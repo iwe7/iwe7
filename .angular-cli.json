@@ -251,6 +251,13 @@
       "tags": []
     },
     {
+      "name": "welcome",
+      "root": "libs/welcome/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "$workspaceRoot",
       "root": ".",
       "appRoot": ""

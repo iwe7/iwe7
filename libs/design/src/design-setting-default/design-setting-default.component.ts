@@ -21,8 +21,8 @@ export class DesignSettingDefaultComponent extends Iwe7DesignSettingBase<any>
     if (this.index < 2) {
       this.keys = _.map(res, (item, index) => {
         return index;
-      });
-      this.index ++;
+      }).filter(res => res + '' !== 'view' && res + '' !== 'setting');
+      this.index++;
     }
   }
 }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Iwe7DesignDirective } from './iwe7-design.directive';
-import { DesignPageComponent } from './design-page/design-page.component';
 import { DesignFormComponent } from './design-form/design-form.component';
 import { Iwe7CoreModule } from 'iwe7/core';
 import { Iwe7TouchModule } from 'iwe7/touch';
@@ -25,17 +24,20 @@ import { RouterModule } from '@angular/router';
         path: 'design-group',
         loadChildren:
           './design-group/design-group.module#DesignGroupModule'
+      },
+      {
+        path: 'design-page',
+        loadChildren:
+          './design-page/design-page.module#DesignPageModule'
       }
     ])
   ],
   declarations: [
     Iwe7DesignDirective,
-    DesignPageComponent,
     DesignFormComponent
   ],
   exports: [
     Iwe7DesignDirective,
-    DesignPageComponent,
     DesignFormComponent
   ]
 })

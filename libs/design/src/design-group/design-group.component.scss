@@ -6,6 +6,8 @@
     display: block;
 }
 
+$design-group-setting-radius: 5px;
+
 .setting {
     position: absolute;
     left: calc(var(--setting-left) * 1px);
@@ -15,12 +17,16 @@
     background: #333;
     display: var(--setting-display);
     z-index: 999;
+    border-radius: $design-group-setting-radius;
     .setting-header {
         height: 30px;
         display: flex;
         background: #000;
         color: #ccc;
         align-items: center;
+        position: relative;
+        border-top-left-radius: $design-group-setting-radius;
+        border-top-right-radius: $design-group-setting-radius;
         .setting-title {
             flex: 1;
             text-align: center;

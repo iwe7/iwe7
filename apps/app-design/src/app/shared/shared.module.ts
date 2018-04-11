@@ -9,6 +9,7 @@ import { DesignAntdModule } from 'iwe7/design-antd';
 import { Iwe7LazyLoadModule } from 'iwe7/lazy-load';
 import { Iwe7DesignModule } from 'iwe7/design';
 import { Iwe7TouchModule } from 'iwe7/touch';
+import { Iwe7WelcomeModule } from 'iwe7/welcome';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +19,9 @@ import { Iwe7TouchModule } from 'iwe7/touch';
     Iwe7LazyLoadModule,
     // antd design
     DesignAntdModule,
-    Iwe7TouchModule
+    // 触摸模块
+    Iwe7TouchModule,
+    Iwe7WelcomeModule
   ],
   declarations: [],
   exports: [

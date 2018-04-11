@@ -18,6 +18,7 @@ body,
 app-root {
     display: block;
     height: 100%;
+    overflow: hidden;
 }
 
 .form-row {
@@ -35,7 +36,7 @@ app-root {
         border-radius: 4px;
         padding: 0 10px;
         color: gray;
-        background: black;
+        background: #000;
         &:active {
             color: #fff;
         }

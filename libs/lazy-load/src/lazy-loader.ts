@@ -63,7 +63,6 @@ export class LazyLoaderService {
         if (res) {
           let component = res.getComponent(selector, this.moduleRef.injector);
           if (component) {
-            view.clear();
             let viewRef = view.createComponent(component);
             let instance = viewRef.instance;
             return instance;
