@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NxModule } from '@nrwl/nx';
 
 @NgModule({
-  imports: [BrowserModule, NxModule.forRoot()],
+  imports: [BrowserModule],
   declarations: [AppComponent],
   bootstrap: [AppComponent]
 })

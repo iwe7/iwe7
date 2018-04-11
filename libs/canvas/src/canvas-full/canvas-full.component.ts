@@ -18,7 +18,7 @@ import {
   from
 } from 'rxjs';
 
-import { TestScheduler, hotUpdate } from 'rxjs/testing';
+import { TestScheduler } from 'rxjs/testing';
 
 import * as r from 'rxjs';
 import * as o from 'rxjs/operators';
