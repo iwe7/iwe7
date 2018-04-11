@@ -19,6 +19,7 @@ import { Iwe7DesignModule } from 'iwe7/design';
 import { RxjsModel } from 'iwe7/rxjs/src/rxjs-model.service';
 import { RxjsModule } from 'iwe7/rxjs';
 import { Iwe7TouchModule } from 'iwe7/touch';
+import { CanvasModule } from 'iwe7/canvas';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { Iwe7TouchModule } from 'iwe7/touch';
     Iwe7CoreModule,
     Iwe7DesignModule,
     RxjsModule,
-    Iwe7TouchModule
+    Iwe7TouchModule,
+    CanvasModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

@@ -5,7 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --app=test",
-    "start2": "ng serve --app=test2",
+    "start2": "ng serve --app=app-design",
+    "start3": "ng serve --app=test2",
     "build": "ng build --app=test --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true",
     "build2": "ng build --app=test2 --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true",
     "test": "ng test",

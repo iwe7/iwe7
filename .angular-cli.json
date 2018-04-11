@@ -30,6 +30,14 @@
     {
       "project": "apps/test2/e2e/tsconfig.e2e.json",
       "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/app-design/src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/app-design/e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
     }
   ],
   "test": {
@@ -38,6 +46,32 @@
     }
   },
   "apps": [
+    {
+      "name": "app-design",
+      "root": "apps/app-design/src",
+      "outDir": "dist/apps/app-design",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "../../../test.js",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      },
+      "tags": []
+    },
     {
       "name": "test",
       "root": "apps/test/src",
@@ -88,6 +122,13 @@
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       },
+      "tags": []
+    },
+    {
+      "name": "canvas",
+      "root": "libs/canvas/src",
+      "test": "../../../test.js",
+      "appRoot": "",
       "tags": []
     },
     {
@@ -163,6 +204,13 @@
     {
       "name": "rxjs",
       "root": "libs/rxjs/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "snake",
+      "root": "libs/snake/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []
