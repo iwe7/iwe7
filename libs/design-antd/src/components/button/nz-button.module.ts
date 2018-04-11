@@ -6,6 +6,7 @@ import { NzButtonGroupComponent } from './nz-button-group.component';
 import { NzButtonComponent } from './nz-button.component';
 import { RouterModule } from '@angular/router';
 import { LazyComponentModuleBase } from 'iwe7/lazy-load';
+import { Iwe7SharedModule } from 'iwe7/shared';
 
 @NgModule({
   declarations: [NzButtonComponent, NzButtonGroupComponent],
@@ -13,6 +14,7 @@ import { LazyComponentModuleBase } from 'iwe7/lazy-load';
   imports: [
     CommonModule,
     ObserversModule,
+    Iwe7SharedModule,
     RouterModule.forChild([
       {
         path: 'nz-button',

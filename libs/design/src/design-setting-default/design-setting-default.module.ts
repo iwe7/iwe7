@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DesignSettingDefaultComponent } from './design-setting-default.component';
 import { LazyComponentModuleBase } from 'iwe7/lazy-load';
 import { RouterModule } from '@angular/router';
-import { Iwe7PipesModule } from 'iwe7/pipes';
+import { Iwe7SharedModule } from 'iwe7/shared';
+import { DesignGroupExtaComponent } from './design-group-exta/design-group-exta.component';
+
 @NgModule({
   imports: [
     CommonModule,
-    ReactiveFormsModule,
-    Iwe7PipesModule,
+    Iwe7SharedModule,
     RouterModule.forChild([
       {
         path: '',
@@ -17,7 +17,7 @@ import { Iwe7PipesModule } from 'iwe7/pipes';
       }
     ])
   ],
-  declarations: [DesignSettingDefaultComponent]
+  declarations: [DesignSettingDefaultComponent, DesignGroupExtaComponent]
 })
 export class DesignSettingDefaultModule extends LazyComponentModuleBase {
   getComponentByName(key: string) {

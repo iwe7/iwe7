@@ -26,10 +26,10 @@ export interface EmbeddedProperty {
 }
 
 @Component({
-  selector           : 'nz-col',
-  providers          : [ NzUpdateHostClassService ],
+  selector: 'nz-col',
+  providers: [NzUpdateHostClassService],
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <ng-content></ng-content>
   `
 })
@@ -62,33 +62,52 @@ export class NzColComponent implements OnInit, OnChanges {
   /** temp solution since no method add classMap to host https://github.com/angular/angular/issues/7289*/
   setClassMap(): void {
     const classMap = {
-      [ `${this.prefixCls}-${this.nzSpan}` ]         : isNotNil(this.nzSpan),
-      [ `${this.prefixCls}-order-${this.nzOrder}` ]  : isNotNil(this.nzOrder),
-      [ `${this.prefixCls}-offset-${this.nzOffset}` ]: isNotNil(this.nzOffset),
-      [ `${this.prefixCls}-pull-${this.nzPull}` ]    : isNotNil(this.nzPull),
-      [ `${this.prefixCls}-push-${this.nzPush}` ]    : isNotNil(this.nzPush),
+      [`${this.prefixCls}-${this.nzSpan}`]: isNotNil(this.nzSpan),
+      [`${this.prefixCls}-order-${this.nzOrder}`]: isNotNil(this.nzOrder),
+      [`${this.prefixCls}-offset-${this.nzOffset}`]: isNotNil(this.nzOffset),
+      [`${this.prefixCls}-pull-${this.nzPull}`]: isNotNil(this.nzPull),
+      [`${this.prefixCls}-push-${this.nzPush}`]: isNotNil(this.nzPush),
       ...this.generateClass()
     };
     this.nzUpdateHostClassService.updateHostClass(this.el, classMap);
   }
 
   generateClass(): object {
-    const listOfSizeInputName = [ 'nzXs', 'nzSm', 'nzMd', 'nzLg', 'nzXl', 'nzXXl' ];
+    const listOfSizeInputName = [
+      'nzXs',
+      'nzSm',
+      'nzMd',
+      'nzLg',
+      'nzXl',
+      'nzXXl'
+    ];
     const listClassMap = {};
     listOfSizeInputName.forEach(name => {
       const sizeName = name.replace('nz', '').toLowerCase();
-      if (isNotNil(this[ name ])) {
-        if ((typeof(this[ name ]) === 'number') || (typeof (this[ name ]) === 'string')) {
-          listClassMap[ `${this.prefixCls}-${sizeName}-${this[ name ]}` ] = true;
+      if (isNotNil(this[name])) {
+        if (typeof this[name] === 'number' || typeof this[name] === 'string') {
+          listClassMap[`${this.prefixCls}-${sizeName}-${this[name]}`] = true;
         } else {
-          listClassMap[ `${this.prefixCls}-${sizeName}-${this[ name ].span}` ] = this[ name ] && isNotNil(this[ name ].span);
-          listClassMap[ `${this.prefixCls}-${sizeName}-pull-${this[ name ].pull}` ] = this[ name ] && isNotNil(this[ name ].pull);
-          listClassMap[ `${this.prefixCls}-${sizeName}-push-${this[ name ].push}` ] = this[ name ] && isNotNil(this[ name ].push);
-          listClassMap[ `${this.prefixCls}-${sizeName}-offset-${this[ name ].offset}` ] = this[ name ] && isNotNil(this[ name ].offset);
-          listClassMap[ `${this.prefixCls}-${sizeName}-order-${this[ name ].order}` ] = this[ name ] && isNotNil(this[ name ].order);
+          listClassMap[`${this.prefixCls}-${sizeName}-${this[name].span}`] =
+            this[name] && isNotNil(this[name].span);
+          listClassMap[
+            `${this.prefixCls}-${sizeName}-pull-${this[name].pull}`
+          ] =
+            this[name] && isNotNil(this[name].pull);
+          listClassMap[
+            `${this.prefixCls}-${sizeName}-push-${this[name].push}`
+          ] =
+            this[name] && isNotNil(this[name].push);
+          listClassMap[
+            `${this.prefixCls}-${sizeName}-offset-${this[name].offset}`
+          ] =
+            this[name] && isNotNil(this[name].offset);
+          listClassMap[
+            `${this.prefixCls}-${sizeName}-order-${this[name].order}`
+          ] =
+            this[name] && isNotNil(this[name].order);
         }
       }
-
     });
     return listClassMap;
   }
@@ -101,7 +120,17 @@ export class NzColComponent implements OnInit, OnChanges {
     this.setClassMap();
   }
 
-  constructor(private nzUpdateHostClassService: NzUpdateHostClassService, private elementRef: ElementRef, @Optional() @Host() public nzRowComponent: NzRowComponent, @Optional() @Host() public nzRowDirective: NzRowDirective, private renderer: Renderer2) {
+  constructor(
+    private nzUpdateHostClassService: NzUpdateHostClassService,
+    private elementRef: ElementRef,
+    @Optional()
+    @Host()
+    public nzRowComponent: NzRowComponent,
+    @Optional()
+    @Host()
+    public nzRowDirective: NzRowDirective,
+    private renderer: Renderer2
+  ) {
     this.el = this.elementRef.nativeElement;
   }
 

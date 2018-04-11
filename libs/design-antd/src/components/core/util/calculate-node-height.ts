@@ -51,38 +51,36 @@ export interface NodeProperty {
 const computedStyleCache: { [key: string]: NodeType } = {};
 let hiddenTextarea: HTMLTextAreaElement;
 
-function calculateNodeStyling(node: HTMLElement, useCache: boolean = false): NodeType {
-  const nodeRef = (
-    node.getAttribute('id') ||
+function calculateNodeStyling(
+  node: HTMLElement,
+  useCache: boolean = false
+): NodeType {
+  const nodeRef = (node.getAttribute('id') ||
     node.getAttribute('data-reactid') ||
-    node.getAttribute('name')
-  ) as string;
+    node.getAttribute('name')) as string;
 
-  if (useCache && computedStyleCache[ nodeRef ]) {
-    return computedStyleCache[ nodeRef ];
+  if (useCache && computedStyleCache[nodeRef]) {
+    return computedStyleCache[nodeRef];
   }
 
   const style = window.getComputedStyle(node);
 
-  const boxSizing = (
+  const boxSizing =
     style.getPropertyValue('box-sizing') ||
     style.getPropertyValue('-moz-box-sizing') ||
-    style.getPropertyValue('-webkit-box-sizing')
-  );
+    style.getPropertyValue('-webkit-box-sizing');
 
-  const paddingSize = (
+  const paddingSize =
     parseFloat(style.getPropertyValue('padding-bottom')) +
-    parseFloat(style.getPropertyValue('padding-top'))
-  );
+    parseFloat(style.getPropertyValue('padding-top'));
 
-  const borderSize = (
+  const borderSize =
     parseFloat(style.getPropertyValue('border-bottom-width')) +
-    parseFloat(style.getPropertyValue('border-top-width'))
-  );
+    parseFloat(style.getPropertyValue('border-top-width'));
 
-  const sizingStyle = SIZING_STYLE
-  .map(name => `${name}:${style.getPropertyValue(name)}`)
-  .join(';');
+  const sizingStyle = SIZING_STYLE.map(
+    name => `${name}:${style.getPropertyValue(name)}`
+  ).join(';');
 
   const nodeInfo: NodeType = {
     sizingStyle,
@@ -92,16 +90,18 @@ function calculateNodeStyling(node: HTMLElement, useCache: boolean = false): Nod
   };
 
   if (useCache && nodeRef) {
-    computedStyleCache[ nodeRef ] = nodeInfo;
+    computedStyleCache[nodeRef] = nodeInfo;
   }
 
   return nodeInfo;
 }
 
-export default function calculateNodeHeight(uiTextNode: HTMLTextAreaElement,
-                                            useCache: boolean      = false,
-                                            minRows: number | null = null,
-                                            maxRows: number | null = null): NodeProperty {
+export default function calculateNodeHeight(
+  uiTextNode: HTMLTextAreaElement,
+  useCache: boolean = false,
+  minRows: number | null = null,
+  maxRows: number | null = null
+): NodeProperty {
   if (!hiddenTextarea) {
     hiddenTextarea = document.createElement('textarea');
     document.body.appendChild(hiddenTextarea);
@@ -110,7 +110,9 @@ export default function calculateNodeHeight(uiTextNode: HTMLTextAreaElement,
   // Fix wrap="off" issue
   // https://github.com/ant-design/ant-design/issues/6577
   if (uiTextNode.getAttribute('wrap')) {
-    hiddenTextarea.setAttribute('wrap', uiTextNode.getAttribute('wrap') as string);
+    hiddenTextarea.setAttribute('wrap', uiTextNode.getAttribute(
+      'wrap'
+    ) as string);
   } else {
     hiddenTextarea.removeAttribute('wrap');
   }
@@ -118,14 +120,19 @@ export default function calculateNodeHeight(uiTextNode: HTMLTextAreaElement,
   // Copy all CSS properties that have an impact on the height of the content in
   // the textbox
   const {
-          paddingSize, borderSize,
-          boxSizing, sizingStyle
-        } = calculateNodeStyling(uiTextNode, useCache);
+    paddingSize,
+    borderSize,
+    boxSizing,
+    sizingStyle
+  } = calculateNodeStyling(uiTextNode, useCache);
 
   // Need to have the overflow attribute to hide the scrollbar otherwise
   // text-lines will not calculated properly as the shadow will technically be
   // narrower for content
-  hiddenTextarea.setAttribute('style', `${sizingStyle};${HIDDEN_TEXTAREA_STYLE}`);
+  hiddenTextarea.setAttribute(
+    'style',
+    `${sizingStyle};${HIDDEN_TEXTAREA_STYLE}`
+  );
   hiddenTextarea.value = uiTextNode.value || uiTextNode.placeholder || '';
 
   let minHeight = Number.MIN_SAFE_INTEGER;

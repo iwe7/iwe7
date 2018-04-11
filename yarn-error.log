@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn git
+  /usr/local/bin/node /usr/local/bin/yarn build3
 
 PATH: 
   /Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/meepo/.rvm/bin:/Users/meepo/.rvm/bin
@@ -22,8 +22,10 @@ npm manifest:
       "ng": "ng",
       "start": "ng serve --app=test",
       "start2": "ng serve --app=test2",
+      "start3": "ng serve --app=app-design",
       "build": "ng build --app=test --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true",
       "build2": "ng build --app=test2 --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true",
+      "build3": "ng build --app=app-design --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true --sourcemaps=true",
       "test": "ng test",
       "lint": "./node_modules/.bin/nx lint && ng lint",
       "e2e": "ng e2e",
@@ -43,27 +45,31 @@ npm manifest:
     },
     "private": true,
     "dependencies": {
-      "@angular/animations": "6.0.0-rc.1",
+      "@angular/animations": "6.0.0-rc.3",
       "@angular/cdk": "6.0.0-rc.1",
-      "@angular/common": "6.0.0-rc.1",
-      "@angular/compiler": "6.0.0-rc.1",
-      "@angular/core": "6.0.0-rc.1",
-      "@angular/elements": "^6.0.0-rc.1",
-      "@angular/forms": "6.0.0-rc.1",
-      "@angular/platform-browser": "6.0.0-rc.1",
-      "@angular/platform-browser-dynamic": "6.0.0-rc.1",
-      "@angular/router": "6.0.0-rc.1",
+      "@angular/common": "6.0.0-rc.3",
+      "@angular/compiler": "6.0.0-rc.3",
+      "@angular/core": "6.0.0-rc.3",
+      "@angular/elements": "^6.0.0-rc.3",
+      "@angular/forms": "6.0.0-rc.3",
+      "@angular/platform-browser": "6.0.0-rc.3",
+      "@angular/platform-browser-dynamic": "6.0.0-rc.3",
+      "@angular/router": "6.0.0-rc.3",
       "@ngrx/effects": "6.0.0-beta.1",
       "@ngrx/router-store": "6.0.0-beta.1",
       "@ngrx/store": "6.0.0-beta.1",
       "@nrwl/nx": "0.11.0",
+      "@types/date-fns": "^2.6.0",
       "@types/ramda": "^0.25.21",
       "@types/underscore": "^1.8.8",
       "@types/webpack": "^4.1.3",
       "@webcomponents/custom-elements": "^1.1.0",
       "core-js": "^2.4.1",
+      "date-fns": "^1.29.0",
+      "iwe7-core": "^1.0.1",
       "mooa": "^0.1.1",
       "ng-packagr": "^2.4.2",
+      "ng-zorro-antd": "^0.6.15",
       "ngrx-store-freeze": "^0.2.1",
       "normalize.css": "^8.0.0",
       "ramda": "^0.25.0",
@@ -75,8 +81,8 @@ npm manifest:
     },
     "devDependencies": {
       "@angular/cli": "1.7.1",
-      "@angular/compiler-cli": "6.0.0-rc.1",
-      "@angular/language-service": "6.0.0-rc.1",
+      "@angular/compiler-cli": "6.0.0-rc.3",
+      "@angular/language-service": "6.0.0-rc.3",
       "@ngrx/schematics": "^6.0.0-beta.0",
       "@nrwl/schematics": "0.11.0",
       "@types/jasmine": "~2.8.3",
@@ -131,15 +137,21 @@ Lockfile:
       "@ngtools/json-schema" "^1.1.0"
       rxjs "^5.5.6"
   
-  "@angular/animations@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.0.0-rc.1.tgz#fefd83733d4ffcf93eff137e5460412ed88dcd0e"
+  "@angular/animations@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-6.0.0-rc.3.tgz#9394d02f9fe2c165cbde262d32d0690f96aaf196"
     dependencies:
       tslib "^1.9.0"
   
   "@angular/cdk@6.0.0-rc.1":
     version "6.0.0-rc.1"
     resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.0.0-rc.1.tgz#f0b71280f6ef6d069722f94fecd51649684a7cfb"
+    dependencies:
+      tslib "^1.7.1"
+  
+  "@angular/cdk@^5.0.0":
+    version "5.2.4"
+    resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-5.2.4.tgz#c0a429a8710d8fedb157f546e21cb49d4335f7f7"
     dependencies:
       tslib "^1.7.1"
   
@@ -208,64 +220,64 @@ Lockfile:
     optionalDependencies:
       node-sass "^4.7.2"
   
-  "@angular/common@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/common/-/common-6.0.0-rc.1.tgz#dc45ad017fe0eb2d3c4325580f5428b51dbc71f8"
+  "@angular/common@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/common/-/common-6.0.0-rc.3.tgz#361af1aaa19a24d42724c9088ecebe316f1c58e9"
     dependencies:
       tslib "^1.9.0"
   
-  "@angular/compiler-cli@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-6.0.0-rc.1.tgz#3803501e19f70ba9337293ea756e87087c2aded7"
+  "@angular/compiler-cli@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-6.0.0-rc.3.tgz#4c42d9c369806dbeb30a0ed24d403c296d08f176"
     dependencies:
       chokidar "^1.4.2"
       minimist "^1.2.0"
       reflect-metadata "^0.1.2"
       tsickle "^0.27.2"
   
-  "@angular/compiler@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-6.0.0-rc.1.tgz#cb3451b25e4c77ad3b4a55bff29d65833ac1dbab"
+  "@angular/compiler@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-6.0.0-rc.3.tgz#bfe1b0de9a9cf0082f98c9e96374bb3b29e56e3c"
     dependencies:
       tslib "^1.9.0"
   
-  "@angular/core@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/core/-/core-6.0.0-rc.1.tgz#1c57db9aa46991a8f75dcef38dc4ca63bd1b7fec"
+  "@angular/core@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/core/-/core-6.0.0-rc.3.tgz#be943f3f4e113c03a65bac7968e46995428fdf0d"
     dependencies:
       tslib "^1.9.0"
   
-  "@angular/elements@^6.0.0-rc.1":
+  "@angular/elements@^6.0.0-rc.3":
     version "6.0.0-rc.3"
     resolved "https://registry.yarnpkg.com/@angular/elements/-/elements-6.0.0-rc.3.tgz#27eab06b753c1d2262a5e901f088ba9a71c2de98"
     dependencies:
       tslib "^1.9.0"
   
-  "@angular/forms@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-6.0.0-rc.1.tgz#6604f1b5d4ef78261769641922700d995d2fdce5"
+  "@angular/forms@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/forms/-/forms-6.0.0-rc.3.tgz#8f8f666e99b83e8db1862df66e900aed39c1859f"
     dependencies:
       tslib "^1.9.0"
   
-  "@angular/language-service@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-6.0.0-rc.1.tgz#02781601e4b55688b9f083c647fd86a566380d71"
+  "@angular/language-service@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/language-service/-/language-service-6.0.0-rc.3.tgz#7fb4057fac3ce07c6219dcc69c26e2948e9f6a33"
   
-  "@angular/platform-browser-dynamic@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-6.0.0-rc.1.tgz#94de105d372edeca8345b2f1987cde526536ec70"
+  "@angular/platform-browser-dynamic@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-6.0.0-rc.3.tgz#78c4cfd09bd9ab827948cd2baf9627cb1f48298a"
     dependencies:
       tslib "^1.9.0"
   
-  "@angular/platform-browser@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-6.0.0-rc.1.tgz#d67f14f3bc4236b3a5a763cf447834f03ed2d5e9"
+  "@angular/platform-browser@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-6.0.0-rc.3.tgz#0df64aa7404d67c14ca7ea12db907ab32ee75a2b"
     dependencies:
       tslib "^1.9.0"
   
-  "@angular/router@6.0.0-rc.1":
-    version "6.0.0-rc.1"
-    resolved "https://registry.yarnpkg.com/@angular/router/-/router-6.0.0-rc.1.tgz#6cb7bd64b94e93047e529e4c04f5dde8a552dbf9"
+  "@angular/router@6.0.0-rc.3":
+    version "6.0.0-rc.3"
+    resolved "https://registry.yarnpkg.com/@angular/router/-/router-6.0.0-rc.3.tgz#67e134582fae35fd395c87efd47f87efcd641a03"
     dependencies:
       tslib "^1.9.0"
   
@@ -350,6 +362,12 @@ Lockfile:
       rxjs "^5.5.6"
       semver "^5.3.0"
       semver-intersect "^1.1.2"
+  
+  "@types/date-fns@^2.6.0":
+    version "2.6.0"
+    resolved "https://registry.yarnpkg.com/@types/date-fns/-/date-fns-2.6.0.tgz#b062ca46562002909be0c63a6467ed173136acc1"
+    dependencies:
+      date-fns "*"
   
   "@types/jasmine@*", "@types/jasmine@~2.8.3":
     version "2.8.6"
@@ -1911,6 +1929,10 @@ Lockfile:
   data-uri-to-buffer@1:
     version "1.2.0"
     resolved "https://registry.yarnpkg.com/data-uri-to-buffer/-/data-uri-to-buffer-1.2.0.tgz#77163ea9c20d8641b4707e8f18abdf9a78f34835"
+  
+  date-fns@*, date-fns@^1.29.0:
+    version "1.29.0"
+    resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.29.0.tgz#12e609cdcb935127311d04d33334e2960a2a54e6"
   
   date-format@^1.2.0:
     version "1.2.0"
@@ -4005,6 +4027,12 @@ Lockfile:
     dependencies:
       handlebars "^4.0.3"
   
+  iwe7-core@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/iwe7-core/-/iwe7-core-1.0.1.tgz#b20707ec0492fc6fac48d4ac50e2faacfedccfa1"
+    dependencies:
+      tslib "^1.9.0"
+  
   jasmine-core@~2.8.0:
     version "2.8.0"
     resolved "https://registry.yarnpkg.com/jasmine-core/-/jasmine-core-2.8.0.tgz#bcc979ae1f9fd05701e45e52e65d3a5d63f1a24e"
@@ -4720,6 +4748,10 @@ Lockfile:
     version "2.21.0"
     resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
   
+  moment@^2.18.1:
+    version "2.22.0"
+    resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.0.tgz#7921ade01017dd45186e7fee5f424f0b8663a730"
+  
   mooa@^0.1.1:
     version "0.1.1"
     resolved "https://registry.yarnpkg.com/mooa/-/mooa-0.1.1.tgz#b9add5c1d84fd7ed1f319f7577c41af690fcf8c9"
@@ -4828,6 +4860,14 @@ Lockfile:
       tar "^4.4.1"
       uglify-js "^3.3.20"
       update-notifier "^2.3.0"
+  
+  ng-zorro-antd@^0.6.15:
+    version "0.6.15"
+    resolved "https://registry.yarnpkg.com/ng-zorro-antd/-/ng-zorro-antd-0.6.15.tgz#acef41a30febce835b871d52cd47d042ac2ed443"
+    dependencies:
+      "@angular/cdk" "^5.0.0"
+      moment "^2.18.1"
+      tslib "^1.7.1"
   
   ngrx-store-freeze@^0.2.1:
     version "0.2.1"
@@ -7985,14 +8025,17 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.26.tgz#7bdd72f7668c5a7ad6b118148b4ea39c59d08d2d"
 
 Trace: 
-  Error: Command "git" not found.
-      at new MessageError (/usr/local/lib/node_modules/yarn/lib/cli.js:186:110)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:87307:17
-      at Generator.next (<anonymous>)
-      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:98:30)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:116:14
-      at new Promise (<anonymous>)
-      at new F (/usr/local/lib/node_modules/yarn/lib/cli.js:23451:28)
-      at /usr/local/lib/node_modules/yarn/lib/cli.js:95:12
-      at runCommand (/usr/local/lib/node_modules/yarn/lib/cli.js:87312:22)
-      at Object.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:87412:14)
+  Error: Command failed.
+  Exit code: 1
+  Command: sh
+  Arguments: -c ng build --app=app-design --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true --sourcemaps=true
+  Directory: /Volumes/meepo/nx/iwe7-nx
+  Output:
+  
+      at ProcessTermError.MessageError (/usr/local/lib/node_modules/yarn/lib/cli.js:186:110)
+      at new ProcessTermError (/usr/local/lib/node_modules/yarn/lib/cli.js:226:113)
+      at ChildProcess.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:30281:17)
+      at emitTwo (events.js:126:13)
+      at ChildProcess.emit (events.js:214:7)
+      at maybeClose (internal/child_process.js:925:16)
+      at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)

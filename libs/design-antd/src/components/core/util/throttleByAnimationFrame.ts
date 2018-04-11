@@ -1,5 +1,8 @@
 // tslint:disable:no-any typedef no-invalid-this
-import { cancelRequestAnimationFrame, reqAnimFrame } from '../polyfill/request-animation';
+import {
+  cancelRequestAnimationFrame,
+  reqAnimFrame
+} from '../polyfill/request-animation';
 
 export default function throttleByAnimationFrame(fn: Function) {
   let requestId: number | null;
@@ -28,7 +31,11 @@ export function throttleByAnimationFrameDecorator() {
     return {
       configurable: true,
       get() {
-        if (definingProperty || this === target.prototype || this.hasOwnProperty(key)) {
+        if (
+          definingProperty ||
+          this === target.prototype ||
+          this.hasOwnProperty(key)
+        ) {
           return fn;
         }
 
@@ -37,11 +44,11 @@ export function throttleByAnimationFrameDecorator() {
         Object.defineProperty(this, key, {
           value: boundFn,
           configurable: true,
-          writable: true,
+          writable: true
         });
         definingProperty = false;
         return boundFn;
-      },
+      }
     };
   };
 }

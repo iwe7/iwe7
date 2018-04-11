@@ -10,8 +10,7 @@ export class WelcomeIndexComponent extends Iwe7DesignBase<any>
   constructor(cd: ChangeDetectorRef) {
     super(cd);
   }
-
   ngOnInit() {}
-
-  onPropsChange(res: any) {}
+  onPropsChange(res: any) {
+  }
 }

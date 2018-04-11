@@ -7,17 +7,18 @@
 }
 
 $design-group-setting-radius: 5px;
-
 .setting {
-    position: absolute;
+    position: fixed;
     left: calc(var(--setting-left) * 1px);
     top: calc(var(--setting-top) * 1px);
     width: 300px;
     height: 600px;
     background: #333;
     display: var(--setting-display);
-    z-index: 999;
+    z-index: var(--setting-zIndex);
     border-radius: $design-group-setting-radius;
+    border: 1px solid #000;
+    box-shadow: 1px 3px 15px #080000;
     .setting-header {
         height: 30px;
         display: flex;
@@ -42,8 +43,10 @@ $design-group-setting-radius: 5px;
         width: 30px;
         line-height: 30px;
         text-align: center;
+        &:hover {
+            color: #fff;
+        }
     }
-
     .close-icon {
         cursor: pointer;
     }

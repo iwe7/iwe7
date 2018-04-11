@@ -29,16 +29,25 @@ export class IndexComponent implements OnInit {
     // });
     this.designGroup.next([
       new BehaviorSubject({
-        view: 'nz-button',
-        text: '按钮1'
-      }),
-      new BehaviorSubject({
-        view: 'nz-button',
-        text: '按钮2'
-      }),
-      new BehaviorSubject({
-        view: 'nz-button',
-        text: '按钮3'
+        view: 'iwe7-welcome-index',
+        text: '你好，iwe7!',
+        content: new BehaviorSubject({
+          view: 'nz-button',
+          content: new BehaviorSubject({
+            view: 'nz-icon',
+            content: new BehaviorSubject({
+              view: 'nz-button',
+              text: '双击探索',
+            }),
+            name: 'shrink'
+          }),
+          text: '双击探索',
+          nzGhost: true,
+          nzLoading: false,
+          nzSize: 'small',
+          nzType: 'default',
+          nzShape: ''
+        })
       })
     ]);
     if (!this.instance) {

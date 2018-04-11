@@ -5,7 +5,8 @@ import {
   SimpleChanges,
   ChangeDetectorRef,
   OnInit,
-  OnDestroy
+  OnDestroy,
+  ɵisObservable
 } from '@angular/core';
 import { Observable, merge, Subscription, BehaviorSubject } from 'rxjs';
 import {
@@ -61,6 +62,9 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
 
   __propsHandler() {
     this.subscription && this.subscription.unsubscribe();
+    if(!ɵisObservable(this.props)){
+      this.props = new BehaviorSubject(this.props)
+    }
     this.subscription = this.props
       .pipe(
         // 去重复

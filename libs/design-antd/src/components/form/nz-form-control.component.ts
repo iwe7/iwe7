@@ -1,4 +1,11 @@
-import { AfterContentInit, Component, ContentChild, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChild,
+  Input,
+  OnDestroy,
+  OnInit
+} from '@angular/core';
 import { FormControl, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
@@ -6,10 +13,10 @@ import { toBoolean } from '../core/util/convert';
 import { NzColComponent } from '../grid/nz-col.component';
 
 @Component({
-  selector           : 'nz-form-control',
-  providers          : [ NzUpdateHostClassService ],
+  selector: 'nz-form-control',
+  providers: [NzUpdateHostClassService],
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <div class="ant-form-item-control" [ngClass]="controlClassMap">
       <span class="ant-form-item-children">
         <ng-content></ng-content>
@@ -17,14 +24,17 @@ import { NzColComponent } from '../grid/nz-col.component';
       <ng-content select="nz-form-explain"></ng-content>
     </div>
   `,
-  host               : {
+  host: {
     '[class.ant-form-item-control-wrapper]': 'true'
   },
-  styles             : [ `:host {
+  styles: [
+    `:host {
     display: block;
-  }` ]
+  }`
+  ]
 })
-export class NzFormControlComponent extends NzColComponent implements OnDestroy, OnInit, AfterContentInit {
+export class NzFormControlComponent extends NzColComponent
+  implements OnDestroy, OnInit, AfterContentInit {
   private _hasFeedback = false;
   validateChanges: Subscription;
   validateString: string;
@@ -79,18 +89,24 @@ export class NzFormControlComponent extends NzColComponent implements OnDestroy,
     this.removeSubscribe();
     /** miss detect https://github.com/angular/angular/issues/10887 **/
     if (this.validateControl && this.validateControl.statusChanges) {
-      this.validateChanges = this.validateControl.statusChanges.subscribe(data => this.updateValidateStatus(data));
+      this.validateChanges = this.validateControl.statusChanges.subscribe(
+        data => this.updateValidateStatus(data)
+      );
     }
-
   }
 
   setControlClassMap(): void {
     this.controlClassMap = {
-      [ `has-warning` ]  : this.validateString === 'warning',
-      [ `is-validating` ]: this.validateString === 'validating' || this.validateString === 'pending' || this.controlStatus === 'PENDING',
-      [ `has-error` ]    : this.validateString === 'error' || this.controlStatus === 'INVALID',
-      [ `has-success` ]  : this.validateString === 'success' || this.controlStatus === 'VALID',
-      [ `has-feedback` ] : this.nzHasFeedback
+      [`has-warning`]: this.validateString === 'warning',
+      [`is-validating`]:
+        this.validateString === 'validating' ||
+        this.validateString === 'pending' ||
+        this.controlStatus === 'PENDING',
+      [`has-error`]:
+        this.validateString === 'error' || this.controlStatus === 'INVALID',
+      [`has-success`]:
+        this.validateString === 'success' || this.controlStatus === 'VALID',
+      [`has-feedback`]: this.nzHasFeedback
     };
   }
 

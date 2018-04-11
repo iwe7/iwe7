@@ -7,6 +7,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'nz-button',
         loadChildren: './button/nz-button.module#NzButtonModule'
+      },
+      {
+        path: 'nz-icon',
+        loadChildren: './icon/icon.module#NzIconModule'
       }
     ])
   ],

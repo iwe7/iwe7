@@ -3,3 +3,6 @@
     <input *ngIf="form.contains(item)" type="text" placeholder="请输入" [formControlName]="item">
   </div>
 </div>
+<div>
+  <div design-group-exta [props]="(props|async)?.content"></div>
+</div>

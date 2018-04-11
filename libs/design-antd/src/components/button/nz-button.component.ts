@@ -25,6 +25,7 @@ import { Iwe7DesignBase } from 'iwe7/design';
   preserveWhitespaces: false,
   template: `
     <i class="anticon anticon-spin anticon-loading" *ngIf="_loading"></i>
+    <ng-container [designGroup]="(props|async)?.content"></ng-container>
     <span (cdkObserveContent)="checkContent()" #contentElement>{{(props|async).text}}</span>
   `,
   styleUrls: ['./style/index.less'],

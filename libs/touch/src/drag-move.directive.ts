@@ -23,6 +23,7 @@ import {
   takeUntil,
   switchMap
 } from 'rxjs/operators';
+import { ZIndexService } from 'iwe7/themes/src/z-index.service';
 @Directive({
   selector: '[dragmove]'
 })
@@ -31,12 +32,20 @@ export class DragmoveDirective implements OnInit {
   _cacheKey: string;
   @Input() dragmove: BehaviorSubject<any> = new BehaviorSubject({});
   isStart: boolean = false;
-  constructor(public ele: ElementRef, public render: Renderer2) {}
+  _style: any;
+  constructor(
+    public ele: ElementRef,
+    public render: Renderer2,
+    public zindex: ZIndexService
+  ) {}
   ngOnInit() {
     this.onDrag();
   }
   // ------------------------------
   onDrag() {
+    this.dragmove.subscribe(res => {
+      this._style = { ...this._style, ...res };
+    });
     const mousemove = fromEvent(document, 'mousemove');
     const touchmove = fromEvent(document, 'touchmove');
 
@@ -45,9 +54,16 @@ export class DragmoveDirective implements OnInit {
 
     const mousedown = fromEvent(this.ele.nativeElement, 'mousedown');
     const touchstart = fromEvent(this.ele.nativeElement, 'touchstart');
+
     const rect = this.getRect();
     const move = merge(mousedown, touchstart)
       .pipe(
+        tap((res: Event) => {
+          res.stopPropagation();
+          res.preventDefault();
+          this._style.zIndex = this.zindex.getIndex();
+          this.moveStyle(this._style);
+        }),
         switchMap(res =>
           merge(
             mousemove.pipe(
@@ -94,7 +110,7 @@ export class DragmoveDirective implements OnInit {
   }
 
   moveStyle(obj: { left: number; top: number; display: string }) {
-    obj.display = 'block';
-    this.dragmove.next(obj);
+    this._style = { ...this._style, ...obj };
+    this.dragmove.next(this._style);
   }
 }

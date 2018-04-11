@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Iwe7DesignModule } from 'iwe7/design';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    Iwe7DesignModule
   ],
   declarations: []
 })

@@ -1,5 +1,11 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, Optional, Provider, SkipSelf } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  Optional,
+  Provider,
+  SkipSelf
+} from '@angular/core';
 
 import { reqAnimFrame } from '../polyfill/request-animation';
 
@@ -35,9 +41,9 @@ export class NzScrollService {
   }
 
   /** 获取 `el` 相对于视窗距离 */
-  getOffset(el: Element): { top: number, left: number } {
+  getOffset(el: Element): { top: number; left: number } {
     const ret = {
-      top : 0,
+      top: 0,
       left: 0
     };
     if (!el || !el.getClientRects().length) return ret;
@@ -62,9 +68,9 @@ export class NzScrollService {
     const prop = top ? 'pageYOffset' : 'pageXOffset';
     const method = top ? 'scrollTop' : 'scrollLeft';
     const isWindow = target === window;
-    let ret = isWindow ? target[ prop ] : target[ method ];
+    let ret = isWindow ? target[prop] : target[method];
     if (isWindow && typeof ret !== 'number') {
-      ret = this.doc.documentElement[ method ];
+      ret = this.doc.documentElement[method];
     }
     return ret;
   }
@@ -89,7 +95,10 @@ export class NzScrollService {
     const frameFunc = () => {
       const timestamp = Date.now();
       const time = timestamp - startTime;
-      this.setScrollTop(target, (easing || easeInOutCubic)(time, scrollTop, targetTopValue, 450));
+      this.setScrollTop(
+        target,
+        (easing || easeInOutCubic)(time, scrollTop, targetTopValue, 450)
+      );
       if (time < 450) {
         reqAnimFrame(frameFunc);
       } else {
@@ -98,15 +107,17 @@ export class NzScrollService {
     };
     reqAnimFrame(frameFunc);
   }
-
 }
 
-export function SCROLL_SERVICE_PROVIDER_FACTORY(doc: Document, scrollService: NzScrollService): NzScrollService {
+export function SCROLL_SERVICE_PROVIDER_FACTORY(
+  doc: Document,
+  scrollService: NzScrollService
+): NzScrollService {
   return scrollService || new NzScrollService(doc);
 }
 
 export const SCROLL_SERVICE_PROVIDER: Provider = {
-  provide   : NzScrollService,
+  provide: NzScrollService,
   useFactory: SCROLL_SERVICE_PROVIDER_FACTORY,
-  deps      : [ DOCUMENT, [ new Optional(), new SkipSelf(), NzScrollService ] ]
+  deps: [DOCUMENT, [new Optional(), new SkipSelf(), NzScrollService]]
 };

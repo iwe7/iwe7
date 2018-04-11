@@ -1,4 +1,7 @@
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
+import {
+  coerceBooleanProperty,
+  coerceNumberProperty
+} from '@angular/cdk/coercion';
 // import { Input } from '@angular/core';
 
 export function toBoolean(value: boolean | string): boolean {
@@ -25,13 +28,19 @@ export function toNumber<D>(value: number | string, fallback: D): number | D {
  * // __visible = false;
  * ```
  */
-export function InputBoolean(): any { // tslint:disable-line:no-any
-  return function InputBooleanPropDecorator (target: object, name: string): void {
+export function InputBoolean(): any {
+  // tslint:disable-line:no-any
+  return function InputBooleanPropDecorator(
+    target: object,
+    name: string
+  ): void {
     // Add our own private prop
     const privatePropName = `$$__${name}`;
 
     if (Object.prototype.hasOwnProperty.call(target, privatePropName)) {
-      console.warn(`The prop "${privatePropName}" is already exist, it will be overrided by InputBoolean decorator.`);
+      console.warn(
+        `The prop "${privatePropName}" is already exist, it will be overrided by InputBoolean decorator.`
+      );
     }
 
     Object.defineProperty(target, privatePropName, {
@@ -41,10 +50,10 @@ export function InputBoolean(): any { // tslint:disable-line:no-any
 
     Object.defineProperty(target, name, {
       get(): boolean {
-        return this[ privatePropName ]; // tslint:disable-line:no-invalid-this
+        return this[privatePropName]; // tslint:disable-line:no-invalid-this
       },
       set(value: boolean | string): void {
-        this[ privatePropName ] = toBoolean(value); // tslint:disable-line:no-invalid-this
+        this[privatePropName] = toBoolean(value); // tslint:disable-line:no-invalid-this
       }
     });
 

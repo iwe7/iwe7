@@ -1,5 +1,12 @@
 /* tslint:disable:no-any */
-import { Inject, Injectable, InjectionToken, Optional, Provider, SkipSelf } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+  Optional,
+  Provider,
+  SkipSelf
+} from '@angular/core';
 
 @Injectable()
 export class LoggerService {
@@ -44,10 +51,15 @@ export class LoggerService {
 
 export const NZ_LOGGER_STATE = new InjectionToken<boolean>('nz-logger-state'); // Whether print the log
 
-export function LOGGER_SERVICE_PROVIDER_FACTORY(exist: LoggerService, loggerState: boolean): LoggerService { return exist || new LoggerService(loggerState); }
+export function LOGGER_SERVICE_PROVIDER_FACTORY(
+  exist: LoggerService,
+  loggerState: boolean
+): LoggerService {
+  return exist || new LoggerService(loggerState);
+}
 
 export const LOGGER_SERVICE_PROVIDER: Provider = {
   provide: LoggerService,
   useFactory: LOGGER_SERVICE_PROVIDER_FACTORY,
-  deps: [ [ new Optional(), new SkipSelf(), LoggerService ], NZ_LOGGER_STATE ]
+  deps: [[new Optional(), new SkipSelf(), LoggerService], NZ_LOGGER_STATE]
 };

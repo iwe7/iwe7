@@ -1,0 +1,47 @@
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+.father {
+    margin: 0px 10px;
+    color: #ccc;
+    background: #000;
+    font-size: 12px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    margin-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    .father-title {
+        flex: 1;
+    }
+    .father-folder {
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        i {
+            font-size: 12px;
+            padding: 0 5px;
+            display: block;
+            height: 30px;
+        }
+    }
+    .father-move {
+        cursor: move;
+        i {
+            font-size: 12px;
+            padding: 0 5px;
+            display: block;
+            height: 30px;
+        }
+    }
+    &:hover {
+        opacity: .8;
+    }
+}
+
+.children {
+    margin-left: 20px;
+}

@@ -22,8 +22,9 @@ import {
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { Iwe7DesignBase, Iwe7DesignSettingBase } from '../iwe7-design';
 import { IcssService } from 'iwe7/icss';
+import { ZIndexService } from 'iwe7/themes/src/z-index.service';
 @Component({
-  selector: 'design-group',
+  selector: '[design-group]',
   templateUrl: './design-group.component.html',
   styleUrls: ['./design-group.component.scss']
 })
@@ -33,22 +34,28 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
   // 实例
   settingInstance: Iwe7DesignSettingBase<any>;
   viewInstance: Iwe7DesignBase<any>;
+  groupInstance: Iwe7DesignBase<any>;
 
   // 插座
   settingRef: ViewContainerRef;
   viewRef: ViewContainerRef;
+  groupRef: ViewContainerRef;
 
   // dom
   @ViewChild('view') viewEle: ElementRef;
   @ViewChild('setting') settingEle: ElementRef;
+  @ViewChild('group') gropuEle: ElementRef;
 
   // 是否装载
   installedSetting: boolean = false;
   installedView: boolean = false;
+  installedGroup: boolean = false;
 
-  settingStyle: BehaviorSubject<any> = new BehaviorSubject({
-    display: 'none'
-  });
+  _settingStyle: any = {
+    display: 'none',
+    zIndex: this.zindex.getIndex()
+  };
+  settingStyle: BehaviorSubject<any> = new BehaviorSubject(this._settingStyle);
 
   // selector
   view: string;
@@ -58,7 +65,8 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
     public lazyLoad: LazyLoaderService,
     public icss: IcssService,
     public ele: ElementRef,
-    cd: ChangeDetectorRef
+    cd: ChangeDetectorRef,
+    public zindex: ZIndexService
   ) {
     super(cd);
   }
@@ -79,9 +87,15 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
         }),
         map((res: MouseEvent) => ({ x: res.pageX, y: res.pageY })),
         // 展示setting
-        tap(res =>
-          this.setSettingStyle({ display: 'block', left: res.x, top: res.y })
-        )
+        tap(res => {
+          this._settingStyle = {
+            display: 'block',
+            left: res.x,
+            top: res.y,
+            zIndex: this.zindex.getIndex()
+          };
+          this.setSettingStyle(this._settingStyle);
+        })
       )
       .subscribe();
     this.icss.init(
@@ -119,9 +133,20 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
 
   ngAfterViewInit() {
     this.props.subscribe(res => {
-      let { setting, view } = res;
+      let { setting, view, group } = res;
       if (!setting && view) {
         setting = 'design-setting-default';
+      }
+      if (group && !this.groupInstance) {
+        if (this.groupRef) {
+          this.lazyLoad
+            .createComponent('design-group', this.groupRef)
+            .subscribe((instance: Iwe7DesignSettingBase<any>) => {
+              instance.setProps(group);
+              this.groupInstance = instance;
+              this.installedGroup = true;
+            });
+        }
       }
       if (setting && !this.settingInstance) {
         if (this.settingRef) {
@@ -167,6 +192,10 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
   }
   setViewRef(view: ViewContainerRef) {
     this.viewRef = view;
+  }
+
+  setGroupRef(view: ViewContainerRef) {
+    this.groupRef = view;
   }
 
   onPropsChange(res: any) {}

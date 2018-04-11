@@ -11,11 +11,15 @@
 .@{btn-prefix-cls} {
     line-height: @line-height-base;
     .btn;
-    .btn-default; // Make sure that the target of Button's click event always be `button`
-    // Ref: https://github.com/ant-design/ant-design/issues/7034
+    .btn-default;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     >i,
     >span {
         pointer-events: none;
+        margin-left: 5px;
     }
     &-primary {
         .btn-primary;
