@@ -1,5 +1,5 @@
 ### iwe7高端web一站式解决方案
-* 基于angular6.0
+* angular6.0
 * rxjs响应式编程
 * underscore工具库
 
