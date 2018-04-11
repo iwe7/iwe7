@@ -5,7 +5,8 @@ import {
   ViewContainerRef,
   AfterViewInit,
   ViewChild,
-  ElementRef
+  ElementRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import { BehaviorSubject, fromEvent } from 'rxjs';
 import {
@@ -14,7 +15,8 @@ import {
   map,
   takeUntil,
   mergeMap,
-  switchMap
+  switchMap,
+  debounceTime
 } from 'rxjs/operators';
 
 import { LazyLoaderService } from 'iwe7/lazy-load';
@@ -25,7 +27,8 @@ import { IcssService } from 'iwe7/icss';
   templateUrl: './design-group.component.html',
   styleUrls: ['./design-group.component.scss']
 })
-export class DesignGroupComponent implements OnInit, AfterViewInit {
+export class DesignGroupComponent extends Iwe7DesignBase<any>
+  implements OnInit, AfterViewInit {
   @Input() props: BehaviorSubject<any> = new BehaviorSubject({});
   // 实例
   settingInstance: Iwe7DesignSettingBase<any>;
@@ -47,16 +50,20 @@ export class DesignGroupComponent implements OnInit, AfterViewInit {
     display: 'none'
   });
 
+  // selector
+  view: string;
+  setting: string;
+
   constructor(
     public lazyLoad: LazyLoaderService,
     public icss: IcssService,
-    public ele: ElementRef
-  ) {}
+    public ele: ElementRef,
+    cd: ChangeDetectorRef
+  ) {
+    super(cd);
+  }
 
   ngOnInit() {
-    this.props.subscribe(res => {
-      console.log(res);
-    });
     let documentClick = fromEvent(document, 'click');
     // viewRef鼠标事件
     let viewEvent = this.getMouseEvent(this.viewEle.nativeElement);
@@ -113,8 +120,11 @@ export class DesignGroupComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.props.subscribe(res => {
       let { setting, view } = res;
-      if (setting) {
-        if (this.settingRef && !this.installedSetting) {
+      if (!setting && view) {
+        setting = 'design-setting-default';
+      }
+      if (setting && !this.settingInstance) {
+        if (this.settingRef) {
           this.lazyLoad
             .createComponent(setting, this.settingRef)
             .subscribe((instance: Iwe7DesignSettingBase<any>) => {
@@ -123,16 +133,19 @@ export class DesignGroupComponent implements OnInit, AfterViewInit {
                 instance.setProps(this.props);
                 this.settingInstance = instance;
                 this.installedSetting = true;
-                this.settingInstance.formChange.subscribe(res => {
-                  // 广播表单值变化
-                  this.props.next(res);
-                });
+                this.setting = setting;
+                this.settingInstance.formChange
+                  .pipe(debounceTime(200))
+                  .subscribe(res => {
+                    // 广播表单值变化
+                    this.props.next(res);
+                  });
               }
             });
         }
       }
-      if (view) {
-        if (this.viewRef && !this.installedView) {
+      if (view && !this.viewInstance) {
+        if (this.viewRef) {
           this.lazyLoad
             .createComponent(view, this.viewRef)
             .subscribe((instance: Iwe7DesignBase<any>) => {
@@ -141,6 +154,7 @@ export class DesignGroupComponent implements OnInit, AfterViewInit {
                 this.installedView = true;
                 instance.setProps(this.props);
                 this.viewInstance = instance;
+                this.view = view;
               }
             });
         }
@@ -154,4 +168,6 @@ export class DesignGroupComponent implements OnInit, AfterViewInit {
   setViewRef(view: ViewContainerRef) {
     this.viewRef = view;
   }
+
+  onPropsChange(res: any) {}
 }

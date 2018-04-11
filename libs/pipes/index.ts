@@ -1,1 +1,1 @@
-export { PipesModule } from './src/pipes.module';
+export { Iwe7PipesModule } from './src/pipes.module';
