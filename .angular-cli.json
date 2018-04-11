@@ -146,6 +146,13 @@
       "tags": []
     },
     {
+      "name": "design-antd",
+      "root": "libs/design-antd/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "design-libs",
       "root": "libs/design-libs/src",
       "test": "../../../test.js",

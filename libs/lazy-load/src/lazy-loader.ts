@@ -8,14 +8,12 @@ import {
 } from '@angular/core';
 import { of, Observable, merge } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
-
 import { fromPromise } from 'rxjs/observable/fromPromise';
-
 import { LazyComponentsInterface } from './interface';
-import { LAZY_COMPONENTS } from './token';
 import { LazyComponentModuleFactory } from './lazy-component-module-factory';
-
 import * as _ from 'underscore';
+import { ROUTES } from '@angular/router';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,16 +25,16 @@ export class LazyLoaderService {
   constructor(
     private moduleFactoryLoader: NgModuleFactoryLoader,
     private moduleRef: NgModuleRef<any>,
-    @Inject(LAZY_COMPONENTS)
-    public lazyComponentConfig: LazyComponentsInterface[]
+    @Inject(ROUTES) public lazyComponentConfig: LazyComponentsInterface[]
   ) {
     this.lazyComponentModuleFactory = new LazyComponentModuleFactory(
       this.moduleFactoryLoader
     );
     this.lazyComponentConfig = _.flatten(this.lazyComponentConfig);
     this.lazyComponentConfig.map(res => {
-      this.components.set(res.selector, res.loadChildren);
+      this.components.set(res.path || res.selector, res.loadChildren);
     });
+    console.log(this.components);
   }
 
   public init(element: HTMLElement, view: ViewContainerRef): Observable<void> {
@@ -53,16 +51,24 @@ export class LazyLoaderService {
     return merge(...subs);
   }
 
-  public createComponent(selector: string, view: ViewContainerRef): Observable<any> {
+  public createComponent(
+    selector: string,
+    view: ViewContainerRef
+  ): Observable<any> {
     let path = this.components.get(selector);
     return fromPromise(
       this.lazyComponentModuleFactory.getComponentModuleByPath(path)
     ).pipe(
       map(res => {
-        let component = res.getComponent(selector, this.moduleRef.injector);
-        let viewRef = view.createComponent(component);
-        let instance = viewRef.instance;
-        return instance;
+        if (res) {
+          let component = res.getComponent(selector, this.moduleRef.injector);
+          if (component) {
+            let viewRef = view.createComponent(component);
+            let instance = viewRef.instance;
+            return instance;
+          }
+        }
+        return null;
       }),
       tap(instance => {})
     );

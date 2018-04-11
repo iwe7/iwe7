@@ -7,7 +7,7 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import { Observable, merge, Subscription } from 'rxjs';
+import { Observable, merge, Subscription, BehaviorSubject } from 'rxjs';
 import {
   first,
   filter,
@@ -15,12 +15,17 @@ import {
   distinctUntilChanged,
   scan,
   takeUntil,
-  tap
+  tap,
+  pairwise,
+  map
 } from 'rxjs/operators';
 import * as _ from 'underscore';
 export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
+  // 保存最新值
   public _props: T;
-  @Input() props: Observable<T> = new Observable();
+  // 保存关联组件
+  public instance: Iwe7Base<T>;
+  @Input() props: BehaviorSubject<T> = new BehaviorSubject({} as T);
   // 需要注销开关
   needDestory: boolean = false;
   subscription: Subscription;
@@ -45,9 +50,13 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
     this.__propsHandler();
   }
 
-  setProps(props: Observable<T>) {
+  setProps(props: BehaviorSubject<T>) {
     this.props = props;
     this.__propsHandler();
+  }
+
+  setData(res: T) {
+    this.props.next({ ...(this._props as any), ...(res as any) });
   }
 
   __propsHandler() {

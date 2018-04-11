@@ -45,6 +45,11 @@ export class LazyComponentModuleFactory {
   public getComponentModuleByPath(
     path: string
   ): Promise<LazyComponentModule<LazyComponentModuleBase>> {
+    if(!path){
+      return new Promise((resolve, reject) => {
+        resolve(null);
+      });
+    }
     let cacheLazyComponentModule = lazyComponentModule.get(path);
     if (cacheLazyComponentModule) {
       return new Promise((resolve, reject) => {

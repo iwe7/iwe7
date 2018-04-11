@@ -1,0 +1,44 @@
+:host {
+    display: block;
+}
+
+.view {
+    display: block;
+}
+
+.setting {
+    position: absolute;
+    left: calc(var(--setting-left) * 1px);
+    top: calc(var(--setting-top) * 1px);
+    width: 300px;
+    height: 600px;
+    background: #333;
+    display: var(--setting-display);
+    z-index: 999;
+    .setting-header {
+        height: 30px;
+        display: flex;
+        background: #000;
+        color: #ccc;
+        align-items: center;
+        .setting-title {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+        }
+    }
+    .drag-icon,
+    .close-icon {
+        cursor: move;
+        user-select: none;
+        display: block;
+        height: 30px;
+        width: 30px;
+        line-height: 30px;
+        text-align: center;
+    }
+
+    .close-icon {
+        cursor: pointer;
+    }
+}

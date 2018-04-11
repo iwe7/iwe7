@@ -3,9 +3,18 @@ import {
   ElementRef,
   HostBinding,
   OnInit,
-  Input
+  Input,
+  Renderer2,
+  Output,
+  EventEmitter
 } from '@angular/core';
-import { fromEvent, merge, animationFrameScheduler, generate } from 'rxjs';
+import {
+  fromEvent,
+  merge,
+  animationFrameScheduler,
+  generate,
+  BehaviorSubject
+} from 'rxjs';
 import {
   map,
   tap,
@@ -18,25 +27,11 @@ import {
   selector: '[dragmove]'
 })
 export class DragmoveDirective implements OnInit {
-  @HostBinding('style.left.px') _left: number;
-  @HostBinding('style.top.px') _top: number;
-  @HostBinding('style.position') _position: string = 'absolute';
   // 如果设置了，那么记录位置，下次来的时候还原上一次操作位置
   _cacheKey: string;
-  @Input()
-  set dragmove(val: string) {
-    if (val) {
-      this._cacheKey = val;
-      let p = localStorage.getItem(val);
-      if (p) {
-        let point = JSON.parse(p);
-        this._left = point.left;
-        this._top = point.top;
-      }
-    }
-  }
+  @Input() dragmove: BehaviorSubject<any> = new BehaviorSubject({});
   isStart: boolean = false;
-  constructor(public ele: ElementRef) {}
+  constructor(public ele: ElementRef, public render: Renderer2) {}
   ngOnInit() {
     this.onDrag();
   }
@@ -44,17 +39,13 @@ export class DragmoveDirective implements OnInit {
   onDrag() {
     const mousemove = fromEvent(document, 'mousemove');
     const touchmove = fromEvent(document, 'touchmove');
+
     const touchend = fromEvent(this.ele.nativeElement, 'touchend');
     const mouseup = fromEvent(this.ele.nativeElement, 'mouseup');
 
     const mousedown = fromEvent(this.ele.nativeElement, 'mousedown');
     const touchstart = fromEvent(this.ele.nativeElement, 'touchstart');
-
-    const nodeRect = this.ele.nativeElement.getBoundingClientRect();
-    const rect = {
-      height: nodeRect.height,
-      width: nodeRect.width
-    };
+    const rect = this.getRect();
     const move = merge(mousedown, touchstart)
       .pipe(
         switchMap(res =>
@@ -74,29 +65,36 @@ export class DragmoveDirective implements OnInit {
                   x: evt.touches[0].pageX,
                   y: evt.touches[0].pageY
                 };
-              }),
-              takeUntil(touchend)
+              })
             ),
             animationFrameScheduler
-          )
+          ).pipe(takeUntil(merge(mousedown, touchstart)))
         )
       )
       .pipe(
         map(res => {
-          this._top = res.y - rect.height / 2;
-          this._left = res.x - rect.width / 2;
           return {
-            left: this._left,
-            top: this._top
+            left: res.x - rect.width / 2,
+            top: res.y - rect.height / 2,
+            display: 'block'
           };
         }),
-        debounceTime(300),
-        tap(
-          res =>
-            this._cacheKey &&
-            localStorage.setItem(this._cacheKey, JSON.stringify(res))
-        )
+        tap(res => this.moveStyle(res))
       );
     move.subscribe((res: any) => {});
+  }
+
+  getRect() {
+    const nodeRect = this.ele.nativeElement.getBoundingClientRect();
+    const rect = {
+      height: nodeRect.height,
+      width: nodeRect.width
+    };
+    return rect;
+  }
+
+  moveStyle(obj: { left: number; top: number; display: string }) {
+    obj.display = 'block';
+    this.dragmove.next(obj);
   }
 }

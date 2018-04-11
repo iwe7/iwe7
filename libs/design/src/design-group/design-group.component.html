@@ -1,0 +1,15 @@
+<div class="setting" #setting>
+  <div class="setting-header">
+    <div [dragmove]="settingStyle" *ngIf="(settingStyle|async)?.display === 'block'" class="drag-icon">
+      <i class="iconfont icon-drag"></i>
+    </div>
+    <div class="setting-title">组件设置</div>
+    <div class="close-icon">
+      <i class="iconfont icon-close"></i>
+    </div>
+  </div>
+  <ng-container (getViewRef)="setSettingRef($event)"></ng-container>
+</div>
+<div class="view" #view>
+  <ng-container (getViewRef)="setViewRef($event)"></ng-container>
+</div>

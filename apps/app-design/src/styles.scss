@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
+// @import "themes/default.scss";
+// @import "themes/mixins/motion.scss";
+// @import "themes/core/motion/fade.scss";
+// @import "themes/core/motion/move.scss";
+// @import "themes/core/motion/other.scss";
+// @import "themes/core/motion/slide.scss";
+// @import "themes/core/motion/swing.scss";
+// @import "themes/core/motion/zoom.scss";
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+html,
+body,
+app-root {
+    display: block;
+    height: 100%;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 30px;
+    padding: 5px 10px;
+    input {
+        flex: 1;
+        height: 30px;
+        line-height: 30px;
+        outline: none;
+        border: none;
+        border-radius: 4px;
+        padding: 0 10px;
+        color: gray;
+        background: black;
+        &:active {
+            color: #fff;
+        }
+        &:hover {
+            color: #fff;
+        }
+    }
+}

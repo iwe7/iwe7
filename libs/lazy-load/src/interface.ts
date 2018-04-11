@@ -1,4 +1,5 @@
 export interface LazyComponentsInterface {
-  selector: string;
+  path?: string;
+  selector?: string;
   loadChildren: string;
 }

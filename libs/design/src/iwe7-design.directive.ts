@@ -19,15 +19,15 @@ import { distinctUntilChanged } from 'rxjs/operators';
 
 import { Iwe7DesignBase } from './iwe7-design';
 import { LazyLoaderService } from 'iwe7/lazy-load';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Iwe7Base } from 'iwe7/core';
 /**
  *design="name;class 'class';style 'style';drag true; drop true;"
  */
 export const instanceMap: Map<string, any> = new Map();
 
-export interface Iwe7DesignProps {
-  selector: string;
+export class Iwe7DesignProps {
+  selector: string = '';
 }
 
 @Directive({
@@ -38,7 +38,9 @@ export class Iwe7DesignDirective extends Iwe7Base<Iwe7DesignProps>
   implements OnInit {
   viewContainerRef: ViewContainerRef;
   @Input()
-  set design(val: Observable<Iwe7DesignProps> | Subject<Iwe7DesignProps>) {
+  set design(
+    val: BehaviorSubject<Iwe7DesignProps> | BehaviorSubject<Iwe7DesignProps>
+  ) {
     this.props = val;
   }
   get design() {
@@ -82,5 +84,13 @@ export class Iwe7DesignDirective extends Iwe7Base<Iwe7DesignProps>
           });
         });
     }
+  }
+
+  getDefault() {
+    return new Iwe7DesignProps();
+  }
+
+  isSetting() {
+    return false;
   }
 }

@@ -5,7 +5,6 @@ import { GetViewRefDirective } from './get-view-ref.directive';
 @NgModule({
   imports: [CommonModule],
   declarations: [GetViewRefDirective],
-  exports: [GetViewRefDirective],
-  entryComponents: []
+  exports: [GetViewRefDirective]
 })
 export class Iwe7CoreModule {}
