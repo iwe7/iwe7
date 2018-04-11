@@ -1,4 +1,7 @@
-### iwe7高端web一站式解决方案，基于angular6.0,rxjs响应式,underscore
+### iwe7高端web一站式解决方案
+* 基于angular6.0
+* rxjs响应式编程
+* underscore工具库
 
 - [iwe7/lazy-load](./libs/lazy-load/readme.md)
 > 我们常常会遇到这样一个问题，当我们使用一个第三方控件库的时候，我们只用到了其中 1 个或某几个组件，会连带一大堆无用的东西，造成体积臃肿不堪。
