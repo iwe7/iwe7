@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector           : 'nz-header',
+  selector: 'nz-header',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <ng-content></ng-content>
   `,
-  styles             : [
+  styles: [
     `:host {
       display: block;
     }`
   ],
-  host               : {
+  host: {
     '[class.ant-layout-header]': 'true'
   }
 })
-export class NzHeaderComponent {
-}
+export class NzHeaderComponent {}

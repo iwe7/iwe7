@@ -5,17 +5,15 @@ import { dropDownAnimation } from '../core/animation/dropdown-animations';
 import { NzDropdownService } from './nz-dropdown.service';
 
 @Component({
-  selector  : 'nz-dropdown-context',
-  animations: [
-    dropDownAnimation
-  ],
-  template  : `
+  selector: 'nz-dropdown-context',
+  animations: [dropDownAnimation],
+  template: `
     <div class="ant-dropdown ant-dropdown-placement-bottomLeft" [@dropDownAnimation]="dropDownPosition" (@dropDownAnimation.done)="afterAnimation()" *ngIf="open">
       <ng-template [ngTemplateOutlet]="template"></ng-template>
     </div>
   `,
-  styles    : [
-      `
+  styles: [
+    `
       .ant-dropdown {
         top: 100%;
         left: 0;

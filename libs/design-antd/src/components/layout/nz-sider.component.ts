@@ -21,9 +21,9 @@ import { NzLayoutComponent } from './nz-layout.component';
 export type NzBreakPoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
 
 @Component({
-  selector           : 'nz-sider',
+  selector: 'nz-sider',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <div class="ant-layout-sider-children">
       <ng-content></ng-content>
     </div>
@@ -38,7 +38,7 @@ export type NzBreakPoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
       <i class="anticon" [class.anticon-left]="nzCollapsed" [class.anticon-right]="!nzCollapsed" *ngIf="nzReverseArrow"></i>
     </ng-template>
   `,
-  host               : {
+  host: {
     '[class.ant-layout-sider]': 'true'
   }
 })
@@ -50,11 +50,11 @@ export class NzSiderComponent implements OnInit, AfterViewInit {
   private below = false;
   private isInit = false;
   private dimensionMap = {
-    xs : '480px',
-    sm : '576px',
-    md : '768px',
-    lg : '992px',
-    xl : '1200px',
+    xs: '480px',
+    sm: '576px',
+    md: '768px',
+    lg: '992px',
+    xl: '1200px',
     xxl: '1600px'
   };
   @Input() nzWidth = 200;
@@ -102,7 +102,7 @@ export class NzSiderComponent implements OnInit, AfterViewInit {
 
   @HostBinding('class.ant-layout-sider-zero-width')
   get setZeroClass(): boolean {
-    return this.nzCollapsed && (this.nzCollapsedWidth === 0);
+    return this.nzCollapsed && this.nzCollapsedWidth === 0;
   }
 
   @HostBinding('style.flex')
@@ -125,14 +125,16 @@ export class NzSiderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  @HostListener('window:resize', [ '$event' ])
+  @HostListener('window:resize', ['$event'])
   onWindowResize(e: UIEvent): void {
     this.watchMatchMedia();
   }
 
   watchMatchMedia(): void {
     if (this.nzBreakpoint) {
-      const matchBelow = this.nzMatchMediaService.matchMedia(`(max-width: ${this.dimensionMap[ this.nzBreakpoint ]})`).matches;
+      const matchBelow = this.nzMatchMediaService.matchMedia(
+        `(max-width: ${this.dimensionMap[this.nzBreakpoint]})`
+      ).matches;
       this.below = matchBelow;
       this.nzCollapsed = matchBelow;
       if (this.isInit) {
@@ -147,15 +149,24 @@ export class NzSiderComponent implements OnInit, AfterViewInit {
   }
 
   get isZeroTrigger(): boolean {
-    return this.nzCollapsible && this.nzTrigger && (this.nzCollapsedWidth === 0) && ((this.nzBreakpoint && this.below) || (!this.nzBreakpoint));
+    return (
+      this.nzCollapsible &&
+      this.nzTrigger &&
+      this.nzCollapsedWidth === 0 &&
+      ((this.nzBreakpoint && this.below) || !this.nzBreakpoint)
+    );
   }
 
   get isSiderTrgger(): boolean {
-    return this.nzCollapsible && this.nzTrigger && (this.nzCollapsedWidth !== 0);
+    return this.nzCollapsible && this.nzTrigger && this.nzCollapsedWidth !== 0;
   }
 
-  constructor(@Optional() @Host() private nzLayoutComponent: NzLayoutComponent, private nzMatchMediaService: NzMatchMediaService) {
-  }
+  constructor(
+    @Optional()
+    @Host()
+    private nzLayoutComponent: NzLayoutComponent,
+    private nzMatchMediaService: NzMatchMediaService
+  ) {}
 
   ngOnInit(): void {
     this.watchMatchMedia();
@@ -167,5 +178,4 @@ export class NzSiderComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.isInit = true;
   }
-
 }

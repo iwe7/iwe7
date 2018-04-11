@@ -1,4 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
 
@@ -39,7 +48,9 @@ export class NzAvatarComponent implements OnChanges {
   setClass(): this {
     const classMap = {
       [this.prefixCls]: true,
-      [`${this.prefixCls}-${this.sizeMap[this.nzSize]}`]: this.sizeMap[this.nzSize],
+      [`${this.prefixCls}-${this.sizeMap[this.nzSize]}`]: this.sizeMap[
+        this.nzSize
+      ],
       [`${this.prefixCls}-${this.nzShape}`]: this.nzShape,
       [`${this.prefixCls}-icon`]: this.nzIcon,
       [`${this.prefixCls}-image`]: this.nzSrc
@@ -62,11 +73,14 @@ export class NzAvatarComponent implements OnChanges {
   }
 
   private calcStringSize(): void {
-    if (!this.hasText) { return; }
+    if (!this.hasText) {
+      return;
+    }
 
     const childrenWidth = this.textEl.nativeElement.offsetWidth;
     const avatarWidth = this.el.getBoundingClientRect().width;
-    const scale = avatarWidth - 8 < childrenWidth ? (avatarWidth - 8) / childrenWidth : 1;
+    const scale =
+      avatarWidth - 8 < childrenWidth ? (avatarWidth - 8) / childrenWidth : 1;
     if (scale === 1) {
       this.textStyles = {};
     } else {
@@ -88,7 +102,11 @@ export class NzAvatarComponent implements OnChanges {
     return this;
   }
 
-  constructor(elementRef: ElementRef, private cd: ChangeDetectorRef, private updateHostClassService: NzUpdateHostClassService) {
+  constructor(
+    elementRef: ElementRef,
+    private cd: ChangeDetectorRef,
+    private updateHostClassService: NzUpdateHostClassService
+  ) {
     this.el = elementRef.nativeElement;
   }
 

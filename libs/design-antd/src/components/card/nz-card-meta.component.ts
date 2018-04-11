@@ -1,14 +1,9 @@
-import {
-  Component,
-  ContentChild,
-  Input,
-  TemplateRef
-} from '@angular/core';
+import { Component, ContentChild, Input, TemplateRef } from '@angular/core';
 
 @Component({
-  selector           : 'nz-card-meta',
+  selector: 'nz-card-meta',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <div class="ant-card-meta-avatar" *ngIf="nzAvatar">
       <ng-template [ngTemplateOutlet]="nzAvatar"></ng-template>
     </div>
@@ -27,12 +22,14 @@ import {
       </div>
     </div>
   `,
-  styles             : [ `
+  styles: [
+    `
     :host {
       display: block;
     }
-  ` ],
-  host               : {
+  `
+  ],
+  host: {
     '[class.ant-card-meta]': 'true'
   }
 })

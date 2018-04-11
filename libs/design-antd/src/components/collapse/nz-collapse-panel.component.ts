@@ -23,8 +23,8 @@ import { toBoolean } from '../core/util/convert';
 import { NzCollapseComponent } from './nz-collapse.component';
 
 @Component({
-  selector  : 'nz-collapse-panel',
-  template  : `
+  selector: 'nz-collapse-panel',
+  template: `
     <div
       role="tab"
       [attr.aria-expanded]="nzActive"
@@ -47,30 +47,35 @@ import { NzCollapseComponent } from './nz-collapse.component';
   `,
   animations: [
     trigger('collapseState', [
-      state('inactive', style({
-        opacity: '0',
-        height : 0
-      })),
-      state('active', style({
-        opacity: '1',
-        height : '*'
-      })),
+      state(
+        'inactive',
+        style({
+          opacity: '0',
+          height: 0
+        })
+      ),
+      state(
+        'active',
+        style({
+          opacity: '1',
+          height: '*'
+        })
+      ),
       transition('inactive => active', animate('150ms ease-in')),
       transition('active => inactive', animate('150ms ease-out'))
     ])
   ],
-  styles    : [
-      `
+  styles: [
+    `
       :host {
         display: block
       }`
   ],
-  host      : {
+  host: {
     '[class.ant-collapse-item]': 'true',
-    '[attr.role]'              : '"tablist"'
+    '[attr.role]': '"tablist"'
   }
 })
-
 export class NzCollapsePanelComponent implements OnDestroy, OnInit {
   private _disabled = false;
   private _showArrow = true;
@@ -80,7 +85,8 @@ export class NzCollapsePanelComponent implements OnDestroy, OnInit {
   private el: HTMLElement;
   @Output() nzActiveChange = new EventEmitter<boolean>();
 
-  @Input() set nzShowArrow(value: boolean) {
+  @Input()
+  set nzShowArrow(value: boolean) {
     this._showArrow = toBoolean(value);
   }
 
@@ -129,7 +135,10 @@ export class NzCollapsePanelComponent implements OnDestroy, OnInit {
     }
   }
 
-  constructor(@Host() private nzCollapseComponent: NzCollapseComponent, private elementRef: ElementRef) {
+  constructor(
+    @Host() private nzCollapseComponent: NzCollapseComponent,
+    private elementRef: ElementRef
+  ) {
     this.el = this.elementRef.nativeElement;
   }
 

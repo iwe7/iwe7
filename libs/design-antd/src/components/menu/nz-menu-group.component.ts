@@ -1,11 +1,9 @@
-import {
-  Component
-} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector           : '[nz-menu-group]',
+  selector: '[nz-menu-group]',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <div class="ant-menu-item-group-title">
       <ng-content select="[title]"></ng-content>
     </div>
@@ -13,9 +11,8 @@ import {
       <ng-content></ng-content>
     </ul>
   `,
-  host               : {
+  host: {
     '[class.ant-menu-item-group]': 'true'
   }
 })
-export class NzMenuGroupComponent {
-}
+export class NzMenuGroupComponent {}

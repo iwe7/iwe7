@@ -8,16 +8,20 @@ import {
 } from '@angular/core';
 
 // tslint:disable-next-line:no-any
-export type NgClassType = string | string[] | Set<string> | { [klass: string]: any; };
+export type NgClassType =
+  | string
+  | string[]
+  | Set<string>
+  | { [klass: string]: any };
 
 import { fadeAnimation } from '../core/animation/fade-animations';
 import { toBoolean } from '../core/util/convert';
 
 @Component({
-  selector           : 'nz-alert',
-  animations         : [ fadeAnimation ],
+  selector: 'nz-alert',
+  animations: [fadeAnimation],
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <div [ngClass]="outerClassMap" *ngIf="display" [@fadeAnimation]>
       <ng-container *ngIf="nzShowIcon">
         <i class="ant-alert-icon" [ngClass]="nzIconType" *ngIf="nzIconType; else iconTemplate"></i>
@@ -54,8 +58,8 @@ import { toBoolean } from '../core/util/convert';
       </a>
     </div>
   `,
-  styles             : [
-      `:host {
+  styles: [
+    `:host {
       display: block;
     }`
   ]
@@ -167,24 +171,26 @@ export class NzAlertComponent implements OnInit {
 
   updateOuterClassMap(): void {
     this.outerClassMap = {
-      [ `${this.prefixClass}` ]                 : true,
-      [ `${this.prefixClass}-${this.nzType}` ]  : true,
-      [ `${this.prefixClass}-no-icon` ]         : !this.nzShowIcon,
-      [ `${this.prefixClass}-banner` ]          : this.nzBanner,
-      [ `${this.prefixClass}-with-description` ]: !!this.nzDescription
+      [`${this.prefixClass}`]: true,
+      [`${this.prefixClass}-${this.nzType}`]: true,
+      [`${this.prefixClass}-no-icon`]: !this.nzShowIcon,
+      [`${this.prefixClass}-banner`]: this.nzBanner,
+      [`${this.prefixClass}-with-description`]: !!this.nzDescription
     };
   }
 
   updateIconClassMap(): void {
     this.iconClassMap = {
-      'anticon-cross-circle-o'      : this.nzDescription && this.nzType === 'error',
-      'anticon-check-circle-o'      : this.nzDescription && this.nzType === 'success',
-      'anticon-info-circle-o'       : this.nzDescription && this.nzType === 'info',
-      'anticon-exclamation-circle-o': this.nzDescription && this.nzType === 'warning',
-      'anticon-cross-circle'        : (!this.nzDescription) && this.nzType === 'error',
-      'anticon-check-circle'        : (!this.nzDescription) && this.nzType === 'success',
-      'anticon-info-circle'         : (!this.nzDescription) && this.nzType === 'info',
-      'anticon-exclamation-circle'  : (!this.nzDescription) && this.nzType === 'warning'
+      'anticon-cross-circle-o': this.nzDescription && this.nzType === 'error',
+      'anticon-check-circle-o': this.nzDescription && this.nzType === 'success',
+      'anticon-info-circle-o': this.nzDescription && this.nzType === 'info',
+      'anticon-exclamation-circle-o':
+        this.nzDescription && this.nzType === 'warning',
+      'anticon-cross-circle': !this.nzDescription && this.nzType === 'error',
+      'anticon-check-circle': !this.nzDescription && this.nzType === 'success',
+      'anticon-info-circle': !this.nzDescription && this.nzType === 'info',
+      'anticon-exclamation-circle':
+        !this.nzDescription && this.nzType === 'warning'
     };
   }
 

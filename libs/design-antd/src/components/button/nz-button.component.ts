@@ -18,6 +18,7 @@ export type NzButtonType = 'primary' | 'dashed' | 'danger';
 export type NzButtonShape = 'circle' | null;
 export type NzButtonSize = 'small' | 'large' | 'default';
 import { Iwe7DesignBase } from 'iwe7/design';
+import { NzTransferSearchComponent } from 'iwe7/design-antd/src/components/transfer';
 
 @Component({
   selector: 'button[nz-button]',
@@ -183,6 +184,37 @@ export class NzButtonComponent extends Iwe7DesignBase<any>
     this.checkContent();
   }
 
+  @Input()
+  set nzSearch(nzSearch: any) {
+    this._search = toBoolean(nzSearch);
+    this.setClassMap();
+  }
+  @Input()
+  set nzGhost(nzGhost: any) {
+    this._ghost = toBoolean(nzGhost);
+    this.setClassMap();
+  }
+  @Input()
+  set nzShape(nzShape: any) {
+    this._shape = nzShape;
+    this.setClassMap();
+  }
+  @Input()
+  set nzType(nzType: any) {
+    this._type = nzType;
+    this.setClassMap();
+  }
+  @Input()
+  set nzSize(nzSize: any) {
+    this._size = nzSize;
+    this.setClassMap();
+  }
+  @Input()
+  set nzLoading(nzLoading: any) {
+    this._loading = toBoolean(nzLoading);
+    this.setClassMap();
+    this.updateIconDisplay(this._loading);
+  }
   onPropsChange(res: any) {
     let { nzLoading, nzSize, nzGhost, nzType, nzSearch, nzShape } = res;
     if (nzGhost !== this._ghost) {

@@ -1,8 +1,8 @@
 import { Component, Input, TemplateRef } from '@angular/core';
 
 @Component({
-  selector           : 'nz-list-item-meta',
-  template           : `
+  selector: 'nz-list-item-meta',
+  template: `
     <div *ngIf="isAvatar" class="ant-list-item-meta-avatar">
       <ng-container *ngIf="avatarStr; else avatarTpl">
         <nz-avatar [nzSrc]="avatarStr"></nz-avatar>
@@ -17,12 +17,11 @@ import { Component, Input, TemplateRef } from '@angular/core';
       </div>
     </div>`,
   preserveWhitespaces: false,
-  host               : {
+  host: {
     '[class.ant-list-item-meta]': 'true'
   }
 })
 export class NzListItemMetaComponent {
-
   isAvatar = false;
   avatarStr = '';
   avatarTpl: TemplateRef<void>;

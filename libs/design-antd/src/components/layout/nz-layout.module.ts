@@ -10,10 +10,21 @@ import { NzLayoutComponent } from './nz-layout.component';
 import { NzSiderComponent } from './nz-sider.component';
 
 @NgModule({
-  declarations: [ NzLayoutComponent, NzHeaderComponent, NzContentComponent, NzFooterComponent, NzSiderComponent ],
-  exports     : [ NzLayoutComponent, NzHeaderComponent, NzContentComponent, NzFooterComponent, NzSiderComponent ],
-  providers   : [ NzMatchMediaService ],
-  imports     : [ CommonModule ]
+  declarations: [
+    NzLayoutComponent,
+    NzHeaderComponent,
+    NzContentComponent,
+    NzFooterComponent,
+    NzSiderComponent
+  ],
+  exports: [
+    NzLayoutComponent,
+    NzHeaderComponent,
+    NzContentComponent,
+    NzFooterComponent,
+    NzSiderComponent
+  ],
+  providers: [NzMatchMediaService],
+  imports: [CommonModule]
 })
-export class NzLayoutModule {
-}
+export class NzLayoutModule {}

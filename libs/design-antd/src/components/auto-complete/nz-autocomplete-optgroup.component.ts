@@ -8,8 +8,8 @@ import {
 @Component({
   selector: 'nz-auto-optgroup',
   preserveWhitespaces: false,
-  changeDetection    : ChangeDetectionStrategy.OnPush,
-  template           : `
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
 <div class="ant-select-dropdown-menu-item-group-title">
  <ng-container *ngIf="isLabelString; else labelTemplate">{{nzLabel}}</ng-container>
  <ng-template #labelTemplate>
@@ -21,9 +21,9 @@ import {
 </ul>
 
 `,
-  host               : {
-    'role'  : 'group',
-    'class' : 'ant-select-dropdown-menu-item-group'
+  host: {
+    role: 'group',
+    class: 'ant-select-dropdown-menu-item-group'
   }
 })
 export class NzAutocompleteOptgroupComponent {
@@ -41,5 +41,4 @@ export class NzAutocompleteOptgroupComponent {
   _label: string | TemplateRef<void>;
 
   constructor() {}
-
 }

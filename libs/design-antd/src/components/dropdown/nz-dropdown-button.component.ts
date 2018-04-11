@@ -15,12 +15,10 @@ import { NzDropDownComponent } from './nz-dropdown.component';
 import { NzDropDownDirective } from './nz-dropdown.directive';
 
 @Component({
-  selector           : 'nz-dropdown-button',
+  selector: 'nz-dropdown-button',
   preserveWhitespaces: false,
-  animations         : [
-    dropDownAnimation
-  ],
-  template           : `
+  animations: [dropDownAnimation],
+  template: `
     <div class="ant-btn-group ant-dropdown-button" nz-dropdown>
       <button
         type="button"
@@ -61,7 +59,8 @@ import { NzDropDownDirective } from './nz-dropdown.directive';
         <ng-content select="[nz-menu]"></ng-content>
       </div>
     </ng-template>`,
-  styles             : [ `
+  styles: [
+    `
     :host {
       position: relative;
       display: inline-block;
@@ -75,10 +74,11 @@ import { NzDropDownDirective } from './nz-dropdown.directive';
       margin-top: 4px;
       margin-bottom: 4px;
     }
-  ` ]
+  `
+  ]
 })
-
-export class NzDropDownButtonComponent extends NzDropDownComponent implements OnInit, OnDestroy, AfterViewInit {
+export class NzDropDownButtonComponent extends NzDropDownComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() nzSize = 'default';
   @Input() nzType = 'default';
   @ViewChild('content') content;
@@ -97,7 +97,7 @@ export class NzDropDownButtonComponent extends NzDropDownComponent implements On
       this.nzVisibleChange.emit(this.nzVisible);
     }
     this.changeDetector.markForCheck();
-  }
+  };
 
   /** rewrite afterViewInit hook */
   ngAfterViewInit(): void {

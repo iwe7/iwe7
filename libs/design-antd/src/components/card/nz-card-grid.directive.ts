@@ -2,9 +2,8 @@ import { Directive } from '@angular/core';
 
 @Directive({
   selector: '[nz-card-grid]',
-  host    : {
+  host: {
     '[class.ant-card-grid]': 'true'
   }
 })
-export class NzCardGridDirective {
-}
+export class NzCardGridDirective {}

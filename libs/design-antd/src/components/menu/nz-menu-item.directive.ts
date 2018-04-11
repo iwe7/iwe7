@@ -38,9 +38,19 @@ export class NzMenuItemDirective implements OnInit {
   set nzSelected(value: boolean) {
     this._selected = toBoolean(value);
     if (this._selected) {
-      this.renderer.addClass(this.hostElement.nativeElement, this.isInDropDown ? 'ant-dropdown-menu-item-selected' : 'ant-menu-item-selected');
+      this.renderer.addClass(
+        this.hostElement.nativeElement,
+        this.isInDropDown
+          ? 'ant-dropdown-menu-item-selected'
+          : 'ant-menu-item-selected'
+      );
     } else {
-      this.renderer.removeClass(this.hostElement.nativeElement, this.isInDropDown ? 'ant-dropdown-menu-item-selected' : 'ant-menu-item-selected');
+      this.renderer.removeClass(
+        this.hostElement.nativeElement,
+        this.isInDropDown
+          ? 'ant-dropdown-menu-item-selected'
+          : 'ant-menu-item-selected'
+      );
     }
   }
 
@@ -49,7 +59,7 @@ export class NzMenuItemDirective implements OnInit {
   }
 
   /** clear all item selected status except this */
-  @HostListener('click', [ '$event' ])
+  @HostListener('click', ['$event'])
   onClickItem(e: MouseEvent): void {
     if (this.nzDisabled) {
       e.preventDefault();
@@ -84,7 +94,7 @@ export class NzMenuItemDirective implements OnInit {
 
   @HostBinding('class.ant-menu-item-disabled')
   get setMenuDisableClass(): boolean {
-    return (!this.isInDropDown) && this.nzDisabled;
+    return !this.isInDropDown && this.nzDisabled;
   }
 
   @HostBinding('style.padding-left.px')
@@ -92,7 +102,10 @@ export class NzMenuItemDirective implements OnInit {
     if (this.nzMenuDirective.nzMode === 'inline') {
       if (this.nzSubMenuComponent) {
         /** if in sub menu component and host menu's mode is inline add PADDING_BASE * level padding */
-        return (this.nzSubMenuComponent.level + 1) * this.nzMenuDirective.nzInlineIndent;
+        return (
+          (this.nzSubMenuComponent.level + 1) *
+          this.nzMenuDirective.nzInlineIndent
+        );
       } else {
         /** not in sub menu component but root menu's mode is inline return default padding */
         return this.nzMenuDirective.nzInlineIndent;
@@ -102,14 +115,22 @@ export class NzMenuItemDirective implements OnInit {
     }
   }
 
-  constructor(private renderer: Renderer2, public cd: ChangeDetectorRef, private nzMenuDirective: NzMenuDirective, @Optional() public nzSubMenuComponent: NzSubMenuComponent, private hostElement: ElementRef) {
-  }
+  constructor(
+    private renderer: Renderer2,
+    public cd: ChangeDetectorRef,
+    private nzMenuDirective: NzMenuDirective,
+    @Optional() public nzSubMenuComponent: NzSubMenuComponent,
+    private hostElement: ElementRef
+  ) {}
 
   ngOnInit(): void {
     this.nzMenuDirective.menuItems.push(this);
     /** store origin padding in padding */
-    if (this.hostElement.nativeElement.style[ 'padding-left' ]) {
-      this.padding = parseInt(this.hostElement.nativeElement.style[ 'padding-left' ], 10);
+    if (this.hostElement.nativeElement.style['padding-left']) {
+      this.padding = parseInt(
+        this.hostElement.nativeElement.style['padding-left'],
+        10
+      );
     }
     this.isInDropDown = this.nzMenuDirective.nzInDropDown;
   }

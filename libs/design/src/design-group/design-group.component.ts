@@ -75,9 +75,10 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
     let documentClick = fromEvent(document, 'click');
     // viewRef鼠标事件
     let viewEvent = this.getMouseEvent(this.viewEle.nativeElement);
-    let settingEvent = this.getMouseEvent(this.settingEle.nativeElement);
-    let documentEvent = this.getMouseEvent(document.documentElement);
     // 当用户dblclick>view时 展示setting
+    this.settingStyle.subscribe(res => {
+      this._settingStyle = res;
+    });
     viewEvent.dblclick
       .pipe(
         // 单击或者单机document结束
@@ -199,4 +200,14 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
   }
 
   onPropsChange(res: any) {}
+
+  setTop() {
+    this._settingStyle.zIndex = this.zindex.getIndex();
+    this.settingStyle.next(this._settingStyle);
+  }
+
+  close(){
+    this._settingStyle.display = 'none';
+    this.settingStyle.next(this._settingStyle);
+  }
 }

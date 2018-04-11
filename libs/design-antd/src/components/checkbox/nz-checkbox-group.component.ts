@@ -20,9 +20,9 @@ export interface NzCheckBoxOptionInterface {
 }
 
 @Component({
-  selector           : 'nz-checkbox-group',
+  selector: 'nz-checkbox-group',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <label
       nz-checkbox
       *ngFor="let option of options"
@@ -31,11 +31,11 @@ export interface NzCheckBoxOptionInterface {
       (nzCheckedChange)="onOptionChange()">
       <span>{{ option.label }}</span>
     </label>`,
-  providers          : [
+  providers: [
     {
-      provide    : NG_VALUE_ACCESSOR,
+      provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NzCheckboxGroupComponent),
-      multi      : true
+      multi: true
     }
   ]
 })

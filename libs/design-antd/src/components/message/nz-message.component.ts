@@ -5,21 +5,19 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import {
-  Component,
-  Input,
-  OnDestroy,
-  OnInit
-} from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { NzMessageConfig } from './nz-message-config';
 import { NzMessageContainerComponent } from './nz-message-container.component';
-import { NzMessageDataFilled, NzMessageDataOptions } from './nz-message.definitions';
+import {
+  NzMessageDataFilled,
+  NzMessageDataOptions
+} from './nz-message.definitions';
 
 @Component({
-  selector           : 'nz-message',
+  selector: 'nz-message',
   preserveWhitespaces: false,
-  animations         : [
+  animations: [
     trigger('enterLeave', [
       state('enter', style({ opacity: 1, transform: 'translateY(0)' })),
       transition('* => enter', [
@@ -33,10 +31,9 @@ import { NzMessageDataFilled, NzMessageDataOptions } from './nz-message.definiti
       ])
     ])
   ],
-  templateUrl         : './nz-message.component.html'
+  templateUrl: './nz-message.component.html'
 })
 export class NzMessageComponent implements OnInit, OnDestroy {
-
   @Input() nzMessage: NzMessageDataFilled;
   @Input() nzIndex: number;
 
@@ -48,8 +45,7 @@ export class NzMessageComponent implements OnInit, OnDestroy {
   private _eraseTimingStart: number;
   private _eraseTTL: number; // Time to live
 
-  constructor(private _messageContainer: NzMessageContainerComponent) {
-  }
+  constructor(private _messageContainer: NzMessageContainerComponent) {}
 
   ngOnInit(): void {
     this._options = this.nzMessage.options;
@@ -89,7 +85,10 @@ export class NzMessageComponent implements OnInit, OnDestroy {
   protected _destroy(): void {
     if (this._options.nzAnimate) {
       this.nzMessage.state = 'leave';
-      setTimeout(() => this._messageContainer.removeMessage(this.nzMessage.messageId), 200);
+      setTimeout(
+        () => this._messageContainer.removeMessage(this.nzMessage.messageId),
+        200
+      );
     } else {
       this._messageContainer.removeMessage(this.nzMessage.messageId);
     }
@@ -109,7 +108,10 @@ export class NzMessageComponent implements OnInit, OnDestroy {
   private _startEraseTimeout(): void {
     if (this._eraseTTL > 0) {
       this._clearEraseTimeout(); // To prevent calling _startEraseTimeout() more times to create more timer
-      this._eraseTimer = window.setTimeout(() => this._destroy(), this._eraseTTL);
+      this._eraseTimer = window.setTimeout(
+        () => this._destroy(),
+        this._eraseTTL
+      );
       this._eraseTimingStart = Date.now();
     } else {
       this._destroy();

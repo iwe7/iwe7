@@ -12,21 +12,20 @@ import {
 import { NzAnchorComponent } from './nz-anchor.component';
 
 @Component({
-  selector           : 'nz-link',
+  selector: 'nz-link',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <a (click)="goToClick($event)" href="{{nzHref}}" class="ant-anchor-link-title" title="{{titleStr}}">
       <span *ngIf="titleStr; else (titleTpl || nzTemplate)">{{ titleStr }}</span>
     </a>
     <ng-content></ng-content>
   `,
-  host               : {
+  host: {
     '[class.ant-anchor-link]': 'true',
-    'style'                  : 'display:block'
+    style: 'display:block'
   }
 })
 export class NzAnchorLinkComponent implements OnInit, OnDestroy {
-
   @Input() nzHref = '#';
 
   titleStr = '';
@@ -44,8 +43,7 @@ export class NzAnchorLinkComponent implements OnInit, OnDestroy {
 
   @HostBinding('class.ant-anchor-link-active') active: boolean = false;
 
-  constructor(public el: ElementRef, private anchorComp: NzAnchorComponent) {
-  }
+  constructor(public el: ElementRef, private anchorComp: NzAnchorComponent) {}
 
   ngOnInit(): void {
     this.anchorComp.registerLink(this);
@@ -60,5 +58,4 @@ export class NzAnchorLinkComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.anchorComp.unregisterLink(this);
   }
-
 }

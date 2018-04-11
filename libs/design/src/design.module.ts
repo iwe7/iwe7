@@ -32,6 +32,10 @@ import { DesignGroupDirective } from './design-group.directive';
         {
           path: 'design-page',
           loadChildren: './design-page/design-page.module#DesignPageModule'
+        },
+        {
+          path: 'design-form',
+          loadChildren: './design-form/design-form.module#DesignFormModule'
         }
       ],
       multi: true

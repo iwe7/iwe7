@@ -11,12 +11,7 @@ import {
   TemplateRef
 } from '@angular/core';
 
-import {
-  animate,
-  style,
-  transition,
-  trigger
-} from '@angular/animations';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -27,8 +22,8 @@ import { NzScrollService } from '../core/scroll/nz-scroll.service';
 import { toNumber } from '../core/util/convert';
 
 @Component({
-  selector     : 'nz-back-top',
-  animations   : [
+  selector: 'nz-back-top',
+  animations: [
     trigger('enterLeave', [
       transition(':enter', [
         style({ opacity: 0 }),
@@ -40,7 +35,7 @@ import { toNumber } from '../core/util/convert';
       ])
     ])
   ],
-  template     : `
+  template: `
     <div class="ant-back-top" (click)="clickBackTop()" [@enterLeave] *ngIf="visible">
       <ng-template #defaultContent>
         <div class="ant-back-top-content"><div class="ant-back-top-icon"></div></div>
@@ -52,7 +47,6 @@ import { toNumber } from '../core/util/convert';
   preserveWhitespaces: false
 })
 export class NzBackTopComponent implements OnInit, OnDestroy {
-
   private scroll$: Subscription = null;
   private target: HTMLElement = null;
 
@@ -77,11 +71,15 @@ export class NzBackTopComponent implements OnInit, OnDestroy {
 
   @Output() nzClick: EventEmitter<boolean> = new EventEmitter();
 
-  constructor(private scrollSrv: NzScrollService, private cd: ChangeDetectorRef) {
-  }
+  constructor(
+    private scrollSrv: NzScrollService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    if (!this.scroll$) { this.registerScrollEvent(); }
+    if (!this.scroll$) {
+      this.registerScrollEvent();
+    }
   }
 
   clickBackTop(): void {
@@ -94,24 +92,31 @@ export class NzBackTopComponent implements OnInit, OnDestroy {
   }
 
   private handleScroll(): void {
-    if (this.visible === this.scrollSrv.getScroll(this.getTarget()) > this.nzVisibilityHeight) { return; }
+    if (
+      this.visible ===
+      this.scrollSrv.getScroll(this.getTarget()) > this.nzVisibilityHeight
+    ) {
+      return;
+    }
     this.visible = !this.visible;
     this.cd.detectChanges();
   }
 
   private removeListen(): void {
-    if (this.scroll$) { this.scroll$.unsubscribe(); }
+    if (this.scroll$) {
+      this.scroll$.unsubscribe();
+    }
   }
 
   private registerScrollEvent(): void {
     this.removeListen();
     this.handleScroll();
-    this.scroll$ = fromEvent(this.getTarget(), 'scroll').pipe(throttleTime(50), distinctUntilChanged())
+    this.scroll$ = fromEvent(this.getTarget(), 'scroll')
+      .pipe(throttleTime(50), distinctUntilChanged())
       .subscribe(e => this.handleScroll());
   }
 
   ngOnDestroy(): void {
     this.removeListen();
   }
-
 }

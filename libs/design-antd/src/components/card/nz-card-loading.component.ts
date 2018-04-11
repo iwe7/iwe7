@@ -17,15 +17,15 @@ import { Component } from '@angular/core';
       <span class="ant-card-loading-block" style="width: 21%;"></span><span class="ant-card-loading-block" style="width: 15%;"></span><span class="ant-card-loading-block" style="width: 40%;"></span>
     </p>
   `,
-  host    : {
+  host: {
     '[class.ant-card-loading-content]': 'true'
   },
-  styles  : [ `
+  styles: [
+    `
     :host {
       display: block;
     }
-  ` ]
+  `
+  ]
 })
-export class NzCardLoadingComponent {
-
-}
+export class NzCardLoadingComponent {}

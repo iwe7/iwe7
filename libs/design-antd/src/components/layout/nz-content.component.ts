@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector           : 'nz-content',
+  selector: 'nz-content',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <ng-content></ng-content>
   `,
-  styles             : [
-      `:host {
+  styles: [
+    `:host {
       display: block;
     }`
   ],
-  host               : {
+  host: {
     '[class.ant-layout-content]': 'true'
   }
 })
-export class NzContentComponent {
-}
+export class NzContentComponent {}

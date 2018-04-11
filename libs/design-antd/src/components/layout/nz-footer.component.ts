@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector           : 'nz-footer',
+  selector: 'nz-footer',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <ng-content></ng-content>
   `,
-  styles             : [
+  styles: [
     `:host {
       display: block;
     }`
   ],
-  host               : {
+  host: {
     '[class.ant-layout-footer]': 'true'
   }
 })
-export class NzFooterComponent {
-}
+export class NzFooterComponent {}

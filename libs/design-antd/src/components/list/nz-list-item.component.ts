@@ -1,10 +1,16 @@
-import { Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
+import {
+  Component,
+  ContentChildren,
+  Input,
+  QueryList,
+  TemplateRef
+} from '@angular/core';
 
 import { NzListItemMetaComponent } from './nz-list-item-meta.component';
 
 @Component({
-  selector           : 'nz-list-item',
-  template           : `
+  selector: 'nz-list-item',
+  template: `
     <ng-template #contentTpl>
       <div *ngIf="isCon" class="ant-list-item-content" [ngClass]="{'ant-list-item-content-single': metas.length < 1}">
         <ng-container *ngIf="conStr; else conTpl">{{ conStr }}</ng-container>
@@ -32,13 +38,14 @@ import { NzListItemMetaComponent } from './nz-list-item-meta.component';
       </div>
     </div>`,
   preserveWhitespaces: false,
-  host               : {
+  host: {
     '[class.ant-list-item]': 'true'
   }
 })
 export class NzListItemComponent {
   @Input() nzActions: Array<TemplateRef<void>> = [];
-  @ContentChildren(NzListItemMetaComponent) metas: QueryList<NzListItemMetaComponent>;
+  @ContentChildren(NzListItemMetaComponent)
+  metas: QueryList<NzListItemMetaComponent>;
 
   isCon = false;
   conStr = '';

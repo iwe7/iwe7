@@ -1,19 +1,32 @@
 import { Component, Inject, Optional } from '@angular/core';
 
-import { NzMessageConfig, NZ_MESSAGE_CONFIG, NZ_MESSAGE_DEFAULT_CONFIG } from './nz-message-config';
-import { NzMessageDataFilled, NzMessageDataOptions } from './nz-message.definitions';
+import {
+  NzMessageConfig,
+  NZ_MESSAGE_CONFIG,
+  NZ_MESSAGE_DEFAULT_CONFIG
+} from './nz-message-config';
+import {
+  NzMessageDataFilled,
+  NzMessageDataOptions
+} from './nz-message.definitions';
 
 @Component({
-  selector           : 'nz-message-container',
+  selector: 'nz-message-container',
   preserveWhitespaces: false,
-  templateUrl        : './nz-message-container.component.html'
+  templateUrl: './nz-message-container.component.html'
 })
 export class NzMessageContainerComponent {
   messages: NzMessageDataFilled[] = [];
   config: NzMessageConfig = {};
 
-  constructor(@Optional() @Inject(NZ_MESSAGE_DEFAULT_CONFIG) defaultConfig: NzMessageConfig,
-              @Optional() @Inject(NZ_MESSAGE_CONFIG) config: NzMessageConfig) {
+  constructor(
+    @Optional()
+    @Inject(NZ_MESSAGE_DEFAULT_CONFIG)
+    defaultConfig: NzMessageConfig,
+    @Optional()
+    @Inject(NZ_MESSAGE_CONFIG)
+    config: NzMessageConfig
+  ) {
     this.setConfig({ ...defaultConfig, ...config });
   }
 
@@ -46,10 +59,12 @@ export class NzMessageContainerComponent {
   }
 
   // Merge default options and cutom message options
-  protected _mergeMessageOptions(options: NzMessageDataOptions): NzMessageDataOptions {
+  protected _mergeMessageOptions(
+    options: NzMessageDataOptions
+  ): NzMessageDataOptions {
     const defaultOptions: NzMessageDataOptions = {
-      nzDuration    : this.config.nzDuration,
-      nzAnimate     : this.config.nzAnimate,
+      nzDuration: this.config.nzDuration,
+      nzAnimate: this.config.nzAnimate,
       nzPauseOnHover: this.config.nzPauseOnHover
     };
     return { ...defaultOptions, ...options };

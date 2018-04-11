@@ -21,9 +21,9 @@ import { toBoolean } from '../core/util/convert';
 import { NzCarouselContentDirective } from './nz-carousel-content.directive';
 
 @Component({
-  selector           : 'nz-carousel',
+  selector: 'nz-carousel',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <div class="slick-initialized slick-slider" [class.slick-vertical]="nzVertical">
       <div class="slick-list" #slickList tabindex="-1" (keydown)="onKeyDown($event)">
         <div class="slick-track" [style.transform]="transform" #slickTrack>
@@ -39,11 +39,11 @@ import { NzCarouselContentDirective } from './nz-carousel-content.directive';
         </li>
       </ul>
     </div>`,
-  host               : {
+  host: {
     '[class.ant-carousel]': 'true'
   },
-  styles             : [
-      `
+  styles: [
+    `
       :host {
         display: block;
         position: relative;
@@ -77,18 +77,27 @@ export class NzCarouselComponent implements AfterViewInit, OnDestroy {
   transform = 'translate3d(0px, 0px, 0px)';
   interval;
 
-  @ContentChildren(NzCarouselContentDirective) slideContents: QueryList<NzCarouselContentDirective>;
+  @ContentChildren(NzCarouselContentDirective)
+  slideContents: QueryList<NzCarouselContentDirective>;
   @ViewChild('slickList') slickList: ElementRef;
   @ViewChild('slickTrack') slickTrack: ElementRef;
   @Output() nzAfterChange: EventEmitter<number> = new EventEmitter();
-  @Output() nzBeforeChange: EventEmitter<{ from: number; to: number }> = new EventEmitter();
+  @Output()
+  nzBeforeChange: EventEmitter<{
+    from: number;
+    to: number;
+  }> = new EventEmitter();
 
   get nextIndex(): number {
-    return this.activeIndex < this.slideContents.length - 1 ? (this.activeIndex + 1) : 0;
+    return this.activeIndex < this.slideContents.length - 1
+      ? this.activeIndex + 1
+      : 0;
   }
 
   get prevIndex(): number {
-    return this.activeIndex > 0 ? (this.activeIndex - 1) : (this.slideContents.length - 1);
+    return this.activeIndex > 0
+      ? this.activeIndex - 1
+      : this.slideContents.length - 1;
   }
 
   @Input()
@@ -134,19 +143,23 @@ export class NzCarouselComponent implements AfterViewInit, OnDestroy {
   setActive(content: NzCarouselContentDirective, i: number): void {
     if (this.slideContents && this.slideContents.length) {
       this.setUpAutoPlay();
-      const beforeIndex = this.slideContents.toArray().findIndex(slide => slide.isActive);
+      const beforeIndex = this.slideContents
+        .toArray()
+        .findIndex(slide => slide.isActive);
       this.nzBeforeChange.emit({ from: beforeIndex, to: i });
       this.activeIndex = i;
       if (this.nzEffect === 'scrollx') {
         if (this.nzVertical) {
-          this.transform = `translate3d(0px, ${-this.activeIndex * this.elementRef.nativeElement.offsetHeight}px, 0px)`;
+          this.transform = `translate3d(0px, ${-this.activeIndex *
+            this.elementRef.nativeElement.offsetHeight}px, 0px)`;
         } else {
-          this.transform = `translate3d(${-this.activeIndex * this.elementRef.nativeElement.offsetWidth}px, 0px, 0px)`;
+          this.transform = `translate3d(${-this.activeIndex *
+            this.elementRef.nativeElement.offsetWidth}px, 0px, 0px)`;
         }
       } else {
         this.transform = 'translate3d(0px, 0px, 0px)';
       }
-      this.slideContents.forEach(slide => slide.isActive = slide === content);
+      this.slideContents.forEach(slide => (slide.isActive = slide === content));
       this.nzAfterChange.emit(i);
     }
   }
@@ -173,14 +186,28 @@ export class NzCarouselComponent implements AfterViewInit, OnDestroy {
         this.renderer.removeStyle(this.slickTrack.nativeElement, 'width');
         this.renderer.removeStyle(this.slickList.nativeElement, 'width');
         this.renderer.removeStyle(this.slickList.nativeElement, 'height');
-        this.renderer.setStyle(this.slickList.nativeElement, 'height', `${this.slideContents.first.el.offsetHeight}px`);
+        this.renderer.setStyle(
+          this.slickList.nativeElement,
+          'height',
+          `${this.slideContents.first.el.offsetHeight}px`
+        );
         this.renderer.removeStyle(this.slickTrack.nativeElement, 'height');
-        this.renderer.setStyle(this.slickTrack.nativeElement, 'height', `${this.slideContents.length * this.elementRef.nativeElement.offsetHeight}px`);
+        this.renderer.setStyle(
+          this.slickTrack.nativeElement,
+          'height',
+          `${this.slideContents.length *
+            this.elementRef.nativeElement.offsetHeight}px`
+        );
       } else {
         this.renderer.removeStyle(this.slickTrack.nativeElement, 'height');
         this.renderer.removeStyle(this.slickList.nativeElement, 'height');
         this.renderer.removeStyle(this.slickTrack.nativeElement, 'width');
-        this.renderer.setStyle(this.slickTrack.nativeElement, 'width', `${this.slideContents.length * this.elementRef.nativeElement.offsetWidth}px`);
+        this.renderer.setStyle(
+          this.slickTrack.nativeElement,
+          'width',
+          `${this.slideContents.length *
+            this.elementRef.nativeElement.offsetWidth}px`
+        );
       }
       this.setUpAutoPlay();
     }
@@ -190,7 +217,10 @@ export class NzCarouselComponent implements AfterViewInit, OnDestroy {
     this.clearInterval();
     if (this.nzAutoPlay) {
       this.interval = setInterval(_ => {
-        this.setActive(this.slideContents.toArray()[ this.nextIndex ], this.nextIndex);
+        this.setActive(
+          this.slideContents.toArray()[this.nextIndex],
+          this.nextIndex
+        );
       }, 3000);
     }
   }
@@ -210,36 +240,49 @@ export class NzCarouselComponent implements AfterViewInit, OnDestroy {
   }
 
   next(): void {
-    this.setActive(this.slideContents.toArray()[ this.nextIndex ], this.nextIndex);
+    this.setActive(
+      this.slideContents.toArray()[this.nextIndex],
+      this.nextIndex
+    );
   }
 
   pre(): void {
-    this.setActive(this.slideContents.toArray()[ this.prevIndex ], this.prevIndex);
+    this.setActive(
+      this.slideContents.toArray()[this.prevIndex],
+      this.prevIndex
+    );
   }
 
   goTo(index: number): void {
     if (index >= 0 && index <= this.slideContents.length - 1) {
-      this.setActive(this.slideContents.toArray()[ index ], index);
+      this.setActive(this.slideContents.toArray()[index], index);
     }
   }
 
   onKeyDown(e: KeyboardEvent): void {
-    if (e.keyCode === 37) { // Left
+    if (e.keyCode === 37) {
+      // Left
       this.pre();
       e.preventDefault();
-    } else if (e.keyCode === 39) { // Right
+    } else if (e.keyCode === 39) {
+      // Right
       this.next();
       e.preventDefault();
     }
   }
 
-  constructor(public elementRef: ElementRef, private renderer: Renderer2, private zone: NgZone) {
-  }
+  constructor(
+    public elementRef: ElementRef,
+    private renderer: Renderer2,
+    private zone: NgZone
+  ) {}
 
   ngAfterViewInit(): void {
-    this.slideContentsSubscription = this.slideContents.changes.subscribe(() => {
-      this.renderContent();
-    });
+    this.slideContentsSubscription = this.slideContents.changes.subscribe(
+      () => {
+        this.renderContent();
+      }
+    );
     this.zone.onStable.pipe(first()).subscribe(() => {
       this.renderContent();
     });
@@ -252,5 +295,4 @@ export class NzCarouselComponent implements AfterViewInit, OnDestroy {
     }
     this.clearInterval();
   }
-
 }

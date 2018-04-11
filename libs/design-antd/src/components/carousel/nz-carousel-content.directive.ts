@@ -1,15 +1,10 @@
-import {
-  Directive,
-  ElementRef,
-  OnInit,
-  Renderer2
-} from '@angular/core';
+import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
 
 import { isNotNil } from '../core/util/check';
 
 @Directive({
   selector: '[nz-carousel-content]',
-  host    : {
+  host: {
     '[class.slick-slide]': 'true'
   }
 })
@@ -97,5 +92,4 @@ export class NzCarouselContentDirective implements OnInit {
   ngOnInit(): void {
     this.renderer.setStyle(this.el, 'transition', 'opacity 500ms ease');
   }
-
 }

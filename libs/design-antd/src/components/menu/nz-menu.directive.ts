@@ -18,7 +18,6 @@ export type NzMode = 'vertical' | 'horizontal' | 'inline';
 @Directive({
   selector: '[nz-menu]'
 })
-
 export class NzMenuDirective implements AfterViewInit {
   private _selectable = true;
   private _inlineCollapsed = false;
@@ -43,8 +42,8 @@ export class NzMenuDirective implements AfterViewInit {
   set nzInDropDown(value: boolean) {
     this._inDropDown = toBoolean(value);
     this.nzSelectable = !this._inDropDown;
-    this.menuItems.forEach(menu => menu.isInDropDown = this._inDropDown);
-    this.subMenus.forEach(subMenu => subMenu.isInDropDown = this._inDropDown);
+    this.menuItems.forEach(menu => (menu.isInDropDown = this._inDropDown));
+    this.subMenus.forEach(subMenu => (subMenu.isInDropDown = this._inDropDown));
   }
 
   get nzInDropDown(): boolean {
@@ -98,47 +97,49 @@ export class NzMenuDirective implements AfterViewInit {
 
   @HostBinding('class.ant-dropdown-menu-light')
   get setDropDownThemeLightClass(): boolean {
-    return this.nzInDropDown && (this.nzTheme === 'light');
+    return this.nzInDropDown && this.nzTheme === 'light';
   }
 
   @HostBinding('class.ant-dropdown-menu-dark')
   get setDropDownThemeDarkClass(): boolean {
-    return this.nzInDropDown && (this.nzTheme === 'dark');
+    return this.nzInDropDown && this.nzTheme === 'dark';
   }
 
   @HostBinding('class.ant-menu-light')
   get setMenuThemeLightClass(): boolean {
-    return (!this.nzInDropDown) && (this.nzTheme === 'light');
+    return !this.nzInDropDown && this.nzTheme === 'light';
   }
 
   @HostBinding('class.ant-menu-dark')
   get setMenuThemeDarkClass(): boolean {
-    return (!this.nzInDropDown) && (this.nzTheme === 'dark');
+    return !this.nzInDropDown && this.nzTheme === 'dark';
   }
 
   @HostBinding('class.ant-menu-vertical')
   get setMenuVerticalClass(): boolean {
-    return (!this.nzInDropDown) && (this.nzMode === 'vertical');
+    return !this.nzInDropDown && this.nzMode === 'vertical';
   }
 
   @HostBinding('class.ant-menu-horizontal')
   get setMenuHorizontalClass(): boolean {
-    return (!this.nzInDropDown) && (this.nzMode === 'horizontal');
+    return !this.nzInDropDown && this.nzMode === 'horizontal';
   }
 
   @HostBinding('class.ant-menu-inline')
   get setMenuInlineClass(): boolean {
-    return (!this.nzInDropDown) && (this.nzMode === 'inline');
+    return !this.nzInDropDown && this.nzMode === 'inline';
   }
 
   @HostBinding('class.ant-menu-inline-collapsed')
   get setMenuInlineCollapsedClass(): boolean {
-    return (!this.nzInDropDown) && (this.nzMode !== 'horizontal') && this.nzInlineCollapsed;
+    return (
+      !this.nzInDropDown &&
+      this.nzMode !== 'horizontal' &&
+      this.nzInlineCollapsed
+    );
   }
 
-  constructor(public el: ElementRef) {
-
-  }
+  constructor(public el: ElementRef) {}
 
   ngAfterViewInit(): void {
     this.isInit = true;
@@ -148,7 +149,7 @@ export class NzMenuDirective implements AfterViewInit {
 
   /** trigger when menu item clicked */
   clearAllSelected(): void {
-    this.menuItems.forEach(menu => menu.nzSelected = false);
+    this.menuItems.forEach(menu => (menu.nzSelected = false));
   }
 
   hideSubMenus(): void {
@@ -162,7 +163,7 @@ export class NzMenuDirective implements AfterViewInit {
   }
 
   reductionSubMenus(): void {
-    this.subMenusOpenIndex.forEach(i => this.subMenus[ i ].nzOpen = true);
+    this.subMenusOpenIndex.forEach(i => (this.subMenus[i].nzOpen = true));
     this.subMenusOpenIndex = [];
   }
 

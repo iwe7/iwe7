@@ -11,9 +11,9 @@ import { toBoolean } from '../core/util/convert';
 import { NzCardTabComponent } from './nz-card-tab.component';
 
 @Component({
-  selector           : 'nz-card',
+  selector: 'nz-card',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <ng-template #titleTemplate>
       <ng-template [ngTemplateOutlet]="nzTitle"></ng-template>
     </ng-template>
@@ -48,14 +48,16 @@ import { NzCardTabComponent } from './nz-card-tab.component';
       </li>
     </ul>
   `,
-  styles             : [ `
+  styles: [
+    `
     :host {
       display: block;
       position: relative;
     }
-  ` ],
-  host               : {
-    '[class.ant-card]'        : 'true',
+  `
+  ],
+  host: {
+    '[class.ant-card]': 'true',
     '[class.ant-card-loading]': 'nzLoading'
   }
 })

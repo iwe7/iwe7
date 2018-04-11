@@ -3,8 +3,8 @@
     <div [dragmove]="settingStyle" *ngIf="(settingStyle|async)?.display === 'block'" class="drag-icon">
       <i class="iconfont icon-move"></i>
     </div>
-    <div class="setting-title">组件设置</div>
-    <div class="close-icon">
+    <div class="setting-title" (click)="setTop()">组件设置</div>
+    <div class="close-icon" (click)="close()">
       <i class="iconfont icon-close"></i>
     </div>
   </div>
