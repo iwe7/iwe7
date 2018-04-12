@@ -3,3 +3,7 @@
 </h3>
 <p>{{(props|async)?.desc}}</p>
 <ng-container [designGroup]="(props|async)?.content"></ng-container>
+<ng-content></ng-content>
+<ng-content select="header"></ng-content>
+<ng-content select="footer"></ng-content>
+<ng-content select="body"></ng-content>

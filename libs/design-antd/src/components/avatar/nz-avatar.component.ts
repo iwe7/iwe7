@@ -13,7 +13,7 @@ import { NzUpdateHostClassService } from '../core/services/update-host-class.ser
 
 export type NzAvatarShape = 'square' | 'circle';
 export type NzAvatarSize = 'small' | 'large' | 'default';
-
+import { Iwe7DesignBase } from 'iwe7/design';
 @Component({
   selector: 'nz-avatar',
   template: `
@@ -24,7 +24,8 @@ export type NzAvatarSize = 'small' | 'large' | 'default';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NzAvatarComponent implements OnChanges {
+export class NzAvatarComponent extends Iwe7DesignBase<any>
+  implements OnChanges {
   private el: HTMLElement;
   private prefixCls = 'ant-avatar';
   private sizeMap = { large: 'lg', small: 'sm' };
@@ -44,6 +45,25 @@ export class NzAvatarComponent implements OnChanges {
   @Input() nzSrc: string;
 
   @Input() nzIcon: string;
+
+  onPropsChange(res) {
+    let { nzShape, nzSize, nzText, nzSrc, nzIcon } = res;
+    if (nzShape) {
+      this.nzShape = nzShape;
+    }
+    if (nzSize) {
+      this.nzSize = nzSize;
+    }
+    if (nzText) {
+      this.nzText = nzText;
+    }
+    if (nzSrc) {
+      this.nzSrc = nzSrc;
+    }
+    if (nzIcon) {
+      this.nzIcon = nzIcon;
+    }
+  }
 
   setClass(): this {
     const classMap = {
@@ -104,9 +124,10 @@ export class NzAvatarComponent implements OnChanges {
 
   constructor(
     elementRef: ElementRef,
-    private cd: ChangeDetectorRef,
+    cd: ChangeDetectorRef,
     private updateHostClassService: NzUpdateHostClassService
   ) {
+    super(cd);
     this.el = elementRef.nativeElement;
   }
 

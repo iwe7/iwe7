@@ -32,5 +32,13 @@ export const data = {
     },
     title: '固钉',
     key: 'nz-affix'
+  },
+  'nz-avatar': {
+    props: {
+      view: 'nz-avatar',
+      content: {}
+    },
+    title: '头像',
+    key: 'nz-avatar'
   }
 };

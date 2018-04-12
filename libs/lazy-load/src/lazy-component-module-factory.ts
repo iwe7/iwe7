@@ -68,9 +68,8 @@ export class LazyComponentModule<T> {
   getComponent(selector: string, injector?: Injector): ComponentFactory<any> {
     const moduleRef = this.moduleFactory.create(injector);
     const componentFactoryResolver = moduleRef.componentFactoryResolver;
-    let map: Map<any, any> = (<any>componentFactoryResolver)._factories;
     const element = moduleRef.instance.getComponentByName(selector);
     let re = componentFactoryResolver.resolveComponentFactory(element);
-    return map.get(element);
+    return re;
   }
 }

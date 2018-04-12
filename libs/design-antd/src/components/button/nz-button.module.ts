@@ -14,17 +14,11 @@ import { Iwe7SharedModule } from 'iwe7/shared';
   imports: [
     CommonModule,
     ObserversModule,
-    Iwe7SharedModule,
-    RouterModule.forChild([
-      {
-        path: 'nz-button',
-        component: NzButtonComponent
-      },
-      {
-        path: 'nz-button-group',
-        component: NzButtonGroupComponent
-      }
-    ])
+    Iwe7SharedModule
+  ],
+  entryComponents: [
+    NzButtonComponent,
+    NzButtonGroupComponent
   ]
 })
 export class NzButtonModule extends LazyComponentModuleBase {
