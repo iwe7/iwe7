@@ -1,5 +1,5 @@
 import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from 'iwe7/platform-browser-dynamic';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
@@ -10,7 +10,9 @@ if (environment.production) {
 declare const window: any;
 
 let ref1 = platformBrowserDynamic([])
-  .bootstrapModule(AppModule)
+  .bootstrapModule(AppModule, {
+    ngZone: 'noop'
+  })
   .then(res => {
     window.meepo = res;
   })

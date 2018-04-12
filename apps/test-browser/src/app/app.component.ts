@@ -2,29 +2,29 @@ import {
   Component,
   OnInit,
   NgModuleRef,
-  AfterContentInit
+  AfterContentInit,
+  OnChanges,
+  Attribute,
+  ChangeDetectorRef
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { TestService } from './test.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit, AfterContentInit {
+export class AppComponent implements OnInit, OnChanges {
   index: number = 0;
-  constructor(public router: Router) {}
+  constructor(public cd: ChangeDetectorRef, public test: TestService) {}
   ngOnInit() {
-    setInterval(() => {
-      this.index++;
-    }, 1000);
+    this.test.index$.subscribe(res => {
+      console.log('app ', res);
+    });
   }
-  ngAfterContentInit() {
-    setTimeout(() => {
-      let meepo = window['meepo'];
-      let injector = meepo.injector;
-      let router = injector.get(Router);
-      console.log(router);
-      router.navigate(['/page2']);
-    }, 100);
+
+  ngOnChanges(changes) {
+    console.log(changes);
   }
 }
