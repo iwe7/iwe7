@@ -13,9 +13,11 @@
 ##### [iwe7/icss](./libs/icss/readme.md)
 > 当css遇到rxjs
 
+##### [iwe7/touch](./libs/touch/readme.md)
+> 手势库
+
 ##### [iwe7/pipes](./libs/pipes/readme.md)
 > 常用pipe集合
-
 
 ##### [iwe7/themes](./libs/themes/readme.md)
 > 主题工具
