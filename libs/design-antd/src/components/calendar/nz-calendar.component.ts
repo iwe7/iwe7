@@ -46,9 +46,7 @@ import { Iwe7DesignBase } from 'iwe7/design';
       useExisting: forwardRef(() => NzCalendarComponent),
       multi: true
     }
-  ],
-  styleUrls: ['./style/index.less'],
-  encapsulation: ViewEncapsulation.None
+  ]
 })
 export class NzCalendarComponent extends Iwe7DesignBase<any>
   implements ControlValueAccessor, OnInit {

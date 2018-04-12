@@ -34,14 +34,16 @@ export class DesignPageComponent extends Iwe7DesignBase<any>
   ngAfterViewInit() {
     this.props.subscribe(res => {
       this.view.clear();
+      this.viewRef.clear();
       if (this.viewRef) {
-        res.map(item => {
+        res.map((item: any) => {
           let re = this.lazyload
             .createComponent('design-group', this.viewRef)
             .subscribe((instance: any) => {
               if (instance) {
                 instance.setProps(item);
                 this.instance = instance;
+                item.installed = true;
                 re.unsubscribe();
               }
             });

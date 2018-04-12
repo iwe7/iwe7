@@ -28,9 +28,7 @@ import { NzTransferSearchComponent } from 'iwe7/design-antd/src/components/trans
     <i class="anticon anticon-spin anticon-loading" *ngIf="_loading"></i>
     <ng-container [designGroup]="(props|async)?.content"></ng-container>
     <span (cdkObserveContent)="checkContent()" #contentElement>{{(props|async).text}}</span>
-  `,
-  styleUrls: ['./style/index.less'],
-  encapsulation: ViewEncapsulation.None
+  `
 })
 export class NzButtonComponent extends Iwe7DesignBase<any>
   implements AfterContentInit {

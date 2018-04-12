@@ -1,0 +1,32 @@
+ul {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background: #333;
+    padding: 0px;
+    margin: 0px;
+    list-style: none;
+    li {
+        height: 30px;
+        line-height: 30px;
+        padding: 0 10px;
+        color: #ccc;
+        cursor: pointer;
+        &:hover{
+          color: #fff;
+          background: #000;
+        }
+    }
+}
+
+.main {
+    position: relative;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    .main {
+        flex: 1;
+    }
+}

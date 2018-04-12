@@ -6,6 +6,9 @@ import { OfPipe } from './of.pipe';
 @NgModule({
   imports: [CommonModule],
   declarations: [MapPipe, OfPipe],
-  exports: [MapPipe, OfPipe]
+  exports: [MapPipe, OfPipe],
+  providers: [
+    MapPipe
+  ]
 })
 export class Iwe7PipesModule {}

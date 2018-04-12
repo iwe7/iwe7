@@ -1,15 +1,24 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewContainerRef,
+  ViewChild,
+  AfterViewInit
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { Iwe7DesignSettingBase } from 'iwe7/design';
 import { UuidService } from 'iwe7-core/src/uuid.service';
+import { ActivatedRoute } from '@angular/router';
+
+import { data } from '../../data/data';
 
 @Component({
   selector: 'index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.scss']
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit, AfterViewInit {
   // 组合组件数据源
   designGroup: BehaviorSubject<any> = new BehaviorSubject({});
   // 组合组件数据源
@@ -18,55 +27,49 @@ export class IndexComponent implements OnInit {
   designForm: BehaviorSubject<any> = new BehaviorSubject({});
 
   instance: any;
+
+  name: string;
+  view: ViewContainerRef;
   constructor(
     public lazyload: LazyLoaderService,
-    public view: ViewContainerRef,
-    public uuid: UuidService
-  ) {}
-  ngOnInit() {
-    // this.designGroup.next({
-    //   view: 'iwe7-welcome-index',
-    //   text: '你好，iwe7!',
-    //   desc: '双击探索'
-    // });
-    this.designGroup.next([
-      new BehaviorSubject({
-        view: 'nz-calendar',
-        nzMode: 'month',
-        nzFullscreen: true,
-        nzCard: false,
-        _uid: this.uuid.get(),
-        content: new BehaviorSubject({
-          view: 'nz-button',
-          _uid: this.uuid.get(),
-          content: new BehaviorSubject({
-            view: 'nz-button',
-            _uid: this.uuid.get(),
-            name: 'shrink',
-            content: new BehaviorSubject({
-              view: 'nz-button',
-              text: '双击探索',
-              _uid: this.uuid.get()
-            })
-          }),
-          text: '双击探索',
-          nzGhost: true,
-          nzLoading: false,
-          nzSize: 'small',
-          nzType: 'default',
-          nzShape: ''
-        })
-      })
-    ]);
+    public uuid: UuidService,
+    public _view: ViewContainerRef,
+    public route: ActivatedRoute
+  ) {
+    this.route.queryParams.subscribe(res => {
+      let { t } = res;
+      if (t) {
+        this.name = t;
+      } else {
+        this.name = 'iwe7-welcome-index';
+      }
+      this._view.clear();
+      this.load();
+    });
+  }
+  ngOnInit() {}
+
+  ngAfterViewInit() {
+    this.load();
+  }
+
+  load() {
+    this.designGroup.next([data[this.name].props]);
     if (!this.instance) {
-      this.lazyload
-        .createComponent('design-page', this.view)
-        .subscribe((instance: Iwe7DesignSettingBase<any>) => {
-          if (instance) {
-            instance.setProps(this.designGroup);
-            this.instance = instance;
-          }
-        });
+      if (this.view) {
+        this.lazyload
+          .createComponent('design-page', this.view)
+          .subscribe((instance: Iwe7DesignSettingBase<any>) => {
+            if (instance) {
+              instance.setProps(this.designGroup);
+              this.instance = instance;
+            }
+          });
+      }
     }
+  }
+
+  setViewRef(e) {
+    this.view = e;
   }
 }

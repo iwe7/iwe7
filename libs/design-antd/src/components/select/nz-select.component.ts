@@ -189,9 +189,7 @@ import { NzSelectTopControlComponent } from './nz-select-top-control.component';
       margin-bottom: 4px;
     }
   `
-  ],
-  styleUrls: ['./style/index.less'],
-  encapsulation: ViewEncapsulation.None
+  ]
 })
 export class NzSelectComponent
   implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {

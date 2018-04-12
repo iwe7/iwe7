@@ -10,6 +10,8 @@ import { Iwe7LazyLoadModule } from 'iwe7/lazy-load';
 import { Iwe7DesignModule } from 'iwe7/design';
 import { Iwe7TouchModule } from 'iwe7/touch';
 import { Iwe7WelcomeModule } from 'iwe7/welcome';
+import { Iwe7CoreModule } from 'iwe7/core';
+import { Iwe7PipesModule } from 'iwe7/pipes';
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +23,9 @@ import { Iwe7WelcomeModule } from 'iwe7/welcome';
     DesignAntdModule,
     // 触摸模块
     Iwe7TouchModule,
-    Iwe7WelcomeModule
+    Iwe7WelcomeModule,
+    Iwe7CoreModule,
+    Iwe7PipesModule
   ],
   declarations: [],
   exports: [
@@ -29,7 +33,9 @@ import { Iwe7WelcomeModule } from 'iwe7/welcome';
     DesignAntdModule,
     Iwe7LazyLoadModule,
     Iwe7DesignModule,
-    Iwe7TouchModule
+    Iwe7TouchModule,
+    Iwe7CoreModule,
+    Iwe7PipesModule
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   providers: [

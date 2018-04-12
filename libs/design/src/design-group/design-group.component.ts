@@ -184,8 +184,12 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
             });
         }
       }
-      if (view && !this.viewInstance) {
+      // 如果view发生变化
+      if ((view || this.view !== view) && !this.viewInstance) {
         if (this.viewRef) {
+          if (this.viewInstance) {
+            this.viewRef.clear();
+          }
           this.lazyLoad
             .createComponent(view, this.viewRef)
             .subscribe((instance: Iwe7DesignBase<any>) => {

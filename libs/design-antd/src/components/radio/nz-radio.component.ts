@@ -39,9 +39,7 @@ import { NzRadioGroupComponent } from './nz-radio-group.component';
       useExisting: forwardRef(() => NzRadioComponent),
       multi: true
     }
-  ],
-  styleUrls: ['./style/index.less'],
-  encapsulation: ViewEncapsulation.None
+  ]
 })
 export class NzRadioComponent
   implements OnInit, ControlValueAccessor, AfterViewInit {

@@ -5,12 +5,12 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
-        path: 'nz-button',
-        loadChildren: './button/nz-button.module#NzButtonModule'
+        path: 'nz-affix',
+        loadChildren: './affix/nz-affix.module#NzAffixModule'
       },
       {
-        path: 'nz-icon',
-        loadChildren: './icon/icon.module#NzIconModule'
+        path: 'nz-button',
+        loadChildren: './button/nz-button.module#NzButtonModule'
       },
       {
         path: 'nz-calendar',
