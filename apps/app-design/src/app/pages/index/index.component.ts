@@ -62,19 +62,26 @@ export class IndexComponent implements OnInit, AfterViewInit {
   }
 
   load() {
-    // this.designGroup.next([data[this.name].props]);
-    // if (!this.instance) {
-    //   if (this.view) {
-    //     this.lazyload
-    //       .createComponent('design-page', this.view)
-    //       .subscribe((instance: Iwe7DesignSettingBase<any>) => {
-    //         if (instance) {
-    //           instance.setProps(this.designGroup);
-    //           this.instance = instance;
-    //         }
-    //       });
-    //   }
-    // }
+    this.designGroup.next([data[this.name].props]);
+    if (!this.instance) {
+      if (this.view) {
+        this.lazyload
+          .createComponent(
+            {
+              selector: 'design-page',
+              element: null
+            },
+            this.view,
+            this
+          )
+          .subscribe((instance: Iwe7DesignSettingBase<any>) => {
+            if (instance) {
+              instance.setProps(this.designGroup);
+              this.instance = instance;
+            }
+          });
+      }
+    }
   }
 
   setViewRef(e) {

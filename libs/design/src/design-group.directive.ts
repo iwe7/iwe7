@@ -33,7 +33,14 @@ export class DesignGroupDirective extends Iwe7DesignBase<any>
     if (!this.installed) {
       let props$ = this.props.subscribe(res => {
         this.lazyload
-          .createComponent('design-group', this.viewRef)
+          .createComponent(
+            {
+              selector: 'design-group',
+              element: null
+            },
+            this.viewRef,
+            this
+          )
           .subscribe((instance: any) => {
             if (instance) {
               instance.setProps(this.props);

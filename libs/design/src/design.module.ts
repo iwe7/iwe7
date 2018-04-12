@@ -5,6 +5,7 @@ import { Iwe7TouchModule } from 'iwe7/touch';
 import { Iwe7PipesModule } from 'iwe7/pipes';
 import { ROUTES } from '@angular/router';
 import { DesignGroupDirective } from './design-group.directive';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { DesignGroupDirective } from './design-group.directive';
     // 核心功能
     Iwe7CoreModule,
     Iwe7TouchModule,
-    Iwe7PipesModule
+    Iwe7PipesModule,
+    ReactiveFormsModule
   ],
   declarations: [DesignGroupDirective],
   exports: [DesignGroupDirective],

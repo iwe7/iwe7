@@ -38,7 +38,14 @@ export class DesignPageComponent extends Iwe7DesignBase<any>
       if (this.viewRef) {
         res.map((item: any) => {
           let re = this.lazyload
-            .createComponent('design-group', this.viewRef)
+            .createComponent(
+              {
+                selector: 'design-group',
+                element: null
+              },
+              this.viewRef,
+              this
+            )
             .subscribe((instance: any) => {
               if (instance) {
                 instance.setProps(item);

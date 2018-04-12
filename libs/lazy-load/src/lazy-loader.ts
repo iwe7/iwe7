@@ -78,21 +78,23 @@ export class LazyLoaderService {
             item.selector,
             this.moduleRef.injector
           );
-          let { attributes } = item.element;
-          let attr = attributes as NamedNodeMap;
           let { inputs, outputs, ngContentSelectors } = component;
           if (component) {
             let viewRef = view.createComponent(component);
             let instance = viewRef.instance;
-            inputs.map((res, index) => {
-              let val: any = attr.getNamedItem(res.propName).value;
-              instance[res.propName] = val;
-            });
-            outputs.map((res, index) => {
-              instance[res.propName].subscribe(res => {
-                that[res.propName] && that[res.propName](res);
+            if (item.element) {
+              let { attributes } = item.element;
+              let attr = attributes as NamedNodeMap;
+              inputs.map((res, index) => {
+                let val: any = attr.getNamedItem(res.propName).value;
+                instance[res.propName] = val;
               });
-            });
+              outputs.map((res, index) => {
+                instance[res.propName].subscribe(res => {
+                  that[res.propName] && that[res.propName](res);
+                });
+              });
+            }
             return instance;
           }
         }

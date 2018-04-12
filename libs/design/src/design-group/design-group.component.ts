@@ -155,7 +155,14 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
       if (group && !this.groupInstance) {
         if (this.groupRef) {
           this.lazyLoad
-            .createComponent('design-group', this.groupRef)
+            .createComponent(
+              {
+                selector: 'design-group',
+                element: null
+              },
+              this.groupRef,
+              this
+            )
             .subscribe((instance: Iwe7DesignSettingBase<any>) => {
               instance.setProps(group);
               this.groupInstance = instance;
@@ -166,7 +173,14 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
       if (setting && !this.settingInstance) {
         if (this.settingRef) {
           this.lazyLoad
-            .createComponent(setting, this.settingRef)
+            .createComponent(
+              {
+                selector: setting,
+                element: null
+              },
+              this.settingRef,
+              this
+            )
             .subscribe((instance: Iwe7DesignSettingBase<any>) => {
               // 设置组件实例
               if (instance) {
@@ -191,7 +205,14 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
             this.viewRef.clear();
           }
           this.lazyLoad
-            .createComponent(view, this.viewRef)
+            .createComponent(
+              {
+                selector: view,
+                element: null
+              },
+              this.viewRef,
+              this
+            )
             .subscribe((instance: Iwe7DesignBase<any>) => {
               // 展示组件实例
               if (instance) {
