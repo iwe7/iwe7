@@ -5,9 +5,9 @@
 > 从1.0.1开始，我们做了简化处理，不必单独配置，使用时设置路由名为选择器即可！
 
 ## 版本
-- [v1.0.2](./docs/1.0.2.md)
-- [v1.0.1](./docs/1.0.1.md)
-- [v1.0.0](./docs/1.0.0.md)
+- [v1.0.2](https://github.com/iwe7/iwe7/tree/master/libs/lazy-load/docs/1.0.2.md)
+- [v1.0.1](https://github.com/iwe7/iwe7/tree/master/libs/lazy-load/docs/1.0.1.md)
+- [v1.0.0](https://github.com/iwe7/iwe7/tree/master/libs/lazy-load/docs/1.0.0.md)
 
 
 ## 安装
@@ -39,7 +39,7 @@ export class AppModule {}
 
 ```html
 <div #ele>
-  <test-lazy-load></test-lazy-load>
+  <lazy-test></lazy-test>
 </div>
 ```
 
@@ -69,7 +69,6 @@ import { LazyComponentModuleBase } from 'iwe7-lazy-load';
 export class LazyTestComponent {}
 
 @NgModule({
-  imports: [],
   declarations: [LazyTestComponent],
   entryComponents: [
     LazyTestComponent
