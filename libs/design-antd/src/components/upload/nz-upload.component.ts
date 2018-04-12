@@ -6,7 +6,7 @@ import { of } from 'rxjs/observable/of';
 import { filter } from 'rxjs/operators/filter';
 
 import { toBoolean, toNumber } from '../core/util/convert';
-import { NzI18nService } from '../i18n/nz-i18n.service';
+import { I18nService } from 'iwe7/i18n';
 
 import { ShowUploadListInterface, UploadChangeParam, UploadFile, UploadFileStatus, UploadFilter, UploadListType, UploadType, ZipButtonOptions } from './interface';
 import { NzUploadBtnComponent } from './nz-upload-btn.component';
@@ -199,7 +199,7 @@ export class NzUploadComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   // endregion
-  constructor(private cd: ChangeDetectorRef, private i18n: NzI18nService) {}
+  constructor(private cd: ChangeDetectorRef, private i18n: I18nService) {}
 
   // region: upload
   private fileToObject(file: UploadFile): UploadFile {

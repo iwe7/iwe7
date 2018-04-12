@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { NzButtonModule } from '../button/nz-button.module';
 import { LoggerModule } from '../core/util/logger/logger.module';
-import { NzI18nModule } from '../i18n/nz-i18n.module';
+import { I18nModule as NzI18nModule } from 'iwe7/i18n';
 
 import { CssUnitPipe } from './css-unit.pipe';
 import { NzModalControlService } from './nz-modal-control.service';

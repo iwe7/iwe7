@@ -21,7 +21,6 @@ export class DesignSettingDefaultComponent extends Iwe7DesignSettingBase<any>
     if (res.content) {
       res.content.subscribe(res => {
         this._content = res;
-        console.log(res);
       });
     }
     // 第一次是默认 第二次为初始化
@@ -32,15 +31,10 @@ export class DesignSettingDefaultComponent extends Iwe7DesignSettingBase<any>
         res =>
           res + '' !== 'view' &&
           res + '' !== 'setting' &&
-          res + '' !== 'content'
+          res + '' !== 'content' &&
+          res + '' !== '_uid'
       );
       this.index++;
-    }
-  }
-
-  openContent() {
-    if (this._content.content) {
-      this._content.content.subscribe(res => {});
     }
   }
 }

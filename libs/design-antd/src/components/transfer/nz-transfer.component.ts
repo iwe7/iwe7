@@ -14,7 +14,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
 import { toBoolean } from '../core/util/convert';
-import { NzI18nService } from '../i18n/nz-i18n.service';
+import { I18nService } from 'iwe7/i18n';
 
 import { TransferCanMove, TransferChange, TransferItem, TransferSearchChange, TransferSelectChange } from './interface';
 
@@ -189,7 +189,7 @@ export class NzTransferComponent implements OnChanges {
 
   // endregion
 
-  constructor(private i18n: NzI18nService, private el: ElementRef) {
+  constructor(private i18n: I18nService, private el: ElementRef) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {

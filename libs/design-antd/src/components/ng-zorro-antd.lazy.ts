@@ -11,6 +11,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'nz-icon',
         loadChildren: './icon/icon.module#NzIconModule'
+      },
+      {
+        path: 'nz-calendar',
+        loadChildren: './calendar/nz-calendar.module#NzCalendarModule'
       }
     ])
   ],

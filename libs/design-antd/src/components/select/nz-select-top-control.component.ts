@@ -5,14 +5,22 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  Renderer2,
+  ViewChild
+} from '@angular/core';
 import { isNotNil } from '../core/util/check';
 import { NzOptionComponent } from './nz-option.component';
 
 @Component({
-  selector           : '[nz-select-top-control]',
+  selector: '[nz-select-top-control]',
   preserveWhitespaces: false,
-  animations         : [
+  animations: [
     trigger('tagAnimation', [
       state('*', style({ opacity: 1, transform: 'scale(1)' })),
       transition('void => *', [
@@ -26,7 +34,7 @@ import { NzOptionComponent } from './nz-option.component';
       ])
     ])
   ],
-  template           : `
+  template: `
     <ng-template #inputTemplate>
       <input
         #inputElement
@@ -88,7 +96,7 @@ import { NzOptionComponent } from './nz-option.component';
       </li>
     </ul>
   `,
-  host               : {
+  host: {
     '[class.ant-select-selection__rendered]': 'true'
   }
 })
@@ -102,7 +110,7 @@ export class NzSelectTopControlComponent {
   @ViewChild('inputElement') inputElement: ElementRef;
   // tslint:disable-next-line:no-any
   @Output() nzListOfSelectedValueChange = new EventEmitter<any[]>();
-  @Output() nzOnSearch = new EventEmitter<{ value: string, emit: boolean }>();
+  @Output() nzOnSearch = new EventEmitter<{ value: string; emit: boolean }>();
   @Input() nzMode = 'default';
   @Input() nzShowSearch = false;
   @Input() nzDisabled = false;
@@ -137,15 +145,34 @@ export class NzSelectTopControlComponent {
   /** cached selected option list **/
   updateListOfCachedOption(): void {
     if (this.isSingleMode) {
-      const selectedOption = this.nzListTemplateOfOption.find(o => this.compareWith(o.nzValue, this.nzListOfSelectedValue[ 0 ]));
+      const selectedOption = this.nzListTemplateOfOption.find(o =>
+        this.compareWith(o.nzValue, this.nzListOfSelectedValue[0])
+      );
       if (isNotNil(selectedOption)) {
-        this.listOfCachedSelectedOption = [ selectedOption ];
+        this.listOfCachedSelectedOption = [selectedOption];
       }
     } else {
-      const listOfCachedOptionFromLatestTemplate = this.nzListTemplateOfOption.filter(o => isNotNil(this.nzListOfSelectedValue.find(v => this.compareWith(v, o.nzValue))));
-      const restSelectedValue = this.nzListOfSelectedValue.filter(v => !isNotNil(listOfCachedOptionFromLatestTemplate.find(o => this.compareWith(o.nzValue, v))));
-      const listOfCachedOptionFromOld = this.listOfCachedSelectedOption.filter(o => isNotNil(restSelectedValue.find(v => this.compareWith(o.nzValue, v))));
-      this.listOfCachedSelectedOption = listOfCachedOptionFromLatestTemplate.concat(listOfCachedOptionFromOld);
+      const listOfCachedOptionFromLatestTemplate = this.nzListTemplateOfOption.filter(
+        o =>
+          isNotNil(
+            this.nzListOfSelectedValue.find(v => this.compareWith(v, o.nzValue))
+          )
+      );
+      const restSelectedValue = this.nzListOfSelectedValue.filter(
+        v =>
+          !isNotNil(
+            listOfCachedOptionFromLatestTemplate.find(o =>
+              this.compareWith(o.nzValue, v)
+            )
+          )
+      );
+      const listOfCachedOptionFromOld = this.listOfCachedSelectedOption.filter(
+        o =>
+          isNotNil(restSelectedValue.find(v => this.compareWith(o.nzValue, v)))
+      );
+      this.listOfCachedSelectedOption = listOfCachedOptionFromLatestTemplate.concat(
+        listOfCachedOptionFromOld
+      );
     }
   }
 
@@ -164,7 +191,11 @@ export class NzSelectTopControlComponent {
   }
 
   get placeHolderDisplay(): string {
-    return this.inputValue || this.isComposing || this.nzListOfSelectedValue.length ? 'none' : 'block';
+    return this.inputValue ||
+      this.isComposing ||
+      this.nzListOfSelectedValue.length
+      ? 'none'
+      : 'block';
   }
 
   get searchDisplay(): string {
@@ -193,7 +224,7 @@ export class NzSelectTopControlComponent {
   }
 
   get singleValueLabel(): string {
-    return this.getPropertyFromValue(this.nzListOfSelectedValue[ 0 ], 'nzLabel');
+    return this.getPropertyFromValue(this.nzListOfSelectedValue[0], 'nzLabel');
   }
 
   focusOnInput(): void {
@@ -206,13 +237,17 @@ export class NzSelectTopControlComponent {
 
   // tslint:disable-next-line:no-any
   getPropertyFromValue(value: any, prop: string): string {
-    const targetOption = this.listOfCachedSelectedOption.find(item => this.compareWith(item.nzValue, value));
-    return targetOption ? targetOption[ prop ] : '';
+    const targetOption = this.listOfCachedSelectedOption.find(item =>
+      this.compareWith(item.nzValue, value)
+    );
+    return targetOption ? targetOption[prop] : '';
   }
 
   // tslint:disable-next-line:no-any
   isOptionDisplay(value: any): boolean {
-    return (this.nzMode === 'tags') || !!this.getPropertyFromValue(value, 'nzLabel');
+    return (
+      this.nzMode === 'tags' || !!this.getPropertyFromValue(value, 'nzLabel')
+    );
   }
 
   // tslint:disable-next-line:no-any
@@ -220,14 +255,20 @@ export class NzSelectTopControlComponent {
     if (this.nzDisabled || this.getPropertyFromValue(value, 'nzDisabled')) {
       return;
     }
-    this._listOfSelectedValue = this.nzListOfSelectedValue.filter(item => item !== value);
+    this._listOfSelectedValue = this.nzListOfSelectedValue.filter(
+      item => item !== value
+    );
     this.nzListOfSelectedValueChange.emit(this.nzListOfSelectedValue);
   }
 
   updateWidth(): void {
     if (this.isMultipleOrTags && this.inputElement) {
       if (this.inputValue || this.isComposing) {
-        this.renderer.setStyle(this.inputElement.nativeElement, 'width', `${this.inputElement.nativeElement.scrollWidth}px`);
+        this.renderer.setStyle(
+          this.inputElement.nativeElement,
+          'width',
+          `${this.inputElement.nativeElement.scrollWidth}px`
+        );
       } else {
         this.renderer.removeStyle(this.inputElement.nativeElement, 'width');
       }
@@ -245,12 +286,12 @@ export class NzSelectTopControlComponent {
     ) {
       e.preventDefault();
       if (this.nzListOfSelectedValue.length) {
-        this.removeValueFormSelected(this.nzListOfSelectedValue[ this.nzListOfSelectedValue.length - 1 ]);
+        this.removeValueFormSelected(
+          this.nzListOfSelectedValue[this.nzListOfSelectedValue.length - 1]
+        );
       }
     }
   }
 
-  constructor(private renderer: Renderer2) {
-
-  }
+  constructor(private renderer: Renderer2) {}
 }

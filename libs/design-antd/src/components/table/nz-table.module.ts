@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { NzCheckboxModule } from '../checkbox/nz-checkbox.module';
 import { NzDropDownModule } from '../dropdown/nz-dropdown.module';
-import { NzI18nModule } from '../i18n/nz-i18n.module';
+import { I18nModule as NzI18nModule } from 'iwe7/i18n';
 import { NzMenuModule } from '../menu/nz-menu.module';
 import { NzPaginationModule } from '../pagination/nz-pagination.module';
 import { NzRadioModule } from '../radio/nz-radio.module';

@@ -62,7 +62,8 @@
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "",
       "styles": [
-        "styles.scss"
+        "styles.scss",
+        "themes/style/index.less"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -122,6 +123,13 @@
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       },
+      "tags": []
+    },
+    {
+      "name": "cache",
+      "root": "libs/cache/src",
+      "test": "../../../test.js",
+      "appRoot": "",
       "tags": []
     },
     {
@@ -188,6 +196,13 @@
       "tags": []
     },
     {
+      "name": "i18n",
+      "root": "libs/i18n/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "icss",
       "root": "libs/icss/src",
       "test": "../../../test.js",
@@ -246,6 +261,13 @@
     {
       "name": "touch",
       "root": "libs/touch/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "util",
+      "root": "libs/util/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

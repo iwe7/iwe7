@@ -1,4 +1,10 @@
-import { Component, ContentChildren, Input, QueryList, TemplateRef } from '@angular/core';
+import {
+  Component,
+  ContentChildren,
+  Input,
+  QueryList,
+  TemplateRef
+} from '@angular/core';
 import { NzOptionComponent } from './nz-option.component';
 
 @Component({
@@ -9,7 +15,8 @@ import { NzOptionComponent } from './nz-option.component';
 export class NzOptionGroupComponent {
   _label: string | TemplateRef<void>;
   isLabelString: boolean;
-  @ContentChildren(NzOptionComponent) listOfNzOptionComponent: QueryList<NzOptionComponent>;
+  @ContentChildren(NzOptionComponent)
+  listOfNzOptionComponent: QueryList<NzOptionComponent>;
 
   @Input()
   set nzLabel(value: string | TemplateRef<void>) {
@@ -20,5 +27,4 @@ export class NzOptionGroupComponent {
   get nzLabel(): string | TemplateRef<void> {
     return this._label;
   }
-
 }

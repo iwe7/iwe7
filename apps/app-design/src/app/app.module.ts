@@ -1,7 +1,8 @@
 import {
   NgModule,
   NO_ERRORS_SCHEMA,
-  CUSTOM_ELEMENTS_SCHEMA
+  CUSTOM_ELEMENTS_SCHEMA,
+  LOCALE_ID
 } from '@angular/core';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -28,6 +29,12 @@ import { CoreModule } from './core/core.module';
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
-  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'zh-cn'
+    }
+  ]
 })
 export class AppModule {}

@@ -17,22 +17,23 @@ import { NzRadioButtonComponent } from './nz-radio-button.component';
 import { NzRadioComponent } from './nz-radio.component';
 
 @Component({
-  selector           : 'nz-radio-group',
+  selector: 'nz-radio-group',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <ng-content></ng-content>`,
-  host               : {
+  host: {
     '[class.ant-radio-group]': 'true'
   },
-  providers          : [
+  providers: [
     {
-      provide    : NG_VALUE_ACCESSOR,
+      provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NzRadioGroupComponent),
-      multi      : true
+      multi: true
     }
   ]
 })
-export class NzRadioGroupComponent implements AfterContentInit, ControlValueAccessor, AfterViewInit {
+export class NzRadioGroupComponent
+  implements AfterContentInit, ControlValueAccessor, AfterViewInit {
   private _size: NzRadioGroupSizeType = 'default';
   private _name: string;
   private _disabled: boolean = false;
@@ -57,7 +58,7 @@ export class NzRadioGroupComponent implements AfterContentInit, ControlValueAcce
   @Input()
   set nzDisabled(value: boolean) {
     this._disabled = value;
-    this.radios.forEach((radio) => {
+    this.radios.forEach(radio => {
       radio.nzDisabled = this.nzDisabled;
     });
   }
@@ -78,14 +79,14 @@ export class NzRadioGroupComponent implements AfterContentInit, ControlValueAcce
 
   updateChildrenName(): void {
     if (this.nzName) {
-      this.radios.forEach((item) => {
+      this.radios.forEach(item => {
         item.name = this.nzName;
       });
     }
   }
 
   syncCheckedValue(): void {
-    this.radios.forEach((item) => {
+    this.radios.forEach(item => {
       item.nzChecked = item.nzValue === this.value;
     });
   }

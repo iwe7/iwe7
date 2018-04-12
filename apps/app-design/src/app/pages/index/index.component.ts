@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { Iwe7DesignSettingBase } from 'iwe7/design';
+import { UuidService } from 'iwe7-core/src/uuid.service';
 
 @Component({
   selector: 'index',
@@ -19,7 +20,8 @@ export class IndexComponent implements OnInit {
   instance: any;
   constructor(
     public lazyload: LazyLoaderService,
-    public view: ViewContainerRef
+    public view: ViewContainerRef,
+    public uuid: UuidService
   ) {}
   ngOnInit() {
     // this.designGroup.next({
@@ -29,17 +31,23 @@ export class IndexComponent implements OnInit {
     // });
     this.designGroup.next([
       new BehaviorSubject({
-        view: 'iwe7-welcome-index',
-        text: '你好，iwe7!',
+        view: 'nz-calendar',
+        nzMode: 'month',
+        nzFullscreen: true,
+        nzCard: false,
+        _uid: this.uuid.get(),
         content: new BehaviorSubject({
           view: 'nz-button',
+          _uid: this.uuid.get(),
           content: new BehaviorSubject({
-            view: 'nz-icon',
+            view: 'nz-button',
+            _uid: this.uuid.get(),
+            name: 'shrink',
             content: new BehaviorSubject({
               view: 'nz-button',
               text: '双击探索',
-            }),
-            name: 'shrink'
+              _uid: this.uuid.get()
+            })
           }),
           text: '双击探索',
           nzGhost: true,

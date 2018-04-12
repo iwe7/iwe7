@@ -23,6 +23,7 @@ import { LazyLoaderService } from 'iwe7/lazy-load';
 import { Iwe7DesignBase, Iwe7DesignSettingBase } from '../iwe7-design';
 import { IcssService } from 'iwe7/icss';
 import { ZIndexService } from 'iwe7/themes/src/z-index.service';
+import { ChacheMemoryService } from 'iwe7/cache/src/chache-memory.service';
 @Component({
   selector: '[design-group]',
   templateUrl: './design-group.component.html',
@@ -66,7 +67,8 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
     public icss: IcssService,
     public ele: ElementRef,
     cd: ChangeDetectorRef,
-    public zindex: ZIndexService
+    public zindex: ZIndexService,
+    public memory: ChacheMemoryService<any>
   ) {
     super(cd);
   }
@@ -75,6 +77,14 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
     let documentClick = fromEvent(document, 'click');
     // viewRef鼠标事件
     let viewEvent = this.getMouseEvent(this.viewEle.nativeElement);
+    let settingEvent = this.getMouseEvent(this.settingEle.nativeElement);
+
+    settingEvent.click.subscribe((res: Event) => {
+      res.preventDefault();
+      res.stopPropagation();
+      this._settingStyle.zIndex = this.zindex.getIndex();
+      this.settingStyle.next(this._settingStyle);
+    });
     // 当用户dblclick>view时 展示setting
     this.settingStyle.subscribe(res => {
       this._settingStyle = res;
@@ -133,7 +143,11 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
   }
 
   ngAfterViewInit() {
-    this.props.subscribe(res => {
+    let re = this.props.subscribe(res => {
+      if (!res) {
+        return;
+      }
+      this.memory.set(res._uid, this);
       let { setting, view, group } = res;
       if (!setting && view) {
         setting = 'design-setting-default';
@@ -206,7 +220,7 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
     this.settingStyle.next(this._settingStyle);
   }
 
-  close(){
+  close() {
     this._settingStyle.display = 'none';
     this.settingStyle.next(this._settingStyle);
   }

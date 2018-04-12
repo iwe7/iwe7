@@ -9,6 +9,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { Iwe7DesignBase } from './iwe7-design';
+import { ChacheMemoryService } from 'iwe7/cache/src/chache-memory.service';
 @Directive({
   selector: '[designGroup]'
 })
@@ -22,7 +23,8 @@ export class DesignGroupDirective extends Iwe7DesignBase<any>
   constructor(
     public lazyload: LazyLoaderService,
     cd: ChangeDetectorRef,
-    public viewRef: ViewContainerRef
+    public viewRef: ViewContainerRef,
+    public cache: ChacheMemoryService<any>
   ) {
     super(cd);
   }

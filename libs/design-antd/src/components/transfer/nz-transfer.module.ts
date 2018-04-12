@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { NzButtonModule } from '../button/nz-button.module';
 import { NzCheckboxModule } from '../checkbox/nz-checkbox.module';
-import { NzI18nModule } from '../i18n/nz-i18n.module';
+import { I18nModule as NzI18nModule } from 'iwe7/i18n';
 import { NzInputModule } from '../input/nz-input.module';
 
 import { NzTransferListComponent } from './nz-transfer-list.component';

@@ -1,8 +1,8 @@
-<div class="father">
+<div class="father" *ngIf="_props">
   <span class="father-folder">
     <i class="iconfont icon-close"></i>
   </span>
-  <div class="father-title">{{_props?.view}}</div>
+  <div class="father-title" (click)="openPropsSetting($event)">{{_props?.view}}</div>
   <span class="father-move">
     <i class="iconfont icon-move"></i>
   </span>

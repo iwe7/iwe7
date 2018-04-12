@@ -5,7 +5,11 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
+import {
+  CdkConnectedOverlay,
+  CdkOverlayOrigin,
+  ConnectedOverlayPositionChange
+} from '@angular/cdk/overlay';
 import {
   forwardRef,
   AfterViewInit,
@@ -20,7 +24,8 @@ import {
   QueryList,
   Renderer2,
   SimpleChange,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isNotNil } from '../core/util/check';
@@ -32,64 +37,79 @@ import { defaultFilterOption, TFilterOption } from './nz-option.pipe';
 import { NzSelectTopControlComponent } from './nz-select-top-control.component';
 
 @Component({
-  selector           : 'nz-select',
+  selector: 'nz-select',
   preserveWhitespaces: false,
-  providers          : [
+  providers: [
     {
-      provide    : NG_VALUE_ACCESSOR,
+      provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NzSelectComponent),
-      multi      : true
+      multi: true
     }
   ],
-  animations         : [
+  animations: [
     trigger('dropDownAnimation', [
-      state('hidden', style({
-        opacity: 0,
-        display: 'none'
-      })),
-      state('bottom', style({
-        opacity        : 1,
-        transform      : 'scaleY(1)',
-        transformOrigin: '0% 0%'
-      })),
-      state('top', style({
-        opacity        : 1,
-        transform      : 'scaleY(1)',
-        transformOrigin: '0% 100%'
-      })),
+      state(
+        'hidden',
+        style({
+          opacity: 0,
+          display: 'none'
+        })
+      ),
+      state(
+        'bottom',
+        style({
+          opacity: 1,
+          transform: 'scaleY(1)',
+          transformOrigin: '0% 0%'
+        })
+      ),
+      state(
+        'top',
+        style({
+          opacity: 1,
+          transform: 'scaleY(1)',
+          transformOrigin: '0% 100%'
+        })
+      ),
       transition('hidden => bottom', [
         style({
-          opacity        : 0,
-          transform      : 'scaleY(0.8)',
+          opacity: 0,
+          transform: 'scaleY(0.8)',
           transformOrigin: '0% 0%'
         }),
         animate('100ms cubic-bezier(0.755, 0.05, 0.855, 0.06)')
       ]),
       transition('bottom => hidden', [
-        animate('100ms cubic-bezier(0.755, 0.05, 0.855, 0.06)', style({
-          opacity        : 0,
-          transform      : 'scaleY(0.8)',
-          transformOrigin: '0% 0%'
-        }))
+        animate(
+          '100ms cubic-bezier(0.755, 0.05, 0.855, 0.06)',
+          style({
+            opacity: 0,
+            transform: 'scaleY(0.8)',
+            transformOrigin: '0% 0%'
+          })
+        )
       ]),
       transition('hidden => top', [
         style({
-          opacity        : 0,
-          transform      : 'scaleY(0.8)',
+          opacity: 0,
+          transform: 'scaleY(0.8)',
           transformOrigin: '0% 100%'
         }),
         animate('100ms cubic-bezier(0.755, 0.05, 0.855, 0.06)')
       ]),
       transition('top => hidden', [
-        animate('100ms cubic-bezier(0.755, 0.05, 0.855, 0.06)', style({
-          opacity        : 0,
-          transform      : 'scaleY(0.8)',
-          transformOrigin: '0% 100%'
-        }))
+        animate(
+          '100ms cubic-bezier(0.755, 0.05, 0.855, 0.06)',
+          style({
+            opacity: 0,
+            transform: 'scaleY(0.8)',
+            transformOrigin: '0% 100%'
+          })
+        )
       ])
     ])
   ],
-  template           : `
+  template: `
     <div
       cdkOverlayOrigin
       class="ant-select-selection"
@@ -149,16 +169,17 @@ import { NzSelectTopControlComponent } from './nz-select-top-control.component';
       <ng-content></ng-content>
     </ng-template>
   `,
-  host               : {
-    '[class.ant-select]'            : 'true',
-    '[class.ant-select-lg]'         : 'nzSize==="large"',
-    '[class.ant-select-sm]'         : 'nzSize==="small"',
-    '[class.ant-select-enabled]'    : '!nzDisabled',
-    '[class.ant-select-disabled]'   : 'nzDisabled',
+  host: {
+    '[class.ant-select]': 'true',
+    '[class.ant-select-lg]': 'nzSize==="large"',
+    '[class.ant-select-sm]': 'nzSize==="small"',
+    '[class.ant-select-enabled]': '!nzDisabled',
+    '[class.ant-select-disabled]': 'nzDisabled',
     '[class.ant-select-allow-clear]': 'nzAllowClear',
-    '[class.ant-select-open]'       : 'nzOpen'
+    '[class.ant-select-open]': 'nzOpen'
   },
-  styles             : [ `
+  styles: [
+    `
     .ant-select-dropdown {
       top: 100%;
       left: 0;
@@ -167,9 +188,13 @@ import { NzSelectTopControlComponent } from './nz-select-top-control.component';
       margin-top: 4px;
       margin-bottom: 4px;
     }
-  ` ]
+  `
+  ],
+  styleUrls: ['./style/index.less'],
+  encapsulation: ViewEncapsulation.None
 })
-export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
+export class NzSelectComponent
+  implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
   private _disabled = false;
   private _allowClear = false;
   private _showSearch = false;
@@ -193,11 +218,15 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
   dropDownClassMap;
   @ViewChild(CdkOverlayOrigin) cdkOverlayOrigin: CdkOverlayOrigin;
   @ViewChild(CdkConnectedOverlay) cdkConnectedOverlay: CdkConnectedOverlay;
-  @ViewChild(NzSelectTopControlComponent) nzSelectTopControlComponent: NzSelectTopControlComponent;
-  @ViewChild(NzOptionContainerComponent) nzOptionContainerComponent: NzOptionContainerComponent;
+  @ViewChild(NzSelectTopControlComponent)
+  nzSelectTopControlComponent: NzSelectTopControlComponent;
+  @ViewChild(NzOptionContainerComponent)
+  nzOptionContainerComponent: NzOptionContainerComponent;
   /** should move to nz-option-container when https://github.com/angular/angular/issues/20810 resolved **/
-  @ContentChildren(NzOptionComponent) listOfNzOptionComponent: QueryList<NzOptionComponent>;
-  @ContentChildren(NzOptionGroupComponent) listOfNzOptionGroupComponent: QueryList<NzOptionGroupComponent>;
+  @ContentChildren(NzOptionComponent)
+  listOfNzOptionComponent: QueryList<NzOptionComponent>;
+  @ContentChildren(NzOptionGroupComponent)
+  listOfNzOptionGroupComponent: QueryList<NzOptionGroupComponent>;
   @Output() nzOnSearch = new EventEmitter<string>();
   @Output() nzScrollToBottom = new EventEmitter<void>();
   @Output() nzOpenChange = new EventEmitter<boolean>();
@@ -207,10 +236,10 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
   @Input() nzDropdownMatchSelectWidth = true;
   @Input() nzFilterOption: TFilterOption = defaultFilterOption;
   @Input() nzMaxMultipleCount = Infinity;
-  @Input() nzDropdownStyle: { [key: string]: string; };
+  @Input() nzDropdownStyle: { [key: string]: string };
   @Input() nzNotFoundContent: string;
   /** https://github.com/angular/angular/pull/13349/files **/
-           // tslint:disable-next-line:no-any
+  // tslint:disable-next-line:no-any
   @Input() compareWith = (o1: any, o2: any) => o1 === o2;
 
   @Input()
@@ -314,9 +343,16 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
   updateAutoFocus(): void {
     if (this.isInit && this.nzSelectTopControlComponent.inputElement) {
       if (this.nzAutoFocus) {
-        this.renderer.setAttribute(this.nzSelectTopControlComponent.inputElement.nativeElement, 'autofocus', 'autofocus');
+        this.renderer.setAttribute(
+          this.nzSelectTopControlComponent.inputElement.nativeElement,
+          'autofocus',
+          'autofocus'
+        );
       } else {
-        this.renderer.removeAttribute(this.nzSelectTopControlComponent.inputElement.nativeElement, 'autofocus');
+        this.renderer.removeAttribute(
+          this.nzSelectTopControlComponent.inputElement.nativeElement,
+          'autofocus'
+        );
       }
     }
   }
@@ -335,9 +371,16 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
 
   /** overlay can not be always open , reopen overlay after press esc **/
   handleEscBug(): void {
-    if (this.nzOpen && this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef && !this.cdkConnectedOverlay.overlayRef.backdropElement) {
+    if (
+      this.nzOpen &&
+      this.cdkConnectedOverlay &&
+      this.cdkConnectedOverlay.overlayRef &&
+      !this.cdkConnectedOverlay.overlayRef.backdropElement
+    ) {
       this.cdkConnectedOverlay.open = true;
-      this.cdkConnectedOverlay.ngOnChanges({ open: new SimpleChange(false, true, false) });
+      this.cdkConnectedOverlay.ngOnChanges({
+        open: new SimpleChange(false, true, false)
+      });
     }
   }
 
@@ -372,19 +415,33 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
     if (this.isInit && this.nzOpen && this.cdkOverlayOrigin) {
       if (this.nzDropdownMatchSelectWidth) {
         this.overlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
-        this.cdkConnectedOverlay.overlayRef.updateSize({ width: this.overlayWidth });
+        this.cdkConnectedOverlay.overlayRef.updateSize({
+          width: this.overlayWidth
+        });
       } else {
         this.overlayMinWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
-        this.cdkConnectedOverlay.overlayRef.updateSize({ minWidth: this.overlayMinWidth });
+        this.cdkConnectedOverlay.overlayRef.updateSize({
+          minWidth: this.overlayMinWidth
+        });
       }
-
     }
     this.updateCdkConnectedOverlayPositions();
-    if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef && this.cdkConnectedOverlay.overlayRef.backdropElement) {
+    if (
+      this.cdkConnectedOverlay &&
+      this.cdkConnectedOverlay.overlayRef &&
+      this.cdkConnectedOverlay.overlayRef.backdropElement
+    ) {
       if (this.nzOpen) {
-        this.renderer.removeStyle(this.cdkConnectedOverlay.overlayRef.backdropElement, 'display');
+        this.renderer.removeStyle(
+          this.cdkConnectedOverlay.overlayRef.backdropElement,
+          'display'
+        );
       } else {
-        this.renderer.setStyle(this.cdkConnectedOverlay.overlayRef.backdropElement, 'display', 'none');
+        this.renderer.setStyle(
+          this.cdkConnectedOverlay.overlayRef.backdropElement,
+          'display',
+          'none'
+        );
       }
     }
   }
@@ -421,7 +478,7 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
     let modelValue;
     if (this.isSingleMode) {
       if (value.length) {
-        modelValue = value[ 0 ];
+        modelValue = value[0];
       }
     } else {
       modelValue = value;
@@ -431,7 +488,7 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
   }
 
   onSearch(value: string, emit: boolean): void {
-    if (emit && (this.searchValue !== value)) {
+    if (emit && this.searchValue !== value) {
       this.nzOnSearch.emit(value);
       this.searchValue = value;
     }
@@ -460,12 +517,14 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
 
   updateDropDownClassMap(): void {
     this.dropDownClassMap = {
-      [ 'ant-select-dropdown' ]                     : true,
-      [ `ant-select-dropdown--single` ]             : this.isSingleMode,
-      [ `ant-select-dropdown--multiple` ]           : this.isMultipleOrTags,
-      [ `ant-select-dropdown-placement-bottomLeft` ]: this.dropDownPosition === 'bottom',
-      [ `ant-select-dropdown-placement-topLeft` ]   : this.dropDownPosition === 'top',
-      [ `${this.nzDropdownClassName}` ]             : !!this.nzDropdownClassName
+      ['ant-select-dropdown']: true,
+      [`ant-select-dropdown--single`]: this.isSingleMode,
+      [`ant-select-dropdown--multiple`]: this.isMultipleOrTags,
+      [`ant-select-dropdown-placement-bottomLeft`]:
+        this.dropDownPosition === 'bottom',
+      [`ant-select-dropdown-placement-topLeft`]:
+        this.dropDownPosition === 'top',
+      [`${this.nzDropdownClassName}`]: !!this.nzDropdownClassName
     };
   }
 
@@ -483,8 +542,7 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
     }
   }
 
-  constructor(private renderer: Renderer2) {
-  }
+  constructor(private renderer: Renderer2) {}
 
   /** update ngModel -> update listOfSelectedValue **/
   // tslint:disable-next-line:no-any
@@ -494,7 +552,7 @@ export class NzSelectComponent implements ControlValueAccessor, OnInit, AfterVie
       if (Array.isArray(value)) {
         this.listOfSelectedValue = value;
       } else {
-        this.listOfSelectedValue = [ value ];
+        this.listOfSelectedValue = [value];
       }
     } else {
       this.listOfSelectedValue = [];

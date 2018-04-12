@@ -25,7 +25,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { InputBoolean } from '../core/util/convert';
 import { measureScrollbar } from '../core/util/mesure-scrollbar';
-import { NzI18nService } from '../i18n/nz-i18n.service';
+import { I18nService as NzI18nService } from 'iwe7/i18n';
+
 
 import ModalUtil from './modal-util';
 import { NzModalControlService } from './nz-modal-control.service';

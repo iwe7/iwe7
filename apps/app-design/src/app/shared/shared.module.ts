@@ -3,7 +3,7 @@ import {
   NO_ERRORS_SCHEMA,
   CUSTOM_ELEMENTS_SCHEMA
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NzButtonModule } from 'ng-zorro-antd';
 import { DesignAntdModule } from 'iwe7/design-antd';
 import { Iwe7LazyLoadModule } from 'iwe7/lazy-load';
@@ -31,6 +31,9 @@ import { Iwe7WelcomeModule } from 'iwe7/welcome';
     Iwe7DesignModule,
     Iwe7TouchModule
   ],
-  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    DatePipe
+  ]
 })
 export class SharedModule {}

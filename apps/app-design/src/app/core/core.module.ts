@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Iwe7DesignModule } from 'iwe7/design';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   imports: [
     CommonModule,
-    Iwe7DesignModule
+    BrowserAnimationsModule
   ],
-  declarations: []
+  declarations: [],
+  exports: [
+    BrowserAnimationsModule
+  ]
 })
 export class CoreModule { }

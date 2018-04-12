@@ -8,7 +8,6 @@ import { NzBackTopModule } from './back-top/nz-back-top.module';
 import { NzBadgeModule } from './badge/nz-badge.module';
 import { NzBreadCrumbModule } from './breadcrumb/nz-breadcrumb.module';
 import { NzButtonModule } from './button/nz-button.module';
-import { NzCalendarModule } from './calendar/nz-calendar.module';
 import { NzCardModule } from './card/nz-card.module';
 import { NzCarouselModule } from './carousel/nz-carousel.module';
 import { NzCascaderModule } from './cascader/nz-cascader.module';
@@ -19,7 +18,6 @@ import { NzDropDownModule } from './dropdown/nz-dropdown.module';
 import { NzDropdownService } from './dropdown/nz-dropdown.service';
 import { NzFormModule } from './form/nz-form.module';
 import { NzGridModule } from './grid/nz-grid.module';
-import { NzI18nModule } from './i18n/nz-i18n.module';
 import { NzInputNumberModule } from './input-number/nz-input-number.module';
 import { NzInputModule } from './input/nz-input.module';
 import { NzLayoutModule } from './layout/nz-layout.module';
@@ -67,7 +65,6 @@ export * from './divider';
 export * from './dropdown';
 export * from './form';
 export * from './grid';
-export * from './i18n';
 export * from './input';
 export * from './input-number';
 export * from './layout';
@@ -102,7 +99,6 @@ export * from './tree';
 @NgModule({
   exports: [
     NzButtonModule,
-    NzCalendarModule,
     NzGridModule,
     NzSwitchModule,
     NzSelectModule,
@@ -136,7 +132,6 @@ export * from './tree';
     NzDividerModule,
     NzFormModule,
     NzListModule,
-    NzI18nModule,
     NzUploadModule,
     NzAutocompleteModule,
     NzTagModule,

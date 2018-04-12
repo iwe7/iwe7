@@ -10,7 +10,8 @@ import {
   OnInit,
   Optional,
   Renderer2,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -19,28 +20,31 @@ import { toBoolean } from '../core/util/convert';
 import { NzRadioGroupComponent } from './nz-radio-group.component';
 
 @Component({
-  selector           : '[nz-radio]',
+  selector: '[nz-radio]',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <span [ngClass]="classMap">
       <input #inputElement type="radio" class="ant-radio-input" [disabled]="nzDisabled" [(ngModel)]="nzChecked" (blur)="onBlur()" [attr.name]="name">
       <span class="ant-radio-inner"></span>
     </span>
     <span><ng-content></ng-content></span>
   `,
-  host               : {
-    '[class.ant-radio-wrapper]'         : 'true',
+  host: {
+    '[class.ant-radio-wrapper]': 'true',
     '[class.ant-radio-wrapper-disabled]': 'nzDisabled'
   },
-  providers          : [
+  providers: [
     {
-      provide    : NG_VALUE_ACCESSOR,
+      provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NzRadioComponent),
-      multi      : true
+      multi: true
     }
-  ]
+  ],
+  styleUrls: ['./style/index.less'],
+  encapsulation: ViewEncapsulation.None
 })
-export class NzRadioComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+export class NzRadioComponent
+  implements OnInit, ControlValueAccessor, AfterViewInit {
   private _checked = false;
   private _disabled = false;
   private _autoFocus = false;
@@ -85,9 +89,16 @@ export class NzRadioComponent implements OnInit, ControlValueAccessor, AfterView
   updateAutoFocus(): void {
     if (this.isInit) {
       if (this.nzAutoFocus) {
-        this.renderer.setAttribute(this.inputElement.nativeElement, 'autofocus', 'autofocus');
+        this.renderer.setAttribute(
+          this.inputElement.nativeElement,
+          'autofocus',
+          'autofocus'
+        );
       } else {
-        this.renderer.removeAttribute(this.inputElement.nativeElement, 'autofocus');
+        this.renderer.removeAttribute(
+          this.inputElement.nativeElement,
+          'autofocus'
+        );
       }
     }
   }
@@ -104,7 +115,7 @@ export class NzRadioComponent implements OnInit, ControlValueAccessor, AfterView
     }
   }
 
-  @HostListener('click', [ '$event' ])
+  @HostListener('click', ['$event'])
   onClick(e: MouseEvent): void {
     e.preventDefault();
     this.setClassMap();
@@ -123,14 +134,16 @@ export class NzRadioComponent implements OnInit, ControlValueAccessor, AfterView
 
   onBlur(): void {
     this.onTouched();
-    if (this.nzRadioGroup) { this.nzRadioGroup.onTouched(); }
+    if (this.nzRadioGroup) {
+      this.nzRadioGroup.onTouched();
+    }
   }
 
   setClassMap(): void {
     this.classMap = {
-      [ this.prefixCls ]              : true,
-      [ `${this.prefixCls}-checked` ] : this.nzChecked,
-      [ `${this.prefixCls}-disabled` ]: this.nzDisabled
+      [this.prefixCls]: true,
+      [`${this.prefixCls}-checked`]: this.nzChecked,
+      [`${this.prefixCls}-disabled`]: this.nzDisabled
     };
   }
 
@@ -144,11 +157,16 @@ export class NzRadioComponent implements OnInit, ControlValueAccessor, AfterView
   }
 
   /* tslint:disable-next-line:no-any */
-  constructor(@Optional() public nzRadioGroup: NzRadioGroupComponent, private renderer: Renderer2, @Inject(DOCUMENT) private document: any) {
-  }
+  constructor(
+    @Optional() public nzRadioGroup: NzRadioGroupComponent,
+    private renderer: Renderer2,
+    @Inject(DOCUMENT) private document: any
+  ) {}
 
   ngOnInit(): void {
-    if (this.nzRadioGroup) { this.nzRadioGroup.addRadio(this); }
+    if (this.nzRadioGroup) {
+      this.nzRadioGroup.addRadio(this);
+    }
     this.setClassMap();
   }
 

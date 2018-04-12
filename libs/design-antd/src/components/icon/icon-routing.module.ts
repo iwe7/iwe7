@@ -4,7 +4,7 @@ import { IconComponent } from './icon.component';
 import { LazyComponentModuleBase } from 'iwe7/lazy-load';
 const routes: Routes = [
   {
-    path: '',
+    path: 'nz-icon',
     component: IconComponent
   }
 ];

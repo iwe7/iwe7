@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as setMonth from 'date-fns/set_month';
-import { NzI18nService as I18n } from '../i18n/nz-i18n.service';
+import { I18nService as I18n } from 'iwe7/i18n';
 
 @Component({
   selector: 'nz-calendar-header',
