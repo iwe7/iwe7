@@ -38,6 +38,14 @@
     {
       "project": "apps/app-design/e2e/tsconfig.e2e.json",
       "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/test-browser/src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/test-browser/e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
     }
   ],
   "test": {
@@ -100,6 +108,32 @@
       "tags": []
     },
     {
+      "name": "test-browser",
+      "root": "apps/test-browser/src",
+      "outDir": "dist/apps/test-browser",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "../../../test.js",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      },
+      "tags": []
+    },
+    {
       "name": "test2",
       "root": "apps/test2/src",
       "outDir": "dist/apps/test2",
@@ -123,6 +157,13 @@
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts"
       },
+      "tags": []
+    },
+    {
+      "name": "browser",
+      "root": "libs/browser/src",
+      "test": "../../../test.js",
+      "appRoot": "",
       "tags": []
     },
     {
@@ -219,6 +260,20 @@
     {
       "name": "pipes",
       "root": "libs/pipes/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "platform-browser",
+      "root": "libs/platform-browser/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "platform-browser-dynamic",
+      "root": "libs/platform-browser-dynamic/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

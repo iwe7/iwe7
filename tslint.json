@@ -19,7 +19,7 @@
     "interface-over-type-literal": true,
     "member-access": false,
     "member-ordering": [
-      true,
+      false,
       {
         "order": [
           "static-field",

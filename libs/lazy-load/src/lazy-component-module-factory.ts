@@ -45,7 +45,7 @@ export class LazyComponentModuleFactory {
   public getComponentModuleByPath(
     path: string
   ): Promise<LazyComponentModule<LazyComponentModuleBase>> {
-    if(!path){
+    if (!path) {
       return new Promise((resolve, reject) => {
         resolve(null);
       });
@@ -68,7 +68,9 @@ export class LazyComponentModule<T> {
   getComponent(selector: string, injector?: Injector): ComponentFactory<any> {
     const moduleRef = this.moduleFactory.create(injector);
     const componentFactoryResolver = moduleRef.componentFactoryResolver;
+    let map: Map<any, any> = (<any>componentFactoryResolver)._factories;
     const element = moduleRef.instance.getComponentByName(selector);
-    return componentFactoryResolver.resolveComponentFactory(element);
+    let re = componentFactoryResolver.resolveComponentFactory(element);
+    return map.get(element);
   }
 }

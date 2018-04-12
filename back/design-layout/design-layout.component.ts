@@ -1,7 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import * as _ from "underscore";
-import { Iwe7DesignAddonService } from "../iwe7-design-addon.service";
-import { Iwe7DesignLibraryService } from "../iwe7-design-library.service";
 @Component({
   selector: "design-layout",
   templateUrl: "./design-layout.component.html",
@@ -12,12 +10,9 @@ export class DesignLayoutComponent implements OnInit {
   activeModule: any;
 
   constructor(
-    public addon: Iwe7DesignAddonService,
-    public lib: Iwe7DesignLibraryService
   ) {}
 
   ngOnInit() {
-    this.activeModule = this.addon.app.props["runner"];
     this.editPage = this.activeModule.props[0];
   }
 

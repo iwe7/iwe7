@@ -1,6 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ɵisObservable } from '@angular/core';
 import { Iwe7DesignSettingBase } from '../iwe7-design';
 import { FormBuilder } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 import * as _ from 'underscore';
 @Component({
   selector: 'design-setting-default',
@@ -19,6 +20,9 @@ export class DesignSettingDefaultComponent extends Iwe7DesignSettingBase<any>
   onPropsChange(res: any) {
     super.onPropsChange(res);
     if (res.content) {
+      if(!ɵisObservable(res.content)){
+        res.content = new BehaviorSubject(res.content)
+      }
       res.content.subscribe(res => {
         this._content = res;
       });

@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn build3
+  /usr/local/bin/node /usr/local/bin/yarn start4
 
 PATH: 
   /Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/meepo/.rvm/bin:/Users/meepo/.rvm/bin
@@ -23,6 +23,7 @@ npm manifest:
       "start": "ng serve --app=test",
       "start2": "ng serve --app=test2",
       "start3": "ng serve --app=app-design",
+      "start4": "ng serve --app=test-browser",
       "build": "ng build --app=test --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true",
       "build2": "ng build --app=test2 --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true",
       "build3": "ng build --app=app-design --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true --sourcemaps=true",
@@ -66,6 +67,7 @@ npm manifest:
       "@webcomponents/custom-elements": "^1.1.0",
       "core-js": "^2.4.1",
       "date-fns": "^1.29.0",
+      "intl": "^1.2.5",
       "iwe7-core": "^1.0.1",
       "mooa": "^0.1.1",
       "ng-packagr": "^2.4.2",
@@ -3622,6 +3624,10 @@ Lockfile:
   interpret@^1.0.0:
     version "1.1.0"
     resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.1.0.tgz#7ed1b1410c6a0e0f78cf95d3b8440c63f78b8614"
+  
+  intl@^1.2.5:
+    version "1.2.5"
+    resolved "https://registry.yarnpkg.com/intl/-/intl-1.2.5.tgz#82244a2190c4e419f8371f5aa34daa3420e2abde"
   
   invariant@^2.2.2:
     version "2.2.4"
@@ -8028,7 +8034,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c ng build --app=app-design --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true --sourcemaps=true
+  Arguments: -c ng serve --app=test-browser
   Directory: /Volumes/meepo/nx/iwe7-nx
   Output:
   

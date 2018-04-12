@@ -1,1 +1,6 @@
-<ng-container (getViewRef)="setViewRef($event)"></ng-container>
+<!-- <ng-container (getViewRef)="setViewRef($event)"></ng-container> -->
+<lazy-load-view [father]="that">
+  <design-div class="mydiv" (change)="onChange($event)" [attr.input1]="input">
+    <design-div input1="input1input1input1input1input1input1">测试</design-div>
+  </design-div>
+</lazy-load-view>
