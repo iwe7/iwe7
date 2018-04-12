@@ -11,9 +11,8 @@ import { tap, map } from 'rxjs/operators';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { LazyComponentsInterface } from './interface';
 import { LazyComponentModuleFactory } from './lazy-component-module-factory';
-import * as _ from 'underscore';
+import { flatten } from 'underscore';
 import { ROUTES } from '@angular/router';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -30,11 +29,14 @@ export class LazyLoaderService {
     this.lazyComponentModuleFactory = new LazyComponentModuleFactory(
       this.moduleFactoryLoader
     );
-    this.lazyComponentConfig = _.flatten(this.lazyComponentConfig);
+    this.lazyComponentConfig = flatten(this.lazyComponentConfig);
     this.lazyComponentConfig.map(res => {
       this.components.set(res.path || res.selector, res.loadChildren);
     });
-    console.log(this.components);
+  }
+
+  public compiler(element: HTMLElement, view: ViewContainerRef, that?: any) {
+    this.init(element, view, that);
   }
 
   public init(

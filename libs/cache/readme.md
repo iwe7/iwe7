@@ -1,3 +1,6 @@
+### cache memory
+
+```ts
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -37,3 +40,4 @@ export class ChacheMemoryService<T> {
     return this;
   }
 }
+```

@@ -20,7 +20,7 @@ import {
   pairwise,
   map
 } from 'rxjs/operators';
-import * as _ from 'underscore';
+import { isEqual } from 'underscore';
 export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   // 保存最新值
   public _props: T;
@@ -69,7 +69,7 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
       .pipe(
         // 去重复
         distinctUntilChanged((x, y) => {
-          return _.isEqual(x, y);
+          return isEqual(x, y);
         })
       )
       .subscribe(res => {
