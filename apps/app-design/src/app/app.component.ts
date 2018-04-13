@@ -36,8 +36,7 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
 
   ngOnInit() {
     let items = this.map.transform(this.items);
-    this.addElement$.subscribe(res => {
-    });
+    this.addElement$.subscribe(res => {});
   }
 
   go(item: any, key: string) {
@@ -50,23 +49,10 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
 
   addPage() {
     this.load.load(
-      'design-elements-add',
+      'design-base-impl',
       this.dialogRef,
       this.addElement$,
-      res => {
-        if (res.type === 'close') {
-          this.dialogRef.clear();
-        }
-        if (res.type === 'header') {
-          this._addElement.list.map(item => {
-            item.active = false;
-            if (item.code === res.data.code) {
-              item.active = true;
-            }
-          });
-          this.addElement$.next(this._addElement);
-        }
-      }
+      res => {}
     );
   }
   dialogRef: ViewContainerRef;

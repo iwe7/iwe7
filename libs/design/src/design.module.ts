@@ -42,6 +42,10 @@ import { ReactiveFormsModule } from '@angular/forms';
         {
           path: 'design-div',
           loadChildren: './design-div/design-div.module#DesignDivModule'
+        },
+        {
+          path: 'design-base-impl',
+          loadChildren: './design-base-impl/design-base-impl#DesignBaseImplModule'
         }
       ],
       multi: true

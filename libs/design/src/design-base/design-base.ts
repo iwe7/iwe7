@@ -8,10 +8,11 @@ import {
 } from '@angular/core';
 import { Iwe7DesignBase } from 'iwe7/design';
 import { KeyValue } from 'iwe7/core';
-// 定位组件
+// 基础组件
 import { BehaviorSubject } from 'rxjs';
-import { IcssService, LazyLoaderService } from '../../..';
-export interface DesignElementsBaseProps {
+import { IcssService } from 'iwe7/icss';
+import { LazyLoaderService } from 'iwe7/lazy-load';
+export interface DesignBaseProps {
   // 组件选择器
   selector?: string;
   // 组件样式
@@ -19,12 +20,11 @@ export interface DesignElementsBaseProps {
   // 组件属性
   attrs?: KeyValue;
   // 组件内容
-  props?: DesignElementsBaseProps[];
+  props?: DesignBaseProps[];
   callback?: Function;
 }
-export class DesignElementsBase<
-  T extends DesignElementsBaseProps
-> extends Iwe7DesignBase<T> implements OnInit {
+export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
+  implements OnInit {
   private _style: KeyValue = {};
   style$: BehaviorSubject<KeyValue> = new BehaviorSubject({});
   _viewRef: ViewContainerRef;

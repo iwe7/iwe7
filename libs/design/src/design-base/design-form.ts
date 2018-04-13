@@ -1,13 +1,13 @@
 import {
-  DesignElementsBase,
-  DesignElementsBaseProps
-} from './design-elements-base.component';
+  DesignBase,
+  DesignBaseProps
+} from './design-base';
 import { SchemaFormItem } from 'iwe7/core';
 import { ChangeDetectorRef, Renderer2, ElementRef } from '@angular/core';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { IcssService } from 'iwe7/icss';
 import { FormBuilder } from '@angular/forms';
-export interface DesignElementsFormProps extends DesignElementsBaseProps {
+export interface DesignFormProps extends DesignBaseProps {
   fields?: SchemaFormItem;
   url?: string;
   // 提交成功
@@ -24,9 +24,9 @@ export interface DesignElementsFormProps extends DesignElementsBaseProps {
     url?: string;
   };
 }
-export class DesignElementsForm<
-  T extends DesignElementsFormProps
-> extends DesignElementsBase<T> {
+export class DesignForm<
+  T extends DesignFormProps
+> extends DesignBase<T> {
   constructor(
     cd: ChangeDetectorRef,
     ele: ElementRef,

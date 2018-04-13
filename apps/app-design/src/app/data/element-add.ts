@@ -13,7 +13,10 @@ export const elementAdd = {
     {
       title: '我的元素',
       active: false,
-      code: 'mine'
+      code: 'mine',
+      props: {
+        selector: 'design-element-list'
+      }
     },
     {
       title: '元素市场',
