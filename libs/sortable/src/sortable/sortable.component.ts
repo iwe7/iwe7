@@ -63,7 +63,7 @@ export class SortableComponent extends DesignBase<SortableOptions>
   private eventsNext(type, data) {
     this.__events.next({
       type: type,
-      data: data,
+      data: data
     });
   }
   ngAfterViewInit() {
@@ -93,7 +93,9 @@ export class SortableComponent extends DesignBase<SortableOptions>
           });
           // 数据排序
           this._props.props = props;
-          this.eventsNext('onFinish',this._props);
+          console.log('onfinish', this._props);
+          this.eventsNext('onFinish', this._props);
+          this.props.next(this._props);
         }
       });
     });

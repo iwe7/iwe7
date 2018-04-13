@@ -4,7 +4,7 @@ import { map } from 'underscore';
 @Injectable({
   providedIn: 'root'
 })
-export class ChacheMemoryService<T> {
+export class CacheMemoryService<T> {
   data: Map<string, any> = new Map();
   data$: Subject<Map<string, any>> = new Subject();
   constructor() {}
@@ -17,7 +17,7 @@ export class ChacheMemoryService<T> {
     this.data = new Map(data);
   }
   // 取数据
-  get<T>(key: string): T {
+  get(key: string): T {
     return this.data.get(key) || {};
   }
   // 设置数据

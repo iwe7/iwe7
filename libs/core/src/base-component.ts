@@ -7,7 +7,8 @@ import {
   OnInit,
   OnDestroy,
   ɵisObservable,
-  Injector
+  Injector,
+  HostBinding
 } from '@angular/core';
 import {
   Observable,
@@ -28,9 +29,11 @@ import {
   map
 } from 'rxjs/operators';
 import { isEqual } from 'underscore';
+import { CacheMemoryService, SubscribersService } from 'iwe7/cache';
 export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   // 保存最新值
   public _props: T;
+
   // 保存关联组件
   public instance: Iwe7Base<T>;
   @Input() props: BehaviorSubject<T> = new BehaviorSubject({} as T);
@@ -41,12 +44,16 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
     data?: any;
   }> = new Subject();
   // 需要注销开关
-  needDestory: boolean = false;
-  subscription: Subscription;
-  id: any = new Date().getTime();
+  private needDestory: boolean = false;
   public cd: ChangeDetectorRef;
+  public memory: CacheMemoryService<any>;
+  // 订阅控制器
+  public __subscribers: SubscribersService;
+  // 系统生成编号
+  @HostBinding('attr.data-id') __id: string;
   constructor(public injector: Injector) {
     this.cd = this.injector.get(ChangeDetectorRef);
+    this.memory = this.injector.get(CacheMemoryService);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -60,6 +67,9 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
    * 注销
    */
   ngOnDestroy() {
+    if (this.memory.get(this.__id)) {
+      this.memory.delete(this.__id);
+    }
     this.needDestory = true;
   }
 
@@ -77,24 +87,37 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   }
 
   __propsHandler() {
-    this.subscription && this.subscription.unsubscribe();
     if (!ɵisObservable(this.props)) {
       this.props = new BehaviorSubject(this.props);
     }
-    this.subscription = this.props.subscribe(res => {
-      this._props = res;
-      this.onPropsChange(res);
-      this.cd.detectChanges();
-    });
+    this.__addSub(
+      this.props.subscribe(res => {
+        this._props = res;
+        if ('data-id' in res) {
+          console.log('i has a id', res[`data-id`]);
+        } else {
+          console.log('i has not a id');
+          res['data-id'] = this.__getUuid();
+        }
+        this.__id = res['data-id'];
+        this.memory.set(this.__id, this._props);
+        this.onPropsChange(res);
+        this.cd.detectChanges();
+      })
+    );
   }
 
   getProps() {
     return this._props;
   }
 
+  __addSub(sub: Subscription) {
+    this.__subscribers.addSub(this.__id, sub);
+  }
+
   __getUuid() {
     let d = new Date().getTime();
-    let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    let uuid = 'meepo.yxxxxxxxxxxxxxxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, c => {
       let r = ((d + Math.random() * 16) % 16) | 0;
       d = Math.floor(d / 16);
       return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);

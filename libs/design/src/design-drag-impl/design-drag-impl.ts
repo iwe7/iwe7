@@ -30,7 +30,7 @@ import { IcssService } from 'iwe7/icss';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { DesignDragDataService } from '../design-drag-data.service';
 import { Iwe7ColorsService, ZIndexService } from 'iwe7/themes';
-import { ChacheMemoryService } from 'iwe7/cache';
+import { CacheMemoryService } from 'iwe7/cache';
 
 @Component({
   selector: 'design-drag-impl',

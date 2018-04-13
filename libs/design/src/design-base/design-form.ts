@@ -10,7 +10,7 @@ import {
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { IcssService } from 'iwe7/icss';
 import { FormBuilder } from '@angular/forms';
-import { ChacheMemoryService } from 'iwe7/cache';
+import { CacheMemoryService } from 'iwe7/cache';
 
 export interface DesignFormProps extends DesignBaseProps {
   fields?: SchemaFormItem;

@@ -24,7 +24,7 @@ import { LazyLoaderService } from 'iwe7/lazy-load';
 import { Iwe7DesignBase, Iwe7DesignSettingBase } from '../iwe7-design';
 import { IcssService } from 'iwe7/icss';
 import { ZIndexService } from 'iwe7/themes/src/z-index.service';
-import { ChacheMemoryService } from 'iwe7/cache/src/chache-memory.service';
+import { CacheMemoryService } from 'iwe7/cache/src/chache-memory.service';
 @Component({
   selector: '[design-group]',
   templateUrl: './design-group.component.html',
@@ -69,7 +69,7 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
     public ele: ElementRef,
     cd: Injector,
     public zindex: ZIndexService,
-    public memory: ChacheMemoryService<any>
+    public memory: CacheMemoryService<any>
   ) {
     super(cd);
   }

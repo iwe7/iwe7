@@ -15,7 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 import { IcssService } from 'iwe7/icss';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { UuidService } from 'iwe7/core';
-import { ChacheMemoryService } from 'iwe7/cache';
+import { CacheMemoryService } from 'iwe7/cache';
 export interface DesignBaseProps extends KeyValue {
   // 组件选择器
   selector?: string;
@@ -34,7 +34,7 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
   _viewRef: ViewContainerRef;
   public icss: IcssService;
   public loader: LazyLoaderService;
-  public memory: ChacheMemoryService<any>;
+  public memory: CacheMemoryService<any>;
   public ele: ElementRef;
   public render: Renderer2;
   constructor(injector: Injector) {
@@ -43,7 +43,7 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
     this.render = this.injector.get(Renderer2);
     this.icss = this.injector.get(IcssService);
     this.loader = this.injector.get(LazyLoaderService);
-    this.memory = this.injector.get(ChacheMemoryService);
+    this.memory = this.injector.get(CacheMemoryService);
 
     this.icss.init(
       {
@@ -68,10 +68,6 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
   }
 
   private updateAttr(attrs: KeyValue) {
-    attrs['data-id'] = attrs['data-id'] || this.__getUuid();
-    this._props['data-id'] = attrs['data-id'];
-    this._props.attrs = attrs;
-    this.memory.set(attrs['data-id'], this._props);
     Object.keys(attrs).map(key => {
       this.render.setAttribute(this.ele.nativeElement, key, attrs[key]);
     });

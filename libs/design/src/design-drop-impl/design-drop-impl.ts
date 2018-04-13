@@ -32,7 +32,7 @@ import {
 } from 'rxjs/operators';
 import { DesignDragDataService } from '../design-drag-data.service';
 import { Iwe7CoreModule } from 'iwe7/core';
-import { ChacheMemoryService } from 'iwe7/cache';
+import { CacheMemoryService } from 'iwe7/cache';
 
 @Component({
   selector: 'design-drop-impl',

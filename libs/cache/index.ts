@@ -1,2 +1,3 @@
 export { CacheModule } from './src/cache.module';
-export { ChacheMemoryService } from './src/chache-memory.service';
+export { CacheMemoryService } from './src/chache-memory.service';
+export { SubscribersService } from './src/subscribers.service';

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ChacheMemoryService } from 'iwe7/cache';
+import { CacheMemoryService } from 'iwe7/cache';
 @Injectable({
   providedIn: 'root'
 })
-export class SortableService extends ChacheMemoryService<any> {
+export class SortableService extends CacheMemoryService<any> {
   constructor() {
     super();
   }
