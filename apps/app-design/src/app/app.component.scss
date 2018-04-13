@@ -12,9 +12,9 @@ ul {
         padding: 0 10px;
         color: #ccc;
         cursor: pointer;
-        &:hover{
-          color: #fff;
-          background: #000;
+        &:hover {
+            color: #fff;
+            background: #000;
         }
     }
 }
@@ -29,4 +29,10 @@ ul {
     .main {
         flex: 1;
     }
+}
+
+.dragger {
+    display: flex;
+    flex-direction: row;
+    margin: 0 10px;
 }

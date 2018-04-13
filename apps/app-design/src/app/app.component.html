@@ -3,8 +3,9 @@
 
 <ng-container (getViewRef)="setElementsView($event)"></ng-container> -->
 
-
-
-<ng-container (getViewRef)="setDragView($event)"></ng-container>
-<ng-container (getViewRef)="setDropView($event)"></ng-container>
-
+<div class="main">
+  <div class="dragger">
+    <ng-container (getViewRef)="setDragView($event)"></ng-container>
+  </div>
+  <ng-container (getViewRef)="setDropView($event)"></ng-container>
+</div>

@@ -28,6 +28,7 @@ import {
 import { IcssService } from 'iwe7/icss';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { DesignDragDataService } from '../design-drag-data.service';
+import { Iwe7ColorsService } from 'iwe7/themes/src/iwe7-colors.service';
 @Component({
   selector: 'design-drag-impl',
   templateUrl: './design-drag-impl.html',
@@ -38,23 +39,34 @@ export class DesignDragImpl extends DesignBase<any>
   csspre: string;
 
   @ViewChild('dragEle') dragEle: ElementRef;
+  _bgcolor: any;
   constructor(
     cd: ChangeDetectorRef,
     ele: ElementRef,
     icss: IcssService,
     render: Renderer2,
     loader: LazyLoaderService,
-    public dragData: DesignDragDataService
+    public dragData: DesignDragDataService,
+    public colors: Iwe7ColorsService
   ) {
     super(cd, ele, icss, render, loader);
     this.csspre = this.icss.vendorPrefix();
   }
-  ngOnInit() {}
+  ngOnInit() {
+    this._bgcolor = this.colors.getRandomColor();
+  }
   ngAfterViewInit() {
     const mouseover = fromEvent(this.ele.nativeElement, 'mouseover');
     const mousemove = fromEvent(document, 'mousemove');
     const mousedown = fromEvent(this.ele.nativeElement, 'mousedown');
     const mouseup = fromEvent(document, 'mouseup');
+
+    let {
+      offsetTop,
+      offsetLeft,
+      clientWidth,
+      clientHeight
+    } = this.ele.nativeElement;
     // 去鼠标按下和鼠标抬起中间的mousemove流
     // 记录起始位置
     let startPoint = {
@@ -101,9 +113,13 @@ export class DesignDragImpl extends DesignBase<any>
           this.render.setStyle(
             this.dragEle.nativeElement,
             `${this.csspre}Transform`,
-            `translate3d(${res.x - startPoint.x}px,${res.y -
-              startPoint.y}px,0px)`
+            `translate3d(${res.x - startPoint.x - offsetLeft}px,${res.y -
+              startPoint.y -
+              offsetTop}px,0px)`
           );
+          this.style$.next({
+            opacity: 0.8
+          });
         })
       )
       .subscribe();
@@ -120,6 +136,9 @@ export class DesignDragImpl extends DesignBase<any>
       `${this.csspre}Transform`,
       `translate3d(0px,0,0px)`
     );
+    this.style$.next({
+      opacity: 1
+    });
   }
 }
 
