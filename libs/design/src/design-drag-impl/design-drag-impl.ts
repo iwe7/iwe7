@@ -28,7 +28,7 @@ import {
 import { IcssService } from 'iwe7/icss';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { DesignDragDataService } from '../design-drag-data.service';
-import { Iwe7ColorsService } from 'iwe7/themes/src/iwe7-colors.service';
+import { Iwe7ColorsService, ZIndexService } from 'iwe7/themes';
 @Component({
   selector: 'design-drag-impl',
   templateUrl: './design-drag-impl.html',
@@ -47,7 +47,8 @@ export class DesignDragImpl extends DesignBase<any>
     render: Renderer2,
     loader: LazyLoaderService,
     public dragData: DesignDragDataService,
-    public colors: Iwe7ColorsService
+    public colors: Iwe7ColorsService,
+    public zindex: ZIndexService
   ) {
     super(cd, ele, icss, render, loader);
     this.csspre = this.icss.vendorPrefix();
@@ -77,7 +78,10 @@ export class DesignDragImpl extends DesignBase<any>
       .pipe(
         tap(res => {
           // 设置拖拽数据
-          this.dragData.set(this._props);
+          this.dragData.set(this._props.props);
+          this.style$.next({
+            zindex: this.zindex.getIndex()
+          })
         }),
         map((res: MouseEvent) => {
           return {
@@ -141,9 +145,10 @@ export class DesignDragImpl extends DesignBase<any>
     });
   }
 }
+import { Iwe7CoreModule } from 'iwe7/core';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, Iwe7CoreModule],
   declarations: [DesignDragImpl],
   entryComponents: [DesignDragImpl]
 })

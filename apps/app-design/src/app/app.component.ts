@@ -13,6 +13,10 @@ import { MapPipe } from 'iwe7/pipes';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { BehaviorSubject } from 'rxjs';
 import { Iwe7Base } from 'iwe7/core';
+import { DesignDragDataService } from 'iwe7/design';
+
+import { flatten } from 'underscore';
+import { Iwe7ColorsService } from 'iwe7/themes';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,37 +27,61 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
     public router: Router,
     public map: MapPipe,
     public load: LazyLoaderService,
-    public cd: ChangeDetectorRef
+    public cd: ChangeDetectorRef,
+    public dragData: DesignDragDataService,
+    public colors: Iwe7ColorsService
   ) {
     super(cd);
   }
 
   onPropsChange(res: any) {}
 
+  _drop: any = {
+    selector: 'design-drop-impl',
+    style: {
+      width: '300px',
+      height: '300px',
+      [`background-color`]: '#ccc',
+      display: 'block',
+      margin: '10px auto'
+    },
+    props: [
+      {
+        selector: 'design-base-impl',
+        style: {
+          width: '100px',
+          height: '100px',
+          [`background-color`]: '#333',
+          display: 'inline'
+        },
+        callback: () => {}
+      }
+    ]
+  };
+  _drag: any = {
+    selector: 'design-drag-impl',
+    style: {
+      width: '100px',
+      height: '100px',
+      [`background-color`]: '#ccc',
+      display: 'inline'
+    },
+    props: [
+      {
+        selector: 'design-base-impl',
+        style: {
+          width: '100px',
+          height: '100px',
+          [`background-color`]: '#333',
+          display: 'inline'
+        },
+        callback: () => {}
+      }
+    ]
+  };
   ngOnInit() {
-    this.drag$.next({
-      selector: 'design-drag-impl',
-      style: {
-        width: '100px',
-        height: '100px',
-        [`background-color`]: '#ccc',
-        display: 'inline',
-        props: {}
-      },
-      props: []
-    });
-
-    this.drop$.next({
-      selector: 'design-drop-impl',
-      style: {
-        width: '300px',
-        height: '300px',
-        [`background-color`]: '#ccc',
-        display: 'block',
-        margin: '10px auto'
-      },
-      props: []
-    });
+    this.drag$.next(this._drag);
+    this.drop$.next(this._drop);
   }
 
   viewRef: ViewContainerRef;
@@ -90,6 +118,12 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
       .subscribe(instance => {
         this.__events.subscribe(res => {
           if (res.type === 'droped') {
+            let str = flatten(this.dragData.get());
+            str.map(res => {
+              res[`background-color`] = this.colors.get
+              this._drop.props.push(res);
+            });
+            this.drop$.next(this._drop);
             instance.resetPosition();
           }
         });

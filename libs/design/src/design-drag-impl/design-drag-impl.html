@@ -1,1 +1,3 @@
-<div class="drag" [style.background-color]="_bgcolor" #dragEle></div>
+<div class="drag" [style.background-color]="_bgcolor" #dragEle>
+  <ng-container (getViewRef)="setViewRef($event)"></ng-container>
+</div>

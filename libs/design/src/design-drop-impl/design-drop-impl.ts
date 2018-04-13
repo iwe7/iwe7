@@ -30,6 +30,7 @@ import {
   takeWhile
 } from 'rxjs/operators';
 import { DesignDragDataService } from '../design-drag-data.service';
+import { Iwe7CoreModule } from 'iwe7/core';
 
 @Component({
   selector: 'design-drop-impl',
@@ -113,7 +114,7 @@ export class DesignDropImpl extends DesignBase<any> implements OnInit {
     this.isOver = isOver;
     if (isOver) {
       this.style$.next({
-        border: '1px dashed #ff0000'
+        [`box-shadow`]: '4px 5px 4px #313131'
       });
     } else {
       this.resetPosition();
@@ -122,13 +123,13 @@ export class DesignDropImpl extends DesignBase<any> implements OnInit {
 
   resetPosition() {
     this.style$.next({
-      border: 'none'
+      [`box-shadow`]: 'none'
     });
   }
 }
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, Iwe7CoreModule],
   declarations: [DesignDropImpl],
   entryComponents: [DesignDropImpl]
 })

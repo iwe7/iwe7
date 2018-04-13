@@ -57,13 +57,6 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
     if (attrs) {
       this.updateAttr(attrs);
     }
-    if (props && props.length > 0) {
-      if (this._viewRef) {
-        props.map(pro => {
-          this.loader.load(pro.selector, this._viewRef, pro, pro.callback);
-        });
-      }
-    }
   }
 
   private updateAttr(attrs: KeyValue) {
@@ -74,5 +67,13 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
 
   setViewRef(e: ViewContainerRef) {
     this._viewRef = e;
+    this.props.subscribe(res => {
+      let { props } = res;
+      if (props.length > 0) {
+        props.map(pro => {
+          this.loader.load(pro.selector, this._viewRef, pro, pro.callback).subscribe();
+        });
+      }
+    });
   }
 }
