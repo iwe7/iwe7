@@ -8,6 +8,7 @@
 
 > 体积
 > vendor 525Kb gzip后 128kb
+> 包含underscore, rxjs, @angular/core, @angular/router, @angular/common, @angular/platform-browser, @angular/animations, @angular/forms 其他库均采用懒加载方式
 
 ##### [iwe7/core](./libs/core/readme.md)
 
