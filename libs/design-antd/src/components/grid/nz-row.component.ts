@@ -7,10 +7,15 @@ import {
   Renderer2
 } from '@angular/core';
 
-import { matchMedia } from '../core/polyfill/match-media';
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { matchMedia } from 'iwe7/core';
+import { HostClassService } from 'iwe7/core';
 
-export type NzJustify = 'start' | 'end' | 'center' | 'space-around' | 'space-between';
+export type NzJustify =
+  | 'start'
+  | 'end'
+  | 'center'
+  | 'space-around'
+  | 'space-between';
 export type NzAlign = 'top' | 'middle' | 'bottom';
 export type NzType = 'flex' | null;
 export type Breakpoint = 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
@@ -25,19 +30,19 @@ export interface BreakpointMap {
 }
 
 const responsiveMap: BreakpointMap = {
-  xs : '(max-width: 575px)',
-  sm : '(min-width: 576px)',
-  md : '(min-width: 768px)',
-  lg : '(min-width: 992px)',
-  xl : '(min-width: 1200px)',
+  xs: '(max-width: 575px)',
+  sm: '(min-width: 576px)',
+  md: '(min-width: 768px)',
+  lg: '(min-width: 992px)',
+  xl: '(min-width: 1200px)',
   xxl: '(min-width: 1600px)'
 };
 
 @Component({
-  selector           : 'nz-row',
+  selector: 'nz-row',
   preserveWhitespaces: false,
-  providers          : [ NzUpdateHostClassService ],
-  template           : `
+  providers: [HostClassService],
+  template: `
     <ng-content></ng-content>
   `
 })
@@ -93,15 +98,23 @@ export class NzRowComponent implements OnInit {
   }
 
   setStyle(): void {
-    this.renderer.setStyle(this.el, 'margin-left', `-${this.actualGutter / 2}px`);
-    this.renderer.setStyle(this.el, 'margin-right', `-${this.actualGutter / 2}px`);
+    this.renderer.setStyle(
+      this.el,
+      'margin-left',
+      `-${this.actualGutter / 2}px`
+    );
+    this.renderer.setStyle(
+      this.el,
+      'margin-right',
+      `-${this.actualGutter / 2}px`
+    );
   }
 
   calculateGutter(): number {
     if (typeof this.nzGutter !== 'object') {
       return this.nzGutter;
-    } else if (this.breakPoint && this.nzGutter[ this.breakPoint ]) {
-      return this.nzGutter[ this.breakPoint ];
+    } else if (this.breakPoint && this.nzGutter[this.breakPoint]) {
+      return this.nzGutter[this.breakPoint];
     } else {
       return;
     }
@@ -111,14 +124,14 @@ export class NzRowComponent implements OnInit {
     this.actualGutter = this.calculateGutter();
   }
 
-  @HostListener('window:resize', [ '$event' ])
+  @HostListener('window:resize', ['$event'])
   onWindowResize(e: UIEvent): void {
     this.watchMedia();
   }
 
   watchMedia(): void {
     Object.keys(responsiveMap).map((screen: Breakpoint) => {
-      const matchBelow = matchMedia(responsiveMap[ screen ]).matches;
+      const matchBelow = matchMedia(responsiveMap[screen]).matches;
       if (matchBelow) {
         this.breakPoint = screen;
       }
@@ -127,18 +140,23 @@ export class NzRowComponent implements OnInit {
     this.setStyle();
   }
 
-  /** temp solution since no method add classMap to host https://github.com/angular/angular/issues/7289*/
   setClassMap(): void {
     const classMap = {
-      [ `${this.prefixCls}` ]                                 : !this.nzType,
-      [ `${this.prefixCls}-${this.nzType}` ]                  : this.nzType,
-      [ `${this.prefixCls}-${this.nzType}-${this.nzAlign}` ]  : this.nzType && this.nzAlign,
-      [ `${this.prefixCls}-${this.nzType}-${this.nzJustify}` ]: this.nzType && this.nzJustify
+      [`${this.prefixCls}`]: !this.nzType,
+      [`${this.prefixCls}-${this.nzType}`]: this.nzType,
+      [`${this.prefixCls}-${this.nzType}-${this.nzAlign}`]:
+        this.nzType && this.nzAlign,
+      [`${this.prefixCls}-${this.nzType}-${this.nzJustify}`]:
+        this.nzType && this.nzJustify
     };
     this.nzUpdateHostClassService.updateHostClass(this.el, classMap);
   }
 
-  constructor(public elementRef: ElementRef, public renderer: Renderer2, public nzUpdateHostClassService: NzUpdateHostClassService) {
+  constructor(
+    public elementRef: ElementRef,
+    public renderer: Renderer2,
+    public nzUpdateHostClassService: HostClassService
+  ) {
     this.el = this.elementRef.nativeElement;
   }
 

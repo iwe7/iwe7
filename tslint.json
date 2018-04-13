@@ -16,7 +16,7 @@
       "rxjs",
       "rxjs/Rx"
     ],
-    "interface-over-type-literal": true,
+    "interface-over-type-literal": false,
     "member-access": false,
     "member-ordering": [
       false,
@@ -40,7 +40,7 @@
       "trace"
     ],
     "no-construct": false,
-    "no-debugger": true,
+    "no-debugger": false,
     "no-duplicate-super": true,
     "no-empty": false,
     "no-empty-interface": true,
@@ -63,7 +63,7 @@
     "prefer-const": false,
     "radix": true,
     "triple-equals": [
-      true,
+      false,
       "allow-null-check"
     ],
     "unified-signatures": false,

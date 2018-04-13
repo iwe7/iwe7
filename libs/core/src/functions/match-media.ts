@@ -16,5 +16,4 @@ function matchMediaFunc(): (mediaQuery: string) => MediaQueryList {
     return matchMediaPolyfill;
   }
 }
-
 export const matchMedia = matchMediaFunc();

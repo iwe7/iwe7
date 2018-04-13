@@ -7,7 +7,7 @@ import {
   SkipSelf
 } from '@angular/core';
 
-import { reqAnimFrame } from '../polyfill/request-animation';
+import { reqAnimFrame } from './functions/request-animation';
 
 export type EasyingFn = (t: number, b: number, c: number, d: number) => number;
 
@@ -21,16 +21,14 @@ function easeInOutCubic(t: number, b: number, c: number, d: number): number {
   }
 }
 
-@Injectable()
-export class NzScrollService {
+@Injectable({
+  providedIn: 'root'
+})
+export class ScrollService {
   private doc: Document;
-
-  /* tslint:disable-next-line:no-any */
   constructor(@Inject(DOCUMENT) doc: any) {
     this.doc = doc;
   }
-
-  /** 设置 `el` 滚动条位置 */
   setScrollTop(el: Element | Window, topValue: number = 0): void {
     if (el === window) {
       this.doc.body.scrollTop = topValue;
@@ -39,15 +37,12 @@ export class NzScrollService {
       (el as Element).scrollTop = topValue;
     }
   }
-
-  /** 获取 `el` 相对于视窗距离 */
   getOffset(el: Element): { top: number; left: number } {
     const ret = {
       top: 0,
       left: 0
     };
     if (!el || !el.getClientRects().length) return ret;
-
     const rect = el.getBoundingClientRect();
     if (rect.width || rect.height) {
       const doc = el.ownerDocument.documentElement;
@@ -57,12 +52,9 @@ export class NzScrollService {
       ret.top = rect.top;
       ret.left = rect.left;
     }
-
     return ret;
   }
 
-  /** 获取 `el` 滚动条位置 */
-  // TODO: remove '| Window' as the fallback already happens here
   getScroll(el?: Element | Window, top: boolean = true): number {
     const target = el ? el : window;
     const prop = top ? 'pageYOffset' : 'pageXOffset';
@@ -74,15 +66,6 @@ export class NzScrollService {
     }
     return ret;
   }
-
-  /**
-   * 使用动画形式将 `el` 滚动至某位置
-   *
-   * @param containerEl 容器，默认 `window`
-   * @param targetTopValue 滚动至目标 `top` 值，默认：0，相当于顶部
-   * @param easing 动作算法，默认：`easeInOutCubic`
-   * @param callback 动画结束后回调
-   */
   scrollTo(
     containerEl: Element | Window,
     targetTopValue: number = 0,
@@ -108,16 +91,3 @@ export class NzScrollService {
     reqAnimFrame(frameFunc);
   }
 }
-
-export function SCROLL_SERVICE_PROVIDER_FACTORY(
-  doc: Document,
-  scrollService: NzScrollService
-): NzScrollService {
-  return scrollService || new NzScrollService(doc);
-}
-
-export const SCROLL_SERVICE_PROVIDER: Provider = {
-  provide: NzScrollService,
-  useFactory: SCROLL_SERVICE_PROVIDER_FACTORY,
-  deps: [DOCUMENT, [new Optional(), new SkipSelf(), NzScrollService]]
-};

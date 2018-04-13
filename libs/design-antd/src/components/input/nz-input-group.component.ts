@@ -10,7 +10,7 @@ import {
   TemplateRef
 } from '@angular/core';
 import { toBoolean } from '../core/util/convert';
-import { trimWhiteSpace } from '../core/util/trim-whitespace';
+import { trimWhiteSpace } from 'iwe7/core';
 
 import { NzInputDirective } from './nz-input.directive';
 // tslint:disable-next-line:no-any

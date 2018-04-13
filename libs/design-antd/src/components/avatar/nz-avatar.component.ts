@@ -9,7 +9,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 
 export type NzAvatarShape = 'square' | 'circle';
 export type NzAvatarSize = 'small' | 'large' | 'default';

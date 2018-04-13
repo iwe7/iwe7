@@ -22,7 +22,7 @@ import { take } from 'rxjs/operators/take';
 
 import { toBoolean } from '../core/util/convert';
 
-import { dropDownAnimation } from '../core/animation/dropdown-animations';
+import { dropDownAnimation } from 'iwe7/animations';
 import { NzAutocompleteOptionComponent, NzOptionSelectionChange } from './nz-autocomplete-option.component';
 
 export interface AutocompleteDataSourceItem {

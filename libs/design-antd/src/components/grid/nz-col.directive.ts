@@ -2,7 +2,7 @@ import {
   Directive
 } from '@angular/core';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 
 import { NzColComponent } from './nz-col.component';
 

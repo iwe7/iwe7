@@ -87,7 +87,6 @@ export const POSITION_MAP: { [key: string]: ConnectionPositionPair } = ({
   }
 } as {}) as { [key: string]: ConnectionPositionPair };
 
-// TODO: The whole logic does not make sense here, _objectValues just returns a copy of original array
 export const DEFAULT_4_POSITIONS = _objectValues([
   POSITION_MAP.top,
   POSITION_MAP.right,

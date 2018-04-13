@@ -11,7 +11,7 @@ import {
   SimpleChange
 } from '@angular/core';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 import { isNotNil } from '../core/util/check';
 
 import { NzRowComponent } from './nz-row.component';

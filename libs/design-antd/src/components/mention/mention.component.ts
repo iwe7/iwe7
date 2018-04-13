@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 
-import { DEFAULT_MENTION_POSITIONS } from '../core/overlay/overlay-position-map';
+import { DEFAULT_MENTION_POSITIONS } from 'iwe7/core';
 import { getMentions } from '../core/util/getMentions';
 import { getCaretCoordinates } from '../core/util/textarea-caret-position';
 

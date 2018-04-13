@@ -1,4 +1,3 @@
-// tslint:disable:no-any typedef no-invalid-this
 const availablePrefixs = ['moz', 'ms', 'webkit'];
 
 function requestAnimationFramePolyfill(): typeof requestAnimationFrame {
@@ -19,14 +18,11 @@ function getRequestAnimationFrame(): typeof requestAnimationFrame {
     return () => null;
   }
   if (window.requestAnimationFrame) {
-    // https://github.com/vuejs/vue/issues/4465
     return window.requestAnimationFrame.bind(window);
   }
-
   const prefix = availablePrefixs.filter(
     key => `${key}RequestAnimationFrame` in window
   )[0];
-
   return prefix
     ? window[`${prefix}RequestAnimationFrame`]
     : requestAnimationFramePolyfill();

@@ -6,7 +6,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { trimWhiteSpace } from '../core/util/trim-whitespace';
+import { trimWhiteSpace } from 'iwe7/core';
 
 export type NzButtonGroupSize = 'small' | 'large' | 'default';
 

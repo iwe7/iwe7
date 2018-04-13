@@ -6,7 +6,7 @@ import {
   Output
 } from '@angular/core';
 
-import { fadeAnimation } from '../core/animation/fade-animations';
+import { fadeAnimation } from 'iwe7/animations';
 import { toBoolean } from '../core/util/convert';
 import { I18nService as NzI18nService } from 'iwe7/i18n';
 import { NzToolTipComponent } from '../tooltip/nz-tooltip.component';

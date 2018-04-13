@@ -14,7 +14,7 @@ export type NgClassType =
   | Set<string>
   | { [klass: string]: any };
 
-import { fadeAnimation } from '../core/animation/fade-animations';
+import { fadeAnimation } from 'iwe7/animations';
 import { toBoolean } from '../core/util/convert';
 
 @Component({

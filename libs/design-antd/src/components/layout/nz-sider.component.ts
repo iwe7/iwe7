@@ -13,7 +13,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { NzMatchMediaService } from '../core/services/nz-match-media.service';
+import { NzMatchMediaService } from 'iwe7/core';
 import { toBoolean } from '../core/util/convert';
 
 import { NzLayoutComponent } from './nz-layout.component';

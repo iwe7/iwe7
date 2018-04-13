@@ -28,9 +28,9 @@ import {
 } from '@angular/cdk/keycodes';
 import { ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 
-import { dropDownAnimation } from '../core/animation/dropdown-animations';
+import { dropDownAnimation } from 'iwe7/animations';
 import { toBoolean } from '../core/util/convert';
 
 function toArray<T>(value: T | T[]): T[] {

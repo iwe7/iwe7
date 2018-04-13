@@ -4,7 +4,7 @@ import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnChange
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 
 import { UploadFile, UploadXHRArgs, ZipButtonOptions } from './interface';
 

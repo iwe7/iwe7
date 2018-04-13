@@ -13,7 +13,7 @@ import {
   TemplateRef
 } from '@angular/core';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 import { toBoolean } from '../core/util/convert';
 
 import { TransferItem } from './interface';

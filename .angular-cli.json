@@ -160,6 +160,13 @@
       "tags": []
     },
     {
+      "name": "animations",
+      "root": "libs/animations/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "browser",
       "root": "libs/browser/src",
       "test": "../../../test.js",

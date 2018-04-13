@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Input, NgZone, Renderer2 } from '@angular/core';
 
-import { reqAnimFrame } from '../core/polyfill/request-animation';
+import { reqAnimFrame } from 'iwe7/core';
 import { toBoolean } from '../core/util/convert';
 
 import { NzTabPositionMode } from './nz-tabset.component';

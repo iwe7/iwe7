@@ -1,26 +1,20 @@
-// tslint:disable:no-any typedef no-invalid-this
 import {
   cancelRequestAnimationFrame,
   reqAnimFrame
-} from '../polyfill/request-animation';
+} from 'iwe7/core';
 
 export default function throttleByAnimationFrame(fn: Function) {
   let requestId: number | null;
-
   const later = (args: any[]) => () => {
     requestId = null;
     fn(...args);
   };
-
   const throttled = (...args: any[]) => {
     if (requestId == null) {
       requestId = reqAnimFrame(later(args));
     }
   };
-
-  // tslint:disable-next-line:no-non-null-assertion
   (throttled as any).cancel = () => cancelRequestAnimationFrame(requestId!);
-
   return throttled;
 }
 
@@ -38,7 +32,6 @@ export function throttleByAnimationFrameDecorator() {
         ) {
           return fn;
         }
-
         const boundFn = throttleByAnimationFrame(fn.bind(this));
         definingProperty = true;
         Object.defineProperty(this, key, {

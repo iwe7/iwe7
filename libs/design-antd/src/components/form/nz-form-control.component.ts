@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 import { toBoolean } from '../core/util/convert';
 import { NzColComponent } from '../grid/nz-col.component';
 

@@ -1,23 +1,35 @@
 ### iwe7
-> 高端web一站式解决方案
+
+> 高端 web 一站式解决方案
+
 * angular6.0
-* rxjs响应式编程
-* underscore工具库
+* rxjs 响应式编程
+* underscore 工具库
+
+##### [iwe7/core](./libs/core/readme.md)
+
+> 核心类及一些常用服务
 
 ##### [iwe7/lazy-load](./libs/lazy-load/readme.md)
+
 > 组件懒加载库，仅仅页面懒加载有时候并不能满足我们的需求！
 
 ##### [iwe7/cache](./libs/cache/readme.md)
-> 缓存工具库，提供优雅的api来操作各种缓存数据
+
+> 缓存工具库，提供优雅的 api 来操作各种缓存数据
 
 ##### [iwe7/icss](./libs/icss/readme.md)
-> 当css遇到rxjs
+
+> 当 css 遇到 rxjs
 
 ##### [iwe7/touch](./libs/touch/readme.md)
+
 > 手势库
 
 ##### [iwe7/pipes](./libs/pipes/readme.md)
-> 常用pipe集合
+
+> 常用 pipe 集合
 
 ##### [iwe7/themes](./libs/themes/readme.md)
+
 > 主题工具

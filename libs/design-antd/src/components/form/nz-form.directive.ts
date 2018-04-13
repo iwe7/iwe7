@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 
 @Directive({
   selector : '[nz-form]',

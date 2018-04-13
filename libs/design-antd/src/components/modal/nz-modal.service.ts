@@ -3,7 +3,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ApplicationRef, ComponentFactoryResolver, ComponentRef, EventEmitter, Injectable, Injector, Optional, SkipSelf, TemplateRef, Type } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { LoggerService } from '../core/util/logger/logger.service';
+import { LoggerService } from 'iwe7/core';
 
 import { NzModalControlService } from './nz-modal-control.service';
 import { NzModalRef } from './nz-modal-ref.class';

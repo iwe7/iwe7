@@ -10,7 +10,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 import { isEmpty } from '../core/util/check';
 import { toBoolean } from '../core/util/convert';
 

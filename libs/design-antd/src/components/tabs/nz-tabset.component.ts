@@ -16,7 +16,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators/map';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 import { isNotNil } from '../core/util/check';
 import { toNumber } from '../core/util/convert';
 

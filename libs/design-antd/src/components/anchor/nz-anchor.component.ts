@@ -16,7 +16,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { throttleTime } from 'rxjs/operators/throttleTime';
-import { NzScrollService } from '../core/scroll/nz-scroll.service';
+import { NzScrollService } from 'iwe7/core';
 import { toBoolean, toNumber } from '../core/util/convert';
 
 import { NzAnchorLinkComponent } from './nz-anchor-link.component';

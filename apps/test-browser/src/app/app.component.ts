@@ -21,6 +21,7 @@ export class AppComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.test.index$.subscribe(res => {
       console.log('app ', res);
+      this.cd.detectChanges();
     });
   }
 

@@ -14,7 +14,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { NzScrollService } from '../core/scroll/nz-scroll.service';
+import { NzScrollService } from 'iwe7/core';
 import { shallowEqual } from '../core/util/check';
 import { toNumber } from '../core/util/convert';
 import { throttleByAnimationFrameDecorator } from '../core/util/throttleByAnimationFrame';

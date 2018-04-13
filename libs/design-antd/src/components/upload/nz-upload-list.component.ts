@@ -2,7 +2,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 import { I18nService as NzI18nService } from 'iwe7/i18n';
 
 import { ShowUploadListInterface, UploadFile, UploadListType } from './interface';

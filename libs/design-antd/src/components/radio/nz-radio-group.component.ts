@@ -11,7 +11,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type NzRadioGroupSizeType = 'large' | 'default' | 'small';
 
-import { trimWhiteSpace } from '../core/util/trim-whitespace';
+import { trimWhiteSpace } from 'iwe7/core';
 
 import { NzRadioButtonComponent } from './nz-radio-button.component';
 import { NzRadioComponent } from './nz-radio.component';

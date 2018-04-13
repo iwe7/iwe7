@@ -1,19 +1,18 @@
-import {
-  Component,
-  Input
-} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { fadeAnimation } from '../core/animation/fade-animations';
+import { fadeAnimation } from 'iwe7/animations';
 import { NzToolTipComponent } from '../tooltip/nz-tooltip.component';
 
 @Component({
   selector: 'nz-popover',
   preserveWhitespaces: false,
-  animations: [ fadeAnimation ],
+  animations: [fadeAnimation],
   templateUrl: './nz-popover.component.html',
-  styles: [ `
+  styles: [
+    `
     .ant-popover { position: relative; }
-  ` ]
+  `
+  ]
 })
 export class NzPopoverComponent extends NzToolTipComponent {
   _prefix = 'ant-popover-placement';

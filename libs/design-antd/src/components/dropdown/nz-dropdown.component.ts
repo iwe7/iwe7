@@ -23,8 +23,8 @@ import { map } from 'rxjs/operators/map';
 import { mapTo } from 'rxjs/operators/mapTo';
 import { merge } from 'rxjs/operators/merge';
 
-import { dropDownAnimation } from '../core/animation/dropdown-animations';
-import { DEFAULT_DROPDOWN_POSITIONS, POSITION_MAP } from '../core/overlay/overlay-position-map';
+import { dropDownAnimation } from 'iwe7/animations';
+import { DEFAULT_DROPDOWN_POSITIONS, POSITION_MAP } from 'iwe7/core';
 import { toBoolean } from '../core/util/convert';
 import { NzMenuDirective } from '../menu/nz-menu.directive';
 

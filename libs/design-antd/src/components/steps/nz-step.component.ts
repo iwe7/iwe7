@@ -6,7 +6,7 @@ import {
   ViewChild
 } from '@angular/core';
 
-import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
+import { NzUpdateHostClassService } from 'iwe7/core';
 
 // tslint:disable-next-line:no-any
 export type StepNgClassType = string | string[] | Set<string> | { [klass: string]: any; };

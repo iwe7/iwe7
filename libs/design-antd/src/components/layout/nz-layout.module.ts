@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { NzMatchMediaService } from '../core/services/nz-match-media.service';
+import { NzMatchMediaService } from 'iwe7/core';
 
 import { NzContentComponent } from './nz-content.component';
 import { NzFooterComponent } from './nz-footer.component';
