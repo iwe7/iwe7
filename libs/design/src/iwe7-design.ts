@@ -4,6 +4,7 @@ import { Iwe7Base } from 'iwe7/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 export abstract class Iwe7DesignBase<T> extends Iwe7Base<T> implements OnInit {
+  selector: string;
   constructor(cd: ChangeDetectorRef) {
     super(cd);
   }

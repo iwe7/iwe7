@@ -9,19 +9,17 @@ import {
   TemplateRef,
   ViewChild
 } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Observable';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { first } from 'rxjs/operators/first';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { debounceTime, first } from 'rxjs/operators';
 
 import { isEmpty, isNotNil } from '../core/util/check';
 import { toBoolean } from '../core/util/convert';
 
 @Component({
-  selector           : 'nz-spin',
+  selector: 'nz-spin',
   preserveWhitespaces: false,
-  changeDetection    : ChangeDetectionStrategy.OnPush,
-  template           : `
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
     <ng-template #defaultIndicatorTemplate>
       <span
         class="ant-spin-dot"
@@ -50,7 +48,6 @@ import { toBoolean } from '../core/util/convert';
         <ng-content></ng-content>
       </div>
     </div>
-
   `
 })
 export class NzSpinComponent implements AfterViewInit {
@@ -59,7 +56,9 @@ export class NzSpinComponent implements AfterViewInit {
   el: HTMLElement;
   isNested = false;
   baseSpinning$ = new BehaviorSubject(true);
-  resultSpinning$: Observable<boolean> = this.baseSpinning$.asObservable().pipe(debounceTime(this.nzDelay));
+  resultSpinning$: Observable<boolean> = this.baseSpinning$
+    .asObservable()
+    .pipe(debounceTime(this.nzDelay));
   @ViewChild('containerElement') containerElement: ElementRef;
   @Input() nzIndicator: TemplateRef<void>;
   @Input() nzSize = 'default';
@@ -68,7 +67,9 @@ export class NzSpinComponent implements AfterViewInit {
   set nzDelay(value: number) {
     if (isNotNil(value)) {
       this._delay = value;
-      this.resultSpinning$ = this.baseSpinning$.asObservable().pipe(debounceTime(this.nzDelay));
+      this.resultSpinning$ = this.baseSpinning$
+        .asObservable()
+        .pipe(debounceTime(this.nzDelay));
     }
   }
 
@@ -91,7 +92,6 @@ export class NzSpinComponent implements AfterViewInit {
   }
 
   checkNested(): void {
-    /** no way to detect empty https://github.com/angular/angular/issues/12530 **/
     if (!isEmpty(this.containerElement.nativeElement)) {
       this.isNested = true;
       this.renderer.setStyle(this.el, 'display', 'block');
@@ -101,7 +101,11 @@ export class NzSpinComponent implements AfterViewInit {
     }
   }
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2, private zone: NgZone) {
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+    private zone: NgZone
+  ) {
     this.el = this.elementRef.nativeElement;
   }
 

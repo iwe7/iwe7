@@ -70,21 +70,12 @@ export class IndexComponent implements OnInit, AfterViewInit {
     }
     if (!this.instance) {
       if (this.view) {
-        this.lazyload
-          .createComponent(
-            {
-              selector: 'design-page',
-              element: null
-            },
-            this.view,
-            this
-          )
-          .subscribe((instance: Iwe7DesignSettingBase<any>) => {
-            if (instance) {
-              instance.setProps(this.designGroup);
-              this.instance = instance;
-            }
-          });
+        this.lazyload.load(
+          'design-page',
+          this.view,
+          this.designGroup,
+          () => {}
+        );
       }
     }
   }

@@ -209,8 +209,36 @@
       "tags": []
     },
     {
+      "name": "design-elements",
+      "root": "libs/design-elements/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "design-libs",
       "root": "libs/design-libs/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "design-pages",
+      "root": "libs/design-pages/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "design-view",
+      "root": "libs/design-view/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "design-views",
+      "root": "libs/design-views/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

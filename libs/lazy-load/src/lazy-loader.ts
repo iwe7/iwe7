@@ -4,15 +4,17 @@ import {
   NgModuleFactoryLoader,
   NgModuleRef,
   Inject,
-  ViewContainerRef
+  ViewContainerRef,
+  ɵisObservable
 } from '@angular/core';
-import { of, Observable, merge } from 'rxjs';
+import { of, Observable, merge, BehaviorSubject } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { LazyComponentsInterface } from './interface';
 import { LazyComponentModuleFactory } from './lazy-component-module-factory';
 import { flatten } from 'underscore';
 import { ROUTES } from '@angular/router';
+import { Iwe7Base } from 'iwe7/core';
 @Injectable({
   providedIn: 'root'
 })
@@ -66,9 +68,9 @@ export class LazyLoaderService {
   }
 
   public createComponent(
-    item: { selector: string; element: HTMLElement },
+    item: { selector: string; element?: HTMLElement },
     view: ViewContainerRef,
-    that: any
+    that?: Iwe7Base<any>
   ): Observable<any> {
     let path = this.components.get(item.selector);
     return fromPromise(
@@ -80,10 +82,11 @@ export class LazyLoaderService {
             item.selector,
             this.moduleRef.injector
           );
+          const selector = item.selector;
           let { inputs, outputs, ngContentSelectors } = component;
           if (component) {
             let viewRef = view.createComponent(component);
-            let instance = viewRef.instance;
+            let instance: Iwe7Base<any> = viewRef.instance;
             if (item.element) {
               let { attributes } = item.element;
               let attr = attributes as NamedNodeMap;
@@ -92,8 +95,24 @@ export class LazyLoaderService {
                 instance[res.propName] = val;
               });
               outputs.map((res, index) => {
-                instance[res.propName].subscribe(res => {
-                  that[res.propName] && that[res.propName](res);
+                instance[res.propName].subscribe(evt => {
+                  that &&
+                    that.__events.next({
+                      type: res.templateName,
+                      selector: selector,
+                      data: evt
+                    });
+                });
+              });
+            } else {
+              // input参数交友props处理
+              outputs.map((res, index) => {
+                instance[res.propName].subscribe(evt => {
+                  instance.__events.next({
+                    type: res.templateName,
+                    selector: selector,
+                    data: evt
+                  });
                 });
               });
             }
@@ -104,5 +123,28 @@ export class LazyLoaderService {
       }),
       tap(instance => {})
     );
+  }
+
+  load(selector, view: ViewContainerRef, props?, callback?) {
+    this.createComponent(
+      {
+        selector: 'design-elements-add',
+        element: null
+      },
+      view,
+      null
+    ).subscribe(res => {
+      if (!!props) {
+        if (ɵisObservable(props)) {
+          res.setProps(props);
+        } else {
+          res.setProps(new BehaviorSubject(props));
+        }
+      }
+      // 监听输出
+      res.__events.subscribe(res => {
+        callback && callback(res);
+      });
+    });
   }
 }

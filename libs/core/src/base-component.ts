@@ -8,7 +8,13 @@ import {
   OnDestroy,
   ɵisObservable
 } from '@angular/core';
-import { Observable, merge, Subscription, BehaviorSubject } from 'rxjs';
+import {
+  Observable,
+  merge,
+  Subscription,
+  BehaviorSubject,
+  Subject
+} from 'rxjs';
 import {
   first,
   filter,
@@ -27,6 +33,12 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   // 保存关联组件
   public instance: Iwe7Base<T>;
   @Input() props: BehaviorSubject<T> = new BehaviorSubject({} as T);
+  // 监听组件事件流
+  __events: Subject<{
+    type: string;
+    selector?: string;
+    data?: any;
+  }> = new Subject();
   // 需要注销开关
   needDestory: boolean = false;
   subscription: Subscription;
@@ -62,20 +74,14 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
 
   __propsHandler() {
     this.subscription && this.subscription.unsubscribe();
-    if(!ɵisObservable(this.props)){
-      this.props = new BehaviorSubject(this.props)
+    if (!ɵisObservable(this.props)) {
+      this.props = new BehaviorSubject(this.props);
     }
     this.subscription = this.props
-      .pipe(
-        // 去重复
-        distinctUntilChanged((x, y) => {
-          return isEqual(x, y);
-        })
-      )
       .subscribe(res => {
         this._props = res;
         this.onPropsChange(res);
-        this.cd.markForCheck();
+        this.cd.detectChanges();
       });
   }
 

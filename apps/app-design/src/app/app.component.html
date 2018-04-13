@@ -1,7 +1,2 @@
-<ul>
-  <li *ngFor="let item of items | map;" (click)="go(item.item, item.key)">{{item.item.title}}</li>
-</ul>
-
-<div class="main">
-  <router-outlet></router-outlet>
-</div>
+<a href="javascript:;" (click)="addPage()">添加页面</a>
+<ng-container (getViewRef)="setDialogView($event)"></ng-container>

@@ -7,6 +7,24 @@ export { ScrollService } from './src/scroll.service';
 export { HostClassService } from './src/host-class.service';
 export { MatchMediaService } from './src/match-media.service';
 
+export interface KeyValue {
+  [key: string]: any;
+}
+
+export interface SchemaFormItem {
+  name?: string;
+  type?: string;
+  label?: string;
+  placeholder?: string;
+  value?: string;
+  validators?: {
+    [key: string]: {
+      limit: string;
+      msg: string;
+    };
+  };
+}
+
 //
 export * from './src/overlay-position-map';
 

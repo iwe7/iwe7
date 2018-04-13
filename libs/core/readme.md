@@ -1,25 +1,23 @@
 ### 定义所有组件如非必要，必须继承BaseComponent
-
+规范化
 ```ts
-// 给予rxjs设计的组件
-import {
-  Input,
-  OnChanges,
-  SimpleChanges,
-  ChangeDetectorRef,
-  OnInit,
-  OnDestroy
-} from '@angular/core';
-import { Observable, merge } from 'rxjs';
-import { first, filter, takeWhile } from 'rxjs/operators';
-
-export class BaseComponent implements OnChanges, OnInit, OnDestroy {
-  @Input() props: Observable<any> = new Observable();
+export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
+  // 保存最新值
+  public _props: T;
+  // 保存关联组件
+  public instance: Iwe7Base<T>;
+  @Input() props: BehaviorSubject<T> = new BehaviorSubject({} as T);
+  // 监听组件事件流
+  __events: Subject<{
+    type: string;
+    selector?: string;
+    data?: any;
+  }> = new Subject();
   // 需要注销开关
   needDestory: boolean = false;
-  constructor(
-    public cd: ChangeDetectorRef
-  ) {}
+  subscription: Subscription;
+  id: any = new Date().getTime();
+  constructor(public cd: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if ('props' in changes) {
@@ -39,25 +37,37 @@ export class BaseComponent implements OnChanges, OnInit, OnDestroy {
     this.__propsHandler();
   }
 
-  setProps(props: Observable<any>) {
-    this.props = merge(this.props, props);
+  setProps(props: BehaviorSubject<T>) {
+    this.props = props;
     this.__propsHandler();
   }
 
-  private __propsHandler() {
-    this.props = merge(
-      // 添加默认值
-      this.props.pipe(first((val, idx) => idx === 0, {})),
-      this.props
-    ).pipe(
-      // 去除{}
-      filter(val => Object.keys(val).length > 0),
-      // 自动注销
-      takeWhile(val => !this.needDestory)
-    );
-    this.props.subscribe(res => {
-      this.cd.markForCheck();
-    });
+  setData(res: T) {
+    this.props.next({ ...(this._props as any), ...(res as any) });
   }
+
+  __propsHandler() {
+    this.subscription && this.subscription.unsubscribe();
+    if (!ɵisObservable(this.props)) {
+      this.props = new BehaviorSubject(this.props);
+    }
+    this.subscription = this.props
+      .pipe(
+        // 去重复
+        distinctUntilChanged((x, y) => {
+          return isEqual(x, y);
+        })
+      )
+      .subscribe(res => {
+        this._props = res;
+        this.onPropsChange(res);
+        this.cd.markForCheck();
+      });
+  }
+
+  getProps() {
+    return this._props;
+  }
+  public abstract onPropsChange(res: T): void;
 }
 ```

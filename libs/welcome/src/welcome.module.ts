@@ -11,7 +11,7 @@ import { RouterModule } from '@angular/router';
       },
       {
         path: 'iwe7-welcome-pc',
-        loadChildren: './welcome-pc/welcome-pc.module#WelcomeIndexModule'
+        loadChildren: './welcome-pc/welcome-pc.module#WelcomePcModule'
       }
     ])
   ]

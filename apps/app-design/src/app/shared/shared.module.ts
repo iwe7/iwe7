@@ -11,6 +11,9 @@ import { Iwe7TouchModule } from 'iwe7/touch';
 import { Iwe7WelcomeModule } from 'iwe7/welcome';
 import { Iwe7CoreModule } from 'iwe7/core';
 import { Iwe7PipesModule } from 'iwe7/pipes';
+import { DesignViewModule } from 'iwe7/design-view';
+import { DesignPagesModule } from 'iwe7/design-pages';
+import { DesignElementsModule } from 'iwe7/design-elements';
 
 @NgModule({
   imports: [
@@ -25,7 +28,10 @@ import { Iwe7PipesModule } from 'iwe7/pipes';
     Iwe7TouchModule,
     Iwe7WelcomeModule,
     Iwe7CoreModule,
-    Iwe7PipesModule
+    Iwe7PipesModule,
+    DesignViewModule,
+    DesignPagesModule,
+    DesignElementsModule
   ],
   declarations: [],
   exports: [
@@ -34,7 +40,10 @@ import { Iwe7PipesModule } from 'iwe7/pipes';
     Iwe7DesignModule,
     Iwe7TouchModule,
     Iwe7CoreModule,
-    Iwe7PipesModule
+    Iwe7PipesModule,
+    DesignViewModule,
+    DesignPagesModule,
+    DesignElementsModule
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   providers: [
