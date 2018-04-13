@@ -6,6 +6,9 @@
 * rxjs 响应式编程
 * underscore 工具库
 
+> 体积
+> vendor 525Kb gzip后 128kb
+
 ##### [iwe7/core](./libs/core/readme.md)
 
 > 核心类及一些常用服务

@@ -21,16 +21,18 @@ export { trimWhiteSpace } from './src/functions/trim-whitespace';
 // nz
 import { HostClassService } from './src/host-class.service';
 import { Renderer2 } from '@angular/core';
-export class NzUpdateHostClassService extends HostClassService {
-  constructor(renderer: Renderer2) {
-    super(renderer);
-  }
-}
-
-import { MatchMediaService } from './src/match-media.service';
-export class NzMatchMediaService extends MatchMediaService {}
-
 import { ScrollService } from './src/scroll.service';
+import { Injectable } from '@angular/core';
+import { MatchMediaService } from './src/match-media.service';
+@Injectable({
+  providedIn: 'root'
+})
+export class NzUpdateHostClassService extends HostClassService {}
+@Injectable({
+  providedIn: 'root'
+})
+export class NzMatchMediaService extends MatchMediaService {}
+@Injectable({
+  providedIn: 'root'
+})
 export class NzScrollService extends ScrollService {}
-
-

@@ -4,7 +4,6 @@ import {
   CUSTOM_ELEMENTS_SCHEMA
 } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { NzButtonModule } from 'ng-zorro-antd';
 import { DesignAntdModule } from 'iwe7/design-antd';
 import { Iwe7LazyLoadModule } from 'iwe7/lazy-load';
 import { Iwe7DesignModule } from 'iwe7/design';
@@ -12,6 +11,7 @@ import { Iwe7TouchModule } from 'iwe7/touch';
 import { Iwe7WelcomeModule } from 'iwe7/welcome';
 import { Iwe7CoreModule } from 'iwe7/core';
 import { Iwe7PipesModule } from 'iwe7/pipes';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -29,7 +29,6 @@ import { Iwe7PipesModule } from 'iwe7/pipes';
   ],
   declarations: [],
   exports: [
-    NzButtonModule,
     DesignAntdModule,
     Iwe7LazyLoadModule,
     Iwe7DesignModule,

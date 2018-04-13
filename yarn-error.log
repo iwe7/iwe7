@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn start4
+  /usr/local/bin/node /usr/local/bin/yarn build3
 
 PATH: 
   /Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/meepo/.rvm/bin:/Users/meepo/.rvm/bin
@@ -71,7 +71,6 @@ npm manifest:
       "iwe7-core": "^1.0.1",
       "mooa": "^0.1.1",
       "ng-packagr": "^2.4.2",
-      "ng-zorro-antd": "^0.6.15",
       "ngrx-store-freeze": "^0.2.1",
       "normalize.css": "^8.0.0",
       "ramda": "^0.25.0",
@@ -148,12 +147,6 @@ Lockfile:
   "@angular/cdk@6.0.0-rc.1":
     version "6.0.0-rc.1"
     resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-6.0.0-rc.1.tgz#f0b71280f6ef6d069722f94fecd51649684a7cfb"
-    dependencies:
-      tslib "^1.7.1"
-  
-  "@angular/cdk@^5.0.0":
-    version "5.2.4"
-    resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-5.2.4.tgz#c0a429a8710d8fedb157f546e21cb49d4335f7f7"
     dependencies:
       tslib "^1.7.1"
   
@@ -4754,10 +4747,6 @@ Lockfile:
     version "2.21.0"
     resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"
   
-  moment@^2.18.1:
-    version "2.22.0"
-    resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.0.tgz#7921ade01017dd45186e7fee5f424f0b8663a730"
-  
   mooa@^0.1.1:
     version "0.1.1"
     resolved "https://registry.yarnpkg.com/mooa/-/mooa-0.1.1.tgz#b9add5c1d84fd7ed1f319f7577c41af690fcf8c9"
@@ -4866,14 +4855,6 @@ Lockfile:
       tar "^4.4.1"
       uglify-js "^3.3.20"
       update-notifier "^2.3.0"
-  
-  ng-zorro-antd@^0.6.15:
-    version "0.6.15"
-    resolved "https://registry.yarnpkg.com/ng-zorro-antd/-/ng-zorro-antd-0.6.15.tgz#acef41a30febce835b871d52cd47d042ac2ed443"
-    dependencies:
-      "@angular/cdk" "^5.0.0"
-      moment "^2.18.1"
-      tslib "^1.7.1"
   
   ngrx-store-freeze@^0.2.1:
     version "0.2.1"
@@ -8034,7 +8015,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c ng serve --app=test-browser
+  Arguments: -c ng build --app=app-design --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true --sourcemaps=true
   Directory: /Volumes/meepo/nx/iwe7-nx
   Output:
   

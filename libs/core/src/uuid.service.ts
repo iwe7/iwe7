@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 })
 export class UuidService {
   constructor() {}
-
   get() {
     let d = new Date().getTime();
     let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {

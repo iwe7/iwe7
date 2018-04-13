@@ -55,7 +55,6 @@
     "iwe7-core": "^1.0.1",
     "mooa": "^0.1.1",
     "ng-packagr": "^2.4.2",
-    "ng-zorro-antd": "^0.6.15",
     "ngrx-store-freeze": "^0.2.1",
     "normalize.css": "^8.0.0",
     "ramda": "^0.25.0",
