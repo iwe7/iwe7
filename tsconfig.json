@@ -14,10 +14,11 @@
     "lib": ["es2017", "dom"],
     "baseUrl": ".",
     "paths": {
-      "iwe7-core/*": ["libs/core/*"],
-      "iwe7-design/*": ["libs/design/*"],
-      "iwe7-lazy-load/*": ["libs/design/*"],
-      "iwe7-icss/*": ["libs/icss/*"],
+      "iwe7/core/*": ["libs/core/*"],
+      "iwe7/design/*": ["libs/design/*"],
+      "iwe7/lazy-load/*": ["libs/design/*"],
+      "iwe7/icss/*": ["libs/icss/*"],
+      "iwe7/themes/*": ["libs/themes/*"],
       "iwe7/*": ["libs/*"]
     }
   },

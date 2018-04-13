@@ -9,10 +9,12 @@
     user-select: none;
     opacity: var(--design-opacity);
     z-index: var(--design-zindex);
+    cursor: move;
 }
 
 .drag {
     background: #000;
     width: 100%;
     height: 100%;
+    cursor: move;
 }

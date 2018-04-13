@@ -14,4 +14,8 @@ export class DesignDragDataService {
   get() {
     return this.data;
   }
+
+  clear() {
+    this.data = null;
+  }
 }

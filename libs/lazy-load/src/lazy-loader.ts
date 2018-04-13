@@ -85,6 +85,9 @@ export class LazyLoaderService {
           const selector = item.selector;
           let { inputs, outputs, ngContentSelectors } = component;
           if (component) {
+            if (!view) {
+              throw Error('view is error ' + selector + ` when attach to ${JSON.stringify(view)}`);
+            }
             let viewRef = view.createComponent(component);
             let instance: Iwe7Base<any> = viewRef.instance;
             if (item.element) {

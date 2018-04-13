@@ -69,6 +69,7 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
     this._viewRef = e;
     this.props.subscribe(res => {
       let { props } = res;
+      this._viewRef.clear();
       if (props.length > 0) {
         props.map(pro => {
           this.loader.load(pro.selector, this._viewRef, pro, pro.callback).subscribe();

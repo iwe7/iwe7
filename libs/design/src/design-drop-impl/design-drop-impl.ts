@@ -114,7 +114,7 @@ export class DesignDropImpl extends DesignBase<any> implements OnInit {
     this.isOver = isOver;
     if (isOver) {
       this.style$.next({
-        [`box-shadow`]: '4px 5px 4px #313131'
+        [`box-shadow`]: '1px 2px 4px #313131'
       });
     } else {
       this.resetPosition();

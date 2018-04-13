@@ -8,7 +8,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { Iwe7DesignSettingBase } from 'iwe7/design';
-import { UuidService } from 'iwe7-core/src/uuid.service';
+import { UuidService } from 'iwe7/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { data } from '../../data/data';

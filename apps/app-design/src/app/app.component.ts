@@ -14,9 +14,9 @@ import { LazyLoaderService } from 'iwe7/lazy-load';
 import { BehaviorSubject } from 'rxjs';
 import { Iwe7Base } from 'iwe7/core';
 import { DesignDragDataService } from 'iwe7/design';
+import { flatten, clone } from 'underscore';
+import { Iwe7ColorsService } from 'iwe7/themes/index';
 
-import { flatten } from 'underscore';
-import { Iwe7ColorsService } from 'iwe7/themes';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -39,8 +39,8 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
   _drop: any = {
     selector: 'design-drop-impl',
     style: {
-      width: '300px',
-      height: '300px',
+      width: '800px',
+      height: '100%',
       [`background-color`]: '#ccc',
       display: 'block',
       margin: '10px auto'
@@ -82,88 +82,50 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
   ngOnInit() {
     this.drag$.next(this._drag);
     this.drop$.next(this._drop);
+    this.__events.subscribe(res => {
+      if (res.type === 'droped' && res.data) {
+        let data = this.dragData.get();
+        if (data) {
+          let str = flatten(data);
+          this.dragData.clear();
+          str.map(res => {
+            let c = JSON.parse(JSON.stringify(res));
+            this._drop.props.push(c);
+          });
+          this.drop$.next(this._drop);
+        }
+      }
+    });
   }
 
-  viewRef: ViewContainerRef;
-  base$: BehaviorSubject<any> = new BehaviorSubject({});
-  setViewView(e) {
-    this.viewRef = e;
-    this.load.load('design-base-impl', this.viewRef, this.base$, res => {});
-  }
-  settingRef: ViewContainerRef;
-  form$: BehaviorSubject<any> = new BehaviorSubject({});
-  setSettingView(e) {
-    this.settingRef = e;
-    this.load.load('design-form-impl', this.settingRef, this.form$, res => {});
-  }
-
-  elementsRef: ViewContainerRef;
-  elements$: BehaviorSubject<any> = new BehaviorSubject({});
-  setElementsView(e) {
-    this.settingRef = e;
-    this.load.load(
-      'design-elements-impl',
-      this.settingRef,
-      this.form$,
-      res => {}
-    );
+  getDragRandomColor() {
+    let c = JSON.parse(JSON.stringify(this._drag));
+    c.props.map(res => {
+      res.style['background-color'] = this.colors.getRandomColor();
+    });
+    return c;
   }
 
   dragRef: ViewContainerRef;
   drag$: BehaviorSubject<any> = new BehaviorSubject({});
   setDragView(e) {
     this.dragRef = e;
-    this.load
-      .load('design-drag-impl', this.dragRef, this.drag$, res => {})
-      .subscribe(instance => {
-        this.__events.subscribe(res => {
-          if (res.type === 'droped') {
-            let str = flatten(this.dragData.get());
-            str.map(res => {
-              res[`background-color`] = this.colors.get
-              this._drop.props.push(res);
-            });
-            this.drop$.next(this._drop);
-            instance.resetPosition();
-          }
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(res => {
+      this.load
+        .load(
+          'design-drag-impl',
+          this.dragRef,
+          this.getDragRandomColor(),
+          res => {}
+        )
+        .subscribe(instance => {
+          this.__events.subscribe(res => {
+            if (res.type === 'droped' && res.data) {
+              instance.resetPosition();
+            }
+          });
         });
-      });
-    this.load
-      .load('design-drag-impl', this.dragRef, this.drag$, res => {})
-      .subscribe(instance => {
-        this.__events.subscribe(res => {
-          if (res.type === 'droped') {
-            instance.resetPosition();
-          }
-        });
-      });
-    this.load
-      .load('design-drag-impl', this.dragRef, this.drag$, res => {})
-      .subscribe(instance => {
-        this.__events.subscribe(res => {
-          if (res.type === 'droped') {
-            instance.resetPosition();
-          }
-        });
-      });
-    this.load
-      .load('design-drag-impl', this.dragRef, this.drag$, res => {})
-      .subscribe(instance => {
-        this.__events.subscribe(res => {
-          if (res.type === 'droped') {
-            instance.resetPosition();
-          }
-        });
-      });
-    this.load
-      .load('design-drag-impl', this.dragRef, this.drag$, res => {})
-      .subscribe(instance => {
-        this.__events.subscribe(res => {
-          if (res.type === 'droped') {
-            instance.resetPosition();
-          }
-        });
-      });
+    });
   }
 
   dropRef: ViewContainerRef;
@@ -174,7 +136,8 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
       .load('design-drop-impl', this.dropRef, this.drop$, (evt, instance) => {
         let { type, data } = evt;
         this.__events.next({
-          type: 'droped'
+          type: 'droped',
+          data: data
         });
         instance.resetPosition();
       })
