@@ -119,6 +119,13 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
       };
       ele.props.push(opt);
     });
-    this.load.load('sortable', e, ele, () => {}).subscribe();
+    this.load
+      .load('sortable', e, ele, evt => {
+        if (evt.type === 'onFinish') {
+          ele.props = evt.data;
+          // 排序后的完整数据
+        }
+      })
+      .subscribe();
   }
 }

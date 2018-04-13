@@ -12,7 +12,11 @@ import {
 } from '@angular/core';
 const OriginalSortable: any = require('sortablejs');
 const Sortable = require('sortablejs');
+
 import { DesignBase, DesignBaseProps } from 'iwe7/design';
+import { IcssService } from 'iwe7/icss';
+import { LazyLoaderService } from 'iwe7/lazy-load';
+
 export interface SortableOptions extends DesignBaseProps {
   group?: any;
   sort?: boolean;
@@ -46,8 +50,6 @@ export interface SortableOptions extends DesignBaseProps {
   onFilter?: (event: any) => any;
   onMove?: (event: any) => boolean;
 }
-import { IcssService } from 'iwe7/icss';
-import { LazyLoaderService } from 'iwe7/lazy-load';
 
 @Component({
   selector: 'sortable',
@@ -83,21 +85,21 @@ export class SortableComponent extends DesignBase<SortableOptions>
         };
       });
       const sortable = Sortable.create(this.ele.nativeElement, res);
-      this.__events.subscribe(res => {
-        if (res.type === 'onEnd') {
-          let arr = sortable.toArray();
-          let props = [];
-          arr.map(key => {
-            let item = this.memory.get(key);
-            props.push(item);
-          });
-          // 数据排序
-          this._props.props = props;
-          console.log('onfinish', this._props);
-          this.eventsNext('onFinish', this._props);
-          this.props.next(this._props);
-        }
-      });
+      this.__addSub(
+        this.__events.subscribe(res => {
+          if (res.type === 'onEnd') {
+            let arr = sortable.toArray();
+            let props = [];
+            arr.map(key => {
+              let item = this.memory.get(key);
+              props.push(item);
+            });
+            // 数据排序
+            this._props.props = props;
+            this.eventsNext('onFinish', this._props);
+          }
+        })
+      );
     });
   }
 }

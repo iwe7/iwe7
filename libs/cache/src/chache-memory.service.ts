@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'underscore';
-@Injectable({
-  providedIn: 'root'
-})
-export class CacheMemoryService<T> {
+
+export abstract class CacheMemory<T> {
   data: Map<string, any> = new Map();
   data$: Subject<Map<string, any>> = new Subject();
   constructor() {}
@@ -68,5 +66,15 @@ export class CacheMemoryService<T> {
       this.data = new Map(data);
       return this;
     }
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CacheMemoryService<T> extends CacheMemory<T> {
+  name: string = '大家好，我是cache memory service，你能把临时数据交给我保存！';
+  constructor(){
+    super();
   }
 }

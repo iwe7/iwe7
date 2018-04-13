@@ -26,7 +26,8 @@ import {
   takeUntil,
   tap,
   pairwise,
-  map
+  map,
+  switchMap
 } from 'rxjs/operators';
 import { isEqual } from 'underscore';
 import { CacheMemoryService, SubscribersService } from 'iwe7/cache';
@@ -51,9 +52,11 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   public __subscribers: SubscribersService;
   // 系统生成编号
   @HostBinding('attr.data-id') __id: string;
+
   constructor(public injector: Injector) {
     this.cd = this.injector.get(ChangeDetectorRef);
     this.memory = this.injector.get(CacheMemoryService);
+    this.__subscribers = this.injector.get(SubscribersService);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -67,9 +70,8 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
    * 注销
    */
   ngOnDestroy() {
-    if (this.memory.get(this.__id)) {
-      this.memory.delete(this.__id);
-    }
+    this.__subscribers.destory(this.__id);
+    this.props.complete();
     this.needDestory = true;
   }
 
@@ -78,7 +80,7 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   }
 
   setProps(props: BehaviorSubject<T>) {
-    this.props = props;
+    this.props = this.props.pipe<T>(switchMap(res => props)) as BehaviorSubject<T>;
     this.__propsHandler();
   }
 
@@ -90,21 +92,17 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
     if (!ɵisObservable(this.props)) {
       this.props = new BehaviorSubject(this.props);
     }
-    this.__addSub(
-      this.props.subscribe(res => {
-        this._props = res;
-        if ('data-id' in res) {
-          console.log('i has a id', res[`data-id`]);
-        } else {
-          console.log('i has not a id');
-          res['data-id'] = this.__getUuid();
-        }
-        this.__id = res['data-id'];
-        this.memory.set(this.__id, this._props);
-        this.onPropsChange(res);
-        this.cd.detectChanges();
-      })
-    );
+    this.props.subscribe(res => {
+      this._props = res;
+      if ('data-id' in res) {
+      } else {
+        res['data-id'] = this.__getUuid();
+      }
+      this.__id = res['data-id'];
+      this.memory.set(this.__id, this._props);
+      this.onPropsChange(res);
+      this.cd.detectChanges();
+    });
   }
 
   getProps() {
