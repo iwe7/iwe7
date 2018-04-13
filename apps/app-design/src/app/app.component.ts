@@ -19,10 +19,6 @@ import { Iwe7Base } from 'iwe7/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends Iwe7Base<any> implements OnInit {
-  items: any = data;
-  page: any = page;
-  _addElement: any = elementAdd;
-  addElement$: BehaviorSubject<any> = new BehaviorSubject(this._addElement);
   constructor(
     public router: Router,
     public map: MapPipe,
@@ -35,28 +31,61 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
   onPropsChange(res: any) {}
 
   ngOnInit() {
-    let items = this.map.transform(this.items);
-    this.addElement$.subscribe(res => {});
-  }
+    this.drag$.next({
+      style: {
+        width: '100px',
+        height: '100px',
+        [`background-color`]: 'red',
+        display: 'inline'
+      }
+    });
 
-  go(item: any, key: string) {
-    this.router.navigate(['/'], {
-      queryParams: {
-        t: key
+    this.drop$.next({
+      style: {
+        width: '100px',
+        height: '100px',
+        [`background-color`]: 'green',
+        display: 'inline'
       }
     });
   }
 
-  addPage() {
+  viewRef: ViewContainerRef;
+  base$: BehaviorSubject<any> = new BehaviorSubject({});
+  setViewView(e) {
+    this.viewRef = e;
+    this.load.load('design-base-impl', this.viewRef, this.base$, res => {});
+  }
+  settingRef: ViewContainerRef;
+  form$: BehaviorSubject<any> = new BehaviorSubject({});
+  setSettingView(e) {
+    this.settingRef = e;
+    this.load.load('design-form-impl', this.settingRef, this.form$, res => {});
+  }
+
+  elementsRef: ViewContainerRef;
+  elements$: BehaviorSubject<any> = new BehaviorSubject({});
+  setElementsView(e) {
+    this.settingRef = e;
     this.load.load(
-      'design-base-impl',
-      this.dialogRef,
-      this.addElement$,
+      'design-elements-impl',
+      this.settingRef,
+      this.form$,
       res => {}
     );
   }
-  dialogRef: ViewContainerRef;
-  setDialogView(e) {
-    this.dialogRef = e;
+
+  dragRef: ViewContainerRef;
+  drag$: BehaviorSubject<any> = new BehaviorSubject({});
+  setDragView(e) {
+    this.dragRef = e;
+    this.load.load('design-drag-impl', this.dragRef, this.drag$, res => {});
+  }
+
+  dropRef: ViewContainerRef;
+  drop$: BehaviorSubject<any> = new BehaviorSubject({});
+  setDropView(e) {
+    this.dropRef = e;
+    this.load.load('design-drop-impl', this.dropRef, this.drop$, res => {});
   }
 }

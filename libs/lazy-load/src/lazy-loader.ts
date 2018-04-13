@@ -128,7 +128,7 @@ export class LazyLoaderService {
   load(selector, view: ViewContainerRef, props?, callback?) {
     this.createComponent(
       {
-        selector: 'design-elements-add',
+        selector: selector,
         element: null
       },
       view,

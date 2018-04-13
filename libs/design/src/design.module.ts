@@ -46,6 +46,18 @@ import { ReactiveFormsModule } from '@angular/forms';
         {
           path: 'design-base-impl',
           loadChildren: './design-base-impl/design-base-impl#DesignBaseImplModule'
+        },
+        {
+          path: 'design-form-impl',
+          loadChildren: './design-form-impl/design-form-impl#DesignFormImplModule'
+        },
+        {
+          path: 'design-drag-impl',
+          loadChildren: './design-drag-impl/design-drag-impl#DesignDragImplModule'
+        },
+        {
+          path: 'design-drop-impl',
+          loadChildren: './design-drop-impl/design-drop-impl#DesignDropImplModule'
         }
       ],
       multi: true

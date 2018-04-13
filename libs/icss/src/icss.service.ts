@@ -68,4 +68,23 @@ export class IcssService {
       get: key => target.style.getPropertyValue(`--${key}`)
     };
   }
+
+  vendorPrefix() {
+    if (typeof window === 'undefined' || typeof document === 'undefined')
+      return '';
+    const styles = window.getComputedStyle(document.documentElement, '') || [
+      '-moz-hidden-iframe'
+    ];
+    const pre = (Array.prototype.slice
+      .call(styles)
+      .join('')
+      .match(/-(moz|webkit|ms)-/) ||
+      ((<any>styles).OLink === '' && ['', 'o']))[1];
+    switch (pre) {
+      case 'ms':
+        return 'ms';
+      default:
+        return pre && pre.length ? pre[0].toUpperCase() + pre.substr(1) : '';
+    }
+  }
 }

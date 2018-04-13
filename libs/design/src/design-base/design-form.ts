@@ -1,9 +1,6 @@
-import {
-  DesignBase,
-  DesignBaseProps
-} from './design-base';
+import { DesignBase, DesignBaseProps } from './design-base';
 import { SchemaFormItem } from 'iwe7/core';
-import { ChangeDetectorRef, Renderer2, ElementRef } from '@angular/core';
+import { ChangeDetectorRef, Renderer2, ElementRef, ViewContainerRef } from '@angular/core';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { IcssService } from 'iwe7/icss';
 import { FormBuilder } from '@angular/forms';
@@ -24,9 +21,8 @@ export interface DesignFormProps extends DesignBaseProps {
     url?: string;
   };
 }
-export class DesignForm<
-  T extends DesignFormProps
-> extends DesignBase<T> {
+export class DesignForm<T extends DesignFormProps> extends DesignBase<T> {
+  _view: ViewContainerRef;
   constructor(
     cd: ChangeDetectorRef,
     ele: ElementRef,
@@ -36,5 +32,11 @@ export class DesignForm<
     public fb: FormBuilder
   ) {
     super(cd, ele, icss, render, loader);
+    console.log(this);
+  }
+
+  setView(e: any) {
+    this._view = e;
+    console.log(this._view);
   }
 }
