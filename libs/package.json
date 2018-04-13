@@ -18,7 +18,7 @@
     "dest": "../framework",
     "workingDirectory": "./.ng_build",
     "lib": {
-      "entryFile": "./index.ts"
+      "entryFile": "./public_api.ts"
     }
   }
 }

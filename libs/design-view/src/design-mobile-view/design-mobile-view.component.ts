@@ -8,13 +8,14 @@ import {
   Input,
   AfterViewInit,
   ViewChild,
-  ElementRef
+  ElementRef,
+  Injector
 } from '@angular/core';
 import { Iwe7DesignBase } from 'iwe7/design';
 import { BehaviorSubject, from } from 'rxjs';
 import { Title, Meta } from '@angular/platform-browser';
 import { map } from 'underscore';
-import { LazyLoaderService } from '../../..';
+import { LazyLoaderService } from 'iwe7/lazy-load';
 
 @Component({
   selector: 'design-mobile-view',
@@ -33,13 +34,13 @@ export class DesignMobileViewComponent extends Iwe7DesignBase<any>
 
   _innerViewRef: ViewContainerRef;
   constructor(
-    cd: ChangeDetectorRef,
+    injector: Injector,
     public view: ViewContainerRef,
     public title: Title,
     public lazy: LazyLoaderService,
     public meta: Meta
   ) {
-    super(cd);
+    super(injector);
   }
 
   onPropsChange(res: any) {

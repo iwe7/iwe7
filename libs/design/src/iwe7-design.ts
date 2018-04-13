@@ -1,20 +1,22 @@
 import { Subject } from 'rxjs';
-import { Input, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Input, ChangeDetectorRef, OnInit, Injector } from '@angular/core';
 import { Iwe7Base } from 'iwe7/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 export abstract class Iwe7DesignBase<T> extends Iwe7Base<T> implements OnInit {
   selector: string;
-  constructor(cd: ChangeDetectorRef) {
-    super(cd);
+  constructor(injector: Injector) {
+    super(injector);
   }
 }
 
 export abstract class Iwe7DesignSettingBase<T> extends Iwe7DesignBase<T> {
   form: FormGroup;
   formChange: Subject<any> = new Subject();
-  constructor(cd: ChangeDetectorRef, public fb: FormBuilder) {
-    super(cd);
+  public fb: FormBuilder;
+  constructor(injector: Injector) {
+    super(injector);
+    this.fb = this.injector.get(FormBuilder);
     this.form = this.fb.group({});
     this.form.valueChanges.subscribe(res => {
       this.formChange.next(res);

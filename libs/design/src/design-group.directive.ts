@@ -4,7 +4,8 @@ import {
   OnInit,
   ChangeDetectorRef,
   AfterViewInit,
-  ViewContainerRef
+  ViewContainerRef,
+  Injector
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { LazyLoaderService } from 'iwe7/lazy-load';
@@ -22,7 +23,7 @@ export class DesignGroupDirective extends Iwe7DesignBase<any>
   }
   constructor(
     public lazyload: LazyLoaderService,
-    cd: ChangeDetectorRef,
+    cd: Injector,
     public viewRef: ViewContainerRef,
     public cache: ChacheMemoryService<any>
   ) {

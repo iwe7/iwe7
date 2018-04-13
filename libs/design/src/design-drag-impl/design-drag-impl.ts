@@ -7,7 +7,8 @@ import {
   HostBinding,
   OnInit,
   ViewChild,
-  AfterViewInit
+  AfterViewInit,
+  Injector
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -29,6 +30,8 @@ import { IcssService } from 'iwe7/icss';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { DesignDragDataService } from '../design-drag-data.service';
 import { Iwe7ColorsService, ZIndexService } from 'iwe7/themes';
+import { ChacheMemoryService } from 'iwe7/cache';
+
 @Component({
   selector: 'design-drag-impl',
   templateUrl: './design-drag-impl.html',
@@ -42,15 +45,12 @@ export class DesignDragImpl extends DesignBase<any>
   _bgcolor: any;
   constructor(
     cd: ChangeDetectorRef,
-    ele: ElementRef,
-    icss: IcssService,
-    render: Renderer2,
-    loader: LazyLoaderService,
+    injector: Injector,
     public dragData: DesignDragDataService,
     public colors: Iwe7ColorsService,
     public zindex: ZIndexService
   ) {
-    super(cd, ele, icss, render, loader);
+    super(injector);
     this.csspre = this.icss.vendorPrefix();
   }
   ngOnInit() {
@@ -81,7 +81,7 @@ export class DesignDragImpl extends DesignBase<any>
           this.dragData.set(this._props.props);
           this.style$.next({
             zindex: this.zindex.getIndex()
-          })
+          });
         }),
         map((res: MouseEvent) => {
           return {

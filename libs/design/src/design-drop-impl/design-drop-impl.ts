@@ -6,7 +6,8 @@ import {
   Renderer2,
   OnInit,
   Output,
-  EventEmitter
+  EventEmitter,
+  Injector
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -31,6 +32,7 @@ import {
 } from 'rxjs/operators';
 import { DesignDragDataService } from '../design-drag-data.service';
 import { Iwe7CoreModule } from 'iwe7/core';
+import { ChacheMemoryService } from 'iwe7/cache';
 
 @Component({
   selector: 'design-drop-impl',
@@ -41,13 +43,10 @@ export class DesignDropImpl extends DesignBase<any> implements OnInit {
   @Output() drop: EventEmitter<any> = new EventEmitter();
   constructor(
     cd: ChangeDetectorRef,
-    ele: ElementRef,
-    icss: IcssService,
-    render: Renderer2,
-    loader: LazyLoaderService,
+    injector: Injector,
     public dragData: DesignDragDataService
   ) {
-    super(cd, ele, icss, render, loader);
+    super(injector);
   }
 
   ngOnInit() {

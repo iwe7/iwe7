@@ -11,7 +11,8 @@ import {
   Output,
   SimpleChange,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  Injector
 } from '@angular/core';
 
 import { NzScrollService } from 'iwe7/core';
@@ -76,9 +77,9 @@ export class NzAffixComponent extends Iwe7DesignBase<any>
   constructor(
     private scrollSrv: NzScrollService,
     private _el: ElementRef,
-    cd: ChangeDetectorRef
+    injector: Injector
   ) {
-    super(cd);
+    super(injector);
   }
 
   onPropsChange(res: any) {

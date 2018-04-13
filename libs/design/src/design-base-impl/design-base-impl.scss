@@ -9,5 +9,8 @@
   user-select: none;
   opacity: var(--design-opacity);
   z-index: var(--design-zindex);
+  text-align: var(--design-text-align);
+  line-height: var(--design-line-height);
+  color: var(--design-color);
   cursor: pointer;
 }

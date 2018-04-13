@@ -7,7 +7,8 @@ import {
   Input,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Injector
 } from '@angular/core';
 
 import { NzUpdateHostClassService } from 'iwe7/core';
@@ -171,9 +172,10 @@ export class NzButtonComponent extends Iwe7DesignBase<any>
     private elementRef: ElementRef,
     private cdr: ChangeDetectorRef,
     private renderer: Renderer2,
-    private nzUpdateHostClassService: NzUpdateHostClassService
+    private nzUpdateHostClassService: NzUpdateHostClassService,
+    injector: Injector
   ) {
-    super(cdr);
+    super(injector);
     this.el = this.elementRef.nativeElement;
     this.renderer.addClass(this.el, this.prefixCls);
   }

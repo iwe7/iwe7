@@ -4,7 +4,8 @@ import {
   ChangeDetectorRef,
   Output,
   EventEmitter,
-  ElementRef
+  ElementRef,
+  Injector
 } from '@angular/core';
 import { Iwe7DesignBase } from 'iwe7/design';
 import { DesignElementsService } from '../design-elements.service';
@@ -44,7 +45,7 @@ export class DesignElementsAddComponent extends Iwe7DesignBase<
 
   _initcss: any;
   constructor(
-    cd: ChangeDetectorRef,
+    cd: Injector,
     public elements: DesignElementsService,
     public fb: FormBuilder,
     public uuid: UuidService,

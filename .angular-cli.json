@@ -188,8 +188,22 @@
       "tags": []
     },
     {
+      "name": "claygl",
+      "root": "libs/claygl/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "core",
       "root": "libs/core/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "d3",
+      "root": "libs/d3/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []
@@ -330,6 +344,13 @@
     {
       "name": "snake",
       "root": "libs/snake/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "sortable",
+      "root": "libs/sortable/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

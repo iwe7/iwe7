@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Injector } from '@angular/core';
 import { Iwe7DesignBase } from 'iwe7/design';
 @Component({
   selector: 'welcome-index',
@@ -7,8 +7,8 @@ import { Iwe7DesignBase } from 'iwe7/design';
 })
 export class WelcomeIndexComponent extends Iwe7DesignBase<any>
   implements OnInit {
-  constructor(cd: ChangeDetectorRef) {
-    super(cd);
+  constructor(injector: Injector) {
+    super(injector);
   }
   ngOnInit() {}
   onPropsChange(res: any) {

@@ -3,7 +3,8 @@ import {
   Component,
   ChangeDetectorRef,
   ElementRef,
-  Renderer2
+  Renderer2,
+  Injector
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,6 +14,7 @@ import { DesignBase } from '../design-base/design-base';
 import { BehaviorSubject } from 'rxjs';
 import { IcssService } from 'iwe7/icss';
 import { LazyLoaderService } from 'iwe7/lazy-load';
+import { ChacheMemoryService } from 'iwe7/cache';
 
 @Component({
   selector: 'design-base-impl',
@@ -20,14 +22,8 @@ import { LazyLoaderService } from 'iwe7/lazy-load';
   styleUrls: ['./design-base-impl.scss']
 })
 export class DesignBaseImpl extends DesignBase<any> {
-  constructor(
-    cd: ChangeDetectorRef,
-    ele: ElementRef,
-    icss: IcssService,
-    render: Renderer2,
-    loader: LazyLoaderService
-  ) {
-    super(cd, ele, icss, render, loader);
+  constructor(injector: Injector) {
+    super(injector);
   }
 }
 

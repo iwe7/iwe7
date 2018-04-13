@@ -6,7 +6,8 @@ import {
   AfterViewInit,
   ViewChild,
   ElementRef,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  Injector
 } from '@angular/core';
 import { BehaviorSubject, fromEvent } from 'rxjs';
 import {
@@ -66,7 +67,7 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
     public lazyLoad: LazyLoaderService,
     public icss: IcssService,
     public ele: ElementRef,
-    cd: ChangeDetectorRef,
+    cd: Injector,
     public zindex: ZIndexService,
     public memory: ChacheMemoryService<any>
   ) {

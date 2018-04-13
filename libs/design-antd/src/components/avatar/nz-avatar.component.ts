@@ -6,7 +6,8 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  Injector
 } from '@angular/core';
 
 import { NzUpdateHostClassService } from 'iwe7/core';
@@ -124,7 +125,7 @@ export class NzAvatarComponent extends Iwe7DesignBase<any>
 
   constructor(
     elementRef: ElementRef,
-    cd: ChangeDetectorRef,
+    cd: Injector,
     private updateHostClassService: NzUpdateHostClassService
   ) {
     super(cd);

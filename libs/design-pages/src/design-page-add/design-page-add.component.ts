@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Injector } from '@angular/core';
 import { Iwe7DesignBase } from 'iwe7/design';
 @Component({
   selector: 'design-page-add',
@@ -7,7 +7,7 @@ import { Iwe7DesignBase } from 'iwe7/design';
 })
 export class DesignPageAddComponent extends Iwe7DesignBase<any>
   implements OnInit {
-  constructor(cd: ChangeDetectorRef) {
+  constructor(cd: Injector) {
     super(cd);
   }
 

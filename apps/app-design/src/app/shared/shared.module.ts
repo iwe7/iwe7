@@ -14,6 +14,8 @@ import { Iwe7PipesModule } from 'iwe7/pipes';
 import { DesignViewModule } from 'iwe7/design-view';
 import { DesignPagesModule } from 'iwe7/design-pages';
 import { DesignElementsModule } from 'iwe7/design-elements';
+import { D3Module } from 'iwe7/d3';
+import { SortableModule } from 'iwe7/sortable';
 
 @NgModule({
   imports: [
@@ -31,7 +33,9 @@ import { DesignElementsModule } from 'iwe7/design-elements';
     Iwe7PipesModule,
     DesignViewModule,
     DesignPagesModule,
-    DesignElementsModule
+    DesignElementsModule,
+    D3Module,
+    SortableModule
   ],
   declarations: [],
   exports: [
@@ -43,11 +47,11 @@ import { DesignElementsModule } from 'iwe7/design-elements';
     Iwe7PipesModule,
     DesignViewModule,
     DesignPagesModule,
-    DesignElementsModule
+    DesignElementsModule,
+    D3Module,
+    SortableModule
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
-  providers: [
-    DatePipe
-  ]
+  providers: [DatePipe]
 })
 export class SharedModule {}

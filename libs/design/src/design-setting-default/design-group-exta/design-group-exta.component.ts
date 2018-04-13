@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectorRef,
-  AfterViewInit
+  AfterViewInit,
+  Injector
 } from '@angular/core';
 import { Iwe7DesignBase } from '../../iwe7-design';
 import { BehaviorSubject } from 'rxjs';
@@ -17,7 +18,7 @@ import { ZIndexService } from 'iwe7/themes/src/z-index.service';
 export class DesignGroupExtaComponent extends Iwe7DesignBase<any>
   implements OnInit {
   constructor(
-    cd: ChangeDetectorRef,
+    cd: Injector,
     public cache: ChacheMemoryService<DesignGroupComponent>,
     public zindex: ZIndexService
   ) {

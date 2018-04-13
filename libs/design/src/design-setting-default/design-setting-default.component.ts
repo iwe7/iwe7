@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ɵisObservable } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ɵisObservable, Injector } from '@angular/core';
 import { Iwe7DesignSettingBase } from '../iwe7-design';
 import { FormBuilder } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
@@ -13,8 +13,8 @@ export class DesignSettingDefaultComponent extends Iwe7DesignSettingBase<any>
   _content: any;
   keys: any[];
   index: number = 0;
-  constructor(cd: ChangeDetectorRef, fb: FormBuilder) {
-    super(cd, fb);
+  constructor(injector: Injector) {
+    super(injector);
   }
 
   onPropsChange(res: any) {

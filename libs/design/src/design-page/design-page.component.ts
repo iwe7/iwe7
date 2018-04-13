@@ -4,11 +4,12 @@ import {
   Input,
   ChangeDetectorRef,
   ViewContainerRef,
-  AfterViewInit
+  AfterViewInit,
+  Injector
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Iwe7DesignBase } from 'iwe7/design';
-import { LazyLoaderService } from '../../..';
+import { LazyLoaderService } from 'iwe7/lazy-load';
 @Component({
   selector: 'design-page',
   templateUrl: './design-page.component.html',
@@ -21,7 +22,7 @@ export class DesignPageComponent extends Iwe7DesignBase<any>
   @Input()
   props: BehaviorSubject<BehaviorSubject<any>[]> = new BehaviorSubject([]);
   constructor(
-    cd: ChangeDetectorRef,
+    cd: Injector,
     public lazyload: LazyLoaderService,
     public view: ViewContainerRef
   ) {

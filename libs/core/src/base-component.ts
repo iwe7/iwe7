@@ -6,7 +6,8 @@ import {
   ChangeDetectorRef,
   OnInit,
   OnDestroy,
-  ɵisObservable
+  ɵisObservable,
+  Injector
 } from '@angular/core';
 import {
   Observable,
@@ -43,7 +44,10 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   needDestory: boolean = false;
   subscription: Subscription;
   id: any = new Date().getTime();
-  constructor(public cd: ChangeDetectorRef) {}
+  public cd: ChangeDetectorRef;
+  constructor(public injector: Injector) {
+    this.cd = this.injector.get(ChangeDetectorRef);
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if ('props' in changes) {
@@ -77,16 +81,25 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
     if (!ɵisObservable(this.props)) {
       this.props = new BehaviorSubject(this.props);
     }
-    this.subscription = this.props
-      .subscribe(res => {
-        this._props = res;
-        this.onPropsChange(res);
-        this.cd.detectChanges();
-      });
+    this.subscription = this.props.subscribe(res => {
+      this._props = res;
+      this.onPropsChange(res);
+      this.cd.detectChanges();
+    });
   }
 
   getProps() {
     return this._props;
+  }
+
+  __getUuid() {
+    let d = new Date().getTime();
+    let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      let r = ((d + Math.random() * 16) % 16) | 0;
+      d = Math.floor(d / 16);
+      return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
+    });
+    return uuid;
   }
 
   public abstract onPropsChange(res: T): void;

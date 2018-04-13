@@ -1,9 +1,17 @@
 import { DesignBase, DesignBaseProps } from './design-base';
 import { SchemaFormItem } from 'iwe7/core';
-import { ChangeDetectorRef, Renderer2, ElementRef, ViewContainerRef } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Renderer2,
+  ElementRef,
+  ViewContainerRef,
+  Injector
+} from '@angular/core';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { IcssService } from 'iwe7/icss';
 import { FormBuilder } from '@angular/forms';
+import { ChacheMemoryService } from 'iwe7/cache';
+
 export interface DesignFormProps extends DesignBaseProps {
   fields?: SchemaFormItem;
   url?: string;
@@ -24,14 +32,9 @@ export interface DesignFormProps extends DesignBaseProps {
 export class DesignForm<T extends DesignFormProps> extends DesignBase<T> {
   _view: ViewContainerRef;
   constructor(
-    cd: ChangeDetectorRef,
-    ele: ElementRef,
-    icss: IcssService,
-    render: Renderer2,
-    loader: LazyLoaderService,
-    public fb: FormBuilder
+    injector: Injector
   ) {
-    super(cd, ele, icss, render, loader);
+    super(injector);
     console.log(this);
   }
 

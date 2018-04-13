@@ -2,7 +2,7 @@ export const _drop = {
   selector: 'design-drop-impl',
   style: {
     width: '800px',
-    height: '100%',
+    height: '800px',
     [`background-color`]: '#ccc',
     display: 'block',
     margin: '10px auto'

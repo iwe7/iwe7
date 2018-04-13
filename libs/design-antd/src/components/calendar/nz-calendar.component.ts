@@ -10,7 +10,8 @@ import {
   Output,
   TemplateRef,
   ViewEncapsulation,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  Injector
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as addDays from 'date-fns/add_days';
@@ -151,8 +152,8 @@ export class NzCalendarComponent extends Iwe7DesignBase<any>
     return startOfWeek(startOfMonth(this.activeDate));
   }
 
-  constructor(private i18n: I18n, cd: ChangeDetectorRef) {
-    super(cd);
+  constructor(private i18n: I18n, injector: Injector) {
+    super(injector);
   }
 
   onPropsChange(res: any) {
