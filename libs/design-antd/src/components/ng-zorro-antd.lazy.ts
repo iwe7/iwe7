@@ -19,6 +19,14 @@ import { RouterModule } from '@angular/router';
       {
         path: 'nz-avatar',
         loadChildren: './avatar/nz-avatar.module#NzAvatarModule'
+      },
+      {
+        path: 'nz-row',
+        loadChildren: './grid/nz-grid.module#NzGridModule'
+      },
+      {
+        path: 'nz-col',
+        loadChildren: './grid/nz-grid.module#NzGridModule'
       }
     ])
   ],

@@ -5,11 +5,24 @@ import { NzColComponent } from './nz-col.component';
 import { NzColDirective } from './nz-col.directive';
 import { NzRowComponent } from './nz-row.component';
 import { NzRowDirective } from './nz-row.directive';
-
+import { LazyComponentModuleBase } from 'iwe7/lazy-load';
 @NgModule({
-  declarations: [ NzRowComponent, NzColDirective, NzColComponent, NzRowDirective ],
-  exports     : [ NzRowComponent, NzColDirective, NzColComponent, NzRowDirective ],
-  imports     : [ CommonModule ]
+  declarations: [
+    NzRowComponent,
+    NzColDirective,
+    NzColComponent,
+    NzRowDirective
+  ],
+  exports: [NzRowComponent, NzColDirective, NzColComponent, NzRowDirective],
+  imports: [CommonModule],
+  entryComponents: [NzColComponent, NzRowComponent]
 })
-export class NzGridModule {
+export class NzGridModule extends LazyComponentModuleBase {
+  getComponentByName(key: string) {
+    if (key === 'nz-row') {
+      return NzRowComponent;
+    } else {
+      return NzColComponent;
+    }
+  }
 }

@@ -9,15 +9,10 @@ import { Iwe7SharedModule } from 'iwe7/shared';
 @NgModule({
   imports: [
     CommonModule,
-    Iwe7SharedModule,
-    RouterModule.forChild([
-      {
-        path: 'design-form',
-        component: DesignFormComponent
-      }
-    ])
+    Iwe7SharedModule
   ],
-  declarations: [DesignFormComponent]
+  declarations: [DesignFormComponent],
+  entryComponents: [DesignFormComponent]
 })
 export class DesignFormModule extends LazyComponentModuleBase {
   getComponentByName(key: string) {

@@ -7,17 +7,9 @@ import { RouterModule } from '@angular/router';
 import { Iwe7SharedModule } from 'iwe7/shared';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    Iwe7SharedModule,
-    RouterModule.forChild([
-      {
-        path: 'design-group',
-        component: DesignGroupComponent
-      }
-    ])
-  ],
-  declarations: [DesignGroupComponent]
+  imports: [CommonModule, Iwe7SharedModule],
+  declarations: [DesignGroupComponent],
+  entryComponents: [DesignGroupComponent]
 })
 export class DesignGroupModule extends LazyComponentModuleBase {
   getComponentByName(key: string) {

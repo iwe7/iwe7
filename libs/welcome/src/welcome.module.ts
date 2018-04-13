@@ -8,10 +8,12 @@ import { RouterModule } from '@angular/router';
       {
         path: 'iwe7-welcome-index',
         loadChildren: './welcome-index/welcome-index.module#WelcomeIndexModule'
+      },
+      {
+        path: 'iwe7-welcome-pc',
+        loadChildren: './welcome-pc/welcome-pc.module#WelcomeIndexModule'
       }
     ])
   ]
 })
-export class Iwe7WelcomeModule {
-
-}
+export class Iwe7WelcomeModule {}

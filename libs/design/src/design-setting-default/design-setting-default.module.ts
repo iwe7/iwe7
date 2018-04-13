@@ -7,17 +7,9 @@ import { Iwe7SharedModule } from 'iwe7/shared';
 import { DesignGroupExtaComponent } from './design-group-exta/design-group-exta.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    Iwe7SharedModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: DesignSettingDefaultComponent
-      }
-    ])
-  ],
-  declarations: [DesignSettingDefaultComponent, DesignGroupExtaComponent]
+  imports: [CommonModule, Iwe7SharedModule],
+  declarations: [DesignSettingDefaultComponent, DesignGroupExtaComponent],
+  entryComponents: [DesignSettingDefaultComponent]
 })
 export class DesignSettingDefaultModule extends LazyComponentModuleBase {
   getComponentByName(key: string) {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class NzSliderService {
-
   pauseEvent(e: Event): void {
     e.stopPropagation();
     e.preventDefault();
@@ -19,8 +18,11 @@ export class NzSliderService {
   }
 
   isNotTouchEvent(e: TouchEvent): boolean {
-    return !e.touches || e.touches.length > 1 ||
-      (e.type.toLowerCase() === 'touchend' && e.touches.length > 0);
+    return (
+      !e.touches ||
+      e.touches.length > 1 ||
+      (e.type.toLowerCase() === 'touchend' && e.touches.length > 0)
+    );
   }
 
   // convert value to offset in percent
@@ -30,8 +32,14 @@ export class NzSliderService {
 
   correctNumLimit(num: number, min: number, max: number): number {
     let res = +num;
-    if (isNaN(res)) { return min; }
-    if (num < min) { res = min; } else if (num > max) { res = max; }
+    if (isNaN(res)) {
+      return min;
+    }
+    if (num < min) {
+      res = min;
+    } else if (num > max) {
+      res = max;
+    }
     return res;
   }
 
@@ -39,7 +47,7 @@ export class NzSliderService {
    * get the offset of an element relative to the document (Reference from jquery's offset())
    * @param elem HTMLElement ref
    */
-  getElementOffset(elem: HTMLElement): { top: number, left: number } {
+  getElementOffset(elem: HTMLElement): { top: number; left: number } {
     // Return zeros for disconnected and hidden (display: none) elements (gh-2310)
     // Support: IE <=11 only
     // Running getBoundingClientRect on a
@@ -55,5 +63,4 @@ export class NzSliderService {
       left: rect.left + win.pageXOffset
     };
   }
-
 }

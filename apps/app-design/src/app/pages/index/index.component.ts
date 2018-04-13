@@ -62,7 +62,12 @@ export class IndexComponent implements OnInit, AfterViewInit {
   }
 
   load() {
-    this.designGroup.next([data[this.name].props]);
+    let props = data[this.name].props;
+    if (Array.isArray(props)) {
+      this.designGroup.next(props);
+    } else {
+      this.designGroup.next([props]);
+    }
     if (!this.instance) {
       if (this.view) {
         this.lazyload
