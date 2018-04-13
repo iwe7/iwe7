@@ -126,25 +126,27 @@ export class LazyLoaderService {
   }
 
   load(selector, view: ViewContainerRef, props?, callback?) {
-    this.createComponent(
+    return this.createComponent(
       {
         selector: selector,
         element: null
       },
       view,
       null
-    ).subscribe(res => {
-      if (!!props) {
-        if (ɵisObservable(props)) {
-          res.setProps(props);
-        } else {
-          res.setProps(new BehaviorSubject(props));
+    ).pipe(
+      tap(instance => {
+        if (!!props) {
+          if (ɵisObservable(props)) {
+            instance.setProps(props);
+          } else {
+            instance.setProps(new BehaviorSubject(props));
+          }
         }
-      }
-      // 监听输出
-      res.__events.subscribe(res => {
-        callback && callback(res);
-      });
-    });
+        // 监听输出
+        instance.__events.subscribe(res => {
+          callback && callback(res, instance);
+        });
+      })
+    );
   }
 }

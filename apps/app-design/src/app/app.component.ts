@@ -32,21 +32,25 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
 
   ngOnInit() {
     this.drag$.next({
+      selector: 'design-drag-impl',
       style: {
         width: '100px',
         height: '100px',
         [`background-color`]: 'red',
         display: 'inline'
-      }
+      },
+      props: []
     });
 
     this.drop$.next({
+      selector: 'design-drop-impl',
       style: {
-        width: '100px',
-        height: '100px',
+        width: '300px',
+        height: '300px',
         [`background-color`]: 'green',
         display: 'inline'
-      }
+      },
+      props: []
     });
   }
 
@@ -79,13 +83,32 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
   drag$: BehaviorSubject<any> = new BehaviorSubject({});
   setDragView(e) {
     this.dragRef = e;
-    this.load.load('design-drag-impl', this.dragRef, this.drag$, res => {});
+    this.load
+      .load('design-drag-impl', this.dragRef, this.drag$, res => {})
+      .subscribe(instance => {
+        this.__events.subscribe(res => {
+          if (res.type === 'droped') {
+            instance.resetPosition();
+          }
+        });
+      });
   }
 
   dropRef: ViewContainerRef;
   drop$: BehaviorSubject<any> = new BehaviorSubject({});
   setDropView(e) {
     this.dropRef = e;
-    this.load.load('design-drop-impl', this.dropRef, this.drop$, res => {});
+    this.load.load(
+      'design-drop-impl',
+      this.dropRef,
+      this.drop$,
+      (evt, instance) => {
+        let { type, data } = evt;
+        this.__events.next({
+          type: 'droped'
+        });
+        instance.resetPosition();
+      }
+    ).subscribe();
   }
 }

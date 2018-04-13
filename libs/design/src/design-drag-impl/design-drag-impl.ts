@@ -5,7 +5,9 @@ import {
   ElementRef,
   Renderer2,
   HostBinding,
-  OnInit
+  OnInit,
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -25,26 +27,30 @@ import {
 
 import { IcssService } from 'iwe7/icss';
 import { LazyLoaderService } from 'iwe7/lazy-load';
-
+import { DesignDragDataService } from '../design-drag-data.service';
 @Component({
   selector: 'design-drag-impl',
   templateUrl: './design-drag-impl.html',
   styleUrls: ['./design-drag-impl.scss']
 })
-export class DesignDragImpl extends DesignBase<any> implements OnInit {
+export class DesignDragImpl extends DesignBase<any>
+  implements OnInit, AfterViewInit {
   csspre: string;
+
+  @ViewChild('dragEle') dragEle: ElementRef;
   constructor(
     cd: ChangeDetectorRef,
     ele: ElementRef,
     icss: IcssService,
     render: Renderer2,
-    loader: LazyLoaderService
+    loader: LazyLoaderService,
+    public dragData: DesignDragDataService
   ) {
     super(cd, ele, icss, render, loader);
     this.csspre = this.icss.vendorPrefix();
   }
-
-  ngOnInit() {
+  ngOnInit() {}
+  ngAfterViewInit() {
     const mouseover = fromEvent(this.ele.nativeElement, 'mouseover');
     const mousemove = fromEvent(document, 'mousemove');
     const mousedown = fromEvent(this.ele.nativeElement, 'mousedown');
@@ -57,6 +63,10 @@ export class DesignDragImpl extends DesignBase<any> implements OnInit {
     };
     mousedown
       .pipe(
+        tap(res => {
+          // 设置拖拽数据
+          this.dragData.set(this._props);
+        }),
         map((res: MouseEvent) => {
           return {
             x: res.offsetX,
@@ -84,8 +94,12 @@ export class DesignDragImpl extends DesignBase<any> implements OnInit {
         }),
         // 移动元素
         tap(res => {
+          this.render.removeStyle(
+            this.dragEle.nativeElement,
+            `${this.csspre}TransitionDuration`
+          );
           this.render.setStyle(
-            this.ele.nativeElement,
+            this.dragEle.nativeElement,
             `${this.csspre}Transform`,
             `translate3d(${res.x - startPoint.x}px,${res.y -
               startPoint.y}px,0px)`
@@ -93,6 +107,19 @@ export class DesignDragImpl extends DesignBase<any> implements OnInit {
         })
       )
       .subscribe();
+  }
+
+  resetPosition() {
+    this.render.setStyle(
+      this.dragEle.nativeElement,
+      `${this.csspre}TransitionDuration`,
+      '300ms'
+    );
+    this.render.setStyle(
+      this.dragEle.nativeElement,
+      `${this.csspre}Transform`,
+      `translate3d(0px,0,0px)`
+    );
   }
 }
 
