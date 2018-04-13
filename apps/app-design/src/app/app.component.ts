@@ -6,9 +6,8 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { data } from './data/data';
-import { page } from './data/page';
+import { _drop, _drag } from './data/_drop';
 import { elementAdd } from './data/element-add';
-
 import { MapPipe } from 'iwe7/pipes';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { BehaviorSubject } from 'rxjs';
@@ -16,7 +15,6 @@ import { Iwe7Base } from 'iwe7/core';
 import { DesignDragDataService } from 'iwe7/design';
 import { flatten, clone } from 'underscore';
 import { Iwe7ColorsService } from 'iwe7/themes/index';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -33,52 +31,9 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
   ) {
     super(cd);
   }
-
   onPropsChange(res: any) {}
-
-  _drop: any = {
-    selector: 'design-drop-impl',
-    style: {
-      width: '800px',
-      height: '100%',
-      [`background-color`]: '#ccc',
-      display: 'block',
-      margin: '10px auto'
-    },
-    props: [
-      {
-        selector: 'design-base-impl',
-        style: {
-          width: '100px',
-          height: '100px',
-          [`background-color`]: '#333',
-          display: 'inline'
-        },
-        callback: () => {}
-      }
-    ]
-  };
-  _drag: any = {
-    selector: 'design-drag-impl',
-    style: {
-      width: '100px',
-      height: '100px',
-      [`background-color`]: '#ccc',
-      display: 'inline'
-    },
-    props: [
-      {
-        selector: 'design-base-impl',
-        style: {
-          width: '100px',
-          height: '100px',
-          [`background-color`]: '#333',
-          display: 'inline'
-        },
-        callback: () => {}
-      }
-    ]
-  };
+  _drop: any = _drop;
+  _drag: any = _drag;
   ngOnInit() {
     this.drag$.next(this._drag);
     this.drop$.next(this._drop);
@@ -97,7 +52,6 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
       }
     });
   }
-
   getDragRandomColor() {
     let c = JSON.parse(JSON.stringify(this._drag));
     c.props.map(res => {
@@ -105,7 +59,6 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
     });
     return c;
   }
-
   dragRef: ViewContainerRef;
   drag$: BehaviorSubject<any> = new BehaviorSubject({});
   setDragView(e) {
@@ -127,7 +80,6 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
         });
     });
   }
-
   dropRef: ViewContainerRef;
   drop$: BehaviorSubject<any> = new BehaviorSubject({});
   setDropView(e) {
