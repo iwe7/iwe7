@@ -128,7 +128,6 @@ export class NzAnchorComponent extends Iwe7Base<any>
   constructor(
     private scrollSrv: NzScrollService,
     @Inject(DOCUMENT) private doc: any,
-    private cd: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector);

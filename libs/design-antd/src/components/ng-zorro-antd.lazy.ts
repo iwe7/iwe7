@@ -30,7 +30,7 @@ import { RouterModule } from '@angular/router';
       },
       {
         path: 'nz-alert',
-        loadChildren: './alert/nz-alert.module#NzAlertodule'
+        loadChildren: './alert/nz-alert.module#NzAlertModule'
       },
       {
         path: 'nz-anchor',
@@ -79,7 +79,7 @@ import { RouterModule } from '@angular/router';
       },
       {
         path: 'nz-dropdown',
-        loadChildren: './dropdown/nz-dropdown.module#NzDropdownModule'
+        loadChildren: './dropdown/nz-dropdown.module#NzDropDownModule'
       },
       {
         path: 'nz-input',

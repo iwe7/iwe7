@@ -129,4 +129,14 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
       })
       .subscribe();
   }
+
+  setAntdView(e) {
+    this.load
+      .load('nz-button', e, {
+        selector: 'nz-button'
+      }, evt => {
+        console.log(evt);
+      })
+      .subscribe();
+  }
 }
