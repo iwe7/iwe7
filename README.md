@@ -27,12 +27,10 @@
 > 当 css 遇到 rxjs
 
 ##### [iwe7/touch](./libs/touch/readme.md)
-
-> 当 sortable 遇到 rxjs
+> 手势库
 
 ##### [iwe7/sortable](./libs/sortable/readme.md)
-
-> 手势库
+> 当 sortable 遇到 rxjs
 
 ##### [iwe7/pipes](./libs/pipes/readme.md)
 
