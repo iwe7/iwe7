@@ -6,7 +6,8 @@ import { NzRateComponent } from './nz-rate.component';
 @NgModule({
   exports: [NzRateComponent],
   declarations: [NzRateComponent],
-  imports: [CommonModule]
+  imports: [CommonModule],
+  entryComponents: [NzRateComponent]
 })
 export class NzRateModule {
   getComponentByName(key: string) {

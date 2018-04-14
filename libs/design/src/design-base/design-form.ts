@@ -35,11 +35,5 @@ export class DesignForm<T extends DesignFormProps> extends DesignBase<T> {
     injector: Injector
   ) {
     super(injector);
-    console.log(this);
-  }
-
-  setView(e: any) {
-    this._view = e;
-    console.log(this._view);
   }
 }

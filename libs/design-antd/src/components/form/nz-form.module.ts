@@ -10,7 +10,7 @@ import { NzFormLabelComponent } from './nz-form-label.component';
 import { NzFormSplitComponent } from './nz-form-split.component';
 import { NzFormTextComponent } from './nz-form-text.component';
 import { NzFormDirective } from './nz-form.directive';
-
+import { Iwe7CoreModule } from 'iwe7/core';
 @NgModule({
   declarations: [
     NzFormExtraComponent,
@@ -32,7 +32,17 @@ import { NzFormDirective } from './nz-form.directive';
     NzFormTextComponent,
     NzFormSplitComponent
   ],
-  imports: [CommonModule, NzGridModule]
+  imports: [CommonModule, NzGridModule, Iwe7CoreModule],
+  entryComponents: [
+    NzFormExtraComponent,
+    NzFormLabelComponent,
+    NzFormItemComponent,
+    NzFormControlComponent,
+    NzFormExplainComponent,
+    NzFormTextComponent,
+    NzFormSplitComponent,
+    NzFormDirective
+  ]
 })
 export class NzFormModule {
   getComponentByName(key: string) {
@@ -56,6 +66,9 @@ export class NzFormModule {
     }
     if (key === 'nz-form-split') {
       return NzFormSplitComponent;
+    }
+    if (key === 'nz-form') {
+      return NzFormDirective;
     }
   }
 }

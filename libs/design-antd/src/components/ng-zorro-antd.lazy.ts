@@ -13,8 +13,8 @@ import { RouterModule } from '@angular/router';
         loadChildren: './button/nz-button.module#NzButtonModule'
       },
       {
-        path: 'nz-calendar',
-        loadChildren: './calendar/nz-calendar.module#NzCalendarModule'
+        path: 'nz-button-group',
+        loadChildren: './button/nz-button.module#NzButtonModule'
       },
       {
         path: 'nz-avatar',
@@ -105,11 +105,44 @@ import { RouterModule } from '@angular/router';
       {
         path: 'nz-message',
         loadChildren: './message/nz-message.module#NzMessageModule'
+      },
+      {
+        path: 'nz-tree',
+        loadChildren: './tree/nz-tree.module#NzTreeModule'
+      },
+      {
+        path: 'nz-form',
+        loadChildren: './form/nz-form.module#NzFormModule'
+      },
+      {
+        path: 'nz-form-control',
+        loadChildren: './form/nz-form.module#NzFormModule'
+      },
+      {
+        path: 'nz-form-item',
+        loadChildren: './form/nz-form.module#NzFormModule'
+      },
+      {
+        path: 'nz-form-label',
+        loadChildren: './form/nz-form.module#NzFormModule'
+      },
+      {
+        path: 'nz-rate',
+        loadChildren: './rate/nz-rate.module#NzRateModule'
+      },
+      {
+        path: 'nz-switch',
+        loadChildren: './switch/nz-switch.module#NzSwitchModule'
+      },
+      {
+        path: 'nz-select',
+        loadChildren: './select/nz-select.module#NzSelectModule'
+      },
+      {
+        path: 'nz-option',
+        loadChildren: './select/nz-select.module#NzSelectModule'
       }
     ])
-  ],
-  exports: [],
-  declarations: [],
-  providers: []
+  ]
 })
 export class NgZorroAntdLazyModule {}

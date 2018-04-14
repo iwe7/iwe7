@@ -8,7 +8,8 @@ import {
   OnInit,
   Optional,
   Renderer2,
-  SimpleChange
+  SimpleChange,
+  Injector
 } from '@angular/core';
 
 import { NzUpdateHostClassService } from 'iwe7/core';
@@ -16,7 +17,7 @@ import { isNotNil } from '../core/util/check';
 
 import { NzRowComponent } from './nz-row.component';
 import { NzRowDirective } from './nz-row.directive';
-
+import { DesignBase } from 'iwe7/design';
 export interface EmbeddedProperty {
   span: number;
   pull: number;
@@ -33,7 +34,8 @@ export interface EmbeddedProperty {
     <ng-content></ng-content>
   `
 })
-export class NzColComponent implements OnInit, OnChanges {
+export class NzColComponent extends DesignBase<any>
+  implements OnInit, OnChanges {
   private el: HTMLElement;
   private prefixCls = 'ant-col';
 
@@ -58,6 +60,45 @@ export class NzColComponent implements OnInit, OnChanges {
   @Input() nzLg: number | EmbeddedProperty;
   @Input() nzXl: number | EmbeddedProperty;
   @Input() nzXXl: number | EmbeddedProperty;
+
+  onPropsChange(e: any) {
+    if ('nzSpan' in e) {
+      this.nzSpan = e['nzSpan'];
+    }
+    if ('nzOrder' in e) {
+      this.nzOrder = e['nzOrder'];
+    }
+    if ('nzOffset' in e) {
+      this.nzOffset = e['nzOffset'];
+    }
+    if ('nzPush' in e) {
+      this.nzPush = e['nzPush'];
+    }
+    if ('nzPull' in e) {
+      this.nzPull = e['nzPull'];
+    }
+    if ('nzPull' in e) {
+      this.nzPull = e['nzPull'];
+    }
+    if ('nzXs' in e) {
+      this.nzXs = e['nzXs'];
+    }
+    if ('nzSm' in e) {
+      this.nzSm = e['nzSm'];
+    }
+    if ('nzMd' in e) {
+      this.nzMd = e['nzMd'];
+    }
+    if ('nzLg' in e) {
+      this.nzLg = e['nzLg'];
+    }
+    if ('nzXl' in e) {
+      this.nzXl = e['nzXl'];
+    }
+    if ('nzXXl' in e) {
+      this.nzXXl = e['nzXXl'];
+    }
+  }
 
   /** temp solution since no method add classMap to host https://github.com/angular/angular/issues/7289*/
   setClassMap(): void {
@@ -129,8 +170,10 @@ export class NzColComponent implements OnInit, OnChanges {
     @Optional()
     @Host()
     public nzRowDirective: NzRowDirective,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    injector: Injector
   ) {
+    super(injector);
     this.el = this.elementRef.nativeElement;
   }
 

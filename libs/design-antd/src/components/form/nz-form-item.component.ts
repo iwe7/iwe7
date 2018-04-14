@@ -1,22 +1,23 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Injector } from '@angular/core';
 import { NzUpdateHostClassService } from 'iwe7/core';
 import { toBoolean } from '../core/util/convert';
 import { NzRowComponent } from '../grid/nz-row.component';
-
 /** should add nz-row directive to host, track https://github.com/angular/angular/issues/8785 **/
 @Component({
-  selector           : 'nz-form-item',
+  selector: 'nz-form-item',
   preserveWhitespaces: false,
-  providers          : [ NzUpdateHostClassService ],
-  template           : `
-    <ng-content></ng-content>`,
-  host               : {
-    '[class.ant-form-item]'          : 'true',
+  providers: [NzUpdateHostClassService],
+  template: `
+    <ng-content></ng-content><ng-container (getViewRef)="setViewRef($event)"></ng-container>`,
+  host: {
+    '[class.ant-form-item]': 'true',
     '[class.ant-form-item-with-help]': 'withHelp>0'
   },
-  styles             : [ `:host {
+  styles: [
+    `:host {
     display: block;
-  }` ]
+  }`
+  ]
 })
 export class NzFormItemComponent extends NzRowComponent {
   private _flex = false;
@@ -30,6 +31,13 @@ export class NzFormItemComponent extends NzRowComponent {
     } else {
       this.renderer.removeStyle(this.elementRef.nativeElement, 'display');
     }
+  }
+
+  onPropsChange(e: any) {
+    if ('nzFlex' in e) {
+      this.nzFlex = e['nzFlex'];
+    }
+    super.onPropsChange(e);
   }
 
   enableHelp(): void {

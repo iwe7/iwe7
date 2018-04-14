@@ -14,13 +14,17 @@ import { trimWhiteSpace } from 'iwe7/core';
 
 import { NzInputDirective } from './nz-input.directive';
 // tslint:disable-next-line:no-any
-export type TInputGroupIconClass = string | string[] | Set<string> | { [klass: string]: any; };
+export type TInputGroupIconClass =
+  | string
+  | string[]
+  | Set<string>
+  | { [klass: string]: any };
 export type NzInputGroupSizeType = 'large' | 'default' | 'small';
 
 @Component({
-  selector           : 'nz-input-group',
+  selector: 'nz-input-group',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <span class="ant-input-wrapper ant-input-group" *ngIf="isAddOn">
       <span class="ant-input-group-addon" *ngIf="nzAddOnBefore || nzAddOnBeforeIcon">
         <i [ngClass]="nzAddOnBeforeIcon" *ngIf="nzAddOnBeforeIcon"></i>
@@ -61,7 +65,6 @@ export type NzInputGroupSizeType = 'large' | 'default' | 'small';
     </ng-template>
   `
 })
-
 export class NzInputGroupComponent implements AfterViewInit, AfterContentInit {
   private _addOnBefore: string | TemplateRef<void> = '';
   private _addOnAfter: string | TemplateRef<void> = '';
@@ -74,13 +77,15 @@ export class NzInputGroupComponent implements AfterViewInit, AfterContentInit {
   private isAddOnAfterString: boolean;
   private isPrefixString: boolean;
   private isSuffixString: boolean;
-  @ContentChildren(NzInputDirective) nzInputDirectiveQueryList: QueryList<NzInputDirective>;
+  @ContentChildren(NzInputDirective)
+  nzInputDirectiveQueryList: QueryList<NzInputDirective>;
   @Input() nzAddOnBeforeIcon: TInputGroupIconClass;
   @Input() nzAddOnAfterIcon: TInputGroupIconClass;
   @Input() nzPrefixIcon: TInputGroupIconClass;
   @Input() nzSuffixIcon: TInputGroupIconClass;
 
-  @Input() set nzSize(value: NzInputGroupSizeType) {
+  @Input()
+  set nzSize(value: NzInputGroupSizeType) {
     this._size = value;
     this.updateChildrenInputSize();
   }
@@ -160,17 +165,27 @@ export class NzInputGroupComponent implements AfterViewInit, AfterContentInit {
 
   @HostBinding('class.ant-input-affix-wrapper')
   get isAffix(): boolean {
-    return !!(this.nzSuffix || this.nzPrefix || this.nzPrefixIcon || this.nzSuffixIcon);
+    return !!(
+      this.nzSuffix ||
+      this.nzPrefix ||
+      this.nzPrefixIcon ||
+      this.nzSuffixIcon
+    );
   }
 
   @HostBinding('class.ant-input-group-wrapper')
   get isAddOn(): boolean {
-    return !!(this.nzAddOnAfter || this.nzAddOnBefore || this.nzAddOnAfterIcon || this.nzAddOnBeforeIcon);
+    return !!(
+      this.nzAddOnAfter ||
+      this.nzAddOnBefore ||
+      this.nzAddOnAfterIcon ||
+      this.nzAddOnBeforeIcon
+    );
   }
 
   @HostBinding('class.ant-input-group')
   get isGroup(): boolean {
-    return (!this.isAffix) && (!this.isAddOn);
+    return !this.isAffix && !this.isAddOn;
   }
 
   @HostBinding(`class.ant-input-group-lg`)
@@ -215,13 +230,13 @@ export class NzInputGroupComponent implements AfterViewInit, AfterContentInit {
 
   updateChildrenInputSize(): void {
     if (this.nzInputDirectiveQueryList) {
-      this.nzInputDirectiveQueryList.forEach(item => item.nzSize = this.nzSize);
+      this.nzInputDirectiveQueryList.forEach(
+        item => (item.nzSize = this.nzSize)
+      );
     }
   }
 
-  constructor(private el: ElementRef) {
-
-  }
+  constructor(private el: ElementRef) {}
 
   ngAfterContentInit(): void {
     this.updateChildrenInputSize();

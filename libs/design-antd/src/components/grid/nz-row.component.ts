@@ -4,12 +4,13 @@ import {
   HostListener,
   Input,
   OnInit,
-  Renderer2
+  Renderer2,
+  Injector
 } from '@angular/core';
 
 import { matchMedia } from 'iwe7/core';
 import { HostClassService } from 'iwe7/core';
-
+import { DesignBase } from 'iwe7/design';
 export type NzJustify =
   | 'start'
   | 'end'
@@ -46,7 +47,7 @@ const responsiveMap: BreakpointMap = {
     <ng-content></ng-content>
   `
 })
-export class NzRowComponent implements OnInit {
+export class NzRowComponent extends DesignBase<any> implements OnInit {
   private _gutter: number | object;
   private _type: NzType;
   private _align: NzAlign = 'top';
@@ -95,6 +96,21 @@ export class NzRowComponent implements OnInit {
     this._gutter = value;
     this.updateGutter();
     this.setStyle();
+  }
+
+  onPropsChange(e: any) {
+    if ('nzType' in e) {
+      this.nzType = e['nzType'];
+    }
+    if ('nzAlign' in e) {
+      this.nzAlign = e['nzAlign'];
+    }
+    if ('nzJustify' in e) {
+      this.nzJustify = e['nzJustify'];
+    }
+    if ('nzGutter' in e) {
+      this.nzGutter = e['nzGutter'];
+    }
   }
 
   setStyle(): void {
@@ -151,12 +167,13 @@ export class NzRowComponent implements OnInit {
     };
     this.nzUpdateHostClassService.updateHostClass(this.el, classMap);
   }
-
   constructor(
     public elementRef: ElementRef,
     public renderer: Renderer2,
-    public nzUpdateHostClassService: HostClassService
+    public nzUpdateHostClassService: HostClassService,
+    injector: Injector
   ) {
+    super(injector);
     this.el = this.elementRef.nativeElement;
   }
 

@@ -6,18 +6,19 @@ import {
   Input,
   OnInit,
   TemplateRef,
-  ViewChild
+  ViewChild,
+  Injector
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { toBoolean } from '../core/util/convert';
 
 export type NzSwitchSizeType = 'default' | 'small';
-
+import { DesignBase } from 'iwe7/design';
 @Component({
-  selector           : 'nz-switch',
+  selector: 'nz-switch',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <span [ngClass]="classMap" [tabindex]="nzDisabled?-1:0" #switchElement (keydown)="onKeyDown($event)">
       <span class="ant-switch-inner">
         <span *ngIf="checked">
@@ -35,20 +36,23 @@ export type NzSwitchSizeType = 'default' | 'small';
       </span>
     </span>
   `,
-  styles             : [ `
+  styles: [
+    `
     :host {
       display: inline-block;
     }
-  ` ],
-  providers          : [
+  `
+  ],
+  providers: [
     {
-      provide    : NG_VALUE_ACCESSOR,
+      provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NzSwitchComponent),
-      multi      : true
+      multi: true
     }
   ]
 })
-export class NzSwitchComponent implements OnInit, ControlValueAccessor {
+export class NzSwitchComponent extends DesignBase<any>
+  implements OnInit, ControlValueAccessor {
   private _disabled = false;
   private _size: NzSwitchSizeType;
   private _loading = false;
@@ -59,10 +63,13 @@ export class NzSwitchComponent implements OnInit, ControlValueAccessor {
   checked = false;
   isCheckedChildrenString: boolean;
   isUnCheckedChildrenString: boolean;
-  @ViewChild('switchElement')
-  private switchElement: ElementRef;
+  @ViewChild('switchElement') private switchElement: ElementRef;
   onChange: (value: boolean) => void = () => null;
   onTouched: () => void = () => null;
+
+  constructor(injector: Injector) {
+    super(injector);
+  }
 
   @Input()
   set nzCheckedChildren(value: string | TemplateRef<void>) {
@@ -114,10 +121,29 @@ export class NzSwitchComponent implements OnInit, ControlValueAccessor {
     return this._disabled;
   }
 
-  @HostListener('click', [ '$event' ])
+  onPropsChange(e: any) {
+    if ('nzCheckedChildren' in e) {
+      this.nzCheckedChildren = e['nzCheckedChildren'];
+    }
+    if ('nzUnCheckedChildren' in e) {
+      this.nzUnCheckedChildren = e['nzUnCheckedChildren'];
+    }
+    if ('nzSize' in e) {
+      this.nzSize = e['nzSize'];
+    }
+    if ('nzLoading' in e) {
+      this.nzLoading = e['nzLoading'];
+    }
+    if ('nzDisabled' in e) {
+      this.nzDisabled = e['nzDisabled'];
+    }
+    super.onPropsChange(e);
+  }
+
+  @HostListener('click', ['$event'])
   onClick(e: MouseEvent): void {
     e.preventDefault();
-    if ((!this.nzDisabled) && (!this.nzLoading)) {
+    if (!this.nzDisabled && !this.nzLoading) {
       this.updateValue(!this.checked, true);
     }
   }
@@ -130,27 +156,34 @@ export class NzSwitchComponent implements OnInit, ControlValueAccessor {
     this.setClassMap();
     if (emit) {
       this.onChange(this.checked);
+      this.__events.next({
+        type: 'change',
+        data: this.checked
+      });
     }
   }
 
   setClassMap(): void {
     this.classMap = {
-      [ this.prefixCls ]              : true,
-      [ `${this.prefixCls}-checked` ] : this.checked,
-      [ `${this.prefixCls}-loading` ] : this.nzLoading,
-      [ `${this.prefixCls}-disabled` ]: this.nzDisabled,
-      [ `${this.prefixCls}-small` ]   : this.nzSize === 'small'
+      [this.prefixCls]: true,
+      [`${this.prefixCls}-checked`]: this.checked,
+      [`${this.prefixCls}-loading`]: this.nzLoading,
+      [`${this.prefixCls}-disabled`]: this.nzDisabled,
+      [`${this.prefixCls}-small`]: this.nzSize === 'small'
     };
   }
 
   onKeyDown(e: KeyboardEvent): void {
-    if (e.keyCode === 37) { // Left
+    if (e.keyCode === 37) {
+      // Left
       this.updateValue(false, true);
       e.preventDefault();
-    } else if (e.keyCode === 39) { // Right
+    } else if (e.keyCode === 39) {
+      // Right
       this.updateValue(true, true);
       e.preventDefault();
-    } else if (e.keyCode === 32 || e.keyCode === 13) { // Space, Enter
+    } else if (e.keyCode === 32 || e.keyCode === 13) {
+      // Space, Enter
       this.updateValue(!this.checked, true);
       e.preventDefault();
     }

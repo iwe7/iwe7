@@ -65,6 +65,7 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
     }
     attrs = attrs || {};
     this.updateAttr(attrs);
+    super.onPropsChange(res);
   }
 
   private updateAttr(attrs: KeyValue) {

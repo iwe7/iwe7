@@ -16,7 +16,7 @@ import { DesignPagesModule } from 'iwe7/design-pages';
 import { DesignElementsModule } from 'iwe7/design-elements';
 import { D3Module } from 'iwe7/d3';
 import { SortableModule } from 'iwe7/sortable';
-
+import { SchemaFormModule } from 'iwe7/form';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +35,8 @@ import { SortableModule } from 'iwe7/sortable';
     DesignPagesModule,
     DesignElementsModule,
     D3Module,
-    SortableModule
+    SortableModule,
+    SchemaFormModule
   ],
   declarations: [],
   exports: [
@@ -49,7 +50,8 @@ import { SortableModule } from 'iwe7/sortable';
     DesignPagesModule,
     DesignElementsModule,
     D3Module,
-    SortableModule
+    SortableModule,
+    SchemaFormModule
   ],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
   providers: [DatePipe]

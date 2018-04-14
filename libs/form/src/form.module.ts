@@ -11,13 +11,15 @@ import { FieldRegisterService } from 'iwe7/form/src/field-register.service';
 import { CreateComponentDirective } from './create-component.directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ValidatorsHelper } from './validator';
+import { Iwe7CoreModule } from 'iwe7/core';
 @NgModule({
   imports: [
     CommonModule,
     PortalModule,
     FormsModule,
     ReactiveFormsModule,
-    BidiModule
+    BidiModule,
+    Iwe7CoreModule
   ],
   declarations: [
     FieldInputComponent,

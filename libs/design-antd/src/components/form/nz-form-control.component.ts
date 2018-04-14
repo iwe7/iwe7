@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { NzUpdateHostClassService } from 'iwe7/core';
 import { toBoolean } from '../core/util/convert';
 import { NzColComponent } from '../grid/nz-col.component';
-
+import { DesignBase } from 'iwe7/design';
 @Component({
   selector: 'nz-form-control',
   providers: [NzUpdateHostClassService],
@@ -20,6 +20,7 @@ import { NzColComponent } from '../grid/nz-col.component';
     <div class="ant-form-item-control" [ngClass]="controlClassMap">
       <span class="ant-form-item-children">
         <ng-content></ng-content>
+        <ng-container (getViewRef)="setViewRef($event)"></ng-container>
       </span>
       <ng-content select="nz-form-explain"></ng-content>
     </div>
@@ -66,6 +67,16 @@ export class NzFormControlComponent extends NzColComponent
       this.removeSubscribe();
       this.setControlClassMap();
     }
+  }
+
+  onPropsChange(e: any) {
+    if ('nzValidateStatus' in e) {
+      this.nzValidateStatus = e['nzValidateStatus'];
+    }
+    if ('nzHasFeedback' in e) {
+      this.nzHasFeedback = e['nzHasFeedback'];
+    }
+    super.onPropsChange(e);
   }
 
   removeSubscribe(): void {

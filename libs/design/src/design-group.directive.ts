@@ -42,7 +42,8 @@ export class DesignGroupDirective extends Iwe7DesignBase<any>
             this.viewRef,
             this
           )
-          .subscribe((instance: any) => {
+          .subscribe((item: any) => {
+            let { instance } = item;
             if (instance) {
               instance.setProps(this.props);
               this.instance = instance;

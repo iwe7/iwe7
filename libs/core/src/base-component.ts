@@ -87,6 +87,9 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   }
 
   setProps(props: BehaviorSubject<T>) {
+    if (!ɵisObservable(props)) {
+      props = new BehaviorSubject(props);
+    }
     this.props = this.props.pipe<T>(switchMap(res => props)) as BehaviorSubject<
       T
     >;
@@ -98,10 +101,8 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   }
 
   __propsHandler() {
-    if (!ɵisObservable(this.props)) {
-      this.props = new BehaviorSubject(this.props);
-    }
     this.props.subscribe(res => {
+      res = res || ({} as T);
       this._props = res;
       if ('data-id' in res) {
       } else {
@@ -110,7 +111,6 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
       this.__id = res['data-id'];
       this.memory.set(this.__id, this._props);
       this.onPropsChange(res);
-      this.cd.detectChanges();
     });
   }
 
@@ -132,5 +132,7 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
     return uuid;
   }
 
-  public abstract onPropsChange(res: T): void;
+  public onPropsChange(res: T): void{
+    this.cd.detectChanges();
+  }
 }

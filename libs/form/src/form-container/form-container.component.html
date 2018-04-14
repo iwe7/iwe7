@@ -1,3 +1,1 @@
-<ng-container *ngFor="let item of list">
-  <ng-container *createComponent="item.type;props item;id item.id;"></ng-container>
-</ng-container>
+<ng-container (getViewRef)="setViewRef($event)"></ng-container>

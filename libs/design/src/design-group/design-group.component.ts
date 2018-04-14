@@ -164,9 +164,10 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
               this.groupRef,
               this
             )
-            .subscribe((instance: Iwe7DesignSettingBase<any>) => {
+            .subscribe((item: Iwe7DesignSettingBase<any>) => {
+              let { instance } = item;
               instance.setProps(group);
-              this.groupInstance = instance;
+              this.groupInstance = instance as any;
               this.installedGroup = true;
             });
         }
@@ -182,11 +183,12 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
               this.settingRef,
               this
             )
-            .subscribe((instance: Iwe7DesignSettingBase<any>) => {
+            .subscribe((item: Iwe7DesignSettingBase<any>) => {
               // 设置组件实例
+              let { instance } = item;
               if (instance) {
                 instance.setProps(this.props);
-                this.settingInstance = instance;
+                this.settingInstance = instance as any;
                 this.installedSetting = true;
                 this.setting = setting;
                 this.settingInstance.formChange
@@ -214,12 +216,13 @@ export class DesignGroupComponent extends Iwe7DesignBase<any>
               this.viewRef,
               this
             )
-            .subscribe((instance: Iwe7DesignBase<any>) => {
+            .subscribe((item: Iwe7DesignBase<any>) => {
               // 展示组件实例
+              let { instance } = item;
               if (instance) {
                 this.installedView = true;
                 instance.setProps(this.props);
-                this.viewInstance = instance;
+                this.viewInstance = instance as any;
                 this.view = view;
               }
             });

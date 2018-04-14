@@ -3,12 +3,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { NzOptionGroupComponent } from './nz-option-group.component';
 import { NzOptionComponent } from './nz-option.component';
 
-export type TFilterOption = (input?: string, option?: NzOptionComponent) => boolean;
+export type TFilterOption = (
+  input?: string,
+  option?: NzOptionComponent
+) => boolean;
 
 // TODO: can not dynamic change pipe pure yet
 @Pipe({ name: 'nzFilterOptionPipe' })
 export class NzOptionPipe implements PipeTransform {
-  transform(options: NzOptionComponent[], input: string, filterOption: TFilterOption, serverSearch: boolean): NzOptionComponent[] {
+  transform(
+    options: NzOptionComponent[],
+    input: string,
+    filterOption: TFilterOption,
+    serverSearch: boolean
+  ): NzOptionComponent[] {
     if (serverSearch || !input) {
       return options;
     } else {
@@ -19,7 +27,12 @@ export class NzOptionPipe implements PipeTransform {
 
 @Pipe({ name: 'nzSubFilterOptionPipe' })
 export class NzSubOptionPipe implements PipeTransform {
-  transform(groups: NzOptionGroupComponent[], input: string, filterOption: TFilterOption, serverSearch: boolean): NzOptionGroupComponent[] {
+  transform(
+    groups: NzOptionGroupComponent[],
+    input: string,
+    filterOption: TFilterOption,
+    serverSearch: boolean
+  ): NzOptionGroupComponent[] {
     if (serverSearch || !input) {
       return groups;
     } else {
@@ -30,7 +43,10 @@ export class NzSubOptionPipe implements PipeTransform {
   }
 }
 
-export function defaultFilterOption(input: string, option: NzOptionComponent): boolean {
+export function defaultFilterOption(
+  input: string,
+  option: NzOptionComponent
+): boolean {
   if (option && option.nzLabel) {
     return option.nzLabel.toLowerCase().indexOf(input.toLowerCase()) > -1;
   } else {

@@ -1,4 +1,10 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
 import {
   AfterContentInit,
   Component,
@@ -19,13 +25,17 @@ import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 
-import { NzFormatBeforeDropEvent, NzFormatClickEvent, NzFormatEmitEvent } from './interface';
+import {
+  NzFormatBeforeDropEvent,
+  NzFormatClickEvent,
+  NzFormatEmitEvent
+} from './interface';
 import { NzTreeNode } from './nz-tree-node';
 import { NzTreeService } from './nz-tree.service';
 
 @Component({
-  selector  : 'nz-tree-node',
-  template  : `
+  selector: 'nz-tree-node',
+  template: `
     <li #dragElement
         [class.ant-tree-treenode-disabled]="nzTreeNode.isDisabled"
         (dblclick)="_dblClickNode($event,nzTreeNode)"
@@ -116,22 +126,28 @@ import { NzTreeService } from './nz-tree.service';
   `,
   animations: [
     trigger('expandState', [
-      state('inactive', style({
-        opacity: '0',
-        height : 0,
-        display: 'none'
-      })),
-      state('active', style({
-        opacity: '1',
-        height : '*'
-      })),
+      state(
+        'inactive',
+        style({
+          opacity: '0',
+          height: 0,
+          display: 'none'
+        })
+      ),
+      state(
+        'active',
+        style({
+          opacity: '1',
+          height: '*'
+        })
+      ),
       transition('inactive => active', animate('150ms ease-in')),
       transition('active => inactive', animate('150ms ease-out'))
     ])
   ]
 })
-
-export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy {
+export class NzTreeNodeComponent
+  implements OnInit, AfterContentInit, OnDestroy {
   dragPos = 2;
   prefixCls = 'ant-tree';
   _treeNode;
@@ -143,8 +159,8 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
   matchValue = [];
   // 拖动划过状态
   dragPosClass: object = {
-    '0' : 'drag-over',
-    '1' : 'drag-over-gap-bottom',
+    '0': 'drag-over',
+    '1': 'drag-over-gap-bottom',
     '-1': 'drag-over-gap-top'
   };
   clickNum = 0;
@@ -172,7 +188,8 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
   @Input() nzCheckable: boolean;
   @Input() nzAsyncData;
   @Input() nzTreeTemplate: TemplateRef<void>;
-  @Input() nzBeforeDrop: (confirm: NzFormatBeforeDropEvent) => Observable<boolean>;
+  @Input()
+  nzBeforeDrop: (confirm: NzFormatBeforeDropEvent) => Observable<boolean>;
 
   @Input()
   set nzTreeNode(node: NzTreeNode) {
@@ -225,7 +242,12 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
   @Input()
   set nzDefaultSelectedKeys(value: string[]) {
     this._defaultSelectedKeys = value;
-    if (value && !this.nzTreeNode.isDisabled && this.nzMultiple && value.indexOf(this.nzTreeNode.key) > -1) {
+    if (
+      value &&
+      !this.nzTreeNode.isDisabled &&
+      this.nzMultiple &&
+      value.indexOf(this.nzTreeNode.key) > -1
+    ) {
       this.nzTreeNode.isSelected = true;
     }
   }
@@ -242,7 +264,12 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
       // match the search value
       const index = this.nzTreeNode.title.indexOf(value);
       this.matchValue.push(this.nzTreeNode.title.slice(0, index));
-      this.matchValue.push(this.nzTreeNode.title.slice(index + value.length, this.nzTreeNode.title.length));
+      this.matchValue.push(
+        this.nzTreeNode.title.slice(
+          index + value.length,
+          this.nzTreeNode.title.length
+        )
+      );
     } else {
       // close the node if title does't contain search value
       this.nzTreeNode.isMatched = false;
@@ -255,8 +282,11 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
     return this._searchValue;
   }
 
-  constructor(private nzTreeService: NzTreeService, private ngZone: NgZone, private renderer: Renderer2) {
-  }
+  constructor(
+    private nzTreeService: NzTreeService,
+    private ngZone: NgZone,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit(): void {
     // add select list
@@ -267,17 +297,26 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
     if (this.nzTreeNode.isChecked) {
       this.nzTreeService.setCheckedNodeList(this.nzTreeNode);
     }
-    this.emitSubjection = this.emitSubject$.pipe(debounceTime(200)).subscribe((e: NzFormatClickEvent) => {
-      if (this.clickNum % 2 === 0) {
-        this.dblClick.emit(this.nzTreeService.formatEvent('dblclick', e.node, e.event));
-      } else {
-        if (this.nzTreeNode.isSelectable && !this.nzTreeNode.isDisabled) {
-          this.nzTreeService.initNodeActive(this.nzTreeNode, this.nzMultiple);
+    this.emitSubjection = this.emitSubject$
+      .pipe(debounceTime(200))
+      .subscribe((e: NzFormatClickEvent) => {
+        if (this.clickNum % 2 === 0) {
+          this.dblClick.emit(
+            this.nzTreeService.formatEvent('dblclick', e.node, e.event)
+          );
+        } else {
+          if (this.nzTreeNode.isSelectable && !this.nzTreeNode.isDisabled) {
+            this.nzTreeService.initNodeActive(this.nzTreeNode, this.nzMultiple);
+          }
+          const click = this.nzTreeService.formatEvent(
+            'click',
+            e.node,
+            e.event
+          );
+          this.clickNode.emit(click);
         }
-        this.clickNode.emit(this.nzTreeService.formatEvent('click', e.node, e.event));
-      }
-      this.clickNum = 0;
-    });
+        this.clickNum = 0;
+      });
   }
 
   handleDragStart(e: DragEvent): void {
@@ -292,11 +331,16 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
     e.stopPropagation();
     this.ngZone.run(() => {
       this.nzTreeService.targetNode = this.nzTreeNode;
-      if ((this.nzTreeNode !== this.nzTreeService.getSelectedNode()) && !this.nzTreeNode.isLeaf) {
+      if (
+        this.nzTreeNode !== this.nzTreeService.getSelectedNode() &&
+        !this.nzTreeNode.isLeaf
+      ) {
         this.nzTreeNode.isExpanded = true;
       }
     });
-    this.nzDragEnter.emit(this.nzTreeService.formatEvent('dragenter', this.nzTreeNode, e));
+    this.nzDragEnter.emit(
+      this.nzTreeService.formatEvent('dragenter', this.nzTreeNode, e)
+    );
   }
 
   handleDragOver(e: DragEvent): void {
@@ -305,9 +349,14 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
     if (this.dragPos !== this.nzTreeService.calcDropPosition(e)) {
       this._clearDragClass();
       this.dragPos = this.nzTreeService.calcDropPosition(e);
-      this.renderer.addClass(this.dragElement.nativeElement, this.dragPosClass[ this.dragPos ]);
+      this.renderer.addClass(
+        this.dragElement.nativeElement,
+        this.dragPosClass[this.dragPos]
+      );
     }
-    this.nzDragOver.emit(this.nzTreeService.formatEvent('dragover', this.nzTreeNode, e));
+    this.nzDragOver.emit(
+      this.nzTreeService.formatEvent('dragover', this.nzTreeNode, e)
+    );
   }
 
   handleDragLeave(e: DragEvent): void {
@@ -315,7 +364,9 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
     this.ngZone.run(() => {
       this._clearDragClass();
     });
-    this.nzDragLeave.emit(this.nzTreeService.formatEvent('dragleave', this.nzTreeNode, e));
+    this.nzDragLeave.emit(
+      this.nzTreeService.formatEvent('dragleave', this.nzTreeNode, e)
+    );
   }
 
   handleDragDrop(e: DragEvent): void {
@@ -324,22 +375,31 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
     this.dragPos = this.nzTreeService.calcDropPosition(e);
     this.ngZone.run(() => {
       // pass if node is leafNo
-      if (this.nzTreeNode !== this.nzTreeService.getSelectedNode() && !(this.dragPos === 0 && this.nzTreeNode.isLeaf)) {
+      if (
+        this.nzTreeNode !== this.nzTreeService.getSelectedNode() &&
+        !(this.dragPos === 0 && this.nzTreeNode.isLeaf)
+      ) {
         if (this.nzBeforeDrop) {
           this.nzBeforeDrop({
             dragNode: this.nzTreeService.getSelectedNode(),
-            node    : this.nzTreeNode,
-            pos     : this.dragPos
+            node: this.nzTreeNode,
+            pos: this.dragPos
           }).subscribe((canDrop: boolean) => {
             if (canDrop) {
               this.nzTreeService.dropAndApply(this.nzTreeNode, this.dragPos);
             }
-            this.nzDrop.emit(this.nzTreeService.formatEvent('drop', this.nzTreeNode, e));
-            this.nzDragEnd.emit(this.nzTreeService.formatEvent('dragend', this.nzTreeNode, e));
+            this.nzDrop.emit(
+              this.nzTreeService.formatEvent('drop', this.nzTreeNode, e)
+            );
+            this.nzDragEnd.emit(
+              this.nzTreeService.formatEvent('dragend', this.nzTreeNode, e)
+            );
           });
         } else {
           this.nzTreeService.dropAndApply(this.nzTreeNode, this.dragPos);
-          this.nzDrop.emit(this.nzTreeService.formatEvent('drop', this.nzTreeNode, e));
+          this.nzDrop.emit(
+            this.nzTreeService.formatEvent('drop', this.nzTreeNode, e)
+          );
         }
       }
       this._clearDragClass();
@@ -352,7 +412,9 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
       // if user do not custom beforeDrop
       if (!this.nzBeforeDrop) {
         this.nzTreeService.setSelectedNode(null);
-        this.nzDragEnd.emit(this.nzTreeService.formatEvent('dragend', this.nzTreeNode, e));
+        this.nzDragEnd.emit(
+          this.nzTreeService.formatEvent('dragend', this.nzTreeNode, e)
+        );
       }
     });
   }
@@ -360,18 +422,34 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
   ngAfterContentInit(): void {
     if (this.nzDraggable) {
       this.ngZone.runOutsideAngular(() => {
-        fromEvent(this.dragElement.nativeElement, 'dragstart').subscribe((e: DragEvent) => this.handleDragStart(e));
-        fromEvent(this.dragElement.nativeElement, 'dragenter').subscribe((e: DragEvent) => this.handleDragEnter(e));
-        fromEvent(this.dragElement.nativeElement, 'dragover').subscribe((e: DragEvent) => this.handleDragOver(e));
-        fromEvent(this.dragElement.nativeElement, 'dragleave').subscribe((e: DragEvent) => this.handleDragLeave(e));
-        fromEvent(this.dragElement.nativeElement, 'drop').subscribe((e: DragEvent) => this.handleDragDrop(e));
-        fromEvent(this.dragElement.nativeElement, 'dragend').subscribe((e: DragEvent) => this.handleDragEnd(e));
+        fromEvent(this.dragElement.nativeElement, 'dragstart').subscribe(
+          (e: DragEvent) => this.handleDragStart(e)
+        );
+        fromEvent(this.dragElement.nativeElement, 'dragenter').subscribe(
+          (e: DragEvent) => this.handleDragEnter(e)
+        );
+        fromEvent(this.dragElement.nativeElement, 'dragover').subscribe(
+          (e: DragEvent) => this.handleDragOver(e)
+        );
+        fromEvent(this.dragElement.nativeElement, 'dragleave').subscribe(
+          (e: DragEvent) => this.handleDragLeave(e)
+        );
+        fromEvent(this.dragElement.nativeElement, 'drop').subscribe(
+          (e: DragEvent) => this.handleDragDrop(e)
+        );
+        fromEvent(this.dragElement.nativeElement, 'dragend').subscribe(
+          (e: DragEvent) => this.handleDragEnd(e)
+        );
       });
     }
   }
 
   _clearDragClass(): void {
-    const dragClass = [ 'drag-over-gap-top', 'drag-over-gap-bottom', 'drag-over' ];
+    const dragClass = [
+      'drag-over-gap-top',
+      'drag-over-gap-bottom',
+      'drag-over'
+    ];
     dragClass.forEach(e => {
       this.renderer.removeClass(this.dragElement.nativeElement, e);
     });
@@ -382,8 +460,8 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
     $event.stopPropagation();
     this.clickNum++;
     this.emitSubject$.next({
-      'event': $event,
-      'node' : node
+      event: $event,
+      node: node
     });
   }
 
@@ -391,15 +469,17 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
     $event.preventDefault();
     $event.stopPropagation();
     this.emitSubject$.next({
-      'event': $event,
-      'node' : node
+      event: $event,
+      node: node
     });
   }
 
   _contextMenuNode($event: MouseEvent, node: NzTreeNode): void {
     $event.preventDefault();
     $event.stopPropagation();
-    this.contextMenu.emit(this.nzTreeService.formatEvent('contextmenu', node, $event));
+    this.contextMenu.emit(
+      this.nzTreeService.formatEvent('contextmenu', node, $event)
+    );
   }
 
   _clickCheckBox($event: MouseEvent, node: NzTreeNode): void {
@@ -410,7 +490,9 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
       return;
     }
     this.nzTreeService.checkTreeNode(node);
-    this.clickCheckBox.emit(this.nzTreeService.formatEvent('check', node, $event));
+    this.clickCheckBox.emit(
+      this.nzTreeService.formatEvent('check', node, $event)
+    );
   }
 
   _clickExpand($event: MouseEvent, node: NzTreeNode): void {
@@ -419,13 +501,19 @@ export class NzTreeNodeComponent implements OnInit, AfterContentInit, OnDestroy 
     if (!this.nzTreeNode.isLoading) {
       if (!node.isLeaf) {
         // set async state
-        if (this.nzAsyncData && this.nzTreeNode.getChildren().length === 0 && !this.nzTreeNode.isExpanded) {
+        if (
+          this.nzAsyncData &&
+          this.nzTreeNode.getChildren().length === 0 &&
+          !this.nzTreeNode.isExpanded
+        ) {
           this.nzTreeNode.isLoading = true;
         }
         node.isExpanded = !this.nzTreeNode.isExpanded;
       }
       if (!this.nzTreeNode.isLeaf) {
-        this.clickExpand.emit(this.nzTreeService.formatEvent('expand', node, $event));
+        this.clickExpand.emit(
+          this.nzTreeService.formatEvent('expand', node, $event)
+        );
       }
     }
   }

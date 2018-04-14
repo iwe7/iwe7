@@ -230,6 +230,13 @@
       "tags": []
     },
     {
+      "name": "design-helper",
+      "root": "libs/design-helper/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "design-libs",
       "root": "libs/design-libs/src",
       "test": "../../../test.js",

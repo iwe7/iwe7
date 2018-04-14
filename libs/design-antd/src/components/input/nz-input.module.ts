@@ -8,7 +8,8 @@ import { NzInputDirective } from './nz-input.directive';
 @NgModule({
   declarations: [NzInputDirective, NzInputGroupComponent],
   exports: [NzInputDirective, NzInputGroupComponent],
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule],
+  entryComponents: [NzInputDirective, NzInputGroupComponent]
 })
 export class NzInputModule {
   getComponentByName(key: string) {

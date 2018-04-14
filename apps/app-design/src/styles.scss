@@ -12,6 +12,7 @@
 * {
     margin: 0px;
     padding: 0px;
+    user-select: none;
 }
 
 html,
@@ -19,7 +20,7 @@ body,
 app-root {
     display: block;
     height: 100%;
-    overflow: hidden;
+    background: #efefef;
 }
 
 .form-row {
@@ -46,4 +47,8 @@ app-root {
             color: #fff;
         }
     }
+}
+
+.ant-form-item {
+    margin-bottom: 0px;
 }

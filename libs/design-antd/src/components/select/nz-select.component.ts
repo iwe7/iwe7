@@ -25,7 +25,8 @@ import {
   Renderer2,
   SimpleChange,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Injector
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isNotNil } from '../core/util/check';
@@ -35,7 +36,7 @@ import { NzOptionGroupComponent } from './nz-option-group.component';
 import { NzOptionComponent } from './nz-option.component';
 import { defaultFilterOption, TFilterOption } from './nz-option.pipe';
 import { NzSelectTopControlComponent } from './nz-select-top-control.component';
-
+import { DesignBase } from 'iwe7/design';
 @Component({
   selector: 'nz-select',
   preserveWhitespaces: false,
@@ -167,6 +168,12 @@ import { NzSelectTopControlComponent } from './nz-select-top-control.component';
     <!--can not use ViewChild since it will match sub options in option group -->
     <ng-template>
       <ng-content></ng-content>
+      <nz-option
+        *ngFor="let option of (props|async)?.props"
+        [nzLabel]="option.label"
+        [nzValue]="option.value"
+        [nzDisabled]="option.disabled">
+      </nz-option>
     </ng-template>
   `,
   host: {
@@ -191,7 +198,7 @@ import { NzSelectTopControlComponent } from './nz-select-top-control.component';
   `
   ]
 })
-export class NzSelectComponent
+export class NzSelectComponent extends DesignBase<any>
   implements ControlValueAccessor, OnInit, AfterViewInit, OnDestroy {
   private _disabled = false;
   private _allowClear = false;
@@ -228,6 +235,7 @@ export class NzSelectComponent
   @Output() nzOnSearch = new EventEmitter<string>();
   @Output() nzScrollToBottom = new EventEmitter<void>();
   @Output() nzOpenChange = new EventEmitter<boolean>();
+
   @Input() nzSize = 'default';
   @Input() nzServerSearch = false;
   @Input() nzMode: 'default' | 'multiple' | 'tags' = 'default';
@@ -236,6 +244,60 @@ export class NzSelectComponent
   @Input() nzMaxMultipleCount = Infinity;
   @Input() nzDropdownStyle: { [key: string]: string };
   @Input() nzNotFoundContent: string;
+
+  setViewRef(e) {
+    console.log(e);
+  }
+
+  onPropsChange(e: any) {
+    if ('nzServerSearch' in e) {
+      this.nzServerSearch = e['nzServerSearch'];
+    }
+    if ('nzMode' in e) {
+      this.nzMode = e['nzMode'];
+    }
+    if ('nzDropdownMatchSelectWidth' in e) {
+      this.nzDropdownMatchSelectWidth = e['nzDropdownMatchSelectWidth'];
+    }
+    if ('nzFilterOption' in e) {
+      this.nzFilterOption = e['nzFilterOption'];
+    }
+    if ('nzDropdownStyle' in e) {
+      this.nzDropdownStyle = e['nzDropdownStyle'];
+    }
+    if ('nzNotFoundContent' in e) {
+      this.nzNotFoundContent = e['nzNotFoundContent'];
+    }
+    if ('nzSize' in e) {
+      this.nzSize = e['nzSize'];
+    }
+    if ('compareWith' in e) {
+      this.compareWith = e['compareWith'];
+    }
+    if ('nzAutoFocus' in e) {
+      this.nzAutoFocus = e['nzAutoFocus'];
+    }
+    if ('nzDropdownClassName' in e) {
+      this.nzDropdownClassName = e['nzDropdownClassName'];
+    }
+    if ('nzOpen' in e) {
+      this.nzOpen = e['nzOpen'];
+    }
+    if ('nzPlaceHolder' in e) {
+      this.nzPlaceHolder = e['nzPlaceHolder'];
+    }
+    if ('nzShowSearch' in e) {
+      this.nzShowSearch = e['nzShowSearch'];
+    }
+    if ('nzAllowClear' in e) {
+      this.nzAllowClear = e['nzAllowClear'];
+    }
+    if ('nzDisabled' in e) {
+      this.nzDisabled = e['nzDisabled'];
+      // this.render.
+    }
+    super.onPropsChange(e);
+  }
   /** https://github.com/angular/angular/pull/13349/files **/
   // tslint:disable-next-line:no-any
   @Input() compareWith = (o1: any, o2: any) => o1 === o2;
@@ -540,7 +602,9 @@ export class NzSelectComponent
     }
   }
 
-  constructor(private renderer: Renderer2) {}
+  constructor(private renderer: Renderer2, injector: Injector) {
+    super(injector);
+  }
 
   /** update ngModel -> update listOfSelectedValue **/
   // tslint:disable-next-line:no-any

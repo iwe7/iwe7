@@ -20,7 +20,7 @@ import { Iwe7Base } from 'iwe7/core';
 })
 export class LazyLoaderService {
   // 组件库
-  components: Map<string, string> = new Map();
+  components: Map<string, { path: string; data: any }> = new Map();
   lazyComponentModuleFactory: LazyComponentModuleFactory;
 
   constructor(
@@ -32,9 +32,23 @@ export class LazyLoaderService {
       this.moduleFactoryLoader
     );
     this.lazyComponentConfig = flatten(this.lazyComponentConfig);
-    this.lazyComponentConfig.map(res => {
-      this.components.set(res.path || res.selector, res.loadChildren);
+    this.lazyComponentConfig.map((res: any) => {
+      let { children } = res;
+      if (children) {
+        children.map(child => {
+          this.components.set(child.path, {
+            path: child.loadChildren,
+            data: child.data
+          });
+        });
+      } else {
+        this.components.set(res.path || res.selector, {
+          path: res.loadChildren,
+          data: res.data
+        });
+      }
     });
+    console.log(this.components);
   }
 
   public compiler(element: HTMLElement, view: ViewContainerRef, that?: any) {
@@ -72,9 +86,9 @@ export class LazyLoaderService {
     view: ViewContainerRef,
     that?: Iwe7Base<any>
   ): Observable<any> {
-    let path = this.components.get(item.selector);
+    let cloud = this.components.get(item.selector);
     return fromPromise(
-      this.lazyComponentModuleFactory.getComponentModuleByPath(path)
+      this.lazyComponentModuleFactory.getComponentModuleByPath(cloud.path)
     ).pipe(
       map(res => {
         if (res) {
@@ -83,8 +97,8 @@ export class LazyLoaderService {
             this.moduleRef.injector
           );
           const selector = item.selector;
-          let { inputs, outputs, ngContentSelectors } = component;
           if (component) {
+            let { inputs, outputs, ngContentSelectors } = component;
             if (!view) {
               throw Error(
                 'view is error ' +
@@ -130,6 +144,12 @@ export class LazyLoaderService {
         }
         return null;
       }),
+      map(res => {
+        return {
+          instance: res,
+          data: { ...cloud.data, selector: item.selector }
+        };
+      }),
       tap(instance => {})
     );
   }
@@ -143,18 +163,23 @@ export class LazyLoaderService {
       view,
       null
     ).pipe(
-      tap(instance => {
+      tap(item => {
+        let { instance, data } = item;
         if (!!props) {
-          if (ɵisObservable(props)) {
-            instance.setProps(props);
+          if (instance) {
+            if (ɵisObservable(props)) {
+              instance.setProps(props);
+            } else {
+              instance.setProps(new BehaviorSubject(props));
+            }
+            // 监听输出
+            instance.__events.subscribe(res => {
+              callback && callback(res, instance);
+            });
           } else {
-            instance.setProps(new BehaviorSubject(props));
+            console.log('没有找到组件', selector);
           }
         }
-        // 监听输出
-        instance.__events.subscribe(res => {
-          callback && callback(res, instance);
-        });
       })
     );
   }

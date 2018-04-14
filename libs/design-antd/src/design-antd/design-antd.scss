@@ -1,0 +1,31 @@
+design-antd {
+    display: flex;
+    flex-direction: row;
+    overflow: auto;
+    background: #333;
+    color: #fff;
+}
+
+.ant-tree-title {
+    user-select: none;
+    color: #ccc;
+}
+
+.ant-tree {
+    color: #ccc;
+    li {
+        .ant-tree-node-content-wrapper {
+            height: 30px;
+            line-height: 24px;
+            &:hover {
+                background-color: #000;
+            }
+        }
+    }
+}
+
+nz-tree {
+  display: block;
+  overflow: auto;
+  max-height: 100%;
+}

@@ -25,17 +25,13 @@ ul {
 
 :host {
     display: flex;
-    flex-direction: column;
-    .main {
+    flex-direction: row;
+    .center {
         flex: 1;
+        padding: 10px;
     }
 }
 
-.dragger {
-    display: flex;
-    flex-direction: row;
-    margin: 0 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+.left-menu {
+    width: 320px;
 }

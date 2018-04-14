@@ -1,13 +1,22 @@
-import { Component, ContentChild, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import {
+  Component,
+  ContentChild,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TemplateRef,
+  Injector
+} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
 import { NzFormatBeforeDropEvent, NzFormatEmitEvent } from './interface';
 import { NzTreeNode } from './nz-tree-node';
 import { NzTreeService } from './nz-tree.service';
-
+import { Iwe7Base } from 'iwe7/core';
 @Component({
-  selector : 'nz-tree',
-  template : `
+  selector: 'nz-tree',
+  template: `
     <ul
       class="ant-tree"
       [ngClass]="classMap"
@@ -40,19 +49,17 @@ import { NzTreeService } from './nz-tree.service';
       ></nz-tree-node>
     </ul>
   `,
-  providers: [
-    NzTreeService
-  ]
+  providers: [NzTreeService]
 })
-export class NzTreeComponent implements OnInit {
+export class NzTreeComponent extends Iwe7Base<any> implements OnInit {
   _root: NzTreeNode[] = [];
   _searchValue;
   _showLine = false;
   _prefixCls = 'ant-tree';
   classMap = {
-    [ this._prefixCls ]             : true,
+    [this._prefixCls]: true,
     [this._prefixCls + '-show-line']: false,
-    ['draggable-tree']              : false
+    ['draggable-tree']: false
   };
 
   @ContentChild('nzTreeTemplate') nzTreeTemplate: TemplateRef<{}>;
@@ -66,7 +73,8 @@ export class NzTreeComponent implements OnInit {
   @Input() nzDefaultCheckedKeys: string[];
   @Input() nzDefaultExpandedKeys: string[];
   @Input() nzDefaultSelectedKeys: string[];
-  @Input() nzBeforeDrop: (confirm: NzFormatBeforeDropEvent) => Observable<boolean>;
+  @Input()
+  nzBeforeDrop: (confirm: NzFormatBeforeDropEvent) => Observable<boolean>;
 
   @Input()
   set nzShowLine(value: boolean) {
@@ -94,7 +102,9 @@ export class NzTreeComponent implements OnInit {
     this._searchValue = value;
     if (value) {
       this.nzTreeService.searchExpand(value);
-      this.nzOnSearchNode.emit(this.nzTreeService.formatEvent('search', null, null));
+      this.nzOnSearchNode.emit(
+        this.nzTreeService.formatEvent('search', null, null)
+      );
     }
   }
 
@@ -102,12 +112,15 @@ export class NzTreeComponent implements OnInit {
     return this._searchValue;
   }
 
-  @Output() nzOnSearchNode: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
+  @Output()
+  nzOnSearchNode: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
   @Output() nzClick: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
   @Output() nzDblClick: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
   @Output() nzContextMenu: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
-  @Output() nzCheckBoxChange: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
-  @Output() nzExpandChange: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
+  @Output()
+  nzCheckBoxChange: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
+  @Output()
+  nzExpandChange: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
 
   @Output() nzOnDragStart: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
   @Output() nzOnDragEnter: EventEmitter<NzFormatEmitEvent> = new EventEmitter();
@@ -118,15 +131,57 @@ export class NzTreeComponent implements OnInit {
 
   setClassMap(): void {
     this.classMap = {
-      [ this._prefixCls ]             : true,
+      [this._prefixCls]: true,
       [this._prefixCls + '-show-line']: this.nzShowLine,
-      ['draggable-tree']              : this.nzDraggable
+      ['draggable-tree']: this.nzDraggable
     };
   }
 
-  constructor(private nzTreeService: NzTreeService) {
+  constructor(private nzTreeService: NzTreeService, injector: Injector) {
+    super(injector);
   }
 
-  ngOnInit(): void {
+  onPropsChange(e: any) {
+    if ('nzCheckable' in e) {
+      this.nzCheckable = e['nzCheckable'];
+    }
+    if ('nzShowExpand' in e) {
+      this.nzShowExpand = e['nzShowExpand'];
+    }
+    if ('nzAsyncData' in e) {
+      this.nzAsyncData = e['nzAsyncData'];
+    }
+    if ('nzDraggable' in e) {
+      this.nzDraggable = e['nzDraggable'];
+    }
+    if ('nzMultiple' in e) {
+      this.nzMultiple = e['nzMultiple'];
+    }
+    if ('nzDefaultExpandAll' in e) {
+      this.nzDefaultExpandAll = e['nzDefaultExpandAll'];
+    }
+    if ('nzDefaultCheckedKeys' in e) {
+      this.nzDefaultCheckedKeys = e['nzDefaultCheckedKeys'];
+    }
+    if ('nzDefaultExpandedKeys' in e) {
+      this.nzDefaultExpandedKeys = e['nzDefaultExpandedKeys'];
+    }
+    if ('nzDefaultSelectedKeys' in e) {
+      this.nzDefaultSelectedKeys = e['nzDefaultSelectedKeys'];
+    }
+    if ('nzBeforeDrop' in e) {
+      this.nzBeforeDrop = e['nzBeforeDrop'];
+    }
+    if ('nzShowLine' in e) {
+      this.nzShowLine = e['nzShowLine'];
+    }
+    if ('nzTreeData' in e) {
+      this.nzTreeData = e['nzTreeData'];
+    }
+    if ('nzSearchValue' in e) {
+      this.nzSearchValue = e['nzSearchValue'];
+    }
   }
+
+  ngOnInit(): void {}
 }

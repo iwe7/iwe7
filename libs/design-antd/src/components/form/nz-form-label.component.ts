@@ -4,14 +4,15 @@ import { toBoolean } from '../core/util/convert';
 import { NzColComponent } from '../grid/nz-col.component';
 
 @Component({
-  selector           : 'nz-form-label',
-  providers          : [ NzUpdateHostClassService ],
+  selector: 'nz-form-label',
+  providers: [NzUpdateHostClassService],
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <label [attr.for]="nzFor" [class.ant-form-item-required]="nzRequired">
-      <ng-content></ng-content>
+      {{(props|async)?.text}}
+      <ng-content></ng-content><ng-container (getViewRef)="setViewRef($event)"></ng-container>
     </label>`,
-  host               : {
+  host: {
     '[class.ant-form-item-label]': 'true'
   }
 })
@@ -22,6 +23,16 @@ export class NzFormLabelComponent extends NzColComponent {
   @Input()
   set nzRequired(value: boolean) {
     this._required = toBoolean(value);
+  }
+
+  onPropsChange(e: any) {
+    if ('nzRequired' in e) {
+      this.nzRequired = e['nzRequired'];
+    }
+    if ('nzFor' in e) {
+      this.nzFor = e['nzFor'];
+    }
+    super.onPropsChange(e);
   }
 
   get nzRequired(): boolean {

@@ -8,7 +8,9 @@ import {
   Input,
   Optional,
   Renderer2,
-  Self
+  Self,
+  Component,
+  Injector
 } from '@angular/core';
 import { NgControl, NgModel } from '@angular/forms';
 
@@ -19,14 +21,18 @@ export interface AutoSizeType {
   minRows?: number;
   maxRows?: number;
 }
-
-@Directive({
-  selector: '[nz-input]',
-  host    : {
+import { DesignBase } from 'iwe7/design';
+@Component({
+  selector: 'input[nz-input]',
+  template: `
+    <ng-content></ng-content>
+  `,
+  host: {
     '[class.ant-input]': 'true'
   }
 })
-export class NzInputDirective implements DoCheck, AfterViewInit {
+export class NzInputDirective extends DesignBase<any>
+  implements DoCheck, AfterViewInit {
   private _size = 'default';
   private _disabled = false;
   private _autosize: boolean | AutoSizeType = false;
@@ -35,6 +41,10 @@ export class NzInputDirective implements DoCheck, AfterViewInit {
   private previewsMinRows: number;
   private previewsMaxRows: number;
   private isInit = false;
+
+  @Input()
+  @HostBinding('attr.type')
+  type: string = 'text';
 
   @Input()
   get nzSize(): string {
@@ -47,6 +57,7 @@ export class NzInputDirective implements DoCheck, AfterViewInit {
 
   @Input()
   @HostBinding(`class.ant-input-disabled`)
+  @HostBinding(`disabled`)
   set disabled(value: boolean) {
     this._disabled = toBoolean(value);
   }
@@ -71,6 +82,28 @@ export class NzInputDirective implements DoCheck, AfterViewInit {
     return this._autosize;
   }
 
+  @Input()
+  @HostBinding('attr.placeholder')
+  placeholder: string;
+
+  onPropsChange(e: any) {
+    if ('nzSize' in e) {
+      this.nzSize = e['nzSize'];
+    }
+    if ('disabled' in e) {
+      this.disabled = e['disabled'];
+    }
+    if ('nzAutosize' in e) {
+      this.nzAutosize = e['nzAutosize'];
+    }
+    if ('type' in e) {
+      this.type = e['type'];
+    }
+    if ('placeholder' in e) {
+      this.placeholder = e['placeholder'];
+    }
+  }
+
   @HostBinding(`class.ant-input-lg`)
   get setLgClass(): boolean {
     return this.nzSize === 'large';
@@ -90,9 +123,17 @@ export class NzInputDirective implements DoCheck, AfterViewInit {
 
   resizeTextArea(): void {
     const textAreaRef = this.el as HTMLTextAreaElement;
-    const maxRows = this.nzAutosize ? (this.nzAutosize as AutoSizeType).maxRows || null : null;
-    const minRows = this.nzAutosize ? (this.nzAutosize as AutoSizeType).minRows || null : null;
-    if ((this.previousValue === textAreaRef.value) && (this.previewsMaxRows === maxRows) && (this.previewsMinRows === minRows)) {
+    const maxRows = this.nzAutosize
+      ? (this.nzAutosize as AutoSizeType).maxRows || null
+      : null;
+    const minRows = this.nzAutosize
+      ? (this.nzAutosize as AutoSizeType).minRows || null
+      : null;
+    if (
+      this.previousValue === textAreaRef.value &&
+      this.previewsMaxRows === maxRows &&
+      this.previewsMinRows === minRows
+    ) {
       return;
     }
     this.previousValue = textAreaRef.value;
@@ -101,14 +142,36 @@ export class NzInputDirective implements DoCheck, AfterViewInit {
     // eliminate jitter
     this.renderer.setStyle(textAreaRef, 'height', 'auto');
 
-    const textAreaStyles = calculateNodeHeight(textAreaRef, false, minRows, maxRows);
+    const textAreaStyles = calculateNodeHeight(
+      textAreaRef,
+      false,
+      minRows,
+      maxRows
+    );
     this.renderer.setStyle(textAreaRef, 'height', `${textAreaStyles.height}px`);
     this.renderer.setStyle(textAreaRef, 'overflowY', textAreaStyles.overflowY);
-    this.renderer.setStyle(textAreaRef, 'minHeight', `${textAreaStyles.minHeight}px`);
-    this.renderer.setStyle(textAreaRef, 'maxHeight', `${textAreaStyles.maxHeight}px`);
+    this.renderer.setStyle(
+      textAreaRef,
+      'minHeight',
+      `${textAreaStyles.minHeight}px`
+    );
+    this.renderer.setStyle(
+      textAreaRef,
+      'maxHeight',
+      `${textAreaStyles.maxHeight}px`
+    );
   }
 
-  constructor(private elementRef: ElementRef, private renderer: Renderer2, @Optional() private ngModel: NgModel, @Optional() @Self() public ngControl: NgControl) {
+  constructor(
+    private elementRef: ElementRef,
+    private renderer: Renderer2,
+    @Optional() private ngModel: NgModel,
+    @Optional()
+    @Self()
+    public ngControl: NgControl,
+    injector: Injector
+  ) {
+    super(injector);
     this.el = this.elementRef.nativeElement;
   }
 

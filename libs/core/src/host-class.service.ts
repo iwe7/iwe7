@@ -1,4 +1,4 @@
-import { Injectable, Renderer2 } from '@angular/core';
+import { Injectable, Renderer2, Injector } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,9 +7,12 @@ export class HostClassService {
   private classMap = {};
 
   updateHostClass(el: HTMLElement, classMap: object): void {
-    this.removeClass(el, this.classMap, this.renderer);
-    this.classMap = { ...classMap };
-    this.addClass(el, this.classMap, this.renderer);
+    this.renderer = this.injector.get(Renderer2, null);
+    if (this.renderer) {
+      this.removeClass(el, this.classMap, this.renderer);
+      this.classMap = { ...classMap };
+      this.addClass(el, this.classMap, this.renderer);
+    }
   }
 
   private removeClass(
@@ -37,6 +40,6 @@ export class HostClassService {
       }
     }
   }
-
-  constructor(private renderer: Renderer2) {}
+  renderer: Renderer2;
+  constructor(public injector: Injector) {}
 }

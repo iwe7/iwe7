@@ -6,6 +6,8 @@ import { NzColDirective } from './nz-col.directive';
 import { NzRowComponent } from './nz-row.component';
 import { NzRowDirective } from './nz-row.directive';
 import { LazyComponentModuleBase } from 'iwe7/lazy-load';
+import { Iwe7CoreModule } from 'iwe7/core';
+
 @NgModule({
   declarations: [
     NzRowComponent,
@@ -14,7 +16,7 @@ import { LazyComponentModuleBase } from 'iwe7/lazy-load';
     NzRowDirective
   ],
   exports: [NzRowComponent, NzColDirective, NzColComponent, NzRowDirective],
-  imports: [CommonModule],
+  imports: [CommonModule, Iwe7CoreModule],
   entryComponents: [NzColComponent, NzRowComponent]
 })
 export class NzGridModule extends LazyComponentModuleBase {

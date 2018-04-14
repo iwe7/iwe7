@@ -32,7 +32,8 @@ export class NzTreeNode {
 
     // option params
     this.isChecked = option.checked || false;
-    this.isSelectable = option.disabled || (option.selectable === false ? false : true);
+    this.isSelectable =
+      option.disabled || (option.selectable === false ? false : true);
     this.isDisabled = option.disabled || false;
     this.isDisableCheckbox = option.disableCheckbox || false;
     this.isExpanded = option.expanded || false;
@@ -51,15 +52,13 @@ export class NzTreeNode {
     } else {
       this.level = 0;
     }
-    if (typeof(option.children) !== 'undefined' && option.children !== null) {
-      option.children.forEach(
-        (nodeOptions) => {
-          if (option.checked && !option.disabled) {
-            nodeOptions.checked = option.checked;
-          }
-          this.children.push(new NzTreeNode(nodeOptions, this));
+    if (typeof option.children !== 'undefined' && option.children !== null) {
+      option.children.forEach(nodeOptions => {
+        if (option.checked && !option.disabled) {
+          nodeOptions.checked = option.checked;
         }
-      );
+        this.children.push(new NzTreeNode(nodeOptions, this));
+      });
     }
   }
 
@@ -82,21 +81,20 @@ export class NzTreeNode {
       // remove loading state
       this.isLoading = false;
     } else {
-      children.forEach(
-        (node) => {
-          let tNode = node;
-          if (tNode instanceof NzTreeNode) {
-            tNode.parentNode = this;
-          } else {
-            tNode = new NzTreeNode(node, this);
-          }
-          tNode.level = this.level + 1;
-          try {
-            childPos === -1 ? this.children.push(tNode) : this.children.splice(childPos, 0, tNode);
-          } catch (e) {
-
-          }
-        });
+      children.forEach(node => {
+        let tNode = node;
+        if (tNode instanceof NzTreeNode) {
+          tNode.parentNode = this;
+        } else {
+          tNode = new NzTreeNode(node, this);
+        }
+        tNode.level = this.level + 1;
+        try {
+          childPos === -1
+            ? this.children.push(tNode)
+            : this.children.splice(childPos, 0, tNode);
+        } catch (e) {}
+      });
       // remove loading state
       this.isLoading = false;
     }

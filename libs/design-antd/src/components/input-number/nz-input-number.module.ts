@@ -7,7 +7,8 @@ import { NzInputNumberComponent } from './nz-input-number.component';
 @NgModule({
   imports: [CommonModule, FormsModule],
   declarations: [NzInputNumberComponent],
-  exports: [NzInputNumberComponent]
+  exports: [NzInputNumberComponent],
+  entryComponents: [NzInputNumberComponent]
 })
 export class NzInputNumberModule {
   getComponentByName(key: string) {

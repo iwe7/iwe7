@@ -18,7 +18,6 @@ export class DesignSettingDefaultComponent extends Iwe7DesignSettingBase<any>
   }
 
   onPropsChange(res: any) {
-    super.onPropsChange(res);
     if (res.content) {
       if(!ɵisObservable(res.content)){
         res.content = new BehaviorSubject(res.content)
@@ -40,5 +39,6 @@ export class DesignSettingDefaultComponent extends Iwe7DesignSettingBase<any>
       );
       this.index++;
     }
+    super.onPropsChange(res);
   }
 }

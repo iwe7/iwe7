@@ -60,6 +60,13 @@ import { RouterModule } from '@angular/router';
     NzOptionContainerComponent,
     NzOptionGroupComponent,
     NzSelectTopControlComponent
+  ],
+  entryComponents: [
+    NzOptionComponent,
+    NzSelectComponent,
+    NzOptionContainerComponent,
+    NzOptionGroupComponent,
+    NzSelectTopControlComponent
   ]
 })
 export class NzSelectModule extends LazyComponentModuleBase {

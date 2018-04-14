@@ -9,16 +9,17 @@ import {
   Output,
   Renderer2,
   TemplateRef,
-  ViewChild
+  ViewChild,
+  Injector
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { toBoolean } from '../core/util/convert';
-
+import { DesignBase } from 'iwe7/design';
 @Component({
-  selector           : 'nz-rate',
+  selector: 'nz-rate',
   preserveWhitespaces: false,
-  template           : `
+  template: `
     <ng-template #defaultCharacter><i class="anticon anticon-star"></i></ng-template>
     <ul
       #ulElement
@@ -41,15 +42,16 @@ import { toBoolean } from '../core/util/convert';
       </li>
     </ul>
   `,
-  providers          : [
+  providers: [
     {
-      provide    : NG_VALUE_ACCESSOR,
+      provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => NzRateComponent),
-      multi      : true
+      multi: true
     }
   ]
 })
-export class NzRateComponent implements OnInit, ControlValueAccessor, AfterViewInit {
+export class NzRateComponent extends DesignBase<any>
+  implements OnInit, ControlValueAccessor, AfterViewInit {
   private _allowClear = true;
   private _allowHalf = false;
   private _disabled = false;
@@ -143,19 +145,45 @@ export class NzRateComponent implements OnInit, ControlValueAccessor, AfterViewI
     return this._disabled;
   }
 
+  onPropsChange(e: any) {
+    if ('nzValue' in e) {
+      this.nzValue = e['nzValue'];
+    }
+    if('nzAutoFocus' in e){
+      this.nzAutoFocus = e['nzAutoFocus'];
+    }
+    if('nzCount' in e){
+      this.nzCount = e['nzCount'];
+    }
+    if('nzAllowHalf' in e){
+      this.nzAllowHalf = e['nzAllowHalf'];
+    }
+    if('nzDisabled' in e){
+      this.nzDisabled = e['nzDisabled'];
+    }
+    super.onPropsChange(e);
+  }
+
   setClassMap(): void {
     this.classMap = {
-      [ this.prefixCls ]              : true,
-      [ `${this.prefixCls}-disabled` ]: this.nzDisabled
+      [this.prefixCls]: true,
+      [`${this.prefixCls}-disabled`]: this.nzDisabled
     };
   }
 
   updateAutoFocus(): void {
     if (this.isInit && !this.nzDisabled) {
       if (this.nzAutoFocus) {
-        this.renderer.setAttribute(this.ulElement.nativeElement, 'autofocus', 'autofocus');
+        this.renderer.setAttribute(
+          this.ulElement.nativeElement,
+          'autofocus',
+          'autofocus'
+        );
       } else {
-        this.renderer.removeAttribute(this.ulElement.nativeElement, 'autofocus');
+        this.renderer.removeAttribute(
+          this.ulElement.nativeElement,
+          'autofocus'
+        );
       }
     }
   }
@@ -173,15 +201,22 @@ export class NzRateComponent implements OnInit, ControlValueAccessor, AfterViewI
     if (this.hasHalf) {
       actualValue -= 0.5;
     }
-
     if (this.nzValue === actualValue) {
       if (this.nzAllowClear) {
         this.nzValue = 0;
         this.onChange(this.nzValue);
+        this.__events.next({
+          type: 'change',
+          data: this.nzValue
+        });
       }
     } else {
       this.nzValue = actualValue;
       this.onChange(this.nzValue);
+      this.__events.next({
+        type: 'change',
+        data: this.nzValue
+      });
     }
   }
 
@@ -230,14 +265,17 @@ export class NzRateComponent implements OnInit, ControlValueAccessor, AfterViewI
 
   onKeyDown(e: KeyboardEvent): void {
     const code = e.code;
-    if ((code === 'ArrowRight' || e.keyCode === 39) && (this.nzValue < this.nzCount)) {
+    if (
+      (code === 'ArrowRight' || e.keyCode === 39) &&
+      this.nzValue < this.nzCount
+    ) {
       if (this.nzAllowHalf) {
         this.nzValue += 0.5;
       } else {
         this.nzValue += 1;
       }
       this.onChange(this.nzValue);
-    } else if ((code === 'ArrowLeft' || e.keyCode === 37) && (this.nzValue > 0)) {
+    } else if ((code === 'ArrowLeft' || e.keyCode === 37) && this.nzValue > 0) {
       if (this.nzAllowHalf) {
         this.nzValue -= 0.5;
       } else {
@@ -251,12 +289,16 @@ export class NzRateComponent implements OnInit, ControlValueAccessor, AfterViewI
 
   setClasses(i: number): object {
     return {
-      [ this.innerPrefixCls ]             : true,
-      [ `${this.innerPrefixCls}-full` ]   : (i + 1 < this.hoverValue) || (!this.hasHalf) && (i + 1 === this.hoverValue),
-      [ `${this.innerPrefixCls}-half` ]   : (this.hasHalf) && (i + 1 === this.hoverValue),
-      [ `${this.innerPrefixCls}-active` ] : (this.hasHalf) && (i + 1 === this.hoverValue),
-      [ `${this.innerPrefixCls}-zero` ]   : (i + 1 > this.hoverValue),
-      [ `${this.innerPrefixCls}-focused` ]: (this.hasHalf) && (i + 1 === this.hoverValue) && this.isFocused
+      [this.innerPrefixCls]: true,
+      [`${this.innerPrefixCls}-full`]:
+        i + 1 < this.hoverValue || (!this.hasHalf && i + 1 === this.hoverValue),
+      [`${this.innerPrefixCls}-half`]:
+        this.hasHalf && i + 1 === this.hoverValue,
+      [`${this.innerPrefixCls}-active`]:
+        this.hasHalf && i + 1 === this.hoverValue,
+      [`${this.innerPrefixCls}-zero`]: i + 1 > this.hoverValue,
+      [`${this.innerPrefixCls}-focused`]:
+        this.hasHalf && i + 1 === this.hoverValue && this.isFocused
     };
   }
 
@@ -284,7 +326,8 @@ export class NzRateComponent implements OnInit, ControlValueAccessor, AfterViewI
     this.nzDisabled = isDisabled;
   }
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2, injector: Injector) {
+    super(injector);
   }
 
   ngOnInit(): void {

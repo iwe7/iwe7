@@ -4,3 +4,5 @@ export { DesignDragDataService } from './src/design-drag-data.service';
 
 export { DesignBase, DesignBaseProps } from './src/design-base/design-base';
 export { DesignForm, DesignFormProps } from './src/design-base/design-form';
+
+export { DesignAndPreviewService } from './src/design-and-preview.service';
