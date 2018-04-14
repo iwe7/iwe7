@@ -18,9 +18,53 @@ import { NzTheadComponent } from './nz-thead.component';
 import { NzTrDirective } from './nz-tr.directive';
 
 @NgModule({
-  declarations: [ NzTableComponent, NzThComponent, NzTdComponent, NzTheadComponent, NzTbodyDirective, NzTrDirective ],
-  exports     : [ NzTableComponent, NzThComponent, NzTdComponent, NzTheadComponent, NzTbodyDirective, NzTrDirective ],
-  imports     : [ NzMenuModule, FormsModule, NzRadioModule, NzCheckboxModule, NzDropDownModule, CommonModule, NzPaginationModule, NzSpinModule, NzI18nModule ]
+  declarations: [
+    NzTableComponent,
+    NzThComponent,
+    NzTdComponent,
+    NzTheadComponent,
+    NzTbodyDirective,
+    NzTrDirective
+  ],
+  exports: [
+    NzTableComponent,
+    NzThComponent,
+    NzTdComponent,
+    NzTheadComponent,
+    NzTbodyDirective,
+    NzTrDirective
+  ],
+  imports: [
+    NzMenuModule,
+    FormsModule,
+    NzRadioModule,
+    NzCheckboxModule,
+    NzDropDownModule,
+    CommonModule,
+    NzPaginationModule,
+    NzSpinModule,
+    NzI18nModule
+  ]
 })
 export class NzTableModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-table') {
+      return NzTableComponent;
+    }
+    if (key === 'nz-th') {
+      return NzThComponent;
+    }
+    if (key === 'nz-td') {
+      return NzTdComponent;
+    }
+    if (key === 'nz-head') {
+      return NzTheadComponent;
+    }
+    if (key === 'nz-body') {
+      return NzTbodyDirective;
+    }
+    if (key === 'nz-tr') {
+      return NzTrDirective;
+    }
+  }
 }

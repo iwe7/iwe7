@@ -11,9 +11,38 @@ import { NzMenuDirective } from '../menu/nz-menu.directive';
 import { NzSubMenuComponent } from '../menu/nz-submenu.component';
 
 @NgModule({
-  imports     : [ CommonModule, FormsModule, NzButtonModule, OverlayModule ],
-  declarations: [ NzMenuDirective, NzMenuItemDirective, NzSubMenuComponent, NzMenuDividerDirective, NzMenuGroupComponent ],
-  exports     : [ NzMenuDirective, NzMenuItemDirective, NzSubMenuComponent, NzMenuDividerDirective, NzMenuGroupComponent ]
+  imports: [CommonModule, FormsModule, NzButtonModule, OverlayModule],
+  declarations: [
+    NzMenuDirective,
+    NzMenuItemDirective,
+    NzSubMenuComponent,
+    NzMenuDividerDirective,
+    NzMenuGroupComponent
+  ],
+  exports: [
+    NzMenuDirective,
+    NzMenuItemDirective,
+    NzSubMenuComponent,
+    NzMenuDividerDirective,
+    NzMenuGroupComponent
+  ]
 })
 export class NzMenuModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-menu') {
+      return NzMenuDirective;
+    }
+    if (key === 'nz-menu-item') {
+      return NzMenuItemDirective;
+    }
+    if (key === 'nz-menu-divider') {
+      return NzMenuDividerDirective;
+    }
+    if (key === 'nz-sub-menu') {
+      return NzSubMenuComponent;
+    }
+    if (key === 'nz-menu-group') {
+      return NzMenuGroupComponent;
+    }
+  }
 }

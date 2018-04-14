@@ -4,9 +4,17 @@ import { NzTreeNodeComponent } from './nz-tree-node.component';
 import { NzTreeComponent } from './nz-tree.component';
 
 @NgModule({
-    declarations: [NzTreeComponent, NzTreeNodeComponent],
-    exports: [NzTreeComponent, NzTreeNodeComponent],
-    imports: [CommonModule]
+  declarations: [NzTreeComponent, NzTreeNodeComponent],
+  exports: [NzTreeComponent, NzTreeNodeComponent],
+  imports: [CommonModule]
 })
 export class NzTreeModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-tree') {
+      return NzTreeComponent;
+    }
+    if (key === 'nz-tree-node') {
+      return NzTreeNodeComponent;
+    }
+  }
 }

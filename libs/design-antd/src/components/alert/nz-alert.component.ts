@@ -4,10 +4,10 @@ import {
   Input,
   OnInit,
   Output,
-  TemplateRef
+  TemplateRef,
+  Injector
 } from '@angular/core';
 
-// tslint:disable-next-line:no-any
 export type NgClassType =
   | string
   | string[]
@@ -16,7 +16,7 @@ export type NgClassType =
 
 import { fadeAnimation } from 'iwe7/animations';
 import { toBoolean } from '../core/util/convert';
-
+import { Iwe7Base } from 'iwe7/core';
 @Component({
   selector: 'nz-alert',
   animations: [fadeAnimation],
@@ -64,7 +64,7 @@ import { toBoolean } from '../core/util/convert';
     }`
   ]
 })
-export class NzAlertComponent implements OnInit {
+export class NzAlertComponent extends Iwe7Base<any> implements OnInit {
   private _banner = false;
   private _closeable = false;
   private _showIcon = false;
@@ -162,6 +162,31 @@ export class NzAlertComponent implements OnInit {
 
   get nzShowIcon(): boolean {
     return this._showIcon;
+  }
+
+  public constructor(injector: Injector) {
+    super(injector);
+  }
+
+  onPropsChange(res: any) {
+    if ('nzDescription' in res) {
+      this.nzDescription = res['nzDescription'];
+    }
+    if ('nzCloseText' in res) {
+      this.nzCloseText = res['nzCloseText'];
+    }
+    if ('nzMessage' in res) {
+      this.nzCloseText = res['nzMessage'];
+    }
+    if ('nzType' in res) {
+      this.nzCloseText = res['nzType'];
+    }
+    if ('nzBanner' in res) {
+      this.nzCloseText = res['nzBanner'];
+    }
+    if ('nzCloseable' in res) {
+      this.nzCloseText = res['nzCloseable'];
+    }
   }
 
   closeAlert(): void {

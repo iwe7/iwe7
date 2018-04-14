@@ -10,9 +10,20 @@ import { NzListItemComponent } from './nz-list-item.component';
 import { NzListComponent } from './nz-list.component';
 
 @NgModule({
-    imports:        [ CommonModule, NzSpinModule, NzGridModule, NzAvatarModule ],
-    declarations:   [ NzListComponent, NzListItemComponent, NzListItemMetaComponent ],
-    exports:        [ NzListComponent, NzListItemComponent, NzListItemMetaComponent ]
+  imports: [CommonModule, NzSpinModule, NzGridModule, NzAvatarModule],
+  declarations: [NzListComponent, NzListItemComponent, NzListItemMetaComponent],
+  exports: [NzListComponent, NzListItemComponent, NzListItemMetaComponent]
 })
 export class NzListModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-list') {
+      return NzListComponent;
+    }
+    if (key === 'nz-list-item') {
+      return NzListItemComponent;
+    }
+    if (key === 'nz-list-item-meta') {
+      return NzListItemMetaComponent;
+    }
+  }
 }

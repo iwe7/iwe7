@@ -27,4 +27,22 @@ import { NzSiderComponent } from './nz-sider.component';
   providers: [NzMatchMediaService],
   imports: [CommonModule]
 })
-export class NzLayoutModule {}
+export class NzLayoutModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-layout') {
+      return NzLayoutComponent;
+    }
+    if (key === 'nz-header') {
+      return NzHeaderComponent;
+    }
+    if (key === 'nz-content') {
+      return NzContentComponent;
+    }
+    if (key === 'nz-footer') {
+      return NzFooterComponent;
+    }
+    if (key === 'nz-sider') {
+      return NzSiderComponent;
+    }
+  }
+}

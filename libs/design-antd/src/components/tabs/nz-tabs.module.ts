@@ -10,9 +10,44 @@ import { NzTabsNavComponent } from './nz-tabs-nav.component';
 import { NzTabSetComponent } from './nz-tabset.component';
 
 @NgModule({
-  declarations: [ NzTabComponent, NzTabSetComponent, NzTabsNavComponent, NzTabLabelDirective, NzTabsInkBarDirective, NzTabBodyComponent ],
-  exports     : [ NzTabComponent, NzTabSetComponent, NzTabsNavComponent, NzTabLabelDirective, NzTabsInkBarDirective, NzTabBodyComponent ],
-  imports     : [ CommonModule, ObserversModule ]
+  declarations: [
+    NzTabComponent,
+    NzTabSetComponent,
+    NzTabsNavComponent,
+    NzTabLabelDirective,
+    NzTabsInkBarDirective,
+    NzTabBodyComponent
+  ],
+  exports: [
+    NzTabComponent,
+    NzTabSetComponent,
+    NzTabsNavComponent,
+    NzTabLabelDirective,
+    NzTabsInkBarDirective,
+    NzTabBodyComponent
+  ],
+  imports: [CommonModule, ObserversModule]
 })
 export class NzTabsModule {
+  getComponentByName(key: string){
+    if(key === 'nz-tab'){
+      return NzTabComponent
+    }
+    if(key === 'nz-tab-set'){
+      return NzTabSetComponent;
+    }
+    if(key === 'nz-tabs-nav'){
+      return NzTabsNavComponent;
+    }
+    if(key === 'nz-tab-label'){
+      return NzTabLabelDirective;
+    }
+    if(key === 'nz-tabs-ink-bar'){
+      return NzTabsInkBarDirective;
+    }
+    if(key === 'nz-tab-body'){
+      return NzTabBodyComponent;
+    }
+
+  }
 }

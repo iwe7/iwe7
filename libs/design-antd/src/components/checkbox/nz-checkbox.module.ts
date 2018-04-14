@@ -8,17 +8,28 @@ import { NzCheckboxWrapperComponent } from './nz-checkbox-wrapper.component';
 import { NzCheckboxComponent } from './nz-checkbox.component';
 
 @NgModule({
-  imports     : [ CommonModule, FormsModule, ObserversModule ],
+  imports: [CommonModule, FormsModule, ObserversModule],
   declarations: [
     NzCheckboxComponent,
     NzCheckboxGroupComponent,
     NzCheckboxWrapperComponent
   ],
-  exports     : [
+  exports: [
     NzCheckboxComponent,
     NzCheckboxGroupComponent,
     NzCheckboxWrapperComponent
   ]
 })
 export class NzCheckboxModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-checkbox') {
+      return NzCheckboxComponent;
+    }
+    if (key === 'nz-checkbox-group') {
+      return NzCheckboxGroupComponent;
+    }
+    if (key === 'nz-checkbox-wrapper') {
+      return NzCheckboxWrapperComponent;
+    }
+  }
 }

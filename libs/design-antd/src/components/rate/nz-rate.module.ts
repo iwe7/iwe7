@@ -4,9 +4,12 @@ import { NgModule } from '@angular/core';
 import { NzRateComponent } from './nz-rate.component';
 
 @NgModule({
-  exports     : [ NzRateComponent ],
-  declarations: [ NzRateComponent ],
-  imports     : [ CommonModule ]
+  exports: [NzRateComponent],
+  declarations: [NzRateComponent],
+  imports: [CommonModule]
 })
 export class NzRateModule {
+  getComponentByName(key: string) {
+    return NzRateComponent;
+  }
 }

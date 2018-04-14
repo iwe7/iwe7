@@ -6,9 +6,17 @@ import { NzInputGroupComponent } from './nz-input-group.component';
 import { NzInputDirective } from './nz-input.directive';
 
 @NgModule({
-  declarations: [ NzInputDirective, NzInputGroupComponent ],
-  exports     : [ NzInputDirective, NzInputGroupComponent ],
-  imports     : [ CommonModule, FormsModule ]
+  declarations: [NzInputDirective, NzInputGroupComponent],
+  exports: [NzInputDirective, NzInputGroupComponent],
+  imports: [CommonModule, FormsModule]
 })
 export class NzInputModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-input-group') {
+      return NzInputGroupComponent;
+    }
+    if (key === 'nz-input') {
+      return NzInputDirective;
+    }
+  }
 }

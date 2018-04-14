@@ -6,11 +6,12 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  TemplateRef
+  TemplateRef,
+  Injector
 } from '@angular/core';
 
 import { NzAnchorComponent } from './nz-anchor.component';
-
+import { Iwe7Base } from 'iwe7/core';
 @Component({
   selector: 'nz-link',
   preserveWhitespaces: false,
@@ -25,7 +26,8 @@ import { NzAnchorComponent } from './nz-anchor.component';
     style: 'display:block'
   }
 })
-export class NzAnchorLinkComponent implements OnInit, OnDestroy {
+export class NzAnchorLinkComponent extends Iwe7Base<any>
+  implements OnInit, OnDestroy {
   @Input() nzHref = '#';
 
   titleStr = '';
@@ -43,7 +45,22 @@ export class NzAnchorLinkComponent implements OnInit, OnDestroy {
 
   @HostBinding('class.ant-anchor-link-active') active: boolean = false;
 
-  constructor(public el: ElementRef, private anchorComp: NzAnchorComponent) {}
+  constructor(
+    public el: ElementRef,
+    private anchorComp: NzAnchorComponent,
+    injector: Injector
+  ) {
+    super(injector);
+  }
+
+  onPropsChange(res: any) {
+    if ('nzTitle' in res) {
+      this.nzTitle = res['nzTitle'];
+    }
+    if ('nzHref' in res) {
+      this.nzHref = res['nzHref'];
+    }
+  }
 
   ngOnInit(): void {
     this.anchorComp.registerLink(this);

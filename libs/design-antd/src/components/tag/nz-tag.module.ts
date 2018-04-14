@@ -5,13 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { NzTagComponent } from './nz-tag.component';
 
 @NgModule({
-  imports     : [ CommonModule, FormsModule ],
-  declarations: [
-    NzTagComponent
-  ],
-  exports     : [
-    NzTagComponent
-  ]
+  imports: [CommonModule, FormsModule],
+  declarations: [NzTagComponent],
+  exports: [NzTagComponent]
 })
 export class NzTagModule {
+  getComponentByName(key: string) {
+    return NzTagComponent;
+  }
 }

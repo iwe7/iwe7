@@ -1,7 +1,35 @@
-import { DOWN_ARROW, ENTER, ESCAPE, LEFT_ARROW, RIGHT_ARROW, TAB, UP_ARROW } from '@angular/cdk/keycodes';
-import { ConnectedPositionStrategy, Overlay, OverlayConfig, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
+import {
+  DOWN_ARROW,
+  ENTER,
+  ESCAPE,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  TAB,
+  UP_ARROW
+} from '@angular/cdk/keycodes';
+import {
+  ConnectedPositionStrategy,
+  Overlay,
+  OverlayConfig,
+  OverlayRef,
+  PositionStrategy
+} from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { AfterContentInit, Component, ContentChild, EventEmitter, Inject, Input, NgZone, OnDestroy, Optional, Output, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+  AfterContentInit,
+  Component,
+  ContentChild,
+  EventEmitter,
+  Inject,
+  Input,
+  NgZone,
+  OnDestroy,
+  Optional,
+  Output,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 
 import { DOCUMENT } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
@@ -24,7 +52,8 @@ export interface MentionOnSearchTypes {
   selector: 'nz-mention',
   templateUrl: './mention.component.html',
   preserveWhitespaces: false,
-  styles: [`
+  styles: [
+    `
     .ant-mention-dropdown {
       top: 100%;
       left: 0;
@@ -33,13 +62,13 @@ export interface MentionOnSearchTypes {
       margin-top: 4px;
       margin-bottom: 4px;
     }
-  `]
+  `
+  ]
 })
-
 export class NzMentionComponent implements OnDestroy, AfterContentInit {
-
   @Output() nzOnSelect: EventEmitter<string | {}> = new EventEmitter();
-  @Output() nzOnSearchChange: EventEmitter<MentionOnSearchTypes> = new EventEmitter();
+  @Output()
+  nzOnSearchChange: EventEmitter<MentionOnSearchTypes> = new EventEmitter();
 
   @Input() nzValueWith: (value: any) => string = value => value; // tslint:disable-line:no-any
   @Input() nzPrefix: string | string[] = '@';
@@ -55,20 +84,30 @@ export class NzMentionComponent implements OnDestroy, AfterContentInit {
       this.resetDropdown(false);
     }
   }
-  get nzSuggestions(): string[] { return this._suggestions; }
+  get nzSuggestions(): string[] {
+    return this._suggestions;
+  }
 
   @Input()
-  set nzPlacement(value: MentionPlacement) { this._placement = value; }
-  get nzPlacement(): MentionPlacement { return this._placement; }
+  set nzPlacement(value: MentionPlacement) {
+    this._placement = value;
+  }
+  get nzPlacement(): MentionPlacement {
+    return this._placement;
+  }
 
   @ContentChild(NzMentionTriggerDirective) trigger;
   @ViewChild(TemplateRef) suggestionsTemp;
-  @ContentChild(NzMentionSuggestionDirective, {read: TemplateRef})
-  set suggestionChild(value: TemplateRef<{$implicit: any}>) {if (value) { this.suggestionTemplate = value; }} // tslint:disable-line:no-any
+  @ContentChild(NzMentionSuggestionDirective, { read: TemplateRef })
+  set suggestionChild(value: TemplateRef<{ $implicit: any }>) {
+    if (value) {
+      this.suggestionTemplate = value;
+    }
+  } // tslint:disable-line:no-any
 
   isOpen: boolean = false;
   filteredSuggestions: string[];
-  suggestionTemplate: TemplateRef<{$implicit: any}> | null = null; // tslint:disable-line:no-any
+  suggestionTemplate: TemplateRef<{ $implicit: any }> | null = null; // tslint:disable-line:no-any
 
   private _suggestions: string[];
   private _placement: MentionPlacement = 'bottom';
@@ -86,11 +125,14 @@ export class NzMentionComponent implements OnDestroy, AfterContentInit {
     return this.trigger.el.nativeElement;
   }
 
-  constructor(@Optional() @Inject(DOCUMENT) private document: any, // tslint:disable-line:no-any
-              private ngZone: NgZone,
-              private overlay: Overlay,
-              private viewContainerRef: ViewContainerRef) {
-  }
+  constructor(
+    @Optional()
+    @Inject(DOCUMENT)
+    private document: any, // tslint:disable-line:no-any
+    private ngZone: NgZone,
+    private overlay: Overlay,
+    private viewContainerRef: ViewContainerRef
+  ) {}
 
   ngAfterContentInit(): void {
     this.bindTriggerEvents();
@@ -138,26 +180,30 @@ export class NzMentionComponent implements OnDestroy, AfterContentInit {
 
   private handleKeydown(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
-    if (this.isOpen && keyCode === ENTER && this.activeIndex !== -1 && this.filteredSuggestions.length) {
+    if (
+      this.isOpen &&
+      keyCode === ENTER &&
+      this.activeIndex !== -1 &&
+      this.filteredSuggestions.length
+    ) {
       this.selectSuggestion(this.filteredSuggestions[this.activeIndex]);
       event.preventDefault();
     } else if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
       this.resetDropdown();
       event.stopPropagation();
     } else {
-
       if (this.isOpen && (keyCode === TAB || keyCode === ESCAPE)) {
         this.closeDropdown();
         return;
       }
 
-      if (this.isOpen && (keyCode === UP_ARROW)) {
+      if (this.isOpen && keyCode === UP_ARROW) {
         this.setPreviousItemActive();
         event.preventDefault();
         event.stopPropagation();
       }
 
-      if (this.isOpen && (keyCode === DOWN_ARROW)) {
+      if (this.isOpen && keyCode === DOWN_ARROW) {
         this.setNextItemActive();
         event.preventDefault();
         event.stopPropagation();
@@ -170,24 +216,29 @@ export class NzMentionComponent implements OnDestroy, AfterContentInit {
   }
 
   private bindTriggerEvents(): void {
-    this.trigger.onInput.subscribe((e) => this.handleInput(e));
-    this.trigger.onKeydown.subscribe((e) => this.handleKeydown(e));
+    this.trigger.onInput.subscribe(e => this.handleInput(e));
+    this.trigger.onKeydown.subscribe(e => this.handleKeydown(e));
     this.trigger.onClick.subscribe(() => this.handleClick());
   }
 
   private suggestionsFilter(value: string, emit: boolean): void {
     const suggestions = value.substring(1);
-    if (this.previousValue === value) { return; }
+    if (this.previousValue === value) {
+      return;
+    }
     this.previousValue = value;
     if (emit) {
       this.nzOnSearchChange.emit({
         value: this.cursorMention.substring(1),
-        prefix:  this.cursorMention[0]
+        prefix: this.cursorMention[0]
       });
     }
     const searchValue = suggestions.toLowerCase();
-    this.filteredSuggestions = this.nzSuggestions
-    .filter(suggestion => this.nzValueWith(suggestion).toLowerCase().includes(searchValue));
+    this.filteredSuggestions = this.nzSuggestions.filter(suggestion =>
+      this.nzValueWith(suggestion)
+        .toLowerCase()
+        .includes(searchValue)
+    );
   }
 
   private resetDropdown(emit: boolean = true): void {
@@ -197,48 +248,59 @@ export class NzMentionComponent implements OnDestroy, AfterContentInit {
       return;
     }
     this.suggestionsFilter(this.cursorMention, emit);
-    const activeIndex = this.filteredSuggestions.indexOf(this.cursorMention.substring(1));
+    const activeIndex = this.filteredSuggestions.indexOf(
+      this.cursorMention.substring(1)
+    );
     this.activeIndex = activeIndex >= 0 ? activeIndex : 0;
     this.openDropdown();
   }
 
   private setNextItemActive(): void {
-    this.activeIndex = this.activeIndex + 1 <= this.filteredSuggestions.length - 1
-      ? this.activeIndex + 1
-      : 0;
+    this.activeIndex =
+      this.activeIndex + 1 <= this.filteredSuggestions.length - 1
+        ? this.activeIndex + 1
+        : 0;
   }
 
   private setPreviousItemActive(): void {
-    this.activeIndex = this.activeIndex - 1 < 0
-      ? this.filteredSuggestions.length - 1
-      : this.activeIndex - 1;
+    this.activeIndex =
+      this.activeIndex - 1 < 0
+        ? this.filteredSuggestions.length - 1
+        : this.activeIndex - 1;
   }
 
   private canOpen(): boolean {
-    const element: HTMLInputElement | HTMLTextAreaElement = this.triggerNativeElement;
+    const element: HTMLInputElement | HTMLTextAreaElement = this
+      .triggerNativeElement;
     return !element.readOnly && !element.disabled;
   }
 
   private resetCursorMention(): void {
     const value = this.triggerNativeElement.value.replace(/[\r\n]/g, ' ') || '';
     const selectionStart = this.triggerNativeElement.selectionStart;
-    const prefix = typeof this.nzPrefix === 'string' ? [this.nzPrefix] : this.nzPrefix;
+    const prefix =
+      typeof this.nzPrefix === 'string' ? [this.nzPrefix] : this.nzPrefix;
     let i = prefix.length;
     while (i >= 0) {
       const startPos = value.lastIndexOf(prefix[i], selectionStart);
-      const endPos = value.indexOf(' ', selectionStart) > -1 ? value.indexOf(' ', selectionStart) : value.length;
+      const endPos =
+        value.indexOf(' ', selectionStart) > -1
+          ? value.indexOf(' ', selectionStart)
+          : value.length;
       const mention = value.substring(startPos, endPos);
-      if ((startPos > 0 && value[startPos - 1] !== ' ')
-        || startPos < 0
-        || mention.includes(prefix[i], 1)
-        || mention.includes(' ')) {
-        this.cursorMention =  null;
-        this.cursorMentionStart =  -1;
-        this.cursorMentionEnd =  -1;
+      if (
+        (startPos > 0 && value[startPos - 1] !== ' ') ||
+        startPos < 0 ||
+        mention.includes(prefix[i], 1) ||
+        mention.includes(' ')
+      ) {
+        this.cursorMention = null;
+        this.cursorMentionStart = -1;
+        this.cursorMentionEnd = -1;
       } else {
-        this.cursorMention =  mention;
-        this.cursorMentionStart =  startPos;
-        this.cursorMentionEnd =  endPos;
+        this.cursorMention = mention;
+        this.cursorMentionStart = startPos;
+        this.cursorMentionEnd = endPos;
         return;
       }
       i--;
@@ -246,11 +308,15 @@ export class NzMentionComponent implements OnDestroy, AfterContentInit {
   }
 
   private updatePositions(): void {
-    const coordinates = getCaretCoordinates(this.triggerNativeElement, this.cursorMentionStart);
-    const top = coordinates.top
-      - this.triggerNativeElement.getBoundingClientRect().height
-      - this.triggerNativeElement.scrollTop
-      + (this.nzPlacement === 'bottom' ? coordinates.height : 0 );
+    const coordinates = getCaretCoordinates(
+      this.triggerNativeElement,
+      this.cursorMentionStart
+    );
+    const top =
+      coordinates.top -
+      this.triggerNativeElement.getBoundingClientRect().height -
+      this.triggerNativeElement.scrollTop +
+      (this.nzPlacement === 'bottom' ? coordinates.height : 0);
     const left = coordinates.left - this.triggerNativeElement.scrollLeft;
     this.positionStrategy.withOffsetX(left).withOffsetY(top);
     if (this.nzPlacement === 'bottom') {
@@ -266,8 +332,7 @@ export class NzMentionComponent implements OnDestroy, AfterContentInit {
     return merge(
       fromEvent(this.document, 'click'),
       fromEvent(this.document, 'touchend')
-    )
-    .subscribe((event: MouseEvent | TouchEvent) => {
+    ).subscribe((event: MouseEvent | TouchEvent) => {
       const clickTarget = event.target as HTMLElement;
       if (clickTarget !== this.trigger.el.nativeElement && this.isOpen) {
         this.closeDropdown();
@@ -277,7 +342,10 @@ export class NzMentionComponent implements OnDestroy, AfterContentInit {
 
   private attachOverlay(): void {
     if (!this.overlayRef) {
-      this.portal = new TemplatePortal(this.suggestionsTemp, this.viewContainerRef);
+      this.portal = new TemplatePortal(
+        this.suggestionsTemp,
+        this.viewContainerRef
+      );
       this.overlayRef = this.overlay.create(this.getOverlayConfig());
     }
     if (this.overlayRef && !this.overlayRef.hasAttached()) {
@@ -295,15 +363,19 @@ export class NzMentionComponent implements OnDestroy, AfterContentInit {
   }
 
   private getOverlayPosition(): PositionStrategy {
-    this.positionStrategy = this.overlay.position().connectedTo(
-      this.trigger.el,
-      { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-    .withFallbackPosition(
-      { originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }
-    );
+    this.positionStrategy = this.overlay
+      .position()
+      .connectedTo(
+        this.trigger.el,
+        { originX: 'start', originY: 'bottom' },
+        { overlayX: 'start', overlayY: 'top' }
+      )
+      .withFallbackPosition(
+        { originX: 'start', originY: 'top' },
+        { overlayX: 'start', overlayY: 'bottom' }
+      );
     return this.positionStrategy;
   }
-
 }
 
 export interface Mention {

@@ -12,10 +12,32 @@ import { NzDropDownComponent } from './nz-dropdown.component';
 import { NzDropDownDirective } from './nz-dropdown.directive';
 
 @NgModule({
-  imports        : [ CommonModule, OverlayModule, FormsModule, NzButtonModule, NzMenuModule ],
-  declarations   : [ NzDropDownComponent, NzDropDownButtonComponent, NzDropDownDirective, NzDropdownContextComponent ],
-  entryComponents: [ NzDropdownContextComponent ],
-  exports        : [ NzDropDownComponent, NzDropDownButtonComponent, NzDropDownDirective ]
+  imports: [
+    CommonModule,
+    OverlayModule,
+    FormsModule,
+    NzButtonModule,
+    NzMenuModule
+  ],
+  declarations: [
+    NzDropDownComponent,
+    NzDropDownButtonComponent,
+    NzDropDownDirective,
+    NzDropdownContextComponent
+  ],
+  entryComponents: [NzDropdownContextComponent],
+  exports: [NzDropDownComponent, NzDropDownButtonComponent, NzDropDownDirective]
 })
 export class NzDropDownModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-dropdown-button') {
+      return NzDropDownButtonComponent;
+    }
+    if (key === 'nz-dropdown') {
+      return NzDropDownComponent;
+    }
+    if (key === 'nz-dropdown-context') {
+      return NzDropdownContextComponent;
+    }
+  }
 }

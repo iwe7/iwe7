@@ -1,8 +1,10 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component, EventEmitter,
-  Input, Output
+  Component,
+  EventEmitter,
+  Input,
+  Output
 } from '@angular/core';
 
 import { toBoolean } from '../core/util/convert';
@@ -11,23 +13,23 @@ export class NzOptionSelectionChange {
   constructor(
     public source: NzAutocompleteOptionComponent,
     public isUserInput: boolean = false
-  ) { }
+  ) {}
 }
 
 @Component({
   selector: 'nz-auto-option',
   preserveWhitespaces: false,
-  changeDetection    : ChangeDetectionStrategy.OnPush,
-  template           : `<ng-content></ng-content>`,
-  host               : {
-    'role'                                          : 'menuitem',
-    'class'                                         : 'ant-select-dropdown-menu-item',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `<ng-content></ng-content>`,
+  host: {
+    role: 'menuitem',
+    class: 'ant-select-dropdown-menu-item',
     '[class.ant-select-dropdown-menu-item-selected]': 'selected',
-    '[class.ant-select-dropdown-menu-item-active]'  : 'active',
+    '[class.ant-select-dropdown-menu-item-active]': 'active',
     '[class.ant-select-dropdown-menu-item-disabled]': 'nzDisabled',
-    '[attr.aria-selected]'                          : 'selected.toString()',
-    '[attr.aria-disabled]'                          : 'nzDisabled.toString()',
-    '(click)'                                       : 'selectViaInteraction()'
+    '[attr.aria-selected]': 'selected.toString()',
+    '[attr.aria-disabled]': 'nzDisabled.toString()',
+    '(click)': 'selectViaInteraction()'
   }
 })
 export class NzAutocompleteOptionComponent {
@@ -40,8 +42,12 @@ export class NzAutocompleteOptionComponent {
   @Input() nzLabel: string;
 
   @Input()
-  get nzDisabled(): boolean { return this.disabled; }
-  set nzDisabled(value: boolean) { this.disabled = toBoolean(value); }
+  get nzDisabled(): boolean {
+    return this.disabled;
+  }
+  set nzDisabled(value: boolean) {
+    this.disabled = toBoolean(value);
+  }
 
   @Output() selectionChange = new EventEmitter<NzOptionSelectionChange>();
 
@@ -98,5 +104,4 @@ export class NzAutocompleteOptionComponent {
       this.changeDetectorRef.markForCheck();
     }
   }
-
 }

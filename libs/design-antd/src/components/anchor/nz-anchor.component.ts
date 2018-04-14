@@ -10,7 +10,8 @@ import {
   Input,
   OnDestroy,
   Output,
-  ViewChild
+  ViewChild,
+  Injector
 } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -27,6 +28,7 @@ interface Section {
 }
 
 const sharpMatcherRegx = /#([^#]+)$/;
+import { Iwe7Base } from 'iwe7/core';
 
 @Component({
   selector: 'nz-anchor',
@@ -47,7 +49,8 @@ const sharpMatcherRegx = /#([^#]+)$/;
     </ng-template>`,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NzAnchorComponent implements OnDestroy, AfterViewInit {
+export class NzAnchorComponent extends Iwe7Base<any>
+  implements OnDestroy, AfterViewInit {
   private links: NzAnchorLinkComponent[] = [];
   private animating = false;
   private target: Element = null;
@@ -125,8 +128,29 @@ export class NzAnchorComponent implements OnDestroy, AfterViewInit {
   constructor(
     private scrollSrv: NzScrollService,
     @Inject(DOCUMENT) private doc: any,
-    private cd: ChangeDetectorRef
-  ) {}
+    private cd: ChangeDetectorRef,
+    injector: Injector
+  ) {
+    super(injector);
+  }
+
+  onPropsChange(res: any) {
+    if ('nzAffix' in res) {
+      this.nzAffix = res['nzAffix'];
+    }
+    if ('nzBounds' in res) {
+      this.nzBounds = res['nzBounds'];
+    }
+    if ('nzOffsetTop' in res) {
+      this.nzOffsetTop = res['nzOffsetTop'];
+    }
+    if ('nzShowInkInFixed' in res) {
+      this.nzShowInkInFixed = res['nzShowInkInFixed'];
+    }
+    if ('nzTarget' in res) {
+      this.nzTarget = res['nzTarget'];
+    }
+  }
 
   registerLink(link: NzAnchorLinkComponent): void {
     this.links.push(link);

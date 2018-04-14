@@ -8,9 +8,18 @@ import { NzMessageComponent } from './nz-message.component';
 import { NzMessageService } from './nz-message.service';
 
 @NgModule({
-  imports: [ CommonModule, OverlayModule ],
-  declarations: [ NzMessageContainerComponent, NzMessageComponent ],
-  providers: [ NZ_MESSAGE_DEFAULT_CONFIG_PROVIDER, NzMessageService ],
-  entryComponents: [ NzMessageContainerComponent ]
+  imports: [CommonModule, OverlayModule],
+  declarations: [NzMessageContainerComponent, NzMessageComponent],
+  providers: [NZ_MESSAGE_DEFAULT_CONFIG_PROVIDER, NzMessageService],
+  entryComponents: [NzMessageContainerComponent]
 })
-export class NzMessageModule { }
+export class NzMessageModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-message-container') {
+      return NzMessageContainerComponent;
+    }
+    if (key === 'nz-message') {
+      return NzMessageComponent;
+    }
+  }
+}

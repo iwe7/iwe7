@@ -24,4 +24,19 @@ import { NzCardComponent } from './nz-card.component';
     NzCardTabComponent
   ]
 })
-export class NzCardModule {}
+export class NzCardModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-card') {
+      return NzCardComponent;
+    }
+    if (key === 'nz-card-meta') {
+      return NzCardMetaComponent;
+    }
+    if (key === 'nz-card-loading') {
+      return NzCardLoadingComponent;
+    }
+    if (key === 'nz-card-tab') {
+      return NzCardTabComponent;
+    }
+  }
+}

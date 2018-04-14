@@ -6,10 +6,18 @@ import { NzToolTipComponent } from './nz-tooltip.component';
 import { NzTooltipDirective } from './nz-tooltip.directive';
 
 @NgModule({
-  declarations   : [ NzToolTipComponent, NzTooltipDirective ],
-  exports        : [ NzToolTipComponent, NzTooltipDirective ],
-  imports        : [ CommonModule, OverlayModule ],
-  entryComponents: [ NzToolTipComponent ]
+  declarations: [NzToolTipComponent, NzTooltipDirective],
+  exports: [NzToolTipComponent, NzTooltipDirective],
+  imports: [CommonModule, OverlayModule],
+  entryComponents: [NzToolTipComponent]
 })
 export class NzToolTipModule {
+  getComponentByName(key: string) {
+    if (key === 'nz-tooltip') {
+      return NzToolTipComponent;
+    }
+    if (key === 'nz-tooltip-directive') {
+      return NzTooltipDirective;
+    }
+  }
 }
