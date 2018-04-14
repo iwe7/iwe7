@@ -42,6 +42,7 @@ export class AppComponent extends Iwe7Base<any> implements OnInit {
     this.drop$.next(this._drop);
     this.__events.subscribe(res => {
       if (res.type === 'droped' && res.data) {
+        // droped 防止
         let data = this.dragData.get();
         if (data) {
           let str = flatten(data);

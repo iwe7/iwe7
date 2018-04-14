@@ -11,7 +11,7 @@ import {
 import { Iwe7DesignBase } from '../iwe7-design';
 import { KeyValue } from 'iwe7/core';
 // 基础组件
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IcssService } from 'iwe7/icss';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 import { UuidService } from 'iwe7/core';

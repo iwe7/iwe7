@@ -8,7 +8,8 @@ import {
   Output,
   AfterViewInit,
   Renderer2,
-  Injector
+  Injector,
+  Directive
 } from '@angular/core';
 const OriginalSortable: any = require('sortablejs');
 const Sortable = require('sortablejs');
@@ -58,6 +59,8 @@ export interface SortableOptions extends DesignBaseProps {
 })
 export class SortableComponent extends DesignBase<SortableOptions>
   implements OnInit, AfterViewInit {
+  private sortable: any;
+  private options: any;
   constructor(injector: Injector) {
     super(injector);
   }
@@ -68,38 +71,66 @@ export class SortableComponent extends DesignBase<SortableOptions>
       data: data
     });
   }
+
+  getSortable() {
+    return this.sortable;
+  }
+
+  updateSortable() {
+    if (this.sortable) {
+      this.sortable.destroy();
+    }
+    this.createSortable();
+  }
+
+  private createOptions() {
+    [
+      'onMove',
+      'onRemove',
+      'onUpdate',
+      'onStart',
+      'onFilter',
+      'onAdd',
+      'onEnd',
+      'onSort'
+    ].map(key => {
+      this.options[key] = data => {
+        this.eventsNext(key, data);
+      };
+    });
+  }
+
+  private createSortable() {
+    this.sortable = Sortable.create(this.ele.nativeElement, this.options);
+    this.__addSub(
+      this.__events.subscribe(res => {
+        if (res.type === 'onEnd') {
+          let arr = this.sortable.toArray();
+          let props = [];
+          arr.map(key => {
+            let item = this.memory.get(key);
+            props.push(item);
+          });
+          // 内部排序 数据排序
+          this._props.props = props;
+          this.eventsNext('onFinish', this._props);
+        }
+      })
+    );
+  }
   ngAfterViewInit() {
     this.props.subscribe((res: SortableOptions) => {
-      [
-        'onMove',
-        'onRemove',
-        'onUpdate',
-        'onStart',
-        'onFilter',
-        'onAdd',
-        'onEnd',
-        'onSort'
-      ].map(key => {
-        res[key] = data => {
-          this.eventsNext(key, data);
-        };
-      });
-      const sortable = Sortable.create(this.ele.nativeElement, res);
-      this.__addSub(
-        this.__events.subscribe(res => {
-          if (res.type === 'onEnd') {
-            let arr = sortable.toArray();
-            let props = [];
-            arr.map(key => {
-              let item = this.memory.get(key);
-              props.push(item);
-            });
-            // 数据排序
-            this._props.props = props;
-            this.eventsNext('onFinish', this._props);
-          }
-        })
-      );
+      this.options = res;
+      this.createOptions();
+      this.updateSortable();
     });
+  }
+}
+@Directive({
+  selector: '[sortable]'
+})
+export class SortableDirective extends SortableComponent {
+  constructor(injector: Injector) {
+    super(injector);
   }
 }

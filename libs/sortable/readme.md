@@ -7,7 +7,7 @@ import { IcssService } from 'iwe7/icss';
 import { LazyLoaderService } from 'iwe7/lazy-load';
 ```
 
-
+- services
 ```ts
 let ele = {
   selector: 'sortable',
@@ -36,4 +36,15 @@ this.load
     }
   })
   .subscribe();
+```
+
+- component
+
+```html
+<sortable [props]="props"></srotable>
+```
+
+- directive
+```html
+<div srotable [props]="props"></div>
 ```
