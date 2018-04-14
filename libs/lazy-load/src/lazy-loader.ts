@@ -86,7 +86,11 @@ export class LazyLoaderService {
           let { inputs, outputs, ngContentSelectors } = component;
           if (component) {
             if (!view) {
-              throw Error('view is error ' + selector + ` when attach to ${JSON.stringify(view)}`);
+              throw Error(
+                'view is error ' +
+                  selector +
+                  ` when attach to ${JSON.stringify(view)}`
+              );
             }
             let viewRef = view.createComponent(component);
             let instance: Iwe7Base<any> = viewRef.instance;
@@ -111,11 +115,13 @@ export class LazyLoaderService {
               // input参数交友props处理
               outputs.map((res, index) => {
                 instance[res.propName].subscribe(evt => {
-                  instance.__events.next({
-                    type: res.templateName,
-                    selector: selector,
-                    data: evt
-                  });
+                  if (res.propName !== 'eventsEmit') {
+                    instance.__events.next({
+                      type: res.templateName,
+                      selector: selector,
+                      data: evt
+                    });
+                  }
                 });
               });
             }

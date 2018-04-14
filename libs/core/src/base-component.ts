@@ -8,7 +8,9 @@ import {
   OnDestroy,
   ɵisObservable,
   Injector,
-  HostBinding
+  HostBinding,
+  Output,
+  EventEmitter
 } from '@angular/core';
 import {
   Observable,
@@ -44,6 +46,8 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
     selector?: string;
     data?: any;
   }> = new Subject();
+
+  @Output() eventsEmit: EventEmitter<any> = new EventEmitter();
   // 需要注销开关
   private needDestory: boolean = false;
   public cd: ChangeDetectorRef;
@@ -57,6 +61,9 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
     this.cd = this.injector.get(ChangeDetectorRef);
     this.memory = this.injector.get(CacheMemoryService);
     this.__subscribers = this.injector.get(SubscribersService);
+    this.__events.subscribe(res => {
+      this.eventsEmit.emit(res);
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -80,7 +87,9 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   }
 
   setProps(props: BehaviorSubject<T>) {
-    this.props = this.props.pipe<T>(switchMap(res => props)) as BehaviorSubject<T>;
+    this.props = this.props.pipe<T>(switchMap(res => props)) as BehaviorSubject<
+      T
+    >;
     this.__propsHandler();
   }
 
