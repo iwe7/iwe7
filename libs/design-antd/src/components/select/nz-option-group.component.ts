@@ -10,7 +10,7 @@ import { NzOptionComponent } from './nz-option.component';
 @Component({
   selector: 'nz-option-group',
   template: `
-    <ng-content></ng-content><ng-container (getViewRef)="setViewRef($event)"></ng-container>`
+    <ng-content></ng-content>`
 })
 export class NzOptionGroupComponent {
   _label: string | TemplateRef<void>;

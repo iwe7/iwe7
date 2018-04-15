@@ -349,6 +349,13 @@
       "tags": []
     },
     {
+      "name": "simple",
+      "root": "libs/simple/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "snake",
       "root": "libs/snake/src",
       "test": "../../../test.js",

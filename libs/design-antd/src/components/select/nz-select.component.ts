@@ -168,12 +168,6 @@ import { DesignBase } from 'iwe7/design';
     <!--can not use ViewChild since it will match sub options in option group -->
     <ng-template>
       <ng-content></ng-content>
-      <nz-option
-        *ngFor="let option of (props|async)?.props"
-        [nzLabel]="option.label"
-        [nzValue]="option.value"
-        [nzDisabled]="option.disabled">
-      </nz-option>
     </ng-template>
   `,
   host: {
@@ -295,6 +289,11 @@ export class NzSelectComponent extends DesignBase<any>
     if ('nzDisabled' in e) {
       this.nzDisabled = e['nzDisabled'];
       // this.render.
+    }
+    if ('props' in e) {
+      this.listOfNzOptionComponent = this.listOfNzOptionComponent || new QueryList();
+      this.listOfNzOptionComponent.reset(e['props']);
+      console.log(this.listOfNzOptionComponent);
     }
     super.onPropsChange(e);
   }

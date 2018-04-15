@@ -5,17 +5,16 @@ import {
   LOCALE_ID
 } from '@angular/core';
 import { AppComponent } from './app.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { NxModule } from '@nrwl/nx';
+// import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { PagesModule } from './pages/pages.module';
 import { LayoutModule } from './layout/layout.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
-
+import { SimpleModule } from 'iwe7/simple';
 @NgModule({
   imports: [
-    BrowserModule,
+    SimpleModule,
     // 路由模块
     RouterModule.forRoot([]),
     // 页面

@@ -7,7 +7,6 @@ import { toBoolean } from '../core/util/convert';
   template: `
     <ng-template>
       <ng-content></ng-content>
-      <ng-container (getViewRef)="setViewRef($event)"></ng-container>
     </ng-template>`
 })
 export class NzOptionComponent {
