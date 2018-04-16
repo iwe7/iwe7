@@ -78,7 +78,7 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.__subscribers.destory(this.__id);
-    this.props.complete();
+    this.__sub.unsubscribe();
     this.needDestory = true;
   }
 
@@ -100,8 +100,9 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
     this.props.next({ ...(this._props as any), ...(res as any) });
   }
 
+  __sub: Subscription;
   __propsHandler() {
-    this.props.subscribe(res => {
+    this.__sub = this.props.subscribe(res => {
       res = res || ({} as T);
       this._props = res;
       if ('data-id' in res) {
@@ -132,7 +133,7 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
     return uuid;
   }
 
-  public onPropsChange(res: T): void{
+  public onPropsChange(res: T): void {
     this.cd.detectChanges();
   }
 }

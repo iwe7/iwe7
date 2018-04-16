@@ -24,11 +24,8 @@ ul {
 }
 
 :host {
-    display: flex;
-    flex-direction: row;
     .center {
         flex: 1;
-        padding: 10px;
     }
 }
 

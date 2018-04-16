@@ -11,9 +11,11 @@ export const designAndPreviewPropsData: Map<
 > = new Map();
 import nzRate from './settings/nz-rate';
 import nzSwitch from './settings/nz-switch';
+import nzLayout from './settings/nz-layout';
 
 designAndPreviewPropsData.set('nz-rate', nzRate);
 designAndPreviewPropsData.set('nz-switch', nzSwitch);
+designAndPreviewPropsData.set('nz-layout', nzLayout);
 
 @Injectable({
   providedIn: 'root'
@@ -47,11 +49,13 @@ export class DesignAndPreviewService {
   }
   // 更新试图
   updateView() {
-    this.preview$.next({
-      selector: 'nz-rate',
+    let viewData = {
+      selector: this.name,
       props: [],
       ...this.form.value
-    });
+    };
+    console.log(viewData);
+    this.preview$.next(viewData);
   }
   // 处理number类型表单
   handleNumber(res: DesignAndPreviewProps) {
@@ -72,7 +76,7 @@ export class DesignAndPreviewService {
       callback: evt => {
         // 关联变化
         let { data } = evt;
-        this.form.get(name).setValue(data);
+        this.updateForm(name, data);
         // update Rate
         this.updateView();
       }
@@ -87,7 +91,7 @@ export class DesignAndPreviewService {
       displayValue: value,
       callback: evt => {
         let { data } = evt;
-        this.form.get(name).setValue(data);
+        this.updateForm(name, data);
         // update Rate
         this.updateView();
       }
@@ -95,14 +99,14 @@ export class DesignAndPreviewService {
   }
 
   handelSelect(res) {
-    let { placeholder, options } = res;
+    let { placeholder, options, value, name } = res;
     let opts: any[] = [];
     if (options) {
       options.map(res => {
         opts.push({
-          selector: 'nz-option',
           label: res,
-          value: res
+          value: res,
+          disabled: false
         });
       });
     }
@@ -110,10 +114,24 @@ export class DesignAndPreviewService {
       selector: 'nz-select',
       nzNotFoundContent: '暂无内容',
       nzDropdownStyle: {
-        width: '200px'
+        width: '120px'
       },
       nzPlaceHolder: placeholder,
-      props: opts
+      options: opts,
+      value: value,
+      callback: evt => {
+        let { data } = evt;
+        this.updateForm(name, data);
+        // update Rate
+        this.updateView();
+      }
+    };
+  }
+
+  handleColor(res) {
+    return {
+      selector: 'nz-colors',
+      props: []
     };
   }
 
@@ -166,9 +184,13 @@ export class DesignAndPreviewService {
           if (type === 'boolean') {
             item2.props.push(this.handleBoolean(res));
           }
-
+          // 选择
           if (type === 'select') {
             item2.props.push(this.handelSelect(res));
+          }
+          // 颜色
+          if (type === 'color') {
+            item2.props.push(this.handleColor(res));
           }
           item.props.push(item2);
           props2.props.push(item);

@@ -1,0 +1,21 @@
+{
+  "name": "iwe7-core",
+  "version": "1.0.0",
+  "repository": "https://github.com/iwe7/iwe7-themes.git",
+  "author": "iwe7 <1037483576@qq.com>",
+  "license": "MIT",
+  "private": false,
+  "peerDependencies": {
+    "@angular/core": "*",
+    "@angular/common": "*",
+    "rxjs": "*"
+  },
+  "main": "bundles/iwe7-core.umd.js",
+  "module": "esm5/iwe7-core.js",
+  "es2015": "esm2015/iwe7-core.js",
+  "typings": "iwe7-core.d.ts",
+  "metadata": "iwe7-core.metadata.json",
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

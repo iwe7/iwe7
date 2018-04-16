@@ -41,15 +41,19 @@ export class LoggerService {
   debug(...args: any[]): void {
     if (isDevMode() && this.isShow) {
       const arrs = Array.prototype.slice.call(arguments);
-      console.log.apply(console, ['[NG-ZORRO-DEBUG]'].concat(arrs));
+      console.log.apply(console, ['[DEBUG]'].concat(arrs));
     }
   }
+}
+
+export function iwe7LoggerShow() {
+  return true;
 }
 
 export const IWE7_LOGGER_SHOW = new InjectionToken<boolean>(
   'IWE7_LOGGER_SHOW',
   {
     providedIn: 'root',
-    factory: () => true
+    factory: iwe7LoggerShow
   }
 );

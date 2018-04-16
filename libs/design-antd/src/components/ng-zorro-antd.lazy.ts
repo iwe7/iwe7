@@ -141,6 +141,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'nz-option',
         loadChildren: './select/nz-select.module#NzSelectModule'
+      },
+      {
+        path: 'nz-colors',
+        loadChildren: './colors/colors.module#NzColorsModule'
       }
     ])
   ]

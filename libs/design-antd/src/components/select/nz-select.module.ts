@@ -13,35 +13,13 @@ import { NzSelectUnselectableDirective } from './nz-select-unselectable.directiv
 import { NzSelectComponent } from './nz-select.component';
 import { LazyComponentModuleBase } from 'iwe7/lazy-load';
 import { RouterModule } from '@angular/router';
-
+import { NzSelectTplComponent } from './nz-select-tpl';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     OverlayModule,
-    NzI18nModule,
-    RouterModule.forChild([
-      {
-        path: 'nz-option',
-        component: NzOptionComponent
-      },
-      {
-        path: 'nz-select',
-        component: NzSelectComponent
-      },
-      {
-        path: 'ng-option-container',
-        component: NzOptionContainerComponent
-      },
-      {
-        path: 'nz-option-group',
-        component: NzOptionGroupComponent
-      },
-      {
-        path: 'nz-select-top-control',
-        component: NzSelectTopControlComponent
-      }
-    ])
+    NzI18nModule
   ],
   declarations: [
     NzOptionPipe,
@@ -52,21 +30,24 @@ import { RouterModule } from '@angular/router';
     NzOptionGroupComponent,
     NzOptionLiComponent,
     NzSelectTopControlComponent,
-    NzSelectUnselectableDirective
+    NzSelectUnselectableDirective,
+    NzSelectTplComponent
   ],
   exports: [
     NzOptionComponent,
     NzSelectComponent,
     NzOptionContainerComponent,
     NzOptionGroupComponent,
-    NzSelectTopControlComponent
+    NzSelectTopControlComponent,
+    NzSelectTplComponent
   ],
   entryComponents: [
     NzOptionComponent,
     NzSelectComponent,
     NzOptionContainerComponent,
     NzOptionGroupComponent,
-    NzSelectTopControlComponent
+    NzSelectTopControlComponent,
+    NzSelectTplComponent
   ]
 })
 export class NzSelectModule extends LazyComponentModuleBase {
@@ -75,7 +56,7 @@ export class NzSelectModule extends LazyComponentModuleBase {
       return NzOptionComponent;
     }
     if (key === 'nz-select') {
-      return NzSelectComponent;
+      return NzSelectTplComponent;
     }
     if (key === 'nz-option-container') {
       return NzOptionContainerComponent;

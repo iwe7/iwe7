@@ -8,24 +8,34 @@ import { NzFooterComponent } from './nz-footer.component';
 import { NzHeaderComponent } from './nz-header.component';
 import { NzLayoutComponent } from './nz-layout.component';
 import { NzSiderComponent } from './nz-sider.component';
-
+import { NzLayoutTplComponent } from './nz-layout-tpl';
 @NgModule({
   declarations: [
     NzLayoutComponent,
     NzHeaderComponent,
     NzContentComponent,
     NzFooterComponent,
-    NzSiderComponent
+    NzSiderComponent,
+    NzLayoutTplComponent
   ],
   exports: [
     NzLayoutComponent,
     NzHeaderComponent,
     NzContentComponent,
     NzFooterComponent,
-    NzSiderComponent
+    NzSiderComponent,
+    NzLayoutTplComponent
   ],
   providers: [NzMatchMediaService],
-  imports: [CommonModule]
+  imports: [CommonModule],
+  entryComponents: [
+    NzLayoutComponent,
+    NzHeaderComponent,
+    NzContentComponent,
+    NzFooterComponent,
+    NzSiderComponent,
+    NzLayoutTplComponent
+  ]
 })
 export class NzLayoutModule {
   getComponentByName(key: string) {

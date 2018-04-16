@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Injector } from '@angular/core';
+import { DesignBase } from 'iwe7/design';
 
 @Component({
   selector: 'nz-layout',
@@ -11,6 +12,10 @@ import { Component } from '@angular/core';
     '[class.ant-layout-has-sider]': 'hasSider'
   }
 })
-export class NzLayoutComponent {
+export class NzLayoutComponent extends DesignBase<any> {
   hasSider = false;
+  constructor(injector: Injector) {
+    super(injector);
+  }
+  onPropsChange(e) {}
 }

@@ -22,21 +22,23 @@ export type TagType = 'default' | 'closeable' | 'checkable';
 import { toBoolean } from '../core/util/convert';
 
 @Component({
-  selector           : 'nz-tag',
+  selector: 'nz-tag',
   preserveWhitespaces: false,
-  animations         : [ trigger('tagAnimation', [
-    state('*', style({ opacity: 1 })),
-    transition('void => *', [
-      style({ opacity: 0 }),
-      animate('300ms cubic-bezier(0.78, 0.14, 0.15, 0.86)')
-    ]),
-    state('void', style({ opacity: 0 })),
-    transition('* => void', [
-      style({ opacity: 1 }),
-      animate('300ms cubic-bezier(0.78, 0.14, 0.15, 0.86)')
+  animations: [
+    trigger('tagAnimation', [
+      state('*', style({ opacity: 1 })),
+      transition('void => *', [
+        style({ opacity: 0 }),
+        animate('300ms cubic-bezier(0.78, 0.14, 0.15, 0.86)')
+      ]),
+      state('void', style({ opacity: 0 })),
+      transition('* => void', [
+        style({ opacity: 1 }),
+        animate('300ms cubic-bezier(0.78, 0.14, 0.15, 0.86)')
+      ])
     ])
-  ]) ],
-  template           : `
+  ],
+  template: `
     <div
       *ngIf="!closed"
       [ngClass]="classMap"
@@ -97,9 +99,8 @@ export class NzTagComponent implements OnInit, AfterViewInit {
     if (!color) {
       return false;
     }
-    return (
-      /^(pink|red|yellow|orange|cyan|green|blue|purple|geekblue|magenta|volcano|gold|lime)(-inverse)?$/
-      .test(color)
+    return /^(pink|red|yellow|orange|cyan|green|blue|purple|geekblue|magenta|volcano|gold|lime)(-inverse)?$/.test(
+      color
     );
   }
 
@@ -126,27 +127,32 @@ export class NzTagComponent implements OnInit, AfterViewInit {
   updateClassMap(): void {
     const isPresetColor = this.isPresetColor(this.nzColor);
     this.classMap = {
-      [ `ant-tag` ]                  : true,
-      [ `ant-tag-has-color` ]        : this.nzColor && !isPresetColor,
-      [ `ant-tag-${this.nzColor}` ]  : isPresetColor,
-      [ `ant-tag-checkable` ]        : this.nzMode === 'checkable',
-      [ `ant-tag-checkable-checked` ]: this.nzChecked
+      [`ant-tag`]: true,
+      [`ant-tag-has-color`]: this.nzColor && !isPresetColor,
+      [`ant-tag-${this.nzColor}`]: isPresetColor,
+      [`ant-tag-checkable`]: this.nzMode === 'checkable',
+      [`ant-tag-checkable-checked`]: this.nzChecked
     };
   }
 
   updateColorStatus(): void {
     if (this.wrapperElement && this.nzColor) {
       if (this.isPreset) {
-        this.renderer.removeStyle(this.wrapperElement.nativeElement, 'background-color');
+        this.renderer.removeStyle(
+          this.wrapperElement.nativeElement,
+          'background-color'
+        );
       } else {
-        this.renderer.setStyle(this.wrapperElement.nativeElement, 'background-color', this.nzColor);
+        this.renderer.setStyle(
+          this.wrapperElement.nativeElement,
+          'background-color',
+          this.nzColor
+        );
       }
     }
   }
 
-  constructor(private renderer: Renderer2) {
-
-  }
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.updateClassMap();

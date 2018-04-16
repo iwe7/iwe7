@@ -46,6 +46,14 @@
     {
       "project": "apps/test-browser/e2e/tsconfig.e2e.json",
       "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/design/src/tsconfig.app.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "apps/design/e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
     }
   ],
   "test": {
@@ -72,6 +80,32 @@
       "styles": [
         "themes/components/ng-zorro-antd.less",
         "styles.scss"
+      ],
+      "scripts": [],
+      "environmentSource": "environments/environment.ts",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      },
+      "tags": []
+    },
+    {
+      "name": "design",
+      "root": "apps/design/src",
+      "outDir": "dist/apps/design",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "index.html",
+      "main": "main.ts",
+      "polyfills": "polyfills.ts",
+      "test": "../../../test.js",
+      "tsconfig": "tsconfig.app.json",
+      "testTsconfig": "../../../tsconfig.spec.json",
+      "prefix": "app",
+      "styles": [
+        "styles.css"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -195,6 +229,13 @@
       "tags": []
     },
     {
+      "name": "colors",
+      "root": "libs/colors/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "core",
       "root": "libs/core/src",
       "test": "../../../test.js",
@@ -309,6 +350,13 @@
     {
       "name": "lazy-load",
       "root": "libs/lazy-load/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "math",
+      "root": "libs/math/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

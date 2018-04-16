@@ -1,0 +1,4 @@
+<nz-select [ngStyle]="nzDropdownStyle" nzAllowClear [nzPlaceHolder]="nzPlaceHolder" [(ngModel)]="value" (ngModelChange)="change($event)" nzShowSearch>
+  <nz-option *ngFor="let option of options" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+  </nz-option>
+</nz-select>

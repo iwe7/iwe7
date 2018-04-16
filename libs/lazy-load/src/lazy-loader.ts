@@ -15,6 +15,7 @@ import { LazyComponentModuleFactory } from './lazy-component-module-factory';
 import { flatten } from 'underscore';
 import { ROUTES } from '@angular/router';
 import { Iwe7Base } from 'iwe7/core';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -48,7 +49,6 @@ export class LazyLoaderService {
         });
       }
     });
-    console.log(this.components);
   }
 
   public compiler(element: HTMLElement, view: ViewContainerRef, that?: any) {

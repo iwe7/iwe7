@@ -7,6 +7,18 @@ const data: DesignAndPreviewProps[] = [
     value: 'default',
     type: 'select',
     options: ['default', 'small']
+  },
+  {
+    name: 'nzLoading',
+    label: '加载开关',
+    value: false,
+    type: 'boolean'
+  },
+  {
+    name: 'nzDisabled',
+    label: '禁用开关',
+    value: false,
+    type: 'boolean'
   }
 ];
 
