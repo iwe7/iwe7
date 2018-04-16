@@ -9,6 +9,7 @@ import { NzHeaderComponent } from './nz-header.component';
 import { NzLayoutComponent } from './nz-layout.component';
 import { NzSiderComponent } from './nz-sider.component';
 import { NzLayoutTplComponent } from './nz-layout-tpl';
+import { Iwe7CoreModule } from 'iwe7/core';
 @NgModule({
   declarations: [
     NzLayoutComponent,
@@ -27,7 +28,7 @@ import { NzLayoutTplComponent } from './nz-layout-tpl';
     NzLayoutTplComponent
   ],
   providers: [NzMatchMediaService],
-  imports: [CommonModule],
+  imports: [CommonModule, Iwe7CoreModule],
   entryComponents: [
     NzLayoutComponent,
     NzHeaderComponent,

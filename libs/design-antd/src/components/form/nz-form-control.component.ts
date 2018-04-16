@@ -31,6 +31,7 @@ import { DesignBase } from 'iwe7/design';
   styles: [
     `:host {
     display: block;
+    padding: 0 5px;
   }`
   ]
 })

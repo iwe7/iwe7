@@ -12,7 +12,7 @@ export const designAndPreviewPropsData: Map<
 import nzRate from './settings/nz-rate';
 import nzSwitch from './settings/nz-switch';
 import nzLayout from './settings/nz-layout';
-
+import { colorChange } from './colors/index';
 designAndPreviewPropsData.set('nz-rate', nzRate);
 designAndPreviewPropsData.set('nz-switch', nzSwitch);
 designAndPreviewPropsData.set('nz-layout', nzLayout);
@@ -54,7 +54,6 @@ export class DesignAndPreviewService {
       props: [],
       ...this.form.value
     };
-    console.log(viewData);
     this.preview$.next(viewData);
   }
   // 处理number类型表单
@@ -129,9 +128,21 @@ export class DesignAndPreviewService {
   }
 
   handleColor(res) {
+    let { name, value } = res;
     return {
-      selector: 'nz-colors',
-      props: []
+      selector: 'chrome-picker',
+      props: [],
+      colors: colorChange({
+        hex: value,
+        source: 'hex'
+      }),
+      callback: evt => {
+        let { type, data } = evt;
+        if (type === 'changeColor') {
+          this.updateForm(name, data);
+          this.updateView();
+        }
+      }
     };
   }
 

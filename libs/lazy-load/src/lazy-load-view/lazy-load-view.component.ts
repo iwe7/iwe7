@@ -24,7 +24,8 @@ export class LazyLoadViewComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
 
   ngAfterViewInit() {
-    this.lazyload.init(this.ele.nativeElement, this.view, this.father).subscribe(res => {
-    });
+    this.lazyload
+      .init(this.ele.nativeElement, this.view, this.father)
+      .subscribe(res => {});
   }
 }

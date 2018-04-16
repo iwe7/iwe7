@@ -10,9 +10,13 @@ import {
 import { NzUpdateHostClassService } from 'iwe7/core';
 import { DesignBase } from 'iwe7/design';
 @Component({
-  selector: '[nz-form]',
+  selector: 'form[nz-form]',
   template: `<ng-content></ng-content><ng-container (getViewRef)="setViewRef($event)"></ng-container>`,
-  providers: [NzUpdateHostClassService]
+  providers: [NzUpdateHostClassService],
+  styles: [
+    `:host{
+    }`
+  ]
 })
 export class NzFormDirective extends DesignBase<any> implements OnInit {
   el: HTMLElement;

@@ -24,6 +24,9 @@ ul {
 }
 
 :host {
+    display: block;
+    display: flex;
+    flex-direction: row;
     .center {
         flex: 1;
     }

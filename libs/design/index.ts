@@ -6,3 +6,6 @@ export { DesignBase, DesignBaseProps } from './src/design-base/design-base';
 export { DesignForm, DesignFormProps } from './src/design-base/design-form';
 
 export { DesignAndPreviewService } from './src/design-and-preview.service';
+
+
+export * from './src/colors/index';

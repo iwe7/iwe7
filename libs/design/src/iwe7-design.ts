@@ -29,5 +29,6 @@ export abstract class Iwe7DesignSettingBase<T> extends Iwe7DesignBase<T> {
         this.form.addControl(key, this.fb.control(res[key]));
       }
     });
+    super.onPropsChange(res);
   }
 }

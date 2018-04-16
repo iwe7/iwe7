@@ -53,10 +53,6 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
     );
   }
 
-  ngOnInit() {
-    super.ngOnInit();
-  }
-
   onPropsChange(res: T) {
     let { style, attrs, props } = res;
     if (style) {
@@ -77,7 +73,8 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
   setViewRef(e: ViewContainerRef) {
     this._viewRef = e;
     this.props.subscribe(res => {
-      let { props } = res;
+      let { props, selector } = res;
+      console.log('set vie', selector);
       this._viewRef.clear();
       if (props && props.length > 0) {
         props.map(pro => {
@@ -88,6 +85,4 @@ export class DesignBase<T extends DesignBaseProps> extends Iwe7DesignBase<T>
       }
     });
   }
-
-
 }

@@ -6,7 +6,7 @@ import { Iwe7PipesModule } from 'iwe7/pipes';
 import { ROUTES } from '@angular/router';
 import { DesignGroupDirective } from './design-group.directive';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { Iwe7ColorsModule } from './colors/colors.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -14,10 +14,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     Iwe7CoreModule,
     Iwe7TouchModule,
     Iwe7PipesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Iwe7ColorsModule
   ],
   declarations: [DesignGroupDirective],
-  exports: [DesignGroupDirective],
+  exports: [DesignGroupDirective, Iwe7ColorsModule],
   providers: [
     {
       provide: ROUTES,

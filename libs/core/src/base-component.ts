@@ -97,7 +97,8 @@ export abstract class Iwe7Base<T> implements OnChanges, OnInit, OnDestroy {
   }
 
   setData(res: T) {
-    this.props.next({ ...(this._props as any), ...(res as any) });
+    let r = { ...(this._props as any), ...(res as any) };
+    this.props.next(r);
   }
 
   __sub: Subscription;

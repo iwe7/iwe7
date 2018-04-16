@@ -24,6 +24,7 @@ export class LazyComponentModuleFactory {
   private load(
     path: string
   ): Promise<LazyComponentModule<LazyComponentModuleBase>> {
+    console.log('moduleFactoryLoader',this.moduleFactoryLoader);
     return new Promise((resolve, reject) => {
       this.moduleFactoryLoader
         .load(path)

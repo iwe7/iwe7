@@ -13,7 +13,6 @@ import { Iwe7CoreModule } from 'iwe7/core';
 import { Iwe7PipesModule } from 'iwe7/pipes';
 import { DesignViewModule } from 'iwe7/design-view';
 import { DesignPagesModule } from 'iwe7/design-pages';
-import { Iwe7ColorsModule } from 'iwe7/colors';
 
 @NgModule({
   imports: [
@@ -30,8 +29,7 @@ import { Iwe7ColorsModule } from 'iwe7/colors';
     Iwe7CoreModule,
     Iwe7PipesModule,
     DesignViewModule,
-    DesignPagesModule,
-    Iwe7ColorsModule
+    DesignPagesModule
   ],
   exports: [
     DesignAntdModule,
@@ -41,11 +39,8 @@ import { Iwe7ColorsModule } from 'iwe7/colors';
     Iwe7CoreModule,
     Iwe7PipesModule,
     DesignViewModule,
-    DesignPagesModule,
-    Iwe7ColorsModule
+    DesignPagesModule
   ],
-  providers: [
-    DatePipe
-  ]
+  providers: [DatePipe]
 })
 export class SharedModule {}

@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn build3
+  /usr/local/bin/node /usr/local/bin/yarn start3
 
 PATH: 
   /Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/meepo/.rvm/bin:/Users/meepo/.rvm/bin
@@ -8469,7 +8469,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c ng build --app=app-design --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true --sourcemaps=true
+  Arguments: -c ng serve --app=app-design
   Directory: /Volumes/meepo/nx/iwe7-nx
   Output:
   
