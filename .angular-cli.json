@@ -66,10 +66,7 @@
       "name": "app-design",
       "root": "apps/app-design/src",
       "outDir": "dist/apps/app-design",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -77,11 +74,11 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "",
-      "styles": [
-        "themes/test3/ng-zorro-antd.less",
-        "styles.scss"
+      "styles": ["themes/test3/ng-zorro-antd.less", "styles.scss"],
+      "scripts": [
+        "../../../node_modules/jquery/dist/jquery.js",
+        "../../../node_modules/fullpage.js/dist/jquery.fullpage.js"
       ],
-      "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -93,10 +90,7 @@
       "name": "design",
       "root": "apps/design/src",
       "outDir": "dist/apps/design",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -104,9 +98,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
+      "styles": ["styles.css"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -119,10 +111,7 @@
       "name": "test",
       "root": "apps/test/src",
       "outDir": "dist/apps/test",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -130,9 +119,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "",
-      "styles": [
-        "styles.scss"
-      ],
+      "styles": ["styles.scss"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -145,10 +132,7 @@
       "name": "test-browser",
       "root": "apps/test-browser/src",
       "outDir": "dist/apps/test-browser",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -156,9 +140,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
+      "styles": ["styles.css"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -171,10 +153,7 @@
       "name": "test2",
       "root": "apps/test2/src",
       "outDir": "dist/apps/test2",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -182,9 +161,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
+      "styles": ["styles.css"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -364,6 +341,13 @@
     {
       "name": "form",
       "root": "libs/form/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "fullpage",
+      "root": "libs/fullpage/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

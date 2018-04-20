@@ -1,0 +1,126 @@
+<nz-popover nzTrigger="click" [nzPlacement]="'bottomLeft'">
+    <button nz-button nzClear nz-popover>组件元素</button>
+    <ng-template #nzTemplate>
+      <nz-layout>
+        <nz-sider style="background-color: #fff;">
+          <ul nz-menu [nzMode]="'inline'">
+            <li nz-submenu>
+              <span title>
+                <i class="anticon anticon-setting"></i>PC网站</span>
+              <ul>
+                <li nz-menu-item>Option 9</li>
+                <li nz-menu-item>Option 10</li>
+                <li nz-menu-item>Option 11</li>
+              </ul>
+            </li>
+            <li nz-submenu>
+              <span title>
+                <i class="anticon anticon-setting"></i>手机H5</span>
+              <ul>
+                <li nz-menu-item>Option 9</li>
+                <li nz-menu-item>Option 10</li>
+                <li nz-menu-item>Option 11</li>
+              </ul>
+            </li>
+            <li nz-submenu>
+              <span title>
+                <i class="anticon anticon-appstore"></i>公众号</span>
+              <ul>
+                <li nz-menu-item>Option 5</li>
+                <li nz-menu-item>Option 6</li>
+                <li nz-submenu>
+                  <span title>Submenu</span>
+                  <ul>
+                    <li nz-menu-item>Option 7</li>
+                    <li nz-menu-item>Option 8</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li nz-submenu>
+              <span title>
+                <i class="anticon anticon-mail"></i>小程序</span>
+              <ul>
+                <li nz-menu-item>Option 1</li>
+                <li nz-menu-item>Option 2</li>
+              </ul>
+            </li>
+            <li nz-submenu>
+              <span title>
+                <i class="anticon anticon-setting"></i>android</span>
+              <ul>
+                <li nz-menu-item>Option 9</li>
+                <li nz-menu-item>Option 10</li>
+                <li nz-menu-item>Option 11</li>
+              </ul>
+            </li>
+            <li nz-submenu>
+              <span title>
+                <i class="anticon anticon-setting"></i>ios</span>
+              <ul>
+                <li nz-menu-item>Option 9</li>
+                <li nz-menu-item>Option 10</li>
+                <li nz-menu-item>Option 11</li>
+              </ul>
+            </li>
+          </ul>
+        </nz-sider>
+        <nz-layout>
+          <nz-header>
+            <input nz-input type="text">
+          </nz-header>
+          <nz-content style="background:#fff; padding: 24px; min-height: 280px;overflow: auto;max-height: 500px;">
+            <div>
+              <div nz-row [nzGutter]="'8'">
+                <nz-card *ngFor="let item of [1,2,3,4,5,6,7,8,9,10]" nz-col [nzSpan]="'6'">
+                  <div class="custom-image">
+                    <img alt="example" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+                  </div>
+                  <div class="custom-card">
+                    <h3>Europe Street beat</h3>
+                    <p>www.instagram.com</p>
+                  </div>
+                </nz-card>
+                <nz-card nz-col [nzSpan]="'6'">
+                  <div class="custom-image">
+                    <img alt="example" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+                  </div>
+                  <div class="custom-card">
+                    <h3>Europe Street beat</h3>
+                    <p>www.instagram.com</p>
+                  </div>
+                </nz-card>
+                <nz-card nz-col [nzSpan]="'6'">
+                  <div class="custom-image">
+                    <img alt="example" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+                  </div>
+                  <div class="custom-card">
+                    <h3>Europe Street beat</h3>
+                    <p>www.instagram.com</p>
+                  </div>
+                </nz-card>
+                <nz-card nz-col [nzSpan]="'6'">
+                  <div class="custom-image">
+                    <img alt="example" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+                  </div>
+                  <div class="custom-card">
+                    <h3>Europe Street beat</h3>
+                    <p>www.instagram.com</p>
+                  </div>
+                </nz-card>
+                <nz-card nz-col [nzSpan]="'6'">
+                  <div class="custom-image">
+                    <img alt="example" width="100%" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+                  </div>
+                  <div class="custom-card">
+                    <h3>Europe Street beat</h3>
+                    <p>www.instagram.com</p>
+                  </div>
+                </nz-card>
+              </div>
+            </div>
+          </nz-content>
+        </nz-layout>
+      </nz-layout>
+    </ng-template>
+  </nz-popover>

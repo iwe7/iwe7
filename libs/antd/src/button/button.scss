@@ -1,0 +1,22 @@
+.ant-btn-clear {
+    border: none;
+    background-color: inherit;
+    outline: none;
+    &:hover {
+        background-color: inherit;
+        border: none;
+        color: inherit;
+        opacity: .8;
+    }
+    &:active,
+    &:focus,
+    &.active {
+        background-color: inherit;
+        border: none;
+        color: inherit;
+        opacity: 1;
+    }
+    &.ant-btn-clicked {
+        border: none;
+    }
+}

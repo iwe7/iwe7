@@ -1,0 +1,9 @@
+<nz-popover [(nzVisible)]="visible" [nzPlacement]="'bottomLeft'">
+  <button nz-button nzClear nz-popover>
+    图标选择
+    <i class="anticon" [ngClass]="'anticon-'+icon"></i>
+  </button>
+  <ng-template #nzTemplate>
+    <ng-container (getView)="setView($event)"></ng-container>
+  </ng-template>
+</nz-popover>

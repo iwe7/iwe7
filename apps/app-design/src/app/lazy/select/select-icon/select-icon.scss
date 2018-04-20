@@ -1,0 +1,9 @@
+.ant-popover-inner-content {
+  nz-icon {
+      padding: 3px 5px;
+      &:hover {
+          background: #333;
+          color: #fff;
+      }
+  }
+}

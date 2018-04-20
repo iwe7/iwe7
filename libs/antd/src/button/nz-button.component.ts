@@ -6,7 +6,8 @@ import {
   HostListener,
   Input,
   Renderer2,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 
 import { NzUpdateHostClassService } from '../core/services/update-host-class.service';
@@ -24,7 +25,9 @@ export type NzButtonSize = 'small' | 'large' | 'default';
   template: `
     <i class="anticon anticon-spin anticon-loading" *ngIf="nzLoading"></i>
     <span (cdkObserveContent)="checkContent()" #contentElement><ng-content></ng-content></span>
-  `
+  `,
+  styleUrls: ['./button.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class NzButtonComponent implements AfterContentInit {
   private _ghost = false;
@@ -39,6 +42,7 @@ export class NzButtonComponent implements AfterContentInit {
   private clicked = false;
   private prefixCls = 'ant-btn';
   private sizeMap = { large: 'lg', small: 'sm' };
+  private _clear = false;
   @ViewChild('contentElement') contentElement: ElementRef;
 
   @Input()
@@ -49,6 +53,15 @@ export class NzButtonComponent implements AfterContentInit {
 
   get nzGhost(): boolean {
     return this._ghost;
+  }
+
+  @Input()
+  set nzClear(value: boolean) {
+    this._clear = toBoolean(value);
+    this.setClassMap();
+  }
+  get nzClear() {
+    return this._clear;
   }
 
   @Input()
@@ -135,6 +148,7 @@ export class NzButtonComponent implements AfterContentInit {
       [`${this.prefixCls}-clicked`]: this.clicked,
       [`${this.prefixCls}-icon-only`]: this.iconOnly,
       [`${this.prefixCls}-background-ghost`]: this.nzGhost,
+      [`${this.prefixCls}-clear`]: this.nzClear,
       [`ant-input-search-button`]: this.nzSearch
     };
     this.nzUpdateHostClassService.updateHostClass(this.el, classMap);

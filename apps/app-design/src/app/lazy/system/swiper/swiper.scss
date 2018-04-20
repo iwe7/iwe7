@@ -1,0 +1,43 @@
+@import "~swiper/dist/css/swiper.min.css";
+.swiper-container,
+.swiper-wrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide{
+  overflow: hidden;
+}
+.swiper-container-vertical {
+    .swiper-pagination-bullets {
+        .swiper-pagination-bullet {
+            transition: all .1s ease-in-out;
+            background-color: #fff;
+            border: 1px solid #ffa800;
+            box-sizing: content-box;
+            opacity: 1;
+            height: 4px;
+            width: 4px;
+            margin: 5px 0 0 0px;
+            border-radius: 50%;
+            &:hover {
+                background-color: #fff;
+                border: 1px solid #ffa800;
+                box-sizing: content-box;
+                height: 8px;
+                width: 8px;
+                margin: 5px 0 0 -2px;
+                border-radius: 100%;
+            }
+            &.swiper-pagination-bullet-active {
+                background-color: #fff;
+                border: 1px solid #ffa800;
+                box-sizing: content-box;
+                height: 12px;
+                width: 12px;
+                margin: 5px 0 0 -4px;
+                border-radius: 100%;
+            }
+        }
+    }
+}

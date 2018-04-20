@@ -5,7 +5,8 @@ import {
   ChangeDetectorRef,
   Injector,
   ViewChild,
-  AfterViewInit
+  AfterViewInit,
+  ElementRef
 } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 let defaultColor = {
@@ -58,21 +59,25 @@ export class AppComponent implements OnInit {
     public _init: InitService,
     public route: ActivatedRoute,
     public elements: ElementsService,
-    public create: CreateElementService
+    public create: CreateElementService,
+    public ele: ElementRef
   ) {
     this.route.queryParams.subscribe(res => {
       this.data['code'] = res.code;
     });
   }
-
+  height: number;
   ngOnInit() {
+    this.height = this.ele.nativeElement.clientHeight;
     let data: any = {
-      selector: 'nz-dnd',
+      selector: 'select-test',
       inputs: [],
-      outputs: [],
+      outputs: ['change$'],
       children: {}
     };
-    this._render.compiler(data, this.view).subscribe();
+    this._render.compiler(data, this.view).subscribe(res => {
+      console.log(res);
+    });
   }
 
   createElement() {

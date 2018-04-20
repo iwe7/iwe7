@@ -1,0 +1,8 @@
+<ng-container #header></ng-container>
+<div class="swiper-wrapper">
+  <div class="swiper-slide" *ngFor="let item of items">
+    <ng-container (getView)="setView($event,item)"></ng-container>
+  </div>
+</div>
+<div class="swiper-pagination"></div>
+<ng-container #footer></ng-container>

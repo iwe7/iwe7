@@ -6,6 +6,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { LayoutRoutesModule } from './layout/routes';
 import { DevicesRoutesModule } from './devices/routes';
 import { DesignRoutesModule } from './design/routes';
+import { SystemRoutesModule } from './system/routes';
+import { SelectRoutesModule } from './select/routes';
+
 import { AntdRoutesModule } from './antd/routes';
 import { NzSelectModule } from 'iwe7/antd/select';
 import { NzButtonModule } from 'iwe7/antd/button';
@@ -15,10 +18,12 @@ import { NzButtonModule } from 'iwe7/antd/button';
     CommonModule,
     LayoutRoutesModule,
     DevicesRoutesModule,
-    DesignRoutesModule,
+    // DesignRoutesModule,
     AntdRoutesModule,
     NzSelectModule,
-    NzButtonModule
+    NzButtonModule,
+    SystemRoutesModule,
+    SelectRoutesModule
   ],
   declarations: []
 })
