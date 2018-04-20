@@ -1,0 +1,14 @@
+<nz-radio-group *ngIf="isButton.value" [(ngModel)]="value.value" (ngModelChange)="modelChange()">
+  <label *ngFor="let item of options.value" nz-radio-button [nzAutoFocus]="item.nzAutoFocus.value" [nzDisabled]="item.nzDisabled.value"
+    [nzValue]="item.nzValue.value">
+    {{item.title.value}}
+  </label>
+</nz-radio-group>
+
+
+<nz-radio-group *ngIf="!isButton.value" [(ngModel)]="value.value" (ngModelChange)="modelChange()">
+  <label *ngFor="let item of options.value" nz-radio [nzAutoFocus]="item.nzAutoFocus.value" [nzDisabled]="item.nzDisabled.value"
+    [nzValue]="item.nzValue.value">
+    {{item.title.value}}
+  </label>
+</nz-radio-group>

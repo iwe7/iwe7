@@ -1,0 +1,5 @@
+<nz-tabset>
+  <nz-tab *ngFor="let item of tabs.value" [nzTitle]="item.title.value">
+    <ng-container (getView)="setView($event,item)"></ng-container>
+  </nz-tab>
+</nz-tabset>

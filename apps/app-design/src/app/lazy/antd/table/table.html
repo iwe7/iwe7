@@ -1,0 +1,52 @@
+<nz-table #table [nzData]="list" [nzNoResult]="nzNoResult" [nzShowTotal]="nzShowTotal" [nzTitle]="nzTitle" [nzFooter]="nzFooter">
+  <thead (nzSortChange)="nzSortChange($event)" [nzSingleSort]="nzSingleSort">
+    <tr>
+      <th [nzShowCheckbox]="column.th.nzShowCheckbox" [nzDisabled]="column.th.nzDisabled" [nzIndeterminate]="column.th.nzIndeterminate" [nzChecked]="column.th.nzChecked" (nzSortChange)="nzThSortChange($event)" (nzCheckedChange)="nzThCheckedChange($event)" (nzSortChangeWithKey)="nzThSortChangeWithKey($event)" (nzFilterChange)="nzThFilterChange($event)" *ngFor="let column of columns;index as columnIndex;">
+        {{column.title}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr [nzExpand]="nzExpand" *ngFor="let item of table.data;index as itemIndex;">
+      <td [nzChecked]="column.td.nzChecked" [nzDisabled]="column.td.nzDisabled" [nzIndeterminate]="column.td.nzIndeterminate" [nzIndentSize]="column.td.nzIndentSize" [nzExpand]="column.td.nzExpand" [nzShowExpand]="column.td.nzShowExpand" [nzShowCheckbox]="column.td.nzShowCheckbox" [nzLeft]="column.td.nzLeft" [nzRight]="column.td.nzRight" (nzCheckedChange)="nzCheckedChange($event)" (nzExpandChange)="nzExpandChange($event)" [nzExpand]="column.td.nzExpand" *ngFor="let column of columns;index as columnIndex;">
+          <ng-container [ngSwitch]="column.type">
+              <ng-container *ngSwitchCase="'tag'">
+                <nz-tag>{{item[column.name]}}</nz-tag>
+              </ng-container>
+              <ng-container *ngSwitchCase="'avatar'">
+                <nz-avatar [nzSrc]="item[column.name]"></nz-avatar>
+              </ng-container>
+              <ng-container *ngSwitchCase="'mobile'">
+                <a [href]="'tel:'+item[column.name]">{{item[column.name]}}</a>
+              </ng-container>
+              <ng-container *ngSwitchCase="'switch'">
+                <nz-switch [(ngModel)]="item[column.name]"></nz-switch>
+              </ng-container>
+              <ng-container *ngSwitchCase="'rate'">
+                <nz-rate [(ngModel)]="item[column.name]"></nz-rate>
+              </ng-container>
+              <ng-container *ngSwitchCase="'badge'">
+                <nz-badge nzStatus="success">{{item[column.name]}}</nz-badge>
+              </ng-container>
+              <ng-container *ngSwitchCase="'button'">
+                <button nz-button nzSize="small" *ngFor="let btn of column.buttons">{{btn.title}}</button>
+              </ng-container>
+          </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #nzNoResult>
+  暂无数据啊
+</ng-template>
+<ng-template #nzTitle>
+  
+</ng-template>
+<ng-template #nzFooter>
+
+</ng-template>
+
+<ng-template #nzShowTotal ngFor let-total let-range>
+  总共：{{total}}
+</ng-template>

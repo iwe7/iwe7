@@ -8,6 +8,8 @@
 // @import "themes/core/motion/slide.scss";
 // @import "themes/core/motion/swing.scss";
 // @import "themes/core/motion/zoom.scss";
+// @import "~@angular/cdk/overlay-prebuilt.css";
+// @import "~@angular/cdk/text-field-prebuilt.css";
 @import "themes/fonts/iconfont.css";
 * {
     margin: 0px;
@@ -21,7 +23,7 @@ app-root {
     display: block;
     height: 100%;
     background: #efefef;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .form-row {
@@ -50,10 +52,12 @@ app-root {
     }
 }
 
-.ant-form-item {
-    margin-bottom: 0px;
+.ant-form,
+.ant-form-item,
+.ant-form-item-label label {
+    color: inherit !important;
 }
-
-.ant-layout {
-    height: 100%;
+.ant-form-item-children{
+  width: 100%;
+  display: block;
 }

@@ -1,0 +1,18 @@
+<form nz-form [nzLayout]="validateForm.get('formLayout')?.value" [formGroup]="validateForm">
+  <nz-form-item>
+    <nz-form-control [nzSpan]="isHorizontal.value? controlWidth:null" [nzOffset]="isHorizontal.value? labelWidth:null">
+      <ng-container #content></ng-container>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngFor="let item of items.value">
+    <nz-form-label [nzSpan]="isHorizontal.value? labelWidth:null">{{item.label.value}}</nz-form-label>
+    <nz-form-control [nzSpan]="isHorizontal.value? controlWidth:null">
+      <ng-container (getView)="setView($event, item)"></ng-container>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control [nzSpan]="isHorizontal.value? controlWidth:null" [nzOffset]="isHorizontal.value? labelWidth:null">
+      <ng-container (getView)="setFooterView($event)"></ng-container>
+    </nz-form-control>
+  </nz-form-item>
+</form>

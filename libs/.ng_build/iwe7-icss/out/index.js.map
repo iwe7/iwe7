@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["index.ts"],"names":[],"mappings":";;;;AAAA,OAAO,EAAE,UAAU,EAAE,MAAM,mBAAmB,CAAC;AAC/C,OAAO,EAAiB,WAAW,EAAE,MAAM,oBAAoB,CAAC","sourcesContent":["export { IcssModule } from './src/icss.module';\nexport { IcssInterface, IcssService } from './src/icss.service';\n"]}

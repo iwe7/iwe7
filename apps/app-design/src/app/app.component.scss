@@ -19,6 +19,17 @@ ul {
     }
 }
 
+.header {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    .left {}
+    .center {
+        flex: 1;
+    }
+    .right {}
+}
+
 .main {
     position: relative;
 }
@@ -26,8 +37,8 @@ ul {
 :host {
     display: block;
     display: flex;
-    flex-direction: row;
-    .center {
+    flex-direction: column;
+    .content {
         flex: 1;
     }
 }
@@ -35,3 +46,4 @@ ul {
 .left-menu {
     width: 320px;
 }
+

@@ -1,0 +1,15 @@
+<ul nz-menu [nzInDropDown]="nzInDropDown.value" (nzClick)="onClick($event)" [nzSelectable]="nzSelectable.value" [nzInlineCollapsed]="nzInlineCollapsed.value"
+  [nzMode]="nzMode.value" style="width: 240px;" [nzTheme]="nzTheme.value" [nzInlineIndent]="nzInlineIndent.value">
+  <li nz-submenu nzOpen *ngFor="let item of submenu">
+    <span title>
+      <i [class]="item.icon.value"></i> {{item.title.value}}</span>
+    <ul>
+      <li nz-menu-group *ngFor="let group of item.group">
+        <span title>{{group.title.value}}</span>
+        <ul>
+          <li nz-menu-item [nzData]="menu.nzData.value" [nzDisabled]="menu.nzDisabled.value" [nzSelected]="menu.nzSelected.value" *ngFor="let menu of group.items">{{menu.title}}</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>

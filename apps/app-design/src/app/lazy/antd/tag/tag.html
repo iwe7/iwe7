@@ -1,0 +1,4 @@
+<nz-tag [nzMode]="nzMode.value" [nzColor]="nzColor.value" [nzChecked]="nzChecked.value" (nzAfterClose)="nzAfterClose()" (nzOnClose)="nzOnClose($event)" (nzCheckedChange)="nzCheckedChange($event)">
+  {{text.value}}
+  <ng-container #content></ng-container>
+</nz-tag>

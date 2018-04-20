@@ -1,0 +1,10 @@
+:host {
+    display: block;
+    min-width: 120px;
+}
+
+.ant-timeline-item-content {
+    top: 0px !important;
+    padding-left: var(--item-left);
+    --item-left: 40px;
+}

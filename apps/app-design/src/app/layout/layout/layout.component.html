@@ -1,0 +1,12 @@
+<ng-container #header></ng-container>
+<ng-container #content></ng-container>
+<ng-container #footer></ng-container>
+<div class="tip" *ngIf="tip">{{tip?.value}}</div>
+<div class="menu" #menuContainer>
+  <ul>
+    <li (click)="onMenu(item)" *ngFor="let item of menuList">
+      {{item.title.value}}
+    </li>
+  </ul>
+  <ng-container #menu></ng-container>
+</div>

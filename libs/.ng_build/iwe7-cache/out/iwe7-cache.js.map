@@ -1,1 +1,0 @@
-{"version":3,"file":"iwe7-cache.js","sourceRoot":"","sources":["iwe7-cache.ts"],"names":[],"mappings":";;;;;;;AAIA,oEAAc,SAAS,CAAC;AAExB,OAAO,EAAC,WAAW,IAAI,EAAE,EAAC,MAAM,6BAA6B,CAAC","sourcesContent":["/**\n * Generated bundle index. Do not edit.\n */\n\nexport * from './index';\n\nexport {CacheMemory as ɵa} from './src/chache-memory.service';"]}

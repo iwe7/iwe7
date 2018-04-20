@@ -1,1 +1,1 @@
-export { Iwe7SharedModule } from './src/shared.module';
+export { SharedModule } from './src/shared.module';

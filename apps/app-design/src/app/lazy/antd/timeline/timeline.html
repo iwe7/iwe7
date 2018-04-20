@@ -1,0 +1,6 @@
+<nz-timeline [nzPending]="_nzPending">
+  <nz-timeline-item (doInit)="getContent($event)" [nzDot]="item.nzDot.value" [nzColor]="item.nzColor.value" *ngFor="let item of list.items">
+    {{item.title.value}}
+    <ng-container (getView)="setView($event,item)"></ng-container>
+  </nz-timeline-item>
+</nz-timeline>

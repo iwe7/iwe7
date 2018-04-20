@@ -1,0 +1,18 @@
+<nz-select [style.width]="width.value" [(ngModel)]="value.value" (ngModelChange)="modelChange()" [nzSize]="nzSize.value" [nzServerSearch]="nzServerSearch.value" [nzMode]="nzMode.value"
+  [nzDropdownMatchSelectWidth]="nzDropdownMatchSelectWidth.value" [nzMaxMultipleCount]="nzMaxMultipleCount.value" [nzDropdownStyle]="_nzDropdownStyle"
+  [nzNotFoundContent]="nzNotFoundContent.value" [nzDropdownClassName]="nzDropdownClassName.value" [nzAutoFocus]="nzAutoFocus.value"
+  [nzOpen]="nzOpen.value" [nzDisabled]="nzDisabled.value" [nzAllowClear]="nzAllowClear.value" [nzShowSearch]="nzShowSearch.value"
+  [nzPlaceHolder]="nzPlaceHolder.value" (nzScrollToBottom)="scrollToBottom()">
+  <div *ngFor="let group of options.value;index as i;">
+    <nz-option-group *ngIf="group.type.value === 'group'" [nzLabel]="group.nzLabel.value">
+      <nz-option *ngFor="let option of group.options.value" [nzLabel]="option.nzLabel.value" [nzCustomContent]="true" [nzValue]="option.nzValue.value">
+        <i *ngIf="option.icon.value" [class]="option.icon.value"></i>
+        {{option.nzLabel.value}}
+      </nz-option>
+    </nz-option-group>
+    <nz-option *ngIf="group.type.value != 'group'" [nzLabel]="group.nzLabel.value" [nzCustomContent]="true" [nzValue]="group.nzValue.value">
+      <i *ngIf="group.icon.value" [class]="group.icon.value"></i>
+      {{group.nzLabel.value}}
+    </nz-option>
+  </div>
+</nz-select>

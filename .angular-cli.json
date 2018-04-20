@@ -78,7 +78,7 @@
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "",
       "styles": [
-        "themes/components/ng-zorro-antd.less",
+        "themes/test3/ng-zorro-antd.less",
         "styles.scss"
       ],
       "scripts": [],
@@ -194,8 +194,29 @@
       "tags": []
     },
     {
+      "name": "align",
+      "root": "libs/align/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "animations",
       "root": "libs/animations/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "antd",
+      "root": "libs/antd/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "antd-extra",
+      "root": "libs/antd-extra/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []
@@ -243,8 +264,22 @@
       "tags": []
     },
     {
+      "name": "countdown",
+      "root": "libs/countdown/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "d3",
       "root": "libs/d3/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "delon",
+      "root": "libs/delon/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []
@@ -308,6 +343,13 @@
     {
       "name": "directives",
       "root": "libs/directives/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "dnd",
+      "root": "libs/dnd/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []
@@ -385,6 +427,13 @@
     {
       "name": "rxjs",
       "root": "libs/rxjs/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "shared",
+      "root": "libs/shared/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

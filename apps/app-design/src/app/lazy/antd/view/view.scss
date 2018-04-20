@@ -1,0 +1,81 @@
+:host {
+    height: calc(var(--style-height) * 1px);
+    -webkit-logical-height: calc(var(--style-height) * 1px);
+    width: calc(var(--style-width) * 1px);
+    line-height: calc(var(--style-lineHeight) * 1px);
+    margin: calc(var(--style-margin) * 1px);
+    margin-top: calc(var(--style-marginTop) * 1px);
+    margin-right: calc(var(--style-marginRight) * 1px);
+    margin-bottom: calc(var(--style-marginBottom) * 1px);
+    margin-left: calc(var(--style-marginLeft) * 1px);
+    padding: calc(var(--style-padding) * 1px);
+    padding-top: calc(var(--style-marginTop) * 1px);
+    padding-right: calc(var(--style-paddingRight) * 1px);
+    padding-bottom: calc(var(--style-paddingBottom) * 1px);
+    padding-left: calc(var(--style-paddingLeft) * 1px);
+
+    border-radius: calc(var(--style-borderRadius) * 1px);
+    border-top-left-radius: calc(var(--style-borderTopLeftRadius) * 1px);
+    border-top-right-radius: calc(var(--style-borderTopRightRadius) * 1px);
+    border-bottom-left-radius: calc(var(--style-borderBottomLeftRadius) * 1px);
+    border-bottom-right-radius: calc(var(--style-borderBottomRightRadius) * 1px);
+    display: var(--style-display);
+    position: var(--style-position);
+    left: calc(var(--style-left)*1px);
+    top: calc(var(--style-top)*1px);
+    right: calc(var(--style-right)*1px);
+    bottom: calc(var(--style-bottom)*1px);
+    background-color: var(--style-backgroundColor);
+    color: var(--style-color);
+    display: var(--style-display);
+    flex-direction: var(--style-flexDirection);
+    overflow: auto;
+}
+
+.menu {
+    position: absolute;
+    top: var(--menu-top);
+    left: var(--menu-left);
+    display: var(--menu-display);
+    width: 120px;
+    box-shadow: 1px 1px 1px gray;
+    background: #333;
+    color: #efefef;
+    border-radius: 5px;
+    overflow: hidden;
+    ul {
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        li {
+            height: 30px;
+            line-height: 30px;
+            width: 100%;
+            text-align: center;
+            cursor: pointer;
+            &:hover {
+                background: #000;
+                color: #fff;
+            }
+        }
+    }
+}
+
+.design-form {
+    position: fixed;
+    display: var(--form-display);
+    right: 0px;
+    bottom: 0px;
+    top: 0px;
+    background: #fff;
+    color: #333;
+    overflow: auto;
+    padding: 0px;
+    box-shadow: -2px 2px 9px #ccc;
+    animation: all .3s;
+    max-width: 300px;
+}

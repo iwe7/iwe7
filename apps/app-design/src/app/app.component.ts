@@ -3,12 +3,11 @@ import {
   OnInit,
   ViewContainerRef,
   ChangeDetectorRef,
-  Injector
+  Injector,
+  ViewChild,
+  AfterViewInit
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { LazyLoaderService } from 'iwe7/lazy-load';
-import { DesignBase } from 'iwe7/design';
-import { DesignAndPreviewService } from 'iwe7/design';
+import { Router, ActivatedRoute } from '@angular/router';
 let defaultColor = {
   hex: '#194d33',
   hsl: {
@@ -31,71 +30,56 @@ let defaultColor = {
   },
   a: 1
 };
+
+import { MeepoRender, RenderOptions } from 'meepo-render';
+import { Subject, BehaviorSubject, from } from 'rxjs';
+import { tap, map, switchMap, takeLast } from 'rxjs/operators';
+import { InitService } from './core/init.service';
+
+import { ElementsService } from './elements';
+import { CreateElementService } from './create-element';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent extends DesignBase<any> implements OnInit {
+export class AppComponent implements OnInit {
+  private opts: any;
+  private data: any = {};
+
+  @ViewChild('view', {
+    read: ViewContainerRef
+  })
+  view: ViewContainerRef;
   constructor(
     public injector: Injector,
-    public designAndPreview: DesignAndPreviewService
+    public _render: MeepoRender,
+    public _init: InitService,
+    public route: ActivatedRoute,
+    public elements: ElementsService,
+    public create: CreateElementService
   ) {
-    super(injector);
+    this.route.queryParams.subscribe(res => {
+      this.data['code'] = res.code;
+    });
   }
+
   ngOnInit() {
-    // 创建表单
-    this.designAndPreview.init('nz-layout');
-    super.ngOnInit();
+    let data: any = {
+      selector: 'nz-dnd',
+      inputs: [],
+      outputs: [],
+      children: {}
+    };
+    this._render.compiler(data, this.view).subscribe();
   }
-  setAntdView(e) {
-    // 更新视图数据
-    // this.designAndPreview.setViewRef(e);
-    this.loader
-      .load(
-        'nz-layout',
-        e,
-        {
-          selector: 'nz-layout',
-          width: 100,
-          height: 100,
-          backgroundColor: '#ccc',
-          direction: 'row',
-          allowScroll: true,
-          hasHeader: true,
-          hasFooter: false,
-          props: [
-            {
-              selector: 'nz-layout',
-              width: 25,
-              height: 100,
-              backgroundColor: '#333'
-            },
-            {
-              selector: 'nz-layout',
-              width: 50,
-              height: 100,
-              backgroundColor: '#efefef'
-            },
-            {
-              selector: 'nz-layout',
-              width: 25,
-              height: 100,
-              backgroundColor: '#333'
-            }
-          ]
-        },
-        evt => {
-          let { type, data } = evt;
-          if (type === 'change') {
-            console.log('数据更新了', data);
-          }
-        }
-      )
-      .subscribe();
+
+  createElement() {
+    this.view.clear();
+    this.create.render('imeepos.nz-input', this.view);
   }
-  setFormView(e) {
-    // 表单项目
-    this.designAndPreview.setFormRef(e);
+  manageElement() {
+    this.view.clear();
   }
 }

@@ -1,0 +1,3 @@
+<nz-tree [(ngModel)]="nodes" [nzCheckable]="true" [nzMultiple]="true" [nzDefaultExpandedKeys]="expandKeys" [nzDefaultCheckedKeys]="checkedKeys"
+  [nzDefaultSelectedKeys]="selectedKeys" [nzDefaultExpandAll]="expandDefault" (nzClick)="mouseAction('click',$event)" (nzDblClick)="mouseAction('dblclick', $event)">
+</nz-tree>

@@ -1,0 +1,5 @@
+<nz-upload [nzType]="nzType.value" [nzLimit]="nzLimit.value" [nzSize]="nzSize.value" [nzFileType]="nzFileType.value" [nzAccept]="nzAccept.value" [nzAction]="nzAction.value" [nzDisabled]="nzDisabled.value" [nzListType]="nzListType.value" [nzMultiple]="nzMultiple.value" [nzName]="nzName.value" [nzShowUploadList]="nzShowUploadList.value" [nzShowButton]="nzShowButton.value" [nzWithCredentials]="nzWithCredentials.value" [nzPreview]="nzPreview" [nzRemove]="nzRemove" [nzBeforeUpload]="nzBeforeUpload" [(nzFileList)]="nzFileList" (nzFileListChange)="change($event)">
+  <i class="anticon anticon-plus"></i>
+  <div class="ant-upload-text">{{text.value}}</div>
+  <ng-container #content></ng-container>
+</nz-upload>

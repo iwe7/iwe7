@@ -1,0 +1,19 @@
+<nz-input-group [nzSize]="nzSize.value" [nzCompact]="nzCompact.value" [nzAddOnBefore]="_addonBeforeRef" [nzAddOnAfter]="_addonAfterRef" [nzPrefix]="_prefixRef" [nzSuffix]="_suffixRef" [nzSearch]="nzSearch.value">
+  <input nz-input [nzSize]="nzSize.value" [disabled]="disabled.value" [attr.value]="value.value" #input [nzAutosize]="nzAutosize.value">
+</nz-input-group>
+
+<ng-template #addonBeforeRef>
+  <ng-container #addOnBefore></ng-container>
+</ng-template>
+
+<ng-template #addonAfterRef>
+  <ng-container #addOnAfter></ng-container>
+</ng-template>
+
+<ng-template #previewRef>
+  <ng-container #prefix></ng-container>
+</ng-template>
+
+<ng-template #suffixRef>
+  <ng-container #suffix></ng-container>
+</ng-template>
