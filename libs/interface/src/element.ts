@@ -30,6 +30,7 @@ import * as Transform from 'css3transform';
 
 let activeView: Element;
 import { Store, select } from '@ngrx/store';
+import * as appAction from 'iwe7/ngrx/src/modules/app/app.actions';
 export abstract class Element implements OnInit, OnDestroy {
   json: any;
   // 样式
@@ -122,13 +123,7 @@ export abstract class Element implements OnInit, OnDestroy {
   }
   // 更新样式
   _updateStyles(obj) {
-    this.styles = this.styles || {};
-    this.styles = {
-      ...this.styles,
-      ...obj
-    };
-    this._setStyles();
-    this.update$.next(this.styles);
+    this._store.dispatch(new appAction.SetAppStyleAction(obj));
   }
   // 设置样式
   _setStyles() {

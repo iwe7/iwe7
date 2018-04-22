@@ -1,15 +1,16 @@
 import { Action } from '@ngrx/store';
 
-export const updateChildren = '[app]updateChildren';
+export const setAppStyle = '[app]setAppStyle';
 export const updateInputs = '[app]updateInputs';
 
 // 更新子级
-export class UpdateChildrenAction implements Action {
-  readonly type = updateChildren;
+export class SetAppStyleAction implements Action {
+  readonly type = setAppStyle;
+  constructor(public data: any) {}
 }
 // 更新inputs
 export class UpdateInputsAction implements Action {
   readonly type = updateInputs;
 }
 
-export type AppActionsUnion = UpdateChildrenAction | UpdateInputsAction;
+export type AppActionsUnion = SetAppStyleAction | UpdateInputsAction;

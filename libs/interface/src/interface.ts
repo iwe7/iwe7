@@ -49,17 +49,7 @@ export interface ElementTable {
 
 export interface ElementInputsOption {}
 
-// 输入配置项目
-export interface ElementInputs {
-  // 元素样式
-  styles?: { [key: string]: string };
-  // 元素样式类
-  classes?: { [key: string]: boolean };
-  // 元素主题
-  theme?: string;
-  // 其他配置项目
-  [key: string]: any;
-}
+export interface ElementInputs {}
 
 // 输出事件类型
 export type ElementOutputsType =
