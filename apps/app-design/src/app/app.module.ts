@@ -13,7 +13,7 @@ import { CoreModule } from './core/core.module';
 import { LazyModule } from './lazy/lazy.module';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { BaseModule } from 'iwe7/interface';
-
+import { NgrxModule } from 'iwe7/ngrx';
 @NgModule({
   imports: [
     BrowserModule,
@@ -27,7 +27,8 @@ import { BaseModule } from 'iwe7/interface';
     LazyModule,
     LayoutModule,
     OverlayModule,
-    BaseModule
+    BaseModule,
+    NgrxModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

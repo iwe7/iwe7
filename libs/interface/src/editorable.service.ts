@@ -27,6 +27,10 @@ export class EditorableService {
   quick$: Observable<any>;
   // 选择元素
   ele: Element;
+  // 复制的元素
+  copyElement: any;
+  // 当前激活的元素
+  activeElement: any;
   constructor(@Inject(DOCUMENT) private doc: HTMLDocument) {
     this.createSelectDiv();
     this.ctrlQuick();
@@ -34,6 +38,10 @@ export class EditorableService {
 
   saveElement(id, item) {
     elementMap.set(id, item);
+  }
+
+  getElement(id) {
+    return elementMap.get(id);
   }
 
   setSelectElement(ele?: Element) {
@@ -127,7 +135,6 @@ export class EditorableService {
       );
     }
   }
-
   // ctrl+s保存
   ctrlQuick() {
     this.quick$ = fromEvent(document, 'keydown').pipe(
@@ -199,7 +206,6 @@ export class EditorableService {
       })
     );
   }
-
   getSelected() {
     return this.selected;
   }

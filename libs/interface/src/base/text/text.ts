@@ -27,6 +27,12 @@ export class BaseText extends Element implements OnInit, OnDestroy {
   copy$: Subject<any> = new Subject();
   constructor(view: ViewContainerRef) {
     super(view);
+    this.scale$.subscribe(res => {
+      this._updateStyles({
+        ['line-height']: res.height + 'px',
+        [`text-align`]: 'center'
+      });
+    });
   }
 
   @HostListener('dblclick')

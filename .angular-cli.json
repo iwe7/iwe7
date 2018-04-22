@@ -418,6 +418,13 @@
       "tags": []
     },
     {
+      "name": "ngrx",
+      "root": "libs/ngrx/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "pipes",
       "root": "libs/pipes/src",
       "test": "../../../test.js",

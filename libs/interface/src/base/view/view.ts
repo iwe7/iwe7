@@ -13,7 +13,6 @@ export class BaseView extends Element implements OnInit {
     this._updateStyles({
       [`background-color`]: this._randomColor()
     });
-    console.log(this.styles);
     super.ngOnInit();
   }
 }
