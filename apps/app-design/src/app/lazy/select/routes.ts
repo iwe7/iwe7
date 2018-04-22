@@ -6,6 +6,10 @@ import { NgModule } from '@angular/core';
       {
         path: 'select-test',
         loadChildren: './select-test/select-test.module#SelectTestModule'
+      },
+      {
+        path: 'select-forms',
+        loadChildren: './select-forms/select-forms.module#SelectFormsModule'
       }
     ])
   ],

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from 'iwe7/shared';
-import { SelectTest } from './select-test';
+import { SelectElement } from './select-element';
 import { NzPopoverModule } from 'iwe7/antd/popover';
 import { NzButtonModule } from 'iwe7/antd/button';
 import { NzMenuModule } from 'iwe7/antd/menu';
@@ -22,8 +22,8 @@ import { NzInputModule } from 'iwe7/antd/input';
     NzGridModule,
     NzInputModule
   ],
-  declarations: [SelectTest],
-  entryComponents: [SelectTest]
+  declarations: [SelectElement],
+  entryComponents: [SelectElement]
 })
 export class SelectElementModule {
   get(key: string) {

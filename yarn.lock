@@ -2014,6 +2014,10 @@ css-what@2.1:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/css-what/-/css-what-2.1.0.tgz#9467d032c38cfaefb9f2d79501253062f87fa1bd"
 
+css3transform@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/css3transform/-/css3transform-1.1.9.tgz#826c9bd43adb06d22994e83ae6b7038cbfe0bb8c"
+
 cssauron@^1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/cssauron/-/cssauron-1.4.0.tgz#a6602dff7e04a8306dc0db9a551e92e8b5662ad8"
@@ -4960,9 +4964,9 @@ media-typer@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/media-typer/-/media-typer-0.3.0.tgz#8710d7af0aa626f8fffa1ce00168545263255748"
 
-meepo-render@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/meepo-render/-/meepo-render-1.2.6.tgz#77e14f1a16c68810be6fd2a0767663013bf876e4"
+meepo-render@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/meepo-render/-/meepo-render-1.2.9.tgz#a2e1ba5a67ecd94fa45fd2cbcb8def53c36cdd38"
   dependencies:
     tslib "^1.9.0"
 
@@ -7581,6 +7585,16 @@ term-size@^1.2.0:
   resolved "https://registry.yarnpkg.com/term-size/-/term-size-1.2.0.tgz#458b83887f288fc56d6fffbfad262e26638efa69"
   dependencies:
     execa "^0.7.0"
+
+three.js@^0.77.1:
+  version "0.77.1"
+  resolved "https://registry.yarnpkg.com/three.js/-/three.js-0.77.1.tgz#07858a8749e4b627a31083252a2d987776cca32a"
+  dependencies:
+    three "0.77.0"
+
+three@0.77.0:
+  version "0.77.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.77.0.tgz#8b0b1b00047689ceaa020d480a562ca60d87ff37"
 
 through2@^2.0.0:
   version "2.0.3"

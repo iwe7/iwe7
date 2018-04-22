@@ -12,6 +12,8 @@ import { SharedModule } from 'iwe7/shared';
 import { CoreModule } from './core/core.module';
 import { LazyModule } from './lazy/lazy.module';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { BaseModule } from 'iwe7/interface';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -24,7 +26,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
     // 懒加载模块
     LazyModule,
     LayoutModule,
-    OverlayModule
+    OverlayModule,
+    BaseModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

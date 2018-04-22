@@ -70,14 +70,21 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.height = this.ele.nativeElement.clientHeight;
     let data: any = {
-      selector: 'select-test',
-      inputs: [],
+      selector: 'base-view',
+      inputs: {
+        text: 'text0'
+      },
       outputs: ['change$'],
-      children: {}
+      children: {
+        content: {
+          selector: 'base-view'
+        }
+      }
     };
     this._render.compiler(data, this.view).subscribe(res => {
       console.log(res);
     });
+    // this.createElement();
   }
 
   createElement() {

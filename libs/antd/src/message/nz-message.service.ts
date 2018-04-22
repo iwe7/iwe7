@@ -89,7 +89,9 @@ export class NzMessageBaseService<
   }
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NzMessageService extends NzMessageBaseService<
   NzMessageContainerComponent,
   NzMessageData,

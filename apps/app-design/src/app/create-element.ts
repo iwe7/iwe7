@@ -16,7 +16,7 @@ export class CreateElementService {
         value: 'elements/create.empty'
       }
     },
-    outputs: ['submit$'],
+    outputs: ['submit$', 'change$'],
     children: {}
   };
   constructor(private init: InitService, private _render: MeepoRender) {}
@@ -25,7 +25,7 @@ export class CreateElementService {
 
   render(code: string, setting: any, view?: any) {
     this.forms.inputs.items.value = [];
-    let sub = this.init
+    this.init
       .getElements({
         type: code
       })
@@ -54,11 +54,15 @@ export class CreateElementService {
         tap((res: any) => {
           this.createField('number', 'price', '价格', res, '元');
         }),
-        // settings
-        map((res: any) => res.setting),
+
         // 父容器
         tap(res => {
           this.createField('select', 'father', '父容器', res, [
+            {
+              title: '自身',
+              value: null,
+              icon: 'anticon anticon-user'
+            },
             {
               title: '展示',
               value: 'nz-layout',
@@ -111,6 +115,19 @@ export class CreateElementService {
             }
           ]);
         }),
+        map((res: any) => res.setting),
+        // inputs
+        tap((res: any) => {
+          this.createField('inputs', 'inputs', '设置项目', res);
+        }),
+        // outputs
+        tap((res: any) => {
+          this.createField('outputs', 'outputs', '输出项目', res);
+        }),
+        // children
+        tap((res: any) => {
+          this.createField('children', 'children', '内部元素', res);
+        }),
         tap(res => console.log(res)),
         switchMap(res => {
           return this._render.compiler(this.forms, setting);
@@ -120,7 +137,7 @@ export class CreateElementService {
         tap(res => console.log(res))
       )
       .subscribe(res => {
-        sub.unsubscribe();
+        // sub.unsubscribe();
       });
   }
 
@@ -156,6 +173,9 @@ export class CreateElementService {
     if (key === 'input') {
       return this.createInput(value);
     }
+    if (key === 'string') {
+      return this.createInput(value);
+    }
     if (key === 'textarea') {
       return this.createTextarea(value);
     }
@@ -165,27 +185,83 @@ export class CreateElementService {
     if (key === 'select') {
       return this.createSelect(value, setting);
     }
+    if (key === 'boolean') {
+      return this.createBoolean(value, setting);
+    }
+    if (key === 'inputs') {
+      return this.createInputs(value);
+    }
+  }
+
+  private createBoolean(value, setting) {
+    return {
+      selector: 'nz-switch',
+      inputs: {
+        value: {
+          value: value
+        }
+      },
+      outputs: ['change$'],
+      children: {}
+    };
+  }
+
+  private createInputs(inputs) {
+    let opts = {
+      selector: 'nz-form',
+      inputs: {
+        items: {
+          value: []
+        },
+        footer: null
+      },
+      outputs: ['change$']
+    };
+    if (inputs) {
+      for (let input in inputs) {
+        let item = inputs[input];
+        let com = this.getFieldByType(item.type, item.value, item.options);
+        opts.inputs.items.value.push({
+          label: {
+            value: item.title || input
+          },
+          name: {
+            value: input
+          },
+          value: {
+            value: item.value
+          },
+          children: com
+        });
+      }
+    }
+    return opts;
   }
 
   private createSelect(value: any, opts: any) {
     let options = [];
     if (opts) {
-      opts.map(res => {
-        options.push({
-          nzLabel: {
-            value: res.title
-          },
-          type: {
-            value: 'option'
-          },
-          nzValue: {
-            value: res.value
-          },
-          icon: {
-            value: res.icon
-          }
+      opts = opts || [];
+      try {
+        opts.map(res => {
+          options.push({
+            nzLabel: {
+              value: res.title
+            },
+            type: {
+              value: 'option'
+            },
+            nzValue: {
+              value: res.value
+            },
+            icon: {
+              value: res.icon
+            }
+          });
         });
-      });
+      } catch (err) {
+        console.log(opts);
+      }
     }
     return {
       selector: 'nz-select',

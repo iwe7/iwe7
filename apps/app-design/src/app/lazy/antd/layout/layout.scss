@@ -6,3 +6,13 @@
 nz-layout {
     height: 100%;
 }
+
+nz-header {
+    display: flex;
+    .header-left {
+        flex: 1;
+    }
+    .header-right {
+        margin: 0 20px;
+    }
+}

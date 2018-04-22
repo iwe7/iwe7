@@ -1,0 +1,98 @@
+.top-left,
+.top-right,
+.bottom-left,
+.bottom-right,
+.top-center,
+.bottom-center,
+.left-center,
+.right-center,
+.center-center {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+    border: none;
+    transform: translate(-50%, -50%) rotate(0rad) scaleX(1) scaleY(1);
+    transform-origin: 50% 50% 0px;
+    cursor: nwse-resize;
+}
+
+.center-center {
+    top: 50%;
+    left: 50%;
+    cursor: move;
+}
+
+.top-left {
+    cursor: nwse-resize;
+}
+
+.left-center {
+    top: 50%;
+    cursor: ew-resize;
+}
+
+.right-center {
+    top: 50%;
+    right: -16px;
+    cursor: ew-resize;
+}
+
+.top-center {
+    left: 50%;
+    cursor: ns-resize;
+}
+
+.top-right {
+    right: -16px;
+    cursor: nesw-resize;
+}
+
+.bottom-left {
+    left: 0px;
+    bottom: -16px;
+    cursor: nesw-resize;
+}
+
+.bottom-center {
+    bottom: -16px;
+    left: 50%;
+    cursor: ns-resize;
+}
+
+.bottom-right {
+    right: -16px;
+    bottom: -16px;
+    cursor: nwse-resize;
+}
+
+.point {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(0, 0, 0);
+    transform: translate(0%, 0%) rotate(0rad) scaleX(1) scaleY(1);
+    transform-origin: 0% 0% 0px;
+    left: 6px;
+    top: 6px;
+}
+
+:host {
+    display: block;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: transparent;
+    position: absolute;
+    cursor: pointer;
+    transform: translate(0%, 0%) rotate(0rad) scaleX(1) scaleY(1);
+    transform-origin: 0% 0% 0px;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}

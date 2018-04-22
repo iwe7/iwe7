@@ -1,0 +1,5 @@
+<nz-collapse>
+  <nz-collapse-panel *ngFor="let panel of panels" [nzHeader]="panel.title">
+    <ng-container (getView)="setView($event,panel)"></ng-container>
+  </nz-collapse-panel>
+</nz-collapse>

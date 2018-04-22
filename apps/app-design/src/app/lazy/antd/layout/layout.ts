@@ -27,5 +27,10 @@ export class LayoutComponent implements OnInit {
   })
   content: ViewContainerRef;
   isCollapsed: boolean = false;
+
+
+  sliders: any[] = [];
+  headers: any[] = [];
+  user: any[] = [];
   ngOnInit() {}
 }

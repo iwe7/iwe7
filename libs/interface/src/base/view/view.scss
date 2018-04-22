@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: flex-start;
+    flex-flow: column nowrap;
+    place-content: flex-start;
+}
+
+base-view {
+    border: 1px dashed rgb(66, 66, 66);
+    left: -1px;
+    top: -1px;
+    display: flex;
+    width: 100px;
+    height: 100px;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    place-content: flex-start;
+    overflow: visible;
+    flex: 0 0 auto;
+}

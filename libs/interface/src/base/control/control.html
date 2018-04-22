@@ -1,0 +1,29 @@
+<div class="container" #control>
+  <div class="top-left" #topLeft>
+    <div class="point"></div>
+  </div>
+  <div class="top-right" #topRight [style.left.px]="width - 2">
+    <div class="point"></div>
+  </div>
+  <div class="bottom-left" #bottomLeft [style.top.px]="height">
+    <div class="point"></div>
+  </div>
+  <div class="bottom-right" #bottomRight [style.top.px]="height" [style.left.px]="width-2">
+    <div class="point"></div>
+  </div>
+  <div class="top-center" #topCenter>
+    <div class="point"></div>
+  </div>
+  <div class="bottom-center" #bottomCenter>
+    <div class="point"></div>
+  </div>
+  <div class="left-center" #leftCenter>
+    <div class="point"></div>
+  </div>
+  <div class="right-center" #rightCenter>
+    <div class="point"></div>
+  </div>
+  <div class="center-center" #centerCenter>
+    <div class="point"></div>
+  </div>
+</div>

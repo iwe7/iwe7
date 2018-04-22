@@ -36,8 +36,7 @@ ul {
 
 :host {
     display: block;
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
     .content {
         flex: 1;
     }
@@ -47,7 +46,14 @@ ul {
     width: 320px;
 }
 
-
+[baseText] {
+    width: 100px;
+    height: 100px;
+    background: red;
+    text-align: center;
+    line-height: 100px;
+    color: #fff;
+}
 
 .section {
     background-position: 50%;

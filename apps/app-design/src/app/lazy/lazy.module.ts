@@ -8,6 +8,7 @@ import { DevicesRoutesModule } from './devices/routes';
 import { DesignRoutesModule } from './design/routes';
 import { SystemRoutesModule } from './system/routes';
 import { SelectRoutesModule } from './select/routes';
+import { ThreeRoutesModule } from './three/routes';
 
 import { AntdRoutesModule } from './antd/routes';
 import { NzSelectModule } from 'iwe7/antd/select';
@@ -23,7 +24,8 @@ import { NzButtonModule } from 'iwe7/antd/button';
     NzSelectModule,
     NzButtonModule,
     SystemRoutesModule,
-    SelectRoutesModule
+    SelectRoutesModule,
+    ThreeRoutesModule
   ],
   declarations: []
 })

@@ -178,6 +178,10 @@ import { NgModule } from '@angular/core';
       {
         path: 'nz-dnd',
         loadChildren: './dnd/dnd.module#DndModule'
+      },
+      {
+        path: 'nz-collapse',
+        loadChildren: './collapse/collapse.module#CollapseModule'
       }
     ])
   ]

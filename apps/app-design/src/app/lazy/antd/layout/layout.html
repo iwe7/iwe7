@@ -30,11 +30,21 @@
   </nz-sider>
   <nz-layout>
     <nz-header style="background: #fff; padding:0;">
-      <ul nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 64px;">
+      <ul class="header-left" nz-menu [nzTheme]="'light'" [nzMode]="'horizontal'" style="line-height: 64px;">
         <li nz-menu-item>nav 1</li>
         <li nz-menu-item>nav 2</li>
         <li nz-menu-item>nav 3</li>
       </ul>
+      <div class="header-right">
+        <nz-popover [nzPlacement]="'bottomRight'">
+          <button nz-button nzClear nz-popover>下右</button>
+          <ng-template #nzTemplate>
+            <nz-card nzLoading nzTitle="Card title">
+              Whatever content
+            </nz-card>
+          </ng-template>
+        </nz-popover>
+      </div>
     </nz-header>
     <nz-content>
       <ng-container #content></ng-container>

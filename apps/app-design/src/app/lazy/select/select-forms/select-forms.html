@@ -1,0 +1,8 @@
+<nz-popover nzPlacement="bottomLeft">
+  <button nz-button nz-popover>{{label}}</button>
+  <ng-template #nzTemplate>
+    <nz-button-group>
+      <button nz-button (click)="onClick(item)" *ngFor="let item of list">文字</button>
+    </nz-button-group>
+  </ng-template>
+</nz-popover>
