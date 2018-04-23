@@ -9,9 +9,15 @@ import {
   ElementRef
 } from '@angular/core';
 import { MeepoRender } from 'meepo-render';
-import { Subject, BehaviorSubject, from } from 'rxjs';
-import { tap, map, switchMap, takeLast, debounceTime } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { Subject, BehaviorSubject, from, merge, Observable } from 'rxjs';
+import {
+  tap,
+  map,
+  switchMap,
+  takeLast,
+  debounceTime,
+  take
+} from 'rxjs/operators';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -22,18 +28,20 @@ export class AppComponent implements OnInit {
     read: ViewContainerRef
   })
   view: ViewContainerRef;
-  constructor(public _render: MeepoRender, public store: Store<any>) {}
-  height: number;
+  constructor(public _render: MeepoRender, public cd: ChangeDetectorRef) {}
   ngOnInit() {
-    this.store
-      .pipe(
-        map(res => res.app),
-        switchMap(res => {
-          return this._render.compiler(res, this.view);
-        }),
-        // tap
-        tap(res => console.log(res))
-      )
-      .subscribe();
+    let opt: any = {
+      selector: 'base-text',
+      inputs: {
+        text: '222'
+      }
+    };
+    let i = 0;
+    setInterval(() => {
+      i++;
+      opt.inputs.text += i;
+      this.cd.markForCheck();
+    }, 1000);
+    this._render.compiler(opt, this.view).subscribe();
   }
 }

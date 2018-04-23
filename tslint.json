@@ -5,7 +5,7 @@
   ],
   "rules": {
     "arrow-return-shorthand": true,
-    "callable-types": true,
+    "callable-types": false,
     "class-name": true,
     "forin": false,
     "deprecation": {

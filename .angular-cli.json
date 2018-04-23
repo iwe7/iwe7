@@ -116,98 +116,6 @@
       "tags": []
     },
     {
-      "name": "test",
-      "root": "apps/test/src",
-      "outDir": "dist/apps/test",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "../../../test.js",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "../../../tsconfig.spec.json",
-      "prefix": "",
-      "styles": [
-        "styles.scss"
-      ],
-      "scripts": [],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
-      },
-      "tags": []
-    },
-    {
-      "name": "test-browser",
-      "root": "apps/test-browser/src",
-      "outDir": "dist/apps/test-browser",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "../../../test.js",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "../../../tsconfig.spec.json",
-      "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
-      "scripts": [],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
-      },
-      "tags": []
-    },
-    {
-      "name": "test2",
-      "root": "apps/test2/src",
-      "outDir": "dist/apps/test2",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
-      "index": "index.html",
-      "main": "main.ts",
-      "polyfills": "polyfills.ts",
-      "test": "../../../test.js",
-      "tsconfig": "tsconfig.app.json",
-      "testTsconfig": "../../../tsconfig.spec.json",
-      "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
-      "scripts": [],
-      "environmentSource": "environments/environment.ts",
-      "environments": {
-        "dev": "environments/environment.ts",
-        "prod": "environments/environment.prod.ts"
-      },
-      "tags": []
-    },
-    {
-      "name": "align",
-      "root": "libs/align/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "animations",
-      "root": "libs/animations/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
       "name": "antd",
       "root": "libs/antd/src",
       "test": "../../../test.js",
@@ -215,134 +123,8 @@
       "tags": []
     },
     {
-      "name": "antd-extra",
-      "root": "libs/antd-extra/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "browser",
-      "root": "libs/browser/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "cache",
-      "root": "libs/cache/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "canvas",
-      "root": "libs/canvas/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "claygl",
-      "root": "libs/claygl/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "colors",
-      "root": "libs/colors/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "core",
-      "root": "libs/core/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "countdown",
-      "root": "libs/countdown/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "d3",
-      "root": "libs/d3/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "delon",
-      "root": "libs/delon/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "design",
-      "root": "libs/design/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "design-antd",
-      "root": "libs/design-antd/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "design-elements",
-      "root": "libs/design-elements/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "design-helper",
-      "root": "libs/design-helper/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "design-libs",
-      "root": "libs/design-libs/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "design-pages",
-      "root": "libs/design-pages/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "design-view",
-      "root": "libs/design-view/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "design-views",
-      "root": "libs/design-views/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "directives",
-      "root": "libs/directives/src",
+      "name": "base",
+      "root": "libs/base/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []
@@ -355,43 +137,8 @@
       "tags": []
     },
     {
-      "name": "elements",
-      "root": "libs/elements/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "form",
-      "root": "libs/form/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
       "name": "fullpage",
       "root": "libs/fullpage/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "hoodle",
-      "root": "libs/hoodle/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "i18n",
-      "root": "libs/i18n/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "icss",
-      "root": "libs/icss/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []
@@ -404,20 +151,6 @@
       "tags": []
     },
     {
-      "name": "lazy-load",
-      "root": "libs/lazy-load/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "math",
-      "root": "libs/math/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
       "name": "ngrx",
       "root": "libs/ngrx/src",
       "test": "../../../test.js",
@@ -425,99 +158,8 @@
       "tags": []
     },
     {
-      "name": "pipes",
-      "root": "libs/pipes/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "platform-browser",
-      "root": "libs/platform-browser/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "platform-browser-dynamic",
-      "root": "libs/platform-browser-dynamic/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "rxjs",
-      "root": "libs/rxjs/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "shared",
-      "root": "libs/shared/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "shared",
-      "root": "libs/shared/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "simple",
-      "root": "libs/simple/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "snake",
-      "root": "libs/snake/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "sortable",
-      "root": "libs/sortable/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "stateless",
-      "root": "libs/stateless/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "themes",
-      "root": "libs/themes/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "touch",
-      "root": "libs/touch/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "util",
-      "root": "libs/util/src",
-      "test": "../../../test.js",
-      "appRoot": "",
-      "tags": []
-    },
-    {
-      "name": "welcome",
-      "root": "libs/welcome/src",
+      "name": "test",
+      "root": "libs/test/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

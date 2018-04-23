@@ -8,12 +8,12 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from './layout/layout.module';
-import { SharedModule } from 'iwe7/shared';
 import { CoreModule } from './core/core.module';
 import { LazyModule } from './lazy/lazy.module';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { BaseModule } from 'iwe7/interface';
-import { NgrxModule } from 'iwe7/ngrx';
+import { BaseModule } from 'iwe7/base';
+import { SharedModule } from 'iwe7/shared';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -27,8 +27,7 @@ import { NgrxModule } from 'iwe7/ngrx';
     LazyModule,
     LayoutModule,
     OverlayModule,
-    BaseModule,
-    NgrxModule
+    BaseModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],
