@@ -11,6 +11,7 @@ import { SelectRoutesModule } from './select/routes';
 import { ThreeRoutesModule } from './three/routes';
 
 import { AntdRoutesModule } from './antd/routes';
+
 import { NzSelectModule } from 'iwe7/antd/select';
 import { NzButtonModule } from 'iwe7/antd/button';
 
@@ -19,7 +20,6 @@ import { NzButtonModule } from 'iwe7/antd/button';
     CommonModule,
     LayoutRoutesModule,
     DevicesRoutesModule,
-    // DesignRoutesModule,
     AntdRoutesModule,
     NzSelectModule,
     NzButtonModule,

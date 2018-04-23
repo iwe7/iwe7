@@ -10,7 +10,9 @@ import { RouterModule } from '@angular/router';
 import { LayoutModule } from './layout/layout.module';
 import { CoreModule } from './core/core.module';
 import { LazyModule } from './lazy/lazy.module';
+
 import { OverlayModule } from '@angular/cdk/overlay';
+
 import { BaseModule } from 'iwe7/base';
 import { SharedModule } from 'iwe7/shared';
 

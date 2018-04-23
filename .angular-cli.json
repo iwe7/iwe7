@@ -158,6 +158,13 @@
       "tags": []
     },
     {
+      "name": "render",
+      "root": "libs/render/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "test",
       "root": "libs/test/src",
       "test": "../../../test.js",
