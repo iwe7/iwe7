@@ -1,0 +1,29 @@
+:host {
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    background: #333;
+    color: gray;
+}
+
+ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    li {
+        line-height: 30px;
+        height: 30px;
+        padding: 0 20px;
+        min-width: 120px;
+        cursor: pointer;
+        &:hover {
+            background: #000;
+            color: #fff;
+        }
+    }
+}

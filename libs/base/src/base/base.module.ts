@@ -21,6 +21,10 @@ import { NzMessageModule } from 'iwe7/antd/message';
       {
         path: 'base-context-menu',
         loadChildren: './context-menu/context-menu.module#BaseContextMenuModule'
+      },
+      {
+        path: 'base-list',
+        loadChildren: './list/list.module#BaseListModule'
       }
     ])
   ]

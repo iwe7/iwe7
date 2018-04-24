@@ -8,7 +8,7 @@ import {
   AfterViewInit,
   ElementRef
 } from '@angular/core';
-import { MeepoRender } from 'meepo-render';
+import { MeepoRender } from 'iwe7/render';
 import { Subject, BehaviorSubject, from, merge, Observable } from 'rxjs';
 import {
   tap,
@@ -28,20 +28,24 @@ export class AppComponent implements OnInit {
     read: ViewContainerRef
   })
   view: ViewContainerRef;
+  opt: any = {
+    selector: 'base-view',
+    outputs: {
+      setRoot$: 'setroot'
+    }
+  };
   constructor(public _render: MeepoRender, public cd: ChangeDetectorRef) {}
   ngOnInit() {
-    let opt: any = {
-      selector: 'base-text',
-      inputs: {
-        text: '222'
+    this.init();
+  }
+
+  init() {
+    this.view.clear();
+    this._render.compiler(this.opt, this.view).subscribe((res: any) => {
+      if (res.type === 'setroot') {
+        this.opt = res.data;
+        this.init();
       }
-    };
-    let i = 0;
-    setInterval(() => {
-      i++;
-      opt.inputs.text += i;
-      this.cd.markForCheck();
-    }, 1000);
-    this._render.compiler(opt, this.view).subscribe();
+    });
   }
 }

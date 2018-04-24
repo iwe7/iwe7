@@ -195,7 +195,7 @@ export class MeepoRender {
     );
   }
   // 移除
-  remove(id: number) {
+  remove(id: any) {
     if (id) {
       let map = this.instanceMap.get(id);
       map.comp.destroy();
@@ -205,14 +205,23 @@ export class MeepoRender {
   }
   // 添加
   add(item: RenderOptions) {
+    console.log(item);
     let father = this.instanceMap.get(item.fid);
+    console.log(father);
     let sub;
     if (father) {
       sub = this.compiler(item, father.instance[item.outlet]);
+      sub.subscribe()
     } else {
       sub = this.compiler(item, this.defaultView);
+      sub.subscribe();
     }
     return sub;
+  }
+  // 临时添加
+  addTmp(opt: RenderOptions, view: ViewContainerRef) {
+    opt.$loki = opt.selector;
+    return this.compiler(opt, view);
   }
   update(json: any) {
     let map = this.instanceMap.get(json.id);

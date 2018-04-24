@@ -19,7 +19,16 @@ export class MeepoRenderManager {
     return this.loki.get(id);
   }
   // 添加
-  add(from: RenderOptions, to?: RenderOptions) {
+  add(from: RenderOptions): RenderOptions {
+    // 查找重复
+    if (from.fid === 0) {
+      let lists = this.loki.where(item => {
+        return item.fid === 0 && item.selector === from.selector;
+      });
+      if (lists.length > 0) {
+        return;
+      }
+    }
     let add = this.loki.insert(from);
     this.loki.serialize();
     return add;
@@ -42,16 +51,14 @@ export class MeepoRenderManager {
       return item.fid === 0;
     });
     top = top || [];
-    top.map(t => (t.id = t.$loki));
     return top;
   }
 
-  getChild(fid: number){
+  getChild(fid: number) {
     let top = this.loki.where(item => {
       return item.fid === fid;
     });
     top = top || [];
-    top.map(t => (t.id = t.$loki));
     return top;
   }
 

@@ -45,7 +45,7 @@ interface MouseTouchObserverConfig {
   pluckKey: string[];
   filter?(e: Event): boolean;
   startPlucked$?: Observable<number>;
-  end$?: Observable<number>;
+  end$?: Observable<any>;
   moveResolved$?: Observable<number>;
 }
 

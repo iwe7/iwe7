@@ -1,6 +1,6 @@
 // 结构
 export interface KeyValue {
-  [index: string]: string;
+  [index: string]: any;
 }
 // 插座名 视图参数
 export interface RenderChildren {
@@ -14,9 +14,9 @@ export interface RenderOptions {
   selector: string;
   inputs: KeyValue;
   outputs: RenderOutput;
-  outlet: string,
+  outlet: string;
   // 上级id 0表示最顶级
-  fid?: number;
-  $loki?: number;
+  fid?: any;
+  $loki?: any;
   title?: string;
 }

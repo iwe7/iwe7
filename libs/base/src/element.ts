@@ -24,11 +24,11 @@ import {
   ViewChild
 } from '@angular/core';
 import { NzMessageService } from 'iwe7/antd/message';
-import { MeepoRender } from 'meepo-render';
+import { MeepoRender, MeepoRenderManager, RenderOptions } from 'iwe7/render';
 import { DOCUMENT } from '@angular/common';
 import * as Transform from 'css3transform';
 let activeView: Element;
-
+import { BaseInstallService } from './base/install';
 export abstract class Element implements OnInit, OnDestroy {
   json: any;
   // 样式
@@ -53,6 +53,7 @@ export abstract class Element implements OnInit, OnDestroy {
   @Output() scale$: Subject<any> = new Subject();
   // 添加内容回调
   @Output() addChild$: Subject<any> = new Subject();
+  @Output() setRoot$: Subject<any> = new Subject();
   // 默认内容区域
   @ViewChild('content', {
     read: ViewContainerRef
@@ -68,6 +69,7 @@ export abstract class Element implements OnInit, OnDestroy {
   _injector: Injector;
   // 渲染器
   _mrender: MeepoRender;
+  _mmanger: MeepoRenderManager;
 
   _message: NzMessageService;
 
@@ -87,6 +89,8 @@ export abstract class Element implements OnInit, OnDestroy {
     this._message = this._injector.get(NzMessageService, null);
     this._doc = this._injector.get(DOCUMENT, null);
     this._editable = this._injector.get(EditorableService, null);
+    let install = this._injector.get(BaseInstallService, null);
+    this._mmanger = this._injector.get(MeepoRenderManager, null);
   }
 
   // 初始化组件
@@ -165,6 +169,14 @@ export abstract class Element implements OnInit, OnDestroy {
               top: res.y,
               list: [
                 {
+                  title: '新建',
+                  cmd: 'element.new'
+                },
+                {
+                  title: '所有元素',
+                  cmd: 'element.list'
+                },
+                {
                   title: '复制',
                   cmd: 'copy'
                 },
@@ -181,6 +193,10 @@ export abstract class Element implements OnInit, OnDestroy {
                   cmd: 'insert'
                 },
                 {
+                  title: '另存为',
+                  cmd: 'save.other'
+                },
+                {
                   title: '选择上级',
                   cmd: 'select.father'
                 },
@@ -190,19 +206,33 @@ export abstract class Element implements OnInit, OnDestroy {
                 }
               ]
             },
-            outputs: ['click$'],
-            children: {}
+            outputs: {
+              click$: 'click'
+            }
           };
           this._mrender
-            .compiler(opt, this.view)
+            .addTmp(opt, this.view)
             .pipe(
               // tap
               map((res: any) => res.data.cmd),
-              tap(res => this.view.clear()),
+              tap(res => {
+                this._mrender.remove(opt.selector);
+              }),
               // 插入
               tap((res: any) => {
                 if (res === 'insert') {
                   this.insertView();
+                }
+              }),
+              // 新建
+              tap((res: any) => {
+                if (res === 'new') {
+                  this.addView();
+                }
+              }),
+              tap((res: any) => {
+                if (res === 'element.list') {
+                  this.showElementList();
                 }
               }),
               // 选择上级
@@ -254,52 +284,53 @@ export abstract class Element implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  insertView(viewData?: any) {
+  addView() {}
+
+  showElementList() {
+    let top = this._mmanger.getTop();
+    let opt: RenderOptions = {
+      selector: 'base-list',
+      inputs: {
+        list: top
+      },
+      outputs: {
+        click$: 'click'
+      },
+      outlet: 'content',
+      fid: 0
+    };
+    this._mrender.addTmp(opt, this.content).subscribe((res: any) => {
+      this._mrender.remove(opt.selector);
+      this.setRoot$.next(res.data);
+    });
+  }
+
+  insertView() {
     // 插入
-    viewData = viewData || {
+    if (!this.id) {
+      this._message.error('请先新建一个组件');
+      return;
+    }
+    let viewData = {
       selector: 'base-view',
       inputs: {
         styles: {
           width: '100px',
-          height: '100px'
+          height: '100px',
+          ['background-color']: 'rgba(0,0,0,.7)'
         }
       },
-      outputs: ['change$', 'update$'],
-      children: {
-        content: []
-      }
+      outputs: {
+        change$: 'change',
+        update$: 'update'
+      },
+      outlet: 'content',
+      fid: this.id
     };
-    let { children } = this.json;
-    let { content } = children;
-    if (content) {
-      if (!Array.isArray(content)) {
-        content = [content];
-      }
-      content.push(viewData);
-    }
-    children = {
-      ...children,
-      ...{
-        content: content
-      }
-    };
-    this.json = {
-      ...this.json,
-      children: children
-    };
-    this._mrender
-      .compiler(
-        this.json.children.content[this.json.children.content.length - 1],
-        this.content
-      )
-      .pipe(
-        tap((res: any) => {
-          if (res.type === 'update$') {
-            this.update$.next();
-          }
-        })
-      )
-      .subscribe();
+    this._mmanger.add(viewData);
+    this._mrender.add(viewData).subscribe(res => {
+      console.log(res);
+    });
     this.update$.next();
   }
 
@@ -354,7 +385,7 @@ export abstract class Element implements OnInit, OnDestroy {
       inputs: size,
       outputs: ['change$']
     };
-    return this._mrender.compiler(opts, this.view).pipe(
+    return this._mrender.addTmp(opts, this.view).pipe(
       map((res: any) => res.data),
       map(res => {
         if (res === 'clear') {
@@ -379,7 +410,7 @@ export abstract class Element implements OnInit, OnDestroy {
         // tap
         tap(res => {
           // 设置激活
-          this.json['active'] = true;
+          // console.log('click');
         })
       )
       .subscribe();
