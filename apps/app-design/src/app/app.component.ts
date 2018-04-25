@@ -31,7 +31,7 @@ import {
   ActionsService,
   AddonsInstallService
 } from 'iwe7/base';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -51,7 +51,8 @@ export class AppComponent implements OnInit {
     public route: ActivatedRoute,
     public addons: AddonsInstallService,
     public ele: ElementRef,
-    public rootView: ViewContainerRef
+    public rootView: ViewContainerRef,
+    public router: Router
   ) {
     this.route.queryParams.subscribe(res => {
       let { pid } = res;
@@ -87,6 +88,16 @@ export class AppComponent implements OnInit {
     fromEvent(window, 'resize').subscribe(res => {
       this.setRem();
     });
+    let has = true;
+    setInterval(() => {
+      if(has){
+        this.router.navigateByUrl('test');
+        has = false;
+      }else{
+        this.router.navigateByUrl('test2');
+        has = true;
+      }
+    }, 2000);
   }
   _width: number;
   get width() {

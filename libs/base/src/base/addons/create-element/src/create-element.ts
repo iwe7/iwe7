@@ -14,9 +14,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 // 联想及自动补齐
 
 @Component({
-  selector: 'code-mirror',
-  templateUrl: './code-mirror.html',
-  styleUrls: ['./code-mirror.scss']
+  selector: 'create-element',
+  templateUrl: './create-element.html',
+  styleUrls: ['./create-element.scss']
 })
 export class CreateElementPage implements OnInit {
   @HostBinding('attr.id') id: string;

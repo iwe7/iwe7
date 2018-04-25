@@ -16,11 +16,23 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { BaseModule, AppPreviewModule } from 'iwe7/base';
 import { SharedModule } from 'iwe7/shared';
 
+import { LocationStrategy } from '@angular/common';
+import { We7LocationStrategy } from 'iwe7/we7-location';
+
 @NgModule({
   imports: [
     BrowserModule,
     // 路由模块
-    RouterModule.forRoot([]),
+    RouterModule.forRoot([
+      {
+        path: 'test',
+        component: AppComponent
+      },
+      {
+        path: 'test2',
+        component: AppComponent
+      }
+    ]),
     // 公用
     SharedModule,
     // 核心
@@ -39,6 +51,10 @@ import { SharedModule } from 'iwe7/shared';
     {
       provide: LOCALE_ID,
       useValue: 'zh-cn'
+    },
+    {
+      provide: LocationStrategy,
+      useClass: We7LocationStrategy
     }
   ]
 })

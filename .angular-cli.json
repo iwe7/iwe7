@@ -165,8 +165,22 @@
       "tags": []
     },
     {
+      "name": "router",
+      "root": "libs/router/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "test",
       "root": "libs/test/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "we7-location",
+      "root": "libs/we7-location/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []
