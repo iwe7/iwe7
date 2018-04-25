@@ -10,9 +10,6 @@ export class BaseView extends Element implements OnInit {
     super(view);
   }
   ngOnInit() {
-    // this._updateStyles({
-    //   [`background-color`]: this._randomColor()
-    // });
     super.ngOnInit();
   }
 }

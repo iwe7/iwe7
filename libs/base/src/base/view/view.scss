@@ -5,6 +5,10 @@
     align-items: flex-start;
     flex-flow: column nowrap;
     place-content: flex-start;
+    cursor: pointer;
+    &:hover {
+        opacity: .9;
+    }
 }
 
 base-view {

@@ -1,0 +1,54 @@
+:host {
+    margin: 0 auto 24px;
+    padding: 0 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.search-widgets-for-work {
+    width: 1050px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 4px;
+    background: #f8f8f8;
+    position: relative;
+    input {
+        display: inline-block;
+        flex: 1;
+        height: 50px;
+        background: none;
+        width: 100%;
+        padding: 0 50px 0 48px;
+        font-size: 18px;
+        color: #000;
+        border: 2px solid transparent;
+        border-radius: 4px;
+        animation-duration: .3s;
+        transition-duration: .3s;
+        &:focus {
+            border: 2px solid #e7e7e7;
+        }
+    }
+}
+
+.toDesignPageBtn {
+    width: 240px;
+    height: 50px;
+    border-radius: 4px;
+    background: #ffb933;
+    font-size: 18px;
+    color: #fff;
+    margin-left: 30px;
+    position: relative;
+    .newMsgNum-icon {
+        position: absolute;
+        top: -7px;
+        right: -7px;
+        width: 18px;
+        font-size: 12px;
+        border-radius: 9px;
+        background: #fc0119;
+        animation: flicker 1.5s linear .01s infinite;
+    }
+}

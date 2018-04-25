@@ -24,11 +24,9 @@ import { IcssService } from 'iwe7-icss';
 export class ModalComponent implements OnInit {
   isVisible: boolean = true;
   ngOnInit() {}
-
   handleCancel() {
     this.isVisible = false;
   }
-
   handleOk() {
     this.isVisible = false;
   }

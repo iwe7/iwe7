@@ -10,7 +10,9 @@ interface RegisteredMeta {
   afterCloseSubscription: Subscription;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NzModalControlService {
   // Track singleton afterAllClose through over the injection tree
   get afterAllClose(): Subject<void> {

@@ -51,7 +51,7 @@ export class BaseControl implements OnInit, OnDestroy {
   id: string;
   change$: Subject<any> = new Subject();
   constructor(private view: ViewContainerRef, private render: Renderer2) {
-    this.id = new Date().getTime() + '';
+    this.id = 'active';
     controlMap.set(this.id, this);
   }
 

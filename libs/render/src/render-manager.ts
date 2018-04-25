@@ -30,12 +30,11 @@ export class MeepoRenderManager {
       }
     }
     let add = this.loki.insert(from);
-    this.loki.serialize();
+    this.loki.autoSave();
     return add;
   }
-
   saveToLocal() {
-    this.loki.serialize();
+    this.loki.autoSave();
   }
   // 删除
   remove(id: number) {
@@ -43,7 +42,18 @@ export class MeepoRenderManager {
   }
   // 更新
   update(from: RenderOptions) {
-    this.renderMap.set(from.$loki, from);
+    this.loki.findAndUpdate(
+      item => {
+        return item.$loki === from.$loki;
+      },
+      (obj: RenderOptions) => {
+        return {
+          ...obj,
+          ...from
+        };
+      }
+    );
+    this.loki.autoSave();
   }
 
   getTop(): any[] {
@@ -55,9 +65,13 @@ export class MeepoRenderManager {
   }
 
   getChild(fid: number) {
-    let top = this.loki.where(item => {
-      return item.fid === fid;
-    });
+    let top = this.loki
+      .pipe()
+      .where(item => {
+        return item.fid === fid;
+      })
+      .simplesort('$loki')
+      .data();
     top = top || [];
     return top;
   }

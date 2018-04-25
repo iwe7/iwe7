@@ -12,14 +12,53 @@ export class BaseInstallService {
     this.initBaseView();
     this.initContextMenu();
     this.initBaseList();
-    console.log('BaseInstallService');
+    this.initNzLayout();
+    this.initBaseHelpHeader();
+  }
+
+  initBaseHelpHeader(){
+    let baseControl: RenderOptions = {
+      selector: 'base-help-header',
+      inputs: {
+        styles: {
+          display: 'block'
+        }
+      },
+      outputs: {
+        setRoot$: 'setroot'
+      },
+      outlet: '',
+      fid: 0,
+      title: '编辑头部'
+    };
+    this.render.add(baseControl);
+  }
+
+  initNzLayout() {
+    let baseControl: RenderOptions = {
+      selector: 'nz-layout',
+      inputs: {
+        styles: {
+          display: 'block'
+        }
+      },
+      outputs: {
+        setRoot$: 'setroot'
+      },
+      outlet: '',
+      fid: 0,
+      title: '基础布局'
+    };
+    this.render.add(baseControl);
   }
 
   initBaseList() {
     let baseControl: RenderOptions = {
       selector: 'base-list',
       inputs: {},
-      outputs: {},
+      outputs: {
+        setRoot$: 'setroot'
+      },
       outlet: '',
       fid: 0,
       title: '基础列表'
@@ -31,7 +70,9 @@ export class BaseInstallService {
     let baseControl: RenderOptions = {
       selector: 'base-control',
       inputs: {},
-      outputs: {},
+      outputs: {
+        setRoot$: 'setroot'
+      },
       outlet: '',
       fid: 0,
       title: '控制'
@@ -42,7 +83,9 @@ export class BaseInstallService {
     let baseView: RenderOptions = {
       selector: 'base-view',
       inputs: {},
-      outputs: {},
+      outputs: {
+        setRoot$: 'setroot'
+      },
       outlet: '',
       fid: 0,
       title: '基础视图'
@@ -53,7 +96,9 @@ export class BaseInstallService {
     let baseText: RenderOptions = {
       selector: 'base-text',
       inputs: {},
-      outputs: {},
+      outputs: {
+        setRoot$: 'setroot'
+      },
       outlet: '',
       fid: 0,
       title: '基础文本'
@@ -64,7 +109,9 @@ export class BaseInstallService {
     let baseContextMenu: RenderOptions = {
       selector: 'base-context-menu',
       inputs: {},
-      outputs: {},
+      outputs: {
+        setRoot$: 'setroot'
+      },
       outlet: '',
       fid: 0,
       title: '右键菜单'

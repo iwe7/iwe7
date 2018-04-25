@@ -13,7 +13,7 @@ import { LazyModule } from './lazy/lazy.module';
 
 import { OverlayModule } from '@angular/cdk/overlay';
 
-import { BaseModule } from 'iwe7/base';
+import { BaseModule, AppPreviewModule } from 'iwe7/base';
 import { SharedModule } from 'iwe7/shared';
 
 @NgModule({
@@ -29,7 +29,8 @@ import { SharedModule } from 'iwe7/shared';
     LazyModule,
     LayoutModule,
     OverlayModule,
-    BaseModule
+    BaseModule,
+    AppPreviewModule
   ],
   declarations: [AppComponent],
   bootstrap: [AppComponent],

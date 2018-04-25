@@ -57,7 +57,18 @@ app-root {
 .ant-form-item-label label {
     color: inherit !important;
 }
-.ant-form-item-children{
-  width: 100%;
-  display: block;
+
+.ant-form-item-children {
+    width: 100%;
+    display: block;
+}
+
+ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+a{
+  color: inherit;
 }

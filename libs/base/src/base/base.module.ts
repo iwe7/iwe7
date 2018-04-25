@@ -2,9 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { NzMessageModule } from 'iwe7/antd/message';
+import { NzModalModule } from 'iwe7/antd/modal';
+
+
 @NgModule({
   imports: [
     NzMessageModule,
+    NzModalModule,
     RouterModule.forChild([
       {
         path: 'base-control',
@@ -25,6 +29,26 @@ import { NzMessageModule } from 'iwe7/antd/message';
       {
         path: 'base-list',
         loadChildren: './list/list.module#BaseListModule'
+      },
+      {
+        path: 'base-help-header',
+        loadChildren: './help-header/help-header.module#BaseHelpHeaderModule'
+      },
+      {
+        path: 'base-page',
+        loadChildren: './page/page.module#BasePageModule'
+      },
+      {
+        path: 'base-meepo-modal',
+        loadChildren: './base-modal/modal.module#BaseModalModule'
+      },
+      {
+        path: 'element-design',
+        loadChildren: './addons/element-design/src/element-design.module#ElementDesignModule'
+      },
+      {
+        path: 'code-mirror',
+        loadChildren: './addons/code-mirror/src/code-mirror.module#CodeMirrorModule'
       }
     ])
   ]

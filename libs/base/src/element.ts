@@ -21,16 +21,30 @@ import {
   EventEmitter,
   HostListener,
   HostBinding,
-  ViewChild
+  ViewChild,
+  ChangeDetectorRef
 } from '@angular/core';
 import { NzMessageService } from 'iwe7/antd/message';
-import { MeepoRender, MeepoRenderManager, RenderOptions } from 'iwe7/render';
+import {
+  MeepoRender,
+  MeepoRenderManager,
+  RenderOptions,
+  LokiPageService,
+  LokiPageDataService
+} from 'iwe7/render';
 import { DOCUMENT } from '@angular/common';
 import * as Transform from 'css3transform';
 let activeView: Element;
 import { BaseInstallService } from './base/install';
+import { ActionsService } from 'iwe7/base/src/actions';
+import { NzModalService } from 'iwe7/antd/modal';
+let zindex = 999;
 export abstract class Element implements OnInit, OnDestroy {
   json: any;
+
+  @HostBinding('attr.data-title') title: string;
+  @HostBinding('attr.data-code') code: string;
+
   // 样式
   @Input()
   styles: { [key: string]: string } = {
@@ -46,7 +60,6 @@ export abstract class Element implements OnInit, OnDestroy {
   @Output() click$: Subject<any> = new Subject();
   // 改变
   @Output() update$: Subject<any> = new Subject();
-
   // 拖动
   @Output() dragmove$: Subject<any> = new Subject();
   // 缩放回调
@@ -70,15 +83,15 @@ export abstract class Element implements OnInit, OnDestroy {
   // 渲染器
   _mrender: MeepoRender;
   _mmanger: MeepoRenderManager;
-
   _message: NzMessageService;
-
   _doc: Document;
-
   _editable: EditorableService;
-
   _startSize: any;
   _store: any;
+  _actions: ActionsService;
+  _modal: NzModalService;
+  _data: LokiPageDataService;
+  _cd: ChangeDetectorRef;
   @HostBinding('attr.id') id: string;
   // 构造函数
   constructor(public view: ViewContainerRef) {
@@ -91,6 +104,16 @@ export abstract class Element implements OnInit, OnDestroy {
     this._editable = this._injector.get(EditorableService, null);
     let install = this._injector.get(BaseInstallService, null);
     this._mmanger = this._injector.get(MeepoRenderManager, null);
+    this._actions = this._injector.get(ActionsService, null);
+    this._modal = this._injector.get(NzModalService, null);
+    this._data = this._injector.get(LokiPageDataService, null);
+    this._cd = this._injector.get(ChangeDetectorRef, null);
+  }
+
+  markForCheck() {
+    this._setStyles();
+    this._setClasses();
+    this._cd.markForCheck();
   }
 
   // 初始化组件
@@ -98,8 +121,6 @@ export abstract class Element implements OnInit, OnDestroy {
     this._dom = this._ele.nativeElement;
     Transform(this._dom);
     if (this._editable.open) {
-      // 保存实例
-      this._editable.saveElement(this.id, this);
       // 设置缩放
       if (this.canScale) {
         this._setScale();
@@ -107,9 +128,26 @@ export abstract class Element implements OnInit, OnDestroy {
       // 设置右键菜单
       this._contextmenu();
     }
-    this._setStyles();
-    this._setClasses();
+    this.markForCheck();
     this._bindClick();
+  }
+  setEditorHeader() {
+    this._mrender
+      .addTmp(
+        {
+          selector: 'base-help-header',
+          inputs: {
+            styles: {
+              display: 'flex',
+              width: '100%',
+              ['flex-direction']: 'row',
+              ['align-items']: 'center'
+            }
+          }
+        },
+        this.view
+      )
+      .subscribe();
   }
   getElement() {
     return this.json;
@@ -123,13 +161,41 @@ export abstract class Element implements OnInit, OnDestroy {
   }
   // 更新样式
   _updateStyles(obj) {
-    //
+    (obj.translateX = this._ele.nativeElement.translateX),
+      (obj.translateY = this._ele.nativeElement.translateY);
+    this.styles = {
+      ...this.styles,
+      ...obj
+    };
+    let update = {
+      $loki: this.id,
+      inputs: {
+        styles: this.styles
+      }
+    };
+    this._setStyles();
+    this._data.findAndUpdate(
+      item => {
+        return item.$loki === this.id;
+      },
+      data => {
+        return {
+          ...data,
+          ...update
+        };
+      }
+    );
+    this._data.autoSave();
   }
   // 设置样式
   _setStyles() {
     this.styles = this.styles || {};
     for (let key in this.styles) {
-      if (this.styles[key]) {
+      if (key === 'translateX') {
+        this._ele.nativeElement.translateX = this.styles[key];
+      } else if (key === 'translateY') {
+        this._ele.nativeElement.translateY = this.styles[key];
+      } else if (this.styles[key]) {
         this._render.setStyle(this._ele.nativeElement, key, this.styles[key]);
       } else {
         this._render.removeStyle(this._ele.nativeElement, key);
@@ -169,39 +235,30 @@ export abstract class Element implements OnInit, OnDestroy {
               top: res.y,
               list: [
                 {
-                  title: '新建',
-                  cmd: 'element.new'
+                  title: '插入元素',
+                  cmd: 'element.add'
                 },
                 {
-                  title: '所有元素',
-                  cmd: 'element.list'
+                  title: '新建页面',
+                  cmd: 'page.create'
                 },
                 {
-                  title: '复制',
-                  cmd: 'copy'
+                  title: '编辑页面',
+                  cmd: 'page.edit'
                 },
                 {
-                  title: '粘贴',
-                  cmd: 'paste'
+                  title: '元素设计',
+                  cmd: 'element.design'
                 },
                 {
-                  title: '剪切',
-                  cmd: 'cut'
+                  title: '代码编写',
+                  cmd: 'code.mirror',
+                  inputs: {
+                    eid: this.id
+                  }
                 },
                 {
-                  title: '插入',
-                  cmd: 'insert'
-                },
-                {
-                  title: '另存为',
-                  cmd: 'save.other'
-                },
-                {
-                  title: '选择上级',
-                  cmd: 'select.father'
-                },
-                {
-                  title: '取消',
+                  title: '取消关闭',
                   cmd: 'cancel'
                 }
               ]
@@ -214,67 +271,21 @@ export abstract class Element implements OnInit, OnDestroy {
             .addTmp(opt, this.view)
             .pipe(
               // tap
-              map((res: any) => res.data.cmd),
+              map((res: any) => res.data),
               tap(res => {
                 this._mrender.remove(opt.selector);
               }),
-              // 插入
-              tap((res: any) => {
-                if (res === 'insert') {
-                  this.insertView();
-                }
-              }),
-              // 新建
-              tap((res: any) => {
-                if (res === 'new') {
-                  this.addView();
-                }
-              }),
-              tap((res: any) => {
-                if (res === 'element.list') {
-                  this.showElementList();
-                }
-              }),
-              // 选择上级
               tap(res => {
-                if (res === 'select.father') {
-                  let id = this._ele.nativeElement.parentElement.id;
-                  if (!id) {
-                    this._message.error('没有上级');
-                  } else {
-                    let element: any = this._editable.getElement(id);
-                    if (element) {
-                      element._doScale(element._ele.nativeElement).subscribe();
-                    } else {
-                      this._message.error('没有找到上级');
-                    }
-                  }
-                }
-              }),
-              // 复制
-              tap(res => {
-                if (res === 'copy') {
-                  this._editable.copyElement = this.json;
-                  this._message.success('复制成功');
-                }
-              }),
-              // 粘贴
-              tap(res => {
-                if (res === 'paste') {
-                  if (!this._editable.copyElement) {
-                    this._message.error('没有找到相关内容');
-                  } else {
-                    this._mrender
-                      .compiler(this._editable.copyElement, this.content)
-                      .pipe(
-                        tap((res: any) => {
-                          if (res.type === 'update$') {
-                            this.update$.next();
-                          }
-                        })
-                      )
-                      .subscribe();
-                  }
+                if (res.cmd !== 'cancel') {
+                  this._mrender
+                    .showElement(
+                      {
+                        title: res.title,
+                        code: res.cmd
+                      },
+                      res.inputs
+                    )
+                    .subscribe(res => {});
                 }
               })
             )
@@ -341,10 +352,6 @@ export abstract class Element implements OnInit, OnDestroy {
     fromEvent(ele, 'dblclick')
       .pipe(
         tap((res: any) => {
-          if (activeView) {
-            activeView._clearView();
-          }
-          activeView = this;
           this._startSize = {
             width: ele.clientWidth,
             height: ele.clientHeight,
@@ -355,6 +362,7 @@ export abstract class Element implements OnInit, OnDestroy {
             scaleX: ele.scaleX,
             scaleY: ele.scaleY
           };
+          this._mrender.remove('base-control');
           this.view.clear();
         }),
         tap((res: MouseEvent) => {
@@ -383,19 +391,26 @@ export abstract class Element implements OnInit, OnDestroy {
     let opts: any = {
       selector: 'base-control',
       inputs: size,
-      outputs: ['change$']
+      outputs: {
+        change$: 'change'
+      }
     };
     return this._mrender.addTmp(opts, this.view).pipe(
       map((res: any) => res.data),
-      map(res => {
+      tap(res => {
         if (res === 'clear') {
-          this.view.clear();
-        } else {
-          ele.translateX = res.left - ele.offsetLeft;
-          ele.translateY = res.top - ele.offsetTop;
+          this._mrender.remove(opts.selector);
+        }
+      }),
+      map(res => {
+        ele.translateX = res.left - ele.offsetLeft;
+        ele.translateY = res.top - ele.offsetTop;
+        let clientWidth = this._doc.documentElement.clientWidth;
+        let clientHeight = this._doc.documentElement.clientHeight;
+        if (res.width && res.height) {
           this._updateStyles({
-            width: res.width + 'px',
-            height: res.height + 'px'
+            width: clientWidth - res.width < 10 ? '100%' : res.width + 'px',
+            height: clientHeight - res.height < 10 ? '100%' : res.height + 'px'
           });
         }
         return res;
@@ -411,6 +426,7 @@ export abstract class Element implements OnInit, OnDestroy {
         tap(res => {
           // 设置激活
           // console.log('click');
+          // this._mrender.remove('base-content-menu');
         })
       )
       .subscribe();

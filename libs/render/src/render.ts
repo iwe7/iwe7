@@ -27,6 +27,7 @@ import {
   TrackByFunction,
   ComponentFactory
 } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import {
   from,
@@ -45,10 +46,14 @@ import { difference, isEqual, size } from 'underscore';
 import { RenderOptions } from './interface';
 let dragData: any;
 let id = 0;
+let zindex = 999;
 
 import { RenderKeyValueChange } from './render-keyvalue-change';
 import { RenderIterableChange } from './render-iterable-change';
 import { MeepoRenderManager } from './render-manager';
+import { LokiPageService } from './loki-page';
+import { LokiPageDataService } from './loki-page-data';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -69,7 +74,8 @@ export class MeepoRender {
     this.defaultView = this.defaultView || view;
   }
   // 编译成html
-  compiler(json: RenderOptions, view: ViewContainerRef) {
+  compiler(json: RenderOptions, view: ViewContainerRef = this.defaultView) {
+    json.$loki = json.$loki || new Date().getTime() + Math.random() * 10000;
     return fromPromise(this.createElement(json)).pipe(
       // 处理instance
       switchMap((ngModuleFactory: NgModuleFactory<any>) => {
@@ -132,6 +138,13 @@ export class MeepoRender {
           );
         }
       }),
+      // 变换标题
+      tap(instance => {
+        let { title } = json;
+        if (title) {
+          this.title.setTitle(title);
+        }
+      }),
       // 绑定inputs
       tap(instance => {
         // 绑定id
@@ -142,6 +155,24 @@ export class MeepoRender {
           set: val => {
             // 设置数据
             json.$loki = val;
+          }
+        });
+        Object.defineProperty(instance, 'title', {
+          get: () => {
+            return json.title;
+          },
+          set: val => {
+            // 设置数据
+            json.title = val;
+          }
+        });
+        Object.defineProperty(instance, 'code', {
+          get: () => {
+            return json.code;
+          },
+          set: val => {
+            // 设置数据
+            json.code = val;
           }
         });
         _map(json.inputs || {}, (item, key) => {
@@ -194,13 +225,53 @@ export class MeepoRender {
       })
     );
   }
+
+  showPage(code, isId: boolean = true, data?: any) {
+    let page = this.page.getPage(code, isId);
+    let { elements } = page;
+    console.log(elements);
+    let subs: any = [];
+    elements.map(ele => {
+      subs.push(this.compiler(ele, this.defaultView));
+    });
+    return merge(subs);
+  }
+
+  showElement(data, inputs?, outputs?, view?: ViewContainerRef) {
+    let element = this.data.getData(item => {
+      return item.code === data.code;
+    });
+    if (element) {
+      element.inputs = {
+        ...element.inputs,
+        ...inputs
+      };
+      element.outputs = {
+        ...element.outputs,
+        ...outputs
+      };
+    } else {
+      let item = {
+        code: data.code,
+        title: data.title,
+        inputs: inputs || {},
+        outputs: outputs || {},
+        fid: 0,
+        selector: data.selector || 'base-meepo-modal'
+      };
+      element = this.data.insert(item);
+    }
+    return this.compiler(element, view || this.defaultView);
+  }
   // 移除
   remove(id: any) {
     if (id) {
       let map = this.instanceMap.get(id);
-      map.comp.destroy();
-      this.instanceMap.delete(id);
-      this.renderManager.remove(id);
+      if (map) {
+        map.comp.destroy();
+        this.instanceMap.delete(id);
+        this.renderManager.remove(id);
+      }
     }
   }
   // 添加
@@ -211,7 +282,7 @@ export class MeepoRender {
     let sub;
     if (father) {
       sub = this.compiler(item, father.instance[item.outlet]);
-      sub.subscribe()
+      sub.subscribe();
     } else {
       sub = this.compiler(item, this.defaultView);
       sub.subscribe();
@@ -224,7 +295,7 @@ export class MeepoRender {
     return this.compiler(opt, view);
   }
   update(json: any) {
-    let map = this.instanceMap.get(json.id);
+    let map = this.instanceMap.get(json.$loki);
     if (map) {
       let instance = map.instance;
       _map(json.inputs || {}, (item, key) => {
@@ -237,6 +308,9 @@ export class MeepoRender {
           }
         });
       });
+      if ('markForCheck' in instance) {
+        instance['markForCheck']();
+      }
     }
   }
   get(id: number) {
@@ -250,7 +324,10 @@ export class MeepoRender {
     @Inject(ROUTES) private lazy: any,
     private injector: Injector,
     private ngCompiler: Compiler,
-    private renderManager: MeepoRenderManager
+    private renderManager: MeepoRenderManager,
+    private page: LokiPageService,
+    private data: LokiPageDataService,
+    private title: Title
   ) {
     this.lazy = flatten(this.lazy);
     this.lazy.map((res: any) => {
@@ -305,9 +382,12 @@ export class MeepoRender {
         return this.moduleFactoryLoader.load(comp.path);
       }
     } else {
-      return new Promise((resolve, reject) => {
-        reject(`${json.selector} not found`);
-      });
+      json.selector = 'base-view';
+      return this.createElement(json);
     }
+  }
+
+  private getZIndex() {
+    return zindex++;
   }
 }

@@ -1,0 +1,45 @@
+@import '~codemirror/lib/codemirror.css';
+@import '~codemirror/theme/eclipse.css';
+@import '~codemirror/theme/3024-day.css';
+@import '~codemirror/theme/3024-night.css';
+@import '~codemirror/addon/dialog/dialog.css';
+@import '~codemirror/addon/fold/foldgutter.css';
+@import '~codemirror/addon/display/fullscreen.css';
+@import '~codemirror/addon/hint/show-hint.css';
+@import '~codemirror/addon/lint/lint.css';
+code-mirror {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    background: #333;
+    color: #d6d5d4;
+    .code-mirror-header {
+        height: 30px;
+        line-height: 30px;
+        display: flex;
+        flex-direction: row;
+        padding: 0 10px;
+        .code-mirror-left {
+            cursor: pointer;
+        }
+        .code-mirror-right {
+            cursor: pointer;
+        }
+        .code-mirror-center {
+            flex: 1;
+        }
+    }
+    textarea {
+        height: 100%;
+        width: 100%;
+        display: block;
+    }
+    .CodeMirror {
+        height: 100%;
+        flex: 1;
+    }
+}

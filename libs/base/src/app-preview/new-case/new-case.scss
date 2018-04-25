@@ -1,0 +1,17 @@
+:host {
+    display: block;
+    background: #fff;
+    padding: 10px 0px 0px 0px;
+}
+
+.container {
+    background: #efefef;
+    margin: 10px 0px;
+    overflow: hidden;
+    padding-top: 20px;
+    &:after {
+        display: block;
+        content: " ";
+        clear: both;
+    }
+}

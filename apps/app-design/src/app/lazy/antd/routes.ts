@@ -169,7 +169,7 @@ import { NgModule } from '@angular/core';
       },
       {
         path: 'nz-view',
-        loadChildren: './view/view.module#ViewModule'
+        loadChildren: './nz-view/view.module#ViewModule'
       },
       {
         path: 'native-input',
@@ -182,6 +182,10 @@ import { NgModule } from '@angular/core';
       {
         path: 'nz-collapse',
         loadChildren: './collapse/collapse.module#CollapseModule'
+      },
+      {
+        path: 'nz-transfer',
+        loadChildren: './transfer/transfer.module#TransferModule'
       }
     ])
   ]

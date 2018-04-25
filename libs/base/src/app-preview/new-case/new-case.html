@@ -1,0 +1,5 @@
+<new-case-search></new-case-search>
+<new-case-filter></new-case-filter>
+<div class="container">
+  <ng-container *ngFor="let item of list" (getView)="setItemView($event,item)"></ng-container>
+</div>

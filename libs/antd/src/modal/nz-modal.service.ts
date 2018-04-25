@@ -69,7 +69,9 @@ export class ModalBuilderForService {
   }
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class NzModalService {
   // Track of the current close modals (we assume invisible is close this time)
   get openModals(): NzModalRef[] {
