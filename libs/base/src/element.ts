@@ -339,11 +339,12 @@ export abstract class Element implements OnInit, OnDestroy {
     fromEvent(ele, 'dblclick')
       .pipe(
         tap((res: any) => {
+          let rect = ele.getBoundingClientRect();
           this._startSize = {
             width: ele.clientWidth,
             height: ele.clientHeight,
-            left: ele.offsetLeft,
-            top: ele.offsetTop,
+            left: rect.left,
+            top: rect.top,
             translateX: ele.translateX,
             translateY: ele.translateY,
             scaleX: ele.scaleX,
@@ -364,12 +365,13 @@ export abstract class Element implements OnInit, OnDestroy {
   }
 
   _doScale(ele) {
+    let rect = ele.getBoundingClientRect();
     let size = {
       // 控制器尺寸
       width: ele.clientWidth * ele.scaleX,
       height: ele.clientHeight * ele.scaleY,
-      left: ele.offsetLeft + ele.translateX,
-      top: ele.offsetTop + ele.translateY,
+      left: rect.left,
+      top: rect.top,
       translateX: ele.translateX,
       translateY: ele.translateY,
       scaleX: ele.scaleX,
@@ -390,8 +392,8 @@ export abstract class Element implements OnInit, OnDestroy {
         }
       }),
       map(res => {
-        ele.translateX = res.left - ele.offsetLeft;
-        ele.translateY = res.top - ele.offsetTop;
+        ele.translateX = res.left + rect.left;
+        ele.translateY = res.top + rect.top;
         let clientWidth = this._doc.documentElement.clientWidth;
         let clientHeight = this._doc.documentElement.clientHeight;
         if (res.width && res.height) {

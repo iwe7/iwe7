@@ -25,11 +25,7 @@ import { We7LocationStrategy } from 'iwe7/we7-location';
     // 路由模块
     RouterModule.forRoot([
       {
-        path: 'test',
-        component: AppComponent
-      },
-      {
-        path: 'test2',
+        path: '**',
         component: AppComponent
       }
     ]),

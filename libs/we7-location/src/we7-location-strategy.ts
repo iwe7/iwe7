@@ -1,7 +1,8 @@
 import {
   LocationStrategy,
   LocationChangeListener,
-  PlatformLocation
+  PlatformLocation,
+  Location
 } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { parseURL, serializeQueryParams } from './util';
@@ -19,11 +20,8 @@ export class We7LocationStrategy extends LocationStrategy {
     return parse.do ? parse.do + '' : '';
   }
   prepareExternalUrl(internal: string): string {
-    let _do = internal.replace('/', '');
-    let parse = parseURL() || {};
-    parse['do'] = _do;
-    let newUrl = serializeQueryParams(parse);
-    return this._path + newUrl;
+    const url = Location.joinWithSlash(this._path, internal);
+    return url;
   }
   pushState(state: any, title: string, url: string, queryParams: string): void {
     let _do = url.replace('/', '');
