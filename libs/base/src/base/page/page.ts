@@ -6,6 +6,7 @@ import { OnInit, Component, ViewContainerRef } from '@angular/core';
   styleUrls: ['./page.scss']
 })
 export class BasePage extends Element implements OnInit {
+  text: string;
   constructor(view: ViewContainerRef) {
     super(view);
   }

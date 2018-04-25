@@ -36,7 +36,8 @@ import {
   fromEvent,
   of,
   Subject,
-  merge
+  merge,
+  BehaviorSubject
 } from 'rxjs';
 import { map, tap, switchMap, filter } from 'rxjs/operators';
 
@@ -70,6 +71,8 @@ export class MeepoRender {
     }
   > = new Map();
   private defaultView: ViewContainerRef;
+
+  update$: BehaviorSubject<any> = new BehaviorSubject({});
   setDefaultView(view: ViewContainerRef) {
     this.defaultView = this.defaultView || view;
   }
@@ -221,6 +224,7 @@ export class MeepoRender {
               });
             }
           }
+          this.update$.next({});
         });
       })
     );
@@ -229,7 +233,6 @@ export class MeepoRender {
   showPage(code, isId: boolean = true, data?: any) {
     let page = this.page.getPage(code, isId);
     let { elements } = page;
-    console.log(elements);
     let subs: any = [];
     elements.map(ele => {
       subs.push(this.compiler(ele, this.defaultView));
@@ -238,9 +241,17 @@ export class MeepoRender {
   }
 
   showElement(data, inputs?, outputs?, view?: ViewContainerRef) {
-    let element = this.data.getData(item => {
-      return item.code === data.code;
-    });
+    let { $loki, code } = data;
+    let element;
+    if ($loki) {
+      element = this.data.getData(item => {
+        return item.$loki + '' === $loki + '';
+      });
+    } else {
+      element = this.data.getData(item => {
+        return item.code + '' === code + '';
+      });
+    }
     if (element) {
       element.inputs = {
         ...element.inputs,
@@ -261,6 +272,7 @@ export class MeepoRender {
       };
       element = this.data.insert(item);
     }
+
     return this.compiler(element, view || this.defaultView);
   }
   // 移除
@@ -273,12 +285,11 @@ export class MeepoRender {
         this.renderManager.remove(id);
       }
     }
+    this.update$.next({});
   }
   // 添加
   add(item: RenderOptions) {
-    console.log(item);
     let father = this.instanceMap.get(item.fid);
-    console.log(father);
     let sub;
     if (father) {
       sub = this.compiler(item, father.instance[item.outlet]);
@@ -312,6 +323,7 @@ export class MeepoRender {
         instance['markForCheck']();
       }
     }
+    this.update$.next({});
   }
   get(id: number) {
     let map = this.instanceMap.get(id);

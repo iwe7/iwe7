@@ -24,6 +24,17 @@ app-root {
     height: 100%;
     background: #efefef;
     overflow: auto;
+    transition: all 300ms;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    app-root {
+        width: 100%;
+        height: 100%;
+        flex: 1;
+    }
 }
 
 .form-row {
@@ -69,6 +80,6 @@ ul {
     padding: 0px;
 }
 
-a{
-  color: inherit;
+a {
+    color: inherit;
 }

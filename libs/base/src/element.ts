@@ -235,22 +235,6 @@ export abstract class Element implements OnInit, OnDestroy {
               top: res.y,
               list: [
                 {
-                  title: '插入元素',
-                  cmd: 'element.add'
-                },
-                {
-                  title: '新建页面',
-                  cmd: 'page.create'
-                },
-                {
-                  title: '编辑页面',
-                  cmd: 'page.edit'
-                },
-                {
-                  title: '元素设计',
-                  cmd: 'element.design'
-                },
-                {
                   title: '代码编写',
                   cmd: 'code.mirror',
                   inputs: {

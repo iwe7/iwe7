@@ -35,8 +35,9 @@ ul {
 }
 
 :host {
-    display: block;
+    display: flex;
     overflow: hidden;
+    flex-direction: row;
     .content {
         flex: 1;
     }

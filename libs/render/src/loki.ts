@@ -79,7 +79,6 @@ export class LokiModel {
       ...item,
       ...data
     };
-    console.log(itemNew);
     if (item) {
       this.update(itemNew);
     } else {

@@ -8,9 +8,12 @@ import {
 } from '@angular/core';
 import { LokiPageDataService, MeepoRender } from 'iwe7/render';
 import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
-import * as CodeMirror from 'codemirror';
+import { map, tap, debounceTime } from 'rxjs/operators';
+import * as _CodeMirror from 'codemirror';
+const CodeMirror = (<any>window).CodeMirror || _CodeMirror;
 import { NzMessageService } from 'iwe7/antd/message';
+// 联想及自动补齐
+
 @Component({
   selector: 'code-mirror',
   templateUrl: './code-mirror.html',
@@ -22,80 +25,83 @@ export class CodeMirrorPage implements OnInit {
   @HostBinding('attr.data-title') title: string;
   list: any[] = [];
   editor: any;
-  json: any = {
-    message: '',
-    code: 200,
-    response: {
-      totalCount: 1,
-      results: [
-        {
-          status: 'deployed',
-          login_port: 22,
-          role_info: null,
-          created: '2017-06-19 09:58:04',
-          login_user: 'root',
-          hostname: 'deploy-226',
-          login_ip: '172.24.6.226',
-          id: '1147edbde1494df696019fdb094be43d'
-        }
-      ],
-      pageSize: 5,
-      page: 1
-    },
-    success: true
-  };
+  json: any = {};
 
   eid: number;
 
   save$: Subject<any> = new Subject();
   cancel$: Subject<any> = new Subject();
+  change$: Subject<any> = new Subject();
 
   @ViewChild('textarea') textarea: ElementRef;
   constructor(
     public element: LokiPageDataService,
     public render: MeepoRender,
     public message: NzMessageService
-  ) {}
+  ) {
+    this.change$
+      .pipe(
+        debounceTime(200),
+        tap(res => {
+          this.autoSave();
+        })
+      )
+      .subscribe();
+  }
 
   ngOnInit() {
     let json = this.element.getData(item => {
       return item.$loki + '' === this.eid + '';
     });
-    let editorJson = {
-      selector: json.selector,
-      inputs: json.inputs,
-      outputs: json.outputs,
-      fid: json.fid,
-      code: json.code,
-      title: json.title || ''
-    };
-    this.editor = CodeMirror.fromTextArea(this.textarea.nativeElement, {
-      lineNumbers: true,
-      mode: 'application/json',
-      theme: '3024-night',
-      tabSize: 4
-    });
-    this.editor.setValue(JSON.stringify(editorJson, null, 4));
+    if (json) {
+      let editorJson = {
+        selector: json.selector,
+        inputs: json.inputs,
+        outputs: json.outputs,
+        fid: json.fid,
+        code: json.code,
+        title: json.title || ''
+      };
+      this.editor = CodeMirror.fromTextArea(this.textarea.nativeElement, {
+        lineNumbers: true,
+        mode: 'application/json',
+        theme: 'dracula',
+        tabSize: 4
+      });
+      this.editor.setValue(JSON.stringify(editorJson, null, 4));
+      this.editor.on('change', () => {
+        // this.editor.showHint();
+        this.change$.next();
+      });
+    } else {
+      this.message.error('对不起，没有找到相关组件');
+    }
   }
 
   save() {
-    let value = this.editor.getValue();
-    let formatValue = JSON.parse(value);
-    // 更新
-    let data: any = this.element.findAndUpdate(
-      item => {
-        return item.$loki === this.eid;
-      },
-      data => {
-        return {
-          ...data,
-          ...formatValue
-        };
-      }
-    );
-    this.element.autoSave();
-    this.render.update(data);
+    this.autoSave();
     this.message.success('保存成功');
+  }
+
+  autoSave() {
+    try {
+      let value = this.editor.getValue();
+      let formatValue = JSON.parse(value);
+      // 更新
+      let data: any = this.element.findAndUpdate(
+        item => {
+          return item.$loki === this.eid;
+        },
+        data => {
+          return {
+            ...data,
+            ...formatValue
+          };
+        }
+      );
+      this.element.autoSave();
+      this.render.update(data);
+    } catch (err) {}
   }
 
   cancel() {

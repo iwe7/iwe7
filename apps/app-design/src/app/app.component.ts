@@ -6,10 +6,18 @@ import {
   Injector,
   ViewChild,
   AfterViewInit,
-  ElementRef
+  ElementRef,
+  HostBinding
 } from '@angular/core';
 import { MeepoRender, LokiPageDataService, LokiPageService } from 'iwe7/render';
-import { Subject, BehaviorSubject, from, merge, Observable } from 'rxjs';
+import {
+  Subject,
+  BehaviorSubject,
+  from,
+  merge,
+  Observable,
+  fromEvent
+} from 'rxjs';
 import {
   tap,
   map,
@@ -41,7 +49,9 @@ export class AppComponent implements OnInit {
     public action: ActionsService,
     public page: LokiPageService,
     public route: ActivatedRoute,
-    public addons: AddonsInstallService
+    public addons: AddonsInstallService,
+    public ele: ElementRef,
+    public rootView: ViewContainerRef
   ) {
     this.route.queryParams.subscribe(res => {
       let { pid } = res;
@@ -50,11 +60,12 @@ export class AppComponent implements OnInit {
           .showElement(
             {
               title: '页面一',
-              code: 'base-page-1',
+              $loki: pid,
               selector: 'base-page'
             },
             {},
-            {}
+            {},
+            this.view
           )
           .subscribe((res: any) => {
             res.subscribe(item => {
@@ -63,14 +74,43 @@ export class AppComponent implements OnInit {
           });
       }
     });
+    this._render.update$.subscribe(res => {
+      this.setRem();
+    });
   }
+
   ngOnInit() {
-    this._render.setDefaultView(this.view);
+    this._render.setDefaultView(this.rootView);
     this.appPreview.install();
     this.appPreview.addPage();
+    this.setRem();
+    fromEvent(window, 'resize').subscribe(res => {
+      this.setRem();
+    });
+  }
+  _width: number;
+  get width() {
+    return this._width;
+  }
+  set width(val: number) {
+    this._width = val;
+    let designWidth = 750;
+    let rem = val * 100 / designWidth;
+    document.documentElement.style['font-size'] = rem + 'px';
+    document.body.style.fontSize = '14px';
+  }
+
+  setRem() {
+    if (this.ele) {
+      setTimeout(() => {
+        this.width = this.ele.nativeElement.clientWidth;
+      }, 100);
+    }
   }
 
   handler(res) {
-    console.log(res);
+    setTimeout(() => {
+      console.log(res);
+    }, 0);
   }
 }
