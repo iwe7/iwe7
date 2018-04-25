@@ -133,20 +133,17 @@ export abstract class Element implements OnInit, OnDestroy {
   }
   setEditorHeader() {
     this._mrender
-      .addTmp(
-        {
-          selector: 'base-help-header',
-          inputs: {
-            styles: {
-              display: 'flex',
-              width: '100%',
-              ['flex-direction']: 'row',
-              ['align-items']: 'center'
-            }
+      .addTmp({
+        selector: 'base-help-header',
+        inputs: {
+          styles: {
+            display: 'flex',
+            width: '100%',
+            ['flex-direction']: 'row',
+            ['align-items']: 'center'
           }
-        },
-        this.view
-      )
+        }
+      })
       .subscribe();
   }
   getElement() {
@@ -221,7 +218,7 @@ export abstract class Element implements OnInit, OnDestroy {
           res.stopPropagation();
           res.preventDefault();
         }),
-        map(res => {
+        map((res: MouseEvent) => {
           return {
             x: res.pageX,
             y: res.pageY
@@ -242,6 +239,11 @@ export abstract class Element implements OnInit, OnDestroy {
                   }
                 },
                 {
+                  title: '创建元素',
+                  cmd: 'create.element',
+                  inputs: {}
+                },
+                {
                   title: '取消关闭',
                   cmd: 'cancel'
                 }
@@ -252,7 +254,7 @@ export abstract class Element implements OnInit, OnDestroy {
             }
           };
           this._mrender
-            .addTmp(opt, this.view)
+            .addTmp(opt)
             .pipe(
               // tap
               map((res: any) => res.data),
@@ -261,6 +263,7 @@ export abstract class Element implements OnInit, OnDestroy {
               }),
               tap(res => {
                 if (res.cmd !== 'cancel') {
+                  this._mrender.removeByCode(res.cmd);
                   this._mrender
                     .showElement(
                       {
@@ -294,7 +297,7 @@ export abstract class Element implements OnInit, OnDestroy {
       outlet: 'content',
       fid: 0
     };
-    this._mrender.addTmp(opt, this.content).subscribe((res: any) => {
+    this._mrender.addTmp(opt).subscribe((res: any) => {
       this._mrender.remove(opt.selector);
       this.setRoot$.next(res.data);
     });
@@ -379,7 +382,7 @@ export abstract class Element implements OnInit, OnDestroy {
         change$: 'change'
       }
     };
-    return this._mrender.addTmp(opts, this.view).pipe(
+    return this._mrender.addTmp(opts).pipe(
       map((res: any) => res.data),
       tap(res => {
         if (res === 'clear') {

@@ -14,12 +14,14 @@ import { tap, map, filter } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { MeepoRender } from 'meepo-render';
 import { IcssService } from 'iwe7-icss';
+
+import { Element } from 'iwe7/base';
 @Component({
   selector: 'iwe7-button',
   templateUrl: './button.html',
   styleUrls: ['./button.scss']
 })
-export class ButtonComponent implements OnInit {
+export class ButtonComponent extends Element implements OnInit {
   nzGhost: any = {
     type: 'boolean',
     valeu: false
@@ -94,6 +96,9 @@ export class ButtonComponent implements OnInit {
   };
 
   click$: Subject<any> = new Subject();
+  constructor(view: ViewContainerRef) {
+    super(view);
+  }
   ngOnInit() {}
 
   @ViewChild('content', { read: ViewContainerRef })

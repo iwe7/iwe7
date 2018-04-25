@@ -5,25 +5,19 @@ import { LokiPageDataService } from 'iwe7/render/src/loki-page-data';
 @Injectable({
   providedIn: 'root'
 })
-export class ElementDesignInstallService {
+export class CreateElementInstallService {
   constructor(public data: LokiPageDataService) {}
 
   createOrUpdate() {
     let item = {
-      selector: 'element-design',
-      code: 'element.design',
-      title: '元素设计',
+      selector: 'create-element',
+      code: 'create.element',
+      title: '创建元素',
       inputs: {},
       outputs: {}
     };
-    this.data.findAndUpdate(
-      data => {
-        return data.code === item.code;
-      },
-      data => {
-        data.selector = 'element-design';
-        return data;
-      }
-    );
+    this.data.insertOrUpdate(data => {
+      return data.code === item.code;
+    }, item);
   }
 }

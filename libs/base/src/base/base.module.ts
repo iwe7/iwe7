@@ -43,12 +43,12 @@ import { NzModalModule } from 'iwe7/antd/modal';
         loadChildren: './base-modal/modal.module#BaseModalModule'
       },
       {
-        path: 'element-design',
-        loadChildren: './addons/element-design/src/element-design.module#ElementDesignModule'
-      },
-      {
         path: 'code-mirror',
         loadChildren: './addons/code-mirror/src/code-mirror.module#CodeMirrorModule'
+      },
+      {
+        path: 'create-element',
+        loadChildren: './addons/create-element/src/create-element.module#CreateElementModule'
       }
     ])
   ]

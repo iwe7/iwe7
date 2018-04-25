@@ -199,7 +199,10 @@ export class MeepoRender {
       switchMap(instance => {
         return Observable.create((subscriber: Subscriber<any>) => {
           // 绑定子级
-          let lists = this.renderManager.getChild(json.$loki);
+          // let lists = this.renderManager.getChild(json.$loki);
+          let lists = this.data.where(item => {
+            return item.fid === json.$loki;
+          });
           lists.map(item => {
             if (instance[item.outlet]) {
               this.compiler(item, instance[item.outlet]).subscribe(
@@ -287,6 +290,12 @@ export class MeepoRender {
     }
     this.update$.next({});
   }
+  removeByCode(code: string) {
+    let item = this.data.getData(item => {
+      return item.code + '' === code + '';
+    });
+    this.remove(item.$loki);
+  }
   // 添加
   add(item: RenderOptions) {
     let father = this.instanceMap.get(item.fid);
@@ -301,9 +310,9 @@ export class MeepoRender {
     return sub;
   }
   // 临时添加
-  addTmp(opt: RenderOptions, view: ViewContainerRef) {
+  addTmp(opt: RenderOptions) {
     opt.$loki = opt.selector;
-    return this.compiler(opt, view);
+    return this.compiler(opt, this.defaultView);
   }
   update(json: any) {
     let map = this.instanceMap.get(json.$loki);

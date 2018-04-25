@@ -3,8 +3,33 @@
     <i class="anticon anticon-close-square"></i>
   </div>
   <div class="code-mirror-center"></div>
-  <div class="code-mirror-right" (click)="save()">
-    <i class="anticon anticon-save"></i>
+  <div class="code-mirror-right" (click)="add()">
+    <i class="anticon anticon-file-add"></i>
   </div>
 </div>
 <textarea #textarea></textarea>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="添加元素" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <form nz-form [formGroup]="form" [nzLayout]="'inline'">
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input formControlName="title" placeholder="名字" type="text" id="title">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input formControlName="selector" placeholder="选择器" type="text" id="selector">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input formControlName="code" placeholder="唯一代码" type="text" id="code">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <input nz-input formControlName="outlet" placeholder="容器插座" type="text" id="outlet">
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

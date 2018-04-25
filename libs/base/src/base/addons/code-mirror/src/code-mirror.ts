@@ -12,6 +12,7 @@ import { map, tap, debounceTime } from 'rxjs/operators';
 import * as _CodeMirror from 'codemirror';
 const CodeMirror = (<any>window).CodeMirror || _CodeMirror;
 import { NzMessageService } from 'iwe7/antd/message';
+import { FormGroup, FormBuilder } from '@angular/forms';
 // 联想及自动补齐
 
 @Component({
@@ -29,6 +30,16 @@ export class CodeMirrorPage implements OnInit {
 
   eid: number;
 
+  newElement: any = {
+    code: '',
+    inputs: {},
+    outputs: {},
+    selector: 'base-page',
+    outlet: 'content'
+  };
+
+  form: FormGroup;
+
   save$: Subject<any> = new Subject();
   cancel$: Subject<any> = new Subject();
   change$: Subject<any> = new Subject();
@@ -37,7 +48,8 @@ export class CodeMirrorPage implements OnInit {
   constructor(
     public element: LokiPageDataService,
     public render: MeepoRender,
-    public message: NzMessageService
+    public message: NzMessageService,
+    public fb: FormBuilder
   ) {
     this.change$
       .pipe(
@@ -47,6 +59,14 @@ export class CodeMirrorPage implements OnInit {
         })
       )
       .subscribe();
+    this.form = this.fb.group({
+      code: '',
+      inputs: {},
+      outputs: {},
+      selector: 'base-page',
+      outlet: 'content',
+      title: ''
+    });
   }
 
   ngOnInit() {
@@ -106,5 +126,23 @@ export class CodeMirrorPage implements OnInit {
 
   cancel() {
     this.render.remove(this.id);
+  }
+  isVisible: boolean = false;
+  add() {
+    this.isVisible = true;
+  }
+
+  handleCancel() {
+    this.isVisible = false;
+  }
+
+  handleOk() {
+    // add
+    this.newElement.fid = this.eid;
+    let data = this.element.add(item => {
+      return item.code === this.newElement.code;
+    }, this.newElement);
+    this.isVisible = false;
+    this.render.update(data);
   }
 }

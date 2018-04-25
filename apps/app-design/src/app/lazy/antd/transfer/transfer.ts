@@ -25,4 +25,8 @@ import { IcssService } from 'iwe7-icss';
 export class TransferComponent implements OnInit {
   list: any = [];
   ngOnInit() {}
+
+  select(e) {}
+
+  change(e) {}
 }

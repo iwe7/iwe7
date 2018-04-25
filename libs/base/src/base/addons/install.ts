@@ -2,18 +2,18 @@ import { Injectable } from '@angular/core';
 import { RenderApp, RenderAppPage } from 'iwe7/render';
 import { LokiAppService } from 'iwe7/render/src/loki-app';
 import { LokiPageService } from 'iwe7/render/src/loki-page';
-import { ElementDesignInstallService } from './element-design/install';
 import { CodeMirrorInstallService } from './code-mirror/install';
+import { CreateElementInstallService } from './create-element/install';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddonsInstallService {
   constructor(
-    public elementDesign: ElementDesignInstallService,
-    public codeMirror: CodeMirrorInstallService
+    public codeMirror: CodeMirrorInstallService,
+    public createElement: CreateElementInstallService
   ) {
-    this.elementDesign.createOrUpdate();
     this.codeMirror.createOrUpdate();
+    this.createElement.createOrUpdate();
   }
 }
