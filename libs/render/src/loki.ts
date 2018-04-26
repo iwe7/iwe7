@@ -44,6 +44,10 @@ export class LokiModel {
     this.save$.next();
   }
 
+  autoUpdate() {
+    this.autoSave();
+  }
+
   listCollections() {
     let list = this.db.listCollections();
     return list;
@@ -84,6 +88,7 @@ export class LokiModel {
     } else {
       this.insert(itemNew);
     }
+    this.autoUpdate();
   }
 
   find(params) {

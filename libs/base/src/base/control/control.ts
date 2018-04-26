@@ -196,7 +196,7 @@ export class BaseControl implements OnInit, OnDestroy {
     this.height = this.startPosition.height - res.dy;
     this.width = this.startPosition.width - res.dx;
     this.left = this.startPosition.left + res.dx;
-    this.top = this.startPosition.left + res.dx;
+    this.top = this.startPosition.top + res.dy;
     this.onChange();
   }
   private handlerTopLeft() {

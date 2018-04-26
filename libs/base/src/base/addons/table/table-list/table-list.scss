@@ -1,0 +1,12 @@
+:host {
+    display: block;
+    width: 100%;
+    position: relative;
+}
+
+.addForm {
+    position: absolute;
+    right: 10px;
+    z-index: 9;
+    top: 10px;
+}

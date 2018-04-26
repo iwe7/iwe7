@@ -73,14 +73,14 @@ export class CodeMirrorPage implements OnInit {
     let json = this.element.getData(item => {
       return item.$loki + '' === this.eid + '';
     });
+    // 获取所有下级
+    let children = this.element.where(item => {
+      return item.fid === json.$loki;
+    });
     if (json) {
-      let editorJson = {
-        selector: json.selector,
-        inputs: json.inputs,
-        outputs: json.outputs,
-        fid: json.fid,
-        code: json.code,
-        title: json.title || ''
+      let newPage = {
+        page: json,
+        children: children
       };
       this.editor = CodeMirror.fromTextArea(this.textarea.nativeElement, {
         lineNumbers: true,
@@ -88,7 +88,7 @@ export class CodeMirrorPage implements OnInit {
         theme: 'dracula',
         tabSize: 4
       });
-      this.editor.setValue(JSON.stringify(editorJson, null, 4));
+      this.editor.setValue(JSON.stringify(newPage, null, 4));
       this.editor.on('change', () => {
         // this.editor.showHint();
         this.change$.next();
@@ -115,13 +115,37 @@ export class CodeMirrorPage implements OnInit {
         data => {
           return {
             ...data,
-            ...formatValue
+            ...formatValue.page
           };
         }
       );
       this.element.autoSave();
       this.render.update(data);
+
+      let children = formatValue.children;
+      if (children) {
+        children.map(child => {
+          this.updateOne(child);
+        });
+      }
     } catch (err) {}
+  }
+
+  updateOne(item) {
+    // 更新
+    let data: any = this.element.findAndUpdate(
+      item => {
+        return item.$loki === item.$loki;
+      },
+      data => {
+        return {
+          ...data,
+          ...item
+        };
+      }
+    );
+    this.element.autoSave();
+    this.render.update(data);
   }
 
   cancel() {

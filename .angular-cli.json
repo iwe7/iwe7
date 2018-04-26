@@ -144,6 +144,13 @@
       "tags": []
     },
     {
+      "name": "ih5",
+      "root": "libs/ih5/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "interface",
       "root": "libs/interface/src",
       "test": "../../../test.js",
@@ -153,6 +160,13 @@
     {
       "name": "ngrx",
       "root": "libs/ngrx/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "pages",
+      "root": "libs/pages/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

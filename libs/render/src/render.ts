@@ -77,14 +77,15 @@ export class MeepoRender {
     this.defaultView = this.defaultView || view;
   }
   // 编译成html
-  compiler(json: RenderOptions, view: ViewContainerRef = this.defaultView) {
+  compiler(json: RenderOptions, view?: ViewContainerRef) {
+    view = view || this.defaultView;
     json.$loki = json.$loki || new Date().getTime() + Math.random() * 10000;
     return fromPromise(this.createElement(json)).pipe(
       // 处理instance
       switchMap((ngModuleFactory: NgModuleFactory<any>) => {
         let instanceMap = this.instanceMap.get(json.$loki);
         if (instanceMap) {
-          return of(instanceMap.instance);
+          return of(instanceMap);
         } else {
           return of(ngModuleFactory).pipe(
             // NgModuleFactory
@@ -130,16 +131,21 @@ export class MeepoRender {
             filter(res => !!res),
             // 挂载到试图
             map((component: ComponentFactory<any>) => {
+              // let factory = component.create(this.injector);
               let comp = view.createComponent(component);
-              this.instanceMap.set(json.$loki, {
+              let ret = {
                 view: view,
                 comp: comp,
-                instance: comp.instance
-              });
-              return comp.instance;
+                instance: comp.instance,
+              };
+              this.instanceMap.set(json.$loki, ret);
+              return ret;
             })
           );
         }
+      }),
+      map(res=>{
+        return res.instance;
       }),
       // 变换标题
       tap(instance => {
@@ -275,7 +281,6 @@ export class MeepoRender {
       };
       element = this.data.insert(item);
     }
-
     return this.compiler(element, view || this.defaultView);
   }
   // 移除
@@ -310,9 +315,9 @@ export class MeepoRender {
     return sub;
   }
   // 临时添加
-  addTmp(opt: RenderOptions) {
+  addTmp(opt: RenderOptions, view?: ViewContainerRef) {
     opt.$loki = opt.selector;
-    return this.compiler(opt, this.defaultView);
+    return this.compiler(opt, view || this.defaultView);
   }
   update(json: any) {
     let map = this.instanceMap.get(json.$loki);

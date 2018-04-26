@@ -1,0 +1,94 @@
+<!-- 数据库 -->
+<div [formGroup]="form">
+  <div nz-form [nzLayout]="'inline'">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-user">
+          <input nz-input formControlName="title" placeholder="请输入表名" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-code-o">
+          <input nz-input formControlName="name" placeholder="请输入代号">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-profile">
+          <input nz-input formControlName="desc" placeholder="备注说明">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary" (click)="saveTable()">保存数据</button>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary" (click)="addField()">添加字段</button>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <nz-card nzTitle="索引">
+    <nz-table #indexsTable [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ x:'140%',y: '240px' }" [nzData]="indexs.value"
+      nzSize="small">
+      <thead>
+        <tr>
+          <th>类型</th>
+          <th>字段</th>
+          <th>名字</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of indexsTable.data">
+          <td>
+            {{data.type}}
+          </td>
+          <td>{{data.fields}}</td>
+          <td>{{data.name}}</td>
+          <td>
+            <a>删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+  <nz-card nzTitle="外键">
+    <nz-table #foreignsTable [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ x:'140%',y: '240px' }" [nzData]="foreigns.value"
+      nzSize="small">
+      <thead>
+        
+        <tr>
+          <th>源</th>
+          <th>目标表</th>
+          <th>目标字段</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of foreignsTable.data">
+          <td>
+            {{data.from}}
+          </td>
+          <td>{{data.toTable}}</td>
+          <td>{{data.to}}</td>
+          <td>
+            <a>删除</a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+</div>
+<nz-tabset [(nzSelectedIndex)]="nzSelectedIndex" >
+  <nz-tab *ngFor="let tab of tabs"  [nzTitle]="titleTemplate">
+    <ng-template #titleTemplate>
+      <i [ngClass]="tab.icon"></i>{{ tab.title }}
+    </ng-template>
+  </nz-tab>
+</nz-tabset>

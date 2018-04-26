@@ -28,10 +28,12 @@ export class BaseText extends Element implements OnInit, OnDestroy {
   constructor(view: ViewContainerRef) {
     super(view);
     this.scale$.subscribe(res => {
-      this._updateStyles({
-        ['line-height']: res.height + 'px',
-        [`text-align`]: 'center'
-      });
+      if (res !== 'clear') {
+        this._updateStyles({
+          ['line-height']: (res.height > 10 ? res.height : 34) + 'px',
+          [`text-align`]: 'center'
+        });
+      }
     });
   }
 

@@ -1,0 +1,103 @@
+<!-- 数据库 -->
+<div class="addForm" [formGroup]="form">
+  <div nz-form [nzLayout]="'inline'">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-user">
+          <input nz-input formControlName="title" placeholder="请输入表名字">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-code-o">
+          <input nz-input formControlName="name" placeholder="请输入表代号" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-profile">
+          <input nz-input formControlName="desc" placeholder="备注说明">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary" (click)="addTable()">添加表</button>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>
+<nz-card nzTitle="所有数据库">
+  <div nz-card-grid *ngFor="let item of tables" [ngStyle]="gridStyle">
+    <h3>{{item.title}}[{{item.name}}]</h3>
+    <p>{{item.desc}}</p>
+    <nz-dropdown style="margin-right: 5px;">
+      <button nz-button nzType="primary" nzGhost nz-dropdown>
+        操作
+        <i class="anticon anticon-appstore"></i>
+      </button>
+      &nbsp;
+      <ul nz-menu nzSelectable>
+        <li nz-menu-item (click)="editTable(item)">
+          <a>
+            <i class="anticon anticon-edit"></i>
+            编辑
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a>
+            <i class="anticon anticon-profile"></i>
+            管理
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a>
+            <i class="anticon anticon-file-add"></i>
+            添加
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a>
+            <i class="anticon anticon-dot-chart"></i>
+            统计
+          </a>
+        </li>
+        <li nz-menu-item (click)="tableDesign(item)">
+          <a>
+            <i class="anticon anticon-database"></i>
+            结构
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a>
+            <i class="anticon anticon-table"></i>
+            展示
+          </a>
+        </li>
+        <li nz-menu-item>
+          <a>
+            <i class="anticon anticon-form"></i>
+            表单
+          </a>
+        </li>
+      </ul>
+    </nz-dropdown>
+    <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="deleteTable()">
+      <button nz-button nzGhost nzType="danger" nz-popconfirm>
+        <i class="anticon anticon-delete"></i>
+      </button>
+    </nz-popconfirm>
+  </div>
+</nz-card>
+
+<ng-template #actionSetting>
+  <i class="anticon anticon-setting"></i>
+</ng-template>
+<ng-template #actionEdit>
+  <i class="anticon anticon-edit"></i>
+</ng-template>
+<ng-template #actionEllipsis>
+  <i class="anticon anticon-ellipsis"></i>
+</ng-template>

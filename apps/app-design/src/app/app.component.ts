@@ -50,27 +50,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    let parse = parseURL();
-    let { pid } = parse;
-    if (pid) {
-      this._render
-        .showElement(
-          {
-            title: '页面一',
-            $loki: pid,
-            selector: 'base-page'
-          },
-          {},
-          {},
-          this.view
-        )
-        .subscribe((res: any) => {
-          res.subscribe(item => {
-            this.handler(res);
-          });
-        });
-    }
-    this._render.setDefaultView(this.rootView);
     this.setRem();
     fromEvent(window, 'resize').subscribe(res => {
       this.setRem();

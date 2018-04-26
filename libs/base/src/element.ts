@@ -48,8 +48,7 @@ export abstract class Element implements OnInit, OnDestroy {
   // 样式
   @Input()
   styles: { [key: string]: string } = {
-    display: 'inline-block',
-    ['transform-origin']: '0% 0% 0px'
+    display: 'inline-block'
   };
   // 样式类
   @Input() classes: { [key: string]: boolean };
@@ -158,8 +157,8 @@ export abstract class Element implements OnInit, OnDestroy {
   }
   // 更新样式
   _updateStyles(obj) {
-    (obj.translateX = this._ele.nativeElement.translateX),
-      (obj.translateY = this._ele.nativeElement.translateY);
+    (obj.translateX = this._ele.nativeElement.translateX || 0),
+      (obj.translateY = this._ele.nativeElement.translateY || 0);
     this.styles = {
       ...this.styles,
       ...obj
@@ -368,14 +367,14 @@ export abstract class Element implements OnInit, OnDestroy {
     let rect = ele.getBoundingClientRect();
     let size = {
       // 控制器尺寸
-      width: ele.clientWidth * ele.scaleX,
-      height: ele.clientHeight * ele.scaleY,
-      left: rect.left,
-      top: rect.top,
+      width: ele.clientWidth * (ele.scaleX || 1),
+      height: ele.clientHeight * (ele.scaleY || 1),
+      left: ele.offsetLeft,
+      top: ele.offsetTop,
       translateX: ele.translateX,
       translateY: ele.translateY,
-      scaleX: ele.scaleX,
-      scaleY: ele.scaleY
+      scaleX: ele.scaleX || 1,
+      scaleY: ele.scaleY || 1
     };
     let opts: any = {
       selector: 'base-control',
@@ -384,23 +383,36 @@ export abstract class Element implements OnInit, OnDestroy {
         change$: 'change'
       }
     };
-    return this._mrender.addTmp(opts).pipe(
+    return this._mrender.addTmp(opts,this.view).pipe(
       map((res: any) => res.data),
       tap(res => {
         if (res === 'clear') {
           this._mrender.remove(opts.selector);
         }
       }),
+      filter(res => res != 'clear'),
+      filter(res => res.width > 0 && res.height > 0),
       map(res => {
-        ele.translateX = res.left + rect.left;
-        ele.translateY = res.top + rect.top;
+        return {
+          translateX:
+            res.left - this._startSize.left + this._startSize.translateX,
+          translateY:
+            res.top - this._startSize.top + this._startSize.translateY,
+          width: res.width,
+          height: res.height
+        };
+      }),
+      map(res => {
+        ele.translateX = res.translateX;
+        ele.translateY = res.translateY;
         let clientWidth = this._doc.documentElement.clientWidth;
         let clientHeight = this._doc.documentElement.clientHeight;
         if (res.width && res.height) {
-          this._updateStyles({
+          let style = {
             width: clientWidth - res.width < 10 ? '100%' : res.width + 'px',
             height: clientHeight - res.height < 10 ? '100%' : res.height + 'px'
-          });
+          };
+          this._updateStyles(style);
         }
         return res;
       }),

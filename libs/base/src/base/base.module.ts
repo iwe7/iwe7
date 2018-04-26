@@ -49,6 +49,18 @@ import { NzModalModule } from 'iwe7/antd/modal';
       {
         path: 'create-element',
         loadChildren: './addons/create-element/src/create-element.module#CreateElementModule'
+      },
+      {
+        path: 'ruler',
+        loadChildren: './addons/ruler/src/ruler.module#RulerModule'
+      },
+      {
+        path: 'table-builder',
+        loadChildren: './addons/table/table-builder/table-builder.module#TableBuilderModule'
+      },
+      {
+        path: 'table-list',
+        loadChildren: './addons/table/table-list/table-list.module#TableListModule'
       }
     ])
   ]
