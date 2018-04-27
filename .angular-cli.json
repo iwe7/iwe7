@@ -74,10 +74,7 @@
       "name": "app-design",
       "root": "apps/app-design/src",
       "outDir": "dist/apps/app-design",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -85,10 +82,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "",
-      "styles": [
-        "themes/test3/ng-zorro-antd.less",
-        "styles.scss"
-      ],
+      "styles": ["themes/test3/ng-zorro-antd.less", "styles.scss"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
@@ -101,10 +95,7 @@
       "name": "app-table",
       "root": "apps/app-table/src",
       "outDir": "dist/apps/app-table",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -113,7 +104,14 @@
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        {
+          "input": "../node_modules/normalize.css/normalize.css",
+          "output": "lib"
+        },
+        {
+          "input": "styles.scss",
+          "output": "meepo"
+        }
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -127,10 +125,7 @@
       "name": "design",
       "root": "apps/design/src",
       "outDir": "dist/apps/design",
-      "assets": [
-        "assets",
-        "favicon.ico"
-      ],
+      "assets": ["assets", "favicon.ico"],
       "index": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
@@ -138,9 +133,7 @@
       "tsconfig": "tsconfig.app.json",
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "app",
-      "styles": [
-        "styles.css"
-      ],
+      "styles": ["styles.css"],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
       "environments": {
