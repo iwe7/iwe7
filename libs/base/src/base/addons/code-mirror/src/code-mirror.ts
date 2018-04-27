@@ -4,7 +4,8 @@ import {
   HostBinding,
   ElementRef,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Input
 } from '@angular/core';
 import { LokiPageDataService, MeepoRender } from 'iwe7/render';
 import { Subject } from 'rxjs';
@@ -22,7 +23,8 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   encapsulation: ViewEncapsulation.None
 })
 export class CodeMirrorPage implements OnInit {
-  @HostBinding('attr.id') id: string;
+  @HostBinding('attr.id')
+  @Input() id: string;
   @HostBinding('attr.data-title') title: string;
   list: any[] = [];
   editor: any;
