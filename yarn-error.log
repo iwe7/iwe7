@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn build3
+  /usr/local/bin/node /usr/local/bin/yarn build
 
 PATH: 
   /Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands:/Users/meepo/.rvm/gems/ruby-2.4.0/bin:/Users/meepo/.rvm/gems/ruby-2.4.0@global/bin:/Users/meepo/.rvm/rubies/ruby-2.4.0/bin:/Library/Frameworks/Python.framework/Versions/3.6/bin:/Users/meepo/.rvm/bin:/Users/meepo/.rvm/bin
@@ -20,11 +20,11 @@ npm manifest:
     "license": "MIT",
     "scripts": {
       "ng": "ng",
-      "start": "ng serve --app=test",
+      "start": "ng serve --app=app-table",
       "start2": "ng serve --app=design",
       "start3": "ng serve --app=app-design --port 4003",
       "start4": "ng serve --app=test-browser",
-      "build": "ng build --app=test --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true",
+      "build": "ng build --app=app-table --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true",
       "build2": "ng build --app=test2 --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true",
       "build3": "ng build --app=app-design --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true --sourcemaps=true",
       "test": "ng test",
@@ -57,8 +57,10 @@ npm manifest:
       "@angular/platform-browser-dynamic": "6.0.0-rc.5",
       "@angular/router": "6.0.0-rc.5",
       "@ngrx/effects": "6.0.0-beta.1",
+      "@ngrx/entity": "5.2.0",
       "@ngrx/router-store": "6.0.0-beta.1",
       "@ngrx/store": "6.0.0-beta.1",
+      "@ngrx/store-devtools": "6.0.0-beta.1",
       "@nrwl/nx": "0.11.0",
       "@types/codemirror": "^0.0.56",
       "@types/d3": "^5.0.0",
@@ -307,6 +309,10 @@ Lockfile:
     version "6.0.0-beta.1"
     resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-6.0.0-beta.1.tgz#34e742e8c6a5730291f1e1f35798173ac0a93733"
   
+  "@ngrx/entity@5.2.0":
+    version "5.2.0"
+    resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-5.2.0.tgz#68b90b3159bb46ec5b2d0de3fa0bf4e80e94972d"
+  
   "@ngrx/router-store@6.0.0-beta.1":
     version "6.0.0-beta.1"
     resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-6.0.0-beta.1.tgz#1d43e47996a0a664d07aedbef66be640b63e8aa2"
@@ -318,6 +324,10 @@ Lockfile:
   "@ngrx/schematics@6.0.0-beta.0":
     version "6.0.0-beta.0"
     resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-6.0.0-beta.0.tgz#71b9faf114bd924a0532dae13811ef738dc3c30f"
+  
+  "@ngrx/store-devtools@6.0.0-beta.1":
+    version "6.0.0-beta.1"
+    resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-6.0.0-beta.1.tgz#8bbac342c90340589c881577e193dbe67c487c5a"
   
   "@ngrx/store@6.0.0-beta.1":
     version "6.0.0-beta.1"
@@ -8674,7 +8684,7 @@ Trace:
   Error: Command failed.
   Exit code: 1
   Command: sh
-  Arguments: -c ng build --app=app-design --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true --sourcemaps=true
+  Arguments: -c ng build --app=app-table --prod --output-hashing=none --vendor-chunk=true --extract-css=true --named-chunks=true
   Directory: /Volumes/meepo/nx/iwe7-nx
   Output:
   
