@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --app=test",
+    "start": "ng serve --app=app-table",
     "start2": "ng serve --app=design",
     "start3": "ng serve --app=app-design --port 4003",
     "start4": "ng serve --app=test-browser",
