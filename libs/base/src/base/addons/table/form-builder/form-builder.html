@@ -1,0 +1,70 @@
+<form nz-form [formGroup]="form">
+  <nz-form-item *ngFor="let item of formObj">
+    <nz-form-label [nzSpan]="5">{{item.label}}</nz-form-label>
+    <nz-form-control [nzValidateStatus]="getFormStatus(item.name)" [nzSpan]="12">
+      <input *ngIf="item.type === 'text'" autocomplete nz-input [formControlName]="item.name" [placeholder]="item.placeholder">
+      <input *ngIf="item.type === 'realname'" autocomplete="name" nz-input [formControlName]="item.name" [placeholder]="item.placeholder">
+      <!-- todo -->
+      <input *ngIf="item.type === 'address'" autocomplete="name" nz-input [formControlName]="item.name" [placeholder]="item.placeholder">
+      <!-- todo -->
+      <input *ngIf="item.type === 'time'" type="time" autocomplete="name" nz-input [formControlName]="item.name" [placeholder]="item.placeholder">
+      <!-- todo -->
+      <input *ngIf="item.type === 'city'" autocomplete="name" nz-input [formControlName]="item.name" [placeholder]="item.placeholder">
+      <nz-input-number *ngIf="item.type === 'number'" [formControlName]="item.name"></nz-input-number>
+      <nz-upload *ngIf="item.type === 'avatar' || item.type === 'image'" [nzShowUploadList]="false" nzListType="picture-card" nzAction="https://jsonplaceholder.typicode.com/posts/">
+        <i class="anticon anticon-plus"></i>
+        <div class="ant-upload-text">上传</div>
+      </nz-upload>
+      <nz-upload *ngIf="item.type === 'thumbs'" nzListType="picture-card" nzAction="https://jsonplaceholder.typicode.com/posts/">
+        <i class="anticon anticon-plus"></i>
+        <div class="ant-upload-text">上传</div>
+      </nz-upload>
+      <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" [nzFileList]="false" *ngIf="item.type === 'audio' || item.type === 'video' || item.type === 'file'">
+        <button nz-button>
+          <i class="anticon anticon-upload"></i>
+          <span>上传</span>
+        </button>
+      </nz-upload>
+      <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/" [nzFileList]="false" *ngIf="item.type === 'audios' || item.type === 'videos' || item.type === 'files'">
+        <button nz-button>
+          <i class="anticon anticon-upload"></i>
+          <span>上传</span>
+        </button>
+      </nz-upload>
+      <input *ngIf="item.type === 'mobile'" autocomplete="tel" nz-input type="tel" [formControlName]="item.name" [placeholder]="item.placeholder">
+      <input *ngIf="item.type === 'email'" autocomplete="email" nz-input type="email" [formControlName]="item.name" [placeholder]="item.placeholder">
+      <input *ngIf="item.type === 'password'" autocomplete nz-input type="password" [formControlName]="item.name" [placeholder]="item.placeholder">
+      <nz-radio-group *ngIf="item.type === 'radio'" [formControlName]="item.name">
+        <label nz-radio nzValue="A">A</label>
+        <label nz-radio nzValue="B">B</label>
+        <label nz-radio nzValue="C">C</label>
+        <label nz-radio nzValue="D">D</label>
+      </nz-radio-group>
+      <nz-checkbox-group *ngIf="item.type === 'checkbox'" [formControlName]="item.name"></nz-checkbox-group>
+      <nz-form-explain>{{item.tip}}{{item.type}}</nz-form-explain>
+      <nz-select *ngIf="item.type === 'select'" style="min-width: 200px;" nzShowSearch nzAllowClear [nzPlaceHolder]="item.placeholder"
+        [formControlName]="item.name">
+        <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+        <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+        <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+      </nz-select>
+      <nz-select *ngIf="item.type === 'tagsSelect'" nzMode="tags" style="min-width: 200px;" nzShowSearch nzAllowClear [nzPlaceHolder]="item.placeholder"
+        [formControlName]="item.name">
+        <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+        <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+        <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+      </nz-select>
+      <nz-switch *ngIf="item.type === 'switch' || item.type === 'boolean'" [formControlName]="item.name"></nz-switch>
+
+      <textarea *ngIf="item.type === 'textarea'" row="4" nz-input [formControlName]="item.name"></textarea>
+      <textarea *ngIf="item.type === 'mediumtext'" row="4" nz-input [formControlName]="item.name"></textarea>
+
+      <!-- todo -->
+      <div *ngIf="item.type === 'date'" class="inline" [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
+        <nz-calendar nzCard [formControlName]="item.name"></nz-calendar>
+      </div>
+    </nz-form-control>
+
+
+  </nz-form-item>
+</form>

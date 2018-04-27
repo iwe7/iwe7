@@ -27,68 +27,293 @@
         <button nz-button nzType="primary" (click)="saveTable()">保存数据</button>
       </nz-form-control>
     </nz-form-item>
-    <nz-form-item>
-      <nz-form-control>
-        <button nz-button nzType="primary" (click)="addField()">添加字段</button>
-      </nz-form-control>
-    </nz-form-item>
   </div>
-  <nz-card nzTitle="索引">
-    <nz-table #indexsTable [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ x:'140%',y: '240px' }" [nzData]="indexs.value"
-      nzSize="small">
-      <thead>
-        <tr>
-          <th>类型</th>
-          <th>字段</th>
-          <th>名字</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of indexsTable.data">
-          <td>
-            {{data.type}}
-          </td>
-          <td>{{data.fields}}</td>
-          <td>{{data.name}}</td>
-          <td>
-            <a>删除</a>
-          </td>
-        </tr>
-      </tbody>
-    </nz-table>
-  </nz-card>
-  <nz-card nzTitle="外键">
-    <nz-table #foreignsTable [nzFrontPagination]="false" [nzShowPagination]="false" [nzScroll]="{ x:'140%',y: '240px' }" [nzData]="foreigns.value"
-      nzSize="small">
-      <thead>
-        
-        <tr>
-          <th>源</th>
-          <th>目标表</th>
-          <th>目标字段</th>
-          <th>操作</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let data of foreignsTable.data">
-          <td>
-            {{data.from}}
-          </td>
-          <td>{{data.toTable}}</td>
-          <td>{{data.to}}</td>
-          <td>
-            <a>删除</a>
-          </td>
-        </tr>
-      </tbody>
-    </nz-table>
-  </nz-card>
 </div>
-<nz-tabset [(nzSelectedIndex)]="nzSelectedIndex" >
-  <nz-tab *ngFor="let tab of tabs"  [nzTitle]="titleTemplate">
+<nz-tabset (nzSelectChange)="nzSelectChange($event)">
+  <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
     <ng-template #titleTemplate>
       <i [ngClass]="tab.icon"></i>{{ tab.title }}
     </ng-template>
   </nz-tab>
 </nz-tabset>
+<div *ngIf="nzSelectedIndex === 0">
+  <nz-table #fieldsTable [nzFooter]="footer" [nzData]="form.get('fields').value" nzSize="small">
+    <thead>
+      <tr>
+        <th style="width: 100px;">
+          字段名
+        </th>
+        <th style="width: 180px;">字段类型</th>
+        <th style="width: 100px;">长度</th>
+        <th style="width: 100px;">非空</th>
+        <th style="width: 100px;">自增</th>
+        <th style="width: 180px;">默认值</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of fieldsTable.data">
+        <td>
+          <input nz-input [(ngModel)]="data.name" placeholder="请输入字段名" />
+        </td>
+        <td>
+          <nz-select style="width: 120px;" [(ngModel)]="data.type" nzAllowClear nzPlaceHolder="请选择字段类型">
+            <nz-option *ngFor="let item of TableFieldType" [nzValue]="item.value" [nzLabel]="item.title"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <nz-input-number [(ngModel)]="data.length" [nzStep]="32"></nz-input-number>
+        </td>
+        <td>
+          <nz-switch [(ngModel)]="data.null"></nz-switch>
+        </td>
+        <td>
+          <nz-switch [(ngModel)]="data.ai"></nz-switch>
+        </td>
+        <td>
+          <input nz-input [(ngModel)]="data.default" placeholder="请输入默认值" />
+        </td>
+        <td>
+          <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="confirmDelete(data,'fields')">
+            <a nz-popconfirm>删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div *ngIf="nzSelectedIndex === 1">
+  <nz-table #indexsTable [nzFooter]="footer" nzSize="small" [nzData]="form.get('indexs').value">
+    <thead>
+      <tr>
+        <th style="width: 180px">类型</th>
+        <th>字段</th>
+        <th style="width: 240px">名字</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of indexsTable.data">
+        <td>
+          <nz-select style="width: 120px;" [(ngModel)]="data.type" nzAllowClear nzPlaceHolder="请选择字段类型">
+            <nz-option *ngFor="let item of TableIndexType" [nzValue]="item.value" [nzLabel]="item.title"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <nz-select style="min-width: 240px;" nzMode="multiple" (ngModelChange)="indexChange($event, data)" [(ngModel)]="data.fields"
+            nzAllowClear nzPlaceHolder="请选择字段类型">
+            <nz-option *ngFor="let item of form.get('fields').value" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <input nz-input [(ngModel)]="data.name" placeholder="请输入索引名" />
+        </td>
+        <td>
+          <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="confirmDelete(data,'indexs')">
+            <a nz-popconfirm>删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div *ngIf="nzSelectedIndex === 2">
+  <nz-table #foreignsTable [nzFooter]="footer" nzSize="small" [nzData]="form.get('foreigns').value" nzSize="small">
+    <thead>
+      <tr>
+        <th style="width: 140px;">源</th>
+        <th style="width: 180px;">目标表</th>
+        <th style="width: 280px;">目标字段</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of foreignsTable.data">
+        <td>
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.from" nzAllowClear nzPlaceHolder="请选择字段类型">
+            <nz-option *ngFor="let item of form.get('fields').value" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <nz-select style="min-width: 140px;" (ngModelChange)="getToTable($event)" [(ngModel)]="data.toTable" nzAllowClear nzPlaceHolder="请选择目标库">
+            <nz-option *ngFor="let item of tables" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.to" nzAllowClear nzPlaceHolder="请选择目标字段">
+            <nz-option *ngFor="let item of getToTable(data.toTable)?.fields" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="confirmDelete(data,'foreigns')">
+            <a nz-popconfirm>删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div *ngIf="nzSelectedIndex === 3">
+  <nz-table #formTable [nzFooter]="footer" nzSize="small" [nzData]="form.get('form').value" nzSize="small">
+    <thead>
+      <tr>
+        <th style="width: 140px;">字段名</th>
+        <th style="width: 180px;">标题</th>
+        <th style="width: 180px;">类型</th>
+        <th style="width: 180px;">输入提醒</th>
+        <th style="width: 220px;">默认值</th>
+        <th style="width: 220px;">说明</th>
+        <th style="width: 220px;">附加数据</th>
+        <th style="width: 220px;">校验器</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of formTable.data">
+        <td>
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.name" nzAllowClear nzPlaceHolder="请选择字段类型">
+            <nz-option *ngFor="let item of form.get('fields').value" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <input nz-input [(ngModel)]="data.label" placeholder="输入标题" />
+        </td>
+        <td>
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.type" nzAllowClear nzPlaceHolder="请选择类型">
+            <nz-option *ngFor="let item of TableFieldFormType" [nzValue]="item.value" [nzLabel]="item.title"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <input nz-input [(ngModel)]="data.placeholder" placeholder="输入提醒" />
+        </td>
+        <td>
+          <input nz-input [(ngModel)]="data.value" placeholder="输入默认值" />
+        </td>
+        <td>
+          <input nz-input [(ngModel)]="data.tip" placeholder="输入说明文字" />
+        </td>
+        <td>
+          <a>附加数据</a>
+        </td>
+        <td>
+          <a>校验器</a>
+        </td>
+        <td>
+          <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="confirmDelete(data,'form')">
+            <a nz-popconfirm>删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <form-builder [update$]="updateForm$"></form-builder>
+</div>
+<div *ngIf="nzSelectedIndex === 4">
+  <nz-table #previewTable [nzFooter]="footer" nzSize="small" [nzData]="form.get('preview').value" nzSize="small">
+    <thead>
+      <tr>
+        <th style="width: 140px;">字段名</th>
+        <th style="width: 180px;">展示名</th>
+        <th style="width: 180px;">是否排序</th>
+        <th style="width: 180px;">展示类型</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of previewTable.data">
+        <td>
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.from" nzAllowClear nzPlaceHolder="请选择字段类型">
+            <nz-option *ngFor="let item of form.get('fields').value" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <input nz-input [(ngModel)]="data.title" placeholder="输入展示名" />
+        </td>
+        <td>
+          <nz-switch [(ngModel)]="data.isSort"></nz-switch>
+        </td>
+        <td>
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.type" nzAllowClear nzPlaceHolder="请选择展示类型">
+            <nz-option *ngFor="let item of TableFieldShowType" [nzValue]="item.value" [nzLabel]="item.title"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="confirmDelete(data,'preview')">
+            <a nz-popconfirm>删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <table-preview [update$]="updateForm$"></table-preview>
+</div>
+<div *ngIf="nzSelectedIndex === 5">
+  <nz-table #filterTable [nzFooter]="footer" nzSize="small" [nzData]="form.get('filter').value" nzSize="small">
+    <thead>
+      <tr>
+        <th style="width: 140px;">字段名</th>
+        <th style="width: 180px;">展示名</th>
+        <th style="width: 180px;">类型</th>
+        <th style="width: 180px;">可选数据</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of filterTable.data">
+        <td>
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.name" nzAllowClear nzPlaceHolder="请选择字段类型">
+            <nz-option *ngFor="let item of form.get('fields').value" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <input nz-input [(ngModel)]="data.title" placeholder="请输入展示名" />
+        </td>
+        <td>
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.type" nzAllowClear nzPlaceHolder="请选择类型">
+            <nz-option *ngFor="let item of TableFieldFormType" [nzValue]="item.value" [nzLabel]="item.title"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="confirmDelete(data,'filter')">
+            <a nz-popconfirm>删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<div *ngIf="nzSelectedIndex === 6">
+  <nz-table #exportTable [nzFooter]="footer" nzSize="small" [nzData]="form.get('export').value" nzSize="small">
+    <thead>
+      <tr>
+        <th style="width: 140px;">字段名</th>
+        <th style="width: 180px;">展示名</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of exportTable.data">
+        <td>
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.name" nzAllowClear nzPlaceHolder="请选择字段类型">
+            <nz-option *ngFor="let item of form.get('fields').value" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
+          </nz-select>
+        </td>
+        <td>
+          <input nz-input [(ngModel)]="data.title" placeholder="请输入展示名" />
+        </td>
+        <td>
+          <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="confirmDelete(data,'export')">
+            <a nz-popconfirm>删除</a>
+          </nz-popconfirm>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<ng-template #footer>
+  <div class="footer ">
+    <button nz-button nzType="primary" (click)="addData()">添加数据</button>
+    <button nz-button nzType="primary" (click)="saveData()">保存数据</button>
+  </div>
+</ng-template>

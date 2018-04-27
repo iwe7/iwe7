@@ -1,7 +1,14 @@
-import { Component, OnInit, ViewContainerRef, ViewChild, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import {
+  Component,
+  OnInit,
+  ViewContainerRef,
+  ViewChild,
+  OnDestroy
+} from '@angular/core';
 import { MeepoRender } from 'iwe7/render';
 import { Subject } from 'rxjs';
+import { parseURL } from 'iwe7/we7-location';
+
 @Component({
   selector: 'page-index',
   templateUrl: './page-index.component.html',
@@ -14,30 +21,9 @@ export class PageIndexComponent implements OnInit, OnDestroy {
   view: ViewContainerRef;
   render$: Subject<any> = new Subject();
 
-  pid: number;
+  pid: any;
   code: string;
-  constructor(
-    public route: ActivatedRoute,
-    public rootView: ViewContainerRef,
-    public render: MeepoRender,
-    public router: Router
-  ) {
-    this.route.queryParams.subscribe(res => {
-      let { pid, code } = res;
-      if (!!pid) {
-        this.pid = pid;
-        this.render$.next(this.pid);
-      } else if (!!code) {
-        this.code = code;
-        this.render$.next(this.code);
-      }
-    });
-    this.router.events.subscribe(res=>{
-      if(res instanceof NavigationEnd){
-        this.handlerRender();
-      }
-    });
-  }
+  constructor(public rootView: ViewContainerRef, public render: MeepoRender) {}
 
   ngOnInit() {
     this.render.setDefaultView(this.rootView);
@@ -47,10 +33,21 @@ export class PageIndexComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
+    this.render.remove(this.pid);
+    this.render.removeByCode(this.code);
+    this.rootView.clear();
+    this.view && this.view.clear();
   }
 
   handlerRender() {
+    let parse = parseURL();
+    let { pid, code } = parse;
+    if (!!pid) {
+      this.pid = pid;
+    } else if (!!code) {
+      this.code = code;
+    }
     if (this.pid) {
       this.renderByPid();
     } else {
@@ -59,9 +56,7 @@ export class PageIndexComponent implements OnInit, OnDestroy {
   }
 
   renderByPid() {
-    this.render.remove(this.pid);
-    this.rootView.clear();
-    this.view && this.view.clear();
+    console.log('renderByPid');
     this.render
       .showElement({ $loki: this.pid }, {}, {}, this.view)
       .subscribe((res: any) => {
@@ -76,8 +71,6 @@ export class PageIndexComponent implements OnInit, OnDestroy {
   }
 
   renderByCode() {
-    this.rootView.clear();
-    this.view && this.view.clear();
     console.log('renderByCode');
     this.render
       .showElement({ code: this.code }, {}, {}, this.view)

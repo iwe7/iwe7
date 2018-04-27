@@ -1,4 +1,15 @@
-:host {
-  display: block;
-  width: 100%;
+table-builder {
+    display: block;
+    width: 100%;
+    .ant-tabs-bar {
+        margin: 0px;
+    }
+    .footer {
+        position: relative;
+        overflow: hidden;
+        button {
+            float: right;
+            margin-right: 10px;
+        }
+    }
 }

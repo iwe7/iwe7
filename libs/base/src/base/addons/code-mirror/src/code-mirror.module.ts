@@ -21,7 +21,8 @@ import { CodeMirrorPage } from './code-mirror';
     NzFormModule
   ],
   declarations: [CodeMirrorPage],
-  entryComponents: [CodeMirrorPage]
+  entryComponents: [CodeMirrorPage],
+  exports: [CodeMirrorPage]
 })
 export class CodeMirrorModule {
   get(key: string) {

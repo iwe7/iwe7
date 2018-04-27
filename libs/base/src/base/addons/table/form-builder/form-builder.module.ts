@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TableBuilder } from './table-builder';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { TableFormBuilder } from './form-builder';
 import { NzTableModule } from 'iwe7/antd/table';
 import { NzInputModule } from 'iwe7/antd/input';
 import { NzInputNumberModule } from 'iwe7/antd/input-number';
@@ -15,8 +15,14 @@ import { NzTabsModule } from 'iwe7/antd/tabs';
 import { NzPopconfirmModule } from 'iwe7/antd/popconfirm';
 import { SharedModule } from 'iwe7/shared';
 import { NzMessageModule } from 'iwe7/antd/message';
-import { TableFormBuilderModule } from '../form-builder/form-builder.module';
-import { TablePreviewModule } from '../table-preview/table-preview.module';
+import { NzUploadModule } from 'iwe7/antd/upload';
+import { NzRadioModule } from 'iwe7/antd/radio';
+import { NzCheckboxModule } from 'iwe7/antd/checkbox';
+import { NzCalendarModule } from 'iwe7/antd/calendar';
+
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+registerLocaleData(zh);
 
 @NgModule({
   imports: [
@@ -34,14 +40,24 @@ import { TablePreviewModule } from '../table-preview/table-preview.module';
     SharedModule,
     NzPopconfirmModule,
     NzMessageModule,
-    TableFormBuilderModule,
-    TablePreviewModule
+    NzUploadModule,
+    NzRadioModule,
+    NzCheckboxModule,
+    NzCalendarModule,
   ],
-  declarations: [TableBuilder],
-  entryComponents: [TableBuilder]
+  declarations: [TableFormBuilder],
+  entryComponents: [TableFormBuilder],
+  exports: [TableFormBuilder],
+  providers: [
+    DatePipe,
+    {
+      provide: LOCALE_ID,
+      useValue: 'zh-cn'
+    }
+  ]
 })
-export class TableBuilderModule {
+export class TableFormBuilderModule {
   get(key: string) {
-    return TableBuilder;
+    return TableFormBuilder;
   }
 }

@@ -281,6 +281,7 @@ export class MeepoRender {
       };
       element = this.data.insert(item);
     }
+    this.remove(element.$loki);
     return this.compiler(element, view || this.defaultView);
   }
   // 移除
@@ -290,7 +291,6 @@ export class MeepoRender {
       if (map) {
         map.comp.destroy();
         this.instanceMap.delete(id);
-        this.renderManager.remove(id);
       }
     }
     this.update$.next({});
@@ -300,6 +300,7 @@ export class MeepoRender {
       return item.code + '' === code + '';
     });
     this.remove(item.$loki);
+    this.update$.next({});
   }
   // 添加
   add(item: RenderOptions) {
@@ -350,7 +351,6 @@ export class MeepoRender {
     @Inject(ROUTES) private lazy: any,
     private injector: Injector,
     private ngCompiler: Compiler,
-    private renderManager: MeepoRenderManager,
     private page: LokiPageService,
     private data: LokiPageDataService,
     private title: Title

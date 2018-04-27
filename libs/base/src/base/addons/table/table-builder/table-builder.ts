@@ -1,19 +1,25 @@
-import { OnInit, Component, Input } from '@angular/core';
+import { OnInit, Component, Input, ViewEncapsulation } from '@angular/core';
 import { Table, TableField } from '../../interface';
 import { TableBuilderLoki } from '../../table-builder';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NzMessageService } from 'iwe7/antd/message';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'table-builder',
   templateUrl: './table-builder.html',
-  styleUrls: ['./table-builder.scss']
+  styleUrls: ['./table-builder.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TableBuilder implements OnInit {
   table: Table;
+  activeTable: Table;
+
+  updateForm$: Subject<any> = new Subject();
+
   form: FormGroup;
-  fields: FormArray;
-  indexs: FormArray;
-  foreigns: FormArray;
+
+  tables: any[] = [];
 
   nzSelectedIndex: number = 0;
 
@@ -31,28 +37,20 @@ export class TableBuilder implements OnInit {
       icon: 'anticon anticon-exception'
     },
     {
-      title: '数据管理',
-      icon: 'anticon anticon-appstore-o'
-    },
-    {
-      title: '数据统计',
-      icon: 'anticon anticon-dot-chart'
-    },
-    {
-      title: '表单设计',
+      title: '表单设置',
       icon: 'anticon anticon-form'
     },
     {
-      title: '表格设计',
+      title: '展示设置',
       icon: 'anticon anticon-table'
     },
     {
-      title: '搜索设计',
+      title: '搜索设置',
       icon: 'anticon anticon-filter'
     },
     {
-      title: '数据设置',
-      icon: 'anticon anticon-setting'
+      title: '导出设置',
+      icon: 'anticon anticon-filter'
     }
   ];
 
@@ -106,6 +104,10 @@ export class TableBuilder implements OnInit {
       value: 'email'
     },
     {
+      title: '密码',
+      value: 'password'
+    },
+    {
       title: '姓名',
       value: 'realname'
     },
@@ -122,8 +124,20 @@ export class TableBuilder implements OnInit {
       value: 'boolean'
     },
     {
-      title: '选择',
+      title: '下拉选择',
       value: 'select'
+    },
+    {
+      title: '多选标签',
+      value: 'tagsSelect'
+    },
+    {
+      title: '单选',
+      value: 'radio'
+    },
+    {
+      title: '多选',
+      value: 'checkbox'
     },
     {
       title: '文本',
@@ -134,16 +148,16 @@ export class TableBuilder implements OnInit {
       value: 'textarea'
     },
     {
+      title: '富文本',
+      value: 'mediumtext'
+    },
+    {
       title: '图标',
       value: 'icon'
     },
     {
       title: '链接',
       value: 'link'
-    },
-    {
-      title: '单选',
-      value: 'radio'
     },
     {
       title: '开关',
@@ -169,10 +183,7 @@ export class TableBuilder implements OnInit {
       title: '时间',
       value: 'time'
     },
-    {
-      title: '富文本',
-      value: 'mediumtext'
-    },
+    
     {
       title: '语音',
       value: 'audio'
@@ -238,11 +249,31 @@ export class TableBuilder implements OnInit {
     }
   ];
 
+  TableIndexType = [
+    {
+      title: '主键索引',
+      value: 'PRIMARY'
+    },
+    {
+      title: '唯一索引',
+      value: 'UNIQUE'
+    },
+    {
+      title: '序号索引',
+      value: 'INDEX'
+    },
+    {
+      title: '全文索引',
+      value: 'FULLTEXT'
+    }
+  ];
+
   name: string;
   constructor(
     public builder: TableBuilderLoki,
     public fb: FormBuilder,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public message: NzMessageService
   ) {
     this.route.queryParams.subscribe(res => {
       let { name } = res;
@@ -255,12 +286,12 @@ export class TableBuilder implements OnInit {
       desc: [''],
       fields: this.fb.array([]),
       indexs: this.fb.array([]),
-      foreigns: this.fb.array([])
+      foreigns: this.fb.array([]),
+      form: this.fb.array([]),
+      preview: this.fb.array([]),
+      filter: this.fb.array([]),
+      export: this.fb.array([])
     });
-
-    this.fields = this.form.get('fields') as FormArray;
-    this.indexs = this.form.get('indexs') as FormArray;
-    this.foreigns = this.form.get('foreigns') as FormArray;
   }
   ngOnInit() {
     this.table = this.builder.getData(item => {
@@ -268,14 +299,56 @@ export class TableBuilder implements OnInit {
     });
     if (this.table) {
       // 初始化
-      this.form.reset(this.table);
-      this.initFormArray(this.table.fields || [], 'fields');
-      this.initFormArray(this.table.indexs || [], 'indexs');
-      this.initFormArray(this.table.foreigns || [], 'foreigns');
+      let result = this.objToForm(this.table);
+      for (let key in result) {
+        if (this.form.contains(key)) {
+          this.form.setControl(key, result[key]);
+        } else {
+          this.form.addControl(key, result[key]);
+        }
+      }
     }
+    this.tables = this.builder.where(item => {
+      return true;
+    });
     this.form.valueChanges.subscribe(res => {
       // 保存
     });
+  }
+
+  getToTable(e) {
+    let results = this.tables.filter(item => {
+      return item.name === e;
+    });
+    this.activeTable = results[0];
+    return this.activeTable;
+  }
+
+  objToForm(objs: any) {
+    let toString = Object.prototype.toString;
+    let newObj = { ...objs };
+    for (let key in objs) {
+      if (
+        toString.call(objs[key]) === '[object String]' ||
+        toString.call(objs[key]) === '[object Number]' ||
+        toString.call(objs[key]) === '[object Boolean]' ||
+        toString.call(objs[key]) === '[object Null]'
+      ) {
+        newObj[key] = this.fb.control(objs[key]);
+      }
+      if (toString.call(objs[key]) === '[object Array]') {
+        let newArray = this.objToForm(objs[key]);
+        let newCopy = [];
+        for (let key in newArray) {
+          newCopy.push(newArray[key]);
+        }
+        newObj[key] = this.fb.array(newCopy);
+      }
+      if (toString.call(objs[key]) === '[object Object]') {
+        newObj[key] = this.fb.group(this.objToForm(objs[key]));
+      }
+    }
+    return newObj;
   }
 
   initFormArray(arrs: any[], type) {
@@ -290,6 +363,8 @@ export class TableBuilder implements OnInit {
       this.builder.insertOrUpdate(item => {
         return item.name === res.name;
       }, res);
+      this.updateForm$.next();
+      this.message.success('保存成功');
     }
   }
 
@@ -300,21 +375,128 @@ export class TableBuilder implements OnInit {
       length: 11,
       null: true,
       ai: false,
-      default: null,
-      formType: 'number',
-      placeholder: '请输入',
-      validators: [],
-      isShow: true,
-      isForm: false,
-      showType: 'label',
-      isSort: true,
-      isFilter: true,
-      isExport: true
+      default: null
     };
-    this.fields.push(this.fb.group(field));
+    (<FormArray>this.form.get('fields')).push(this.fb.group(field));
   }
 
-  setView(e){
+  addIndex() {
+    (<FormArray>this.form.get('indexs')).push(
+      this.fb.group({
+        type: 'UNIQUE',
+        rows: this.fb.array([]),
+        name: ''
+      })
+    );
+  }
+
+  addForeigns() {
+    (<FormArray>this.form.get('foreigns')).push(
+      this.fb.group({
+        from: '',
+        toTable: '',
+        to: ''
+      })
+    );
+  }
+
+  addForm() {
+    (<FormArray>this.form.get('form')).push(
+      this.fb.group({
+        name: '',
+        label: '',
+        type: '',
+        placeholder: '',
+        value: '',
+        tip: '',
+        data: {},
+        validators: []
+      })
+    );
+  }
+
+  addFormPreview() {
+    (<FormArray>this.form.get('preview')).push(
+      this.fb.group({
+        name: '',
+        title: '',
+        type: '',
+        isSort: false
+      })
+    );
+  }
+
+  addFilter() {
+    (<FormArray>this.form.get('filter')).push(
+      this.fb.group({
+        name: 'id',
+        title: 'ID编号',
+        type: 'text',
+        data: {}
+      })
+    );
+  }
+
+  addExport() {
+    (<FormArray>this.form.get('export')).push(
+      this.fb.group({
+        name: 'id',
+        title: 'ID编号'
+      })
+    );
+  }
+
+  indexChange(e, item) {
+    item.name = e
+      .map((res: string) => {
+        return res.toUpperCase();
+      })
+      .join('-');
+  }
+
+  addData() {
+    switch (this.nzSelectedIndex) {
+      case 0:
+        this.addField();
+        break;
+      case 1:
+        this.addIndex();
+        break;
+      case 2:
+        this.addForeigns();
+        break;
+      case 3:
+        this.addForm();
+        break;
+      case 4:
+        this.addFormPreview();
+        break;
+      case 5:
+        this.addFilter();
+        break;
+      case 6:
+        this.addExport();
+        break;
+    }
+  }
+
+  saveData() {
+    this.saveTable();
+  }
+
+  setView(e) {
     console.log(e);
+  }
+
+  nzSelectChange(e) {
+    this.nzSelectedIndex = e.index;
+  }
+
+  confirmDelete(item, type) {
+    this.form.get(type).value.map((res, index) => {
+      if (res === item) {
+        (<FormArray>this.form.get(type)).removeAt(index);
+      }
+    });
   }
 }

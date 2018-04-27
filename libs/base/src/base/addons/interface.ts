@@ -33,17 +33,37 @@ export type TableFieldFormType =
   | 'time-range'
   | 'mediumtext';
 
-export type TableFieldShowType =
-  | 'label'
-  | 'input'
-  | 'tag'
-  | 'image'
-  | 'video';
+export type TableFieldShowType = 'label' | 'input' | 'tag' | 'image' | 'video';
 
 export interface TableFieldValidator {
   type: TableFieldValidatorType;
   limit: string;
   msg: string;
+}
+
+export interface TableFieldForm {
+  name: string;
+  label: string;
+  type: TableFieldFormType;
+  placeholder: string;
+  data: any;
+  validators: TableFieldValidator[];
+}
+
+export interface TableFieldPreview {
+  name: string;
+  title: string;
+  type: TableFieldShowType;
+  isSort: boolean;
+}
+
+export interface TableFieldExport {
+  name: string;
+  title: string;
+}
+
+export interface TableFieldFilter {
+  name: string;
 }
 
 export type TableFieldValidatorType =
@@ -62,15 +82,6 @@ export interface TableField {
   null: boolean;
   ai: boolean;
   default: any;
-  isForm: boolean;
-  formType: TableFieldFormType;
-  placeholder: string;
-  validators: TableFieldValidator[];
-  isShow: boolean;
-  showType: TableFieldShowType;
-  isSort: boolean;
-  isFilter: boolean;
-  isExport: boolean;
 }
 
 export type TableIndexType = 'PRIMARY' | 'UNIQUE' | 'INDEX' | 'FULLTEXT';
@@ -108,4 +119,9 @@ export interface Table {
   fields: TableField[];
   indexs: TableIndex[];
   foreigns: TableForeign[];
+  // 其他
+  form: TableFieldForm[];
+  preview: TableFieldPreview[];
+  filter: TableFieldFilter[];
+  export: TableFieldExport[];
 }

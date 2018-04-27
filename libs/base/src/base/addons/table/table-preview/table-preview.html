@@ -1,0 +1,11 @@
+<nz-table #table nzSize="small">
+  <thead>
+    <tr>
+      <th [nzShowSort]="item.isSort" *ngFor="let item of formObj">{{item.title}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of table.data">
+    </tr>
+  </tbody>
+</nz-table>
