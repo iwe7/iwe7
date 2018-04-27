@@ -43,7 +43,7 @@ export class TablePreview implements OnInit {
     let table = this.builder.getData(item => {
       return item.name === this.name;
     });
-    this.formObj = table['preview'];
+    this.formObj = table['preview'] || [];
     this.formObj.map(res => {
       if (res.name.length > 0) {
         if (!this.form.contains(res.name)) {

@@ -8,8 +8,8 @@ import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { LayoutModule } from './layout/layout.module';
-import { CoreModule } from './core/core.module';
-import { LazyModule } from './lazy/lazy.module';
+import { CoreModule } from 'iwe7/core';
+import { LazyModule } from 'iwe7/lazy';
 
 import { OverlayModule } from '@angular/cdk/overlay';
 

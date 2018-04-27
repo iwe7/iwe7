@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { InitService } from './core/init.service';
+// import { InitService } from './core/init.service';
 import { tap, map, switchMap } from 'rxjs/operators';
 import { MeepoRender } from 'meepo-render';
 @Injectable({
@@ -19,126 +19,128 @@ export class CreateElementService {
     outputs: ['submit$', 'change$'],
     children: {}
   };
-  constructor(private init: InitService, private _render: MeepoRender) {}
+  constructor(
+    // private init: InitService,
+     private _render: MeepoRender) {}
 
   renderFromJson() {}
 
   render(code: string, setting: any, view?: any) {
     this.forms.inputs.items.value = [];
-    this.init
-      .getElements({
-        type: code
-      })
-      .pipe(
-        // author
-        tap((res: any) => {
-          this.createField('input', 'author', '作者', res);
-        }),
-        // version
-        tap((res: any) => {
-          this.createField('input', 'version', '版本号', res);
-        }),
-        // selector
-        tap((res: any) => {
-          this.createField('input', 'selector', '选择器', res);
-        }),
-        // title
-        tap((res: any) => {
-          this.createField('input', 'title', '名字', res);
-        }),
-        // desc
-        tap((res: any) => {
-          this.createField('textarea', 'desc', '简介', res);
-        }),
-        // price
-        tap((res: any) => {
-          this.createField('number', 'price', '价格', res, '元');
-        }),
+    // this.init
+    //   .getElements({
+    //     type: code
+    //   })
+    //   .pipe(
+    //     // author
+    //     tap((res: any) => {
+    //       this.createField('input', 'author', '作者', res);
+    //     }),
+    //     // version
+    //     tap((res: any) => {
+    //       this.createField('input', 'version', '版本号', res);
+    //     }),
+    //     // selector
+    //     tap((res: any) => {
+    //       this.createField('input', 'selector', '选择器', res);
+    //     }),
+    //     // title
+    //     tap((res: any) => {
+    //       this.createField('input', 'title', '名字', res);
+    //     }),
+    //     // desc
+    //     tap((res: any) => {
+    //       this.createField('textarea', 'desc', '简介', res);
+    //     }),
+    //     // price
+    //     tap((res: any) => {
+    //       this.createField('number', 'price', '价格', res, '元');
+    //     }),
 
-        // 父容器
-        tap(res => {
-          this.createField('select', 'father', '父容器', res, [
-            {
-              title: '自身',
-              value: null,
-              icon: 'anticon anticon-user'
-            },
-            {
-              title: '展示',
-              value: 'nz-layout',
-              icon: 'anticon anticon-home'
-            },
-            {
-              title: '表单',
-              value: 'nz-form',
-              icon: 'anticon anticon-form'
-            },
-            {
-              title: '详情',
-              value: 'nz-detail',
-              icon: 'anticon anticon-profile'
-            }
-          ]);
-        }),
-        // 类型
-        tap(res => {
-          this.createField('select', 'type', '场景', res, [
-            {
-              title: '电脑页',
-              value: 'pc',
-              icon: 'anticon anticon-ie'
-            },
-            {
-              title: '手机页',
-              value: 'mobile',
-              icon: 'anticon anticon-html5'
-            },
-            {
-              title: '微信号',
-              value: 'wechat',
-              icon: 'anticon anticon-wechat'
-            },
-            {
-              title: '小程序',
-              value: 'wxapp',
-              icon: 'anticon anticon-wechat'
-            },
-            {
-              title: '安卓app',
-              value: 'android',
-              icon: 'anticon anticon-android'
-            },
-            {
-              title: '苹果app',
-              value: 'ios',
-              icon: 'anticon anticon-apple'
-            }
-          ]);
-        }),
-        map((res: any) => res.setting),
-        // inputs
-        tap((res: any) => {
-          this.createField('inputs', 'inputs', '设置项目', res);
-        }),
-        // outputs
-        tap((res: any) => {
-          this.createField('outputs', 'outputs', '输出项目', res);
-        }),
-        // children
-        tap((res: any) => {
-          this.createField('children', 'children', '内部元素', res);
-        }),
-        tap(res => console.log(res)),
-        switchMap(res => {
-          return this._render.compiler(this.forms, setting);
-        }),
-        map((res: any) => res.data),
-        // tap
-        tap(res => console.log(res))
-      )
-      .subscribe(res => {
-        // sub.unsubscribe();
-      });
+    //     // 父容器
+    //     tap(res => {
+    //       this.createField('select', 'father', '父容器', res, [
+    //         {
+    //           title: '自身',
+    //           value: null,
+    //           icon: 'anticon anticon-user'
+    //         },
+    //         {
+    //           title: '展示',
+    //           value: 'nz-layout',
+    //           icon: 'anticon anticon-home'
+    //         },
+    //         {
+    //           title: '表单',
+    //           value: 'nz-form',
+    //           icon: 'anticon anticon-form'
+    //         },
+    //         {
+    //           title: '详情',
+    //           value: 'nz-detail',
+    //           icon: 'anticon anticon-profile'
+    //         }
+    //       ]);
+    //     }),
+    //     // 类型
+    //     tap(res => {
+    //       this.createField('select', 'type', '场景', res, [
+    //         {
+    //           title: '电脑页',
+    //           value: 'pc',
+    //           icon: 'anticon anticon-ie'
+    //         },
+    //         {
+    //           title: '手机页',
+    //           value: 'mobile',
+    //           icon: 'anticon anticon-html5'
+    //         },
+    //         {
+    //           title: '微信号',
+    //           value: 'wechat',
+    //           icon: 'anticon anticon-wechat'
+    //         },
+    //         {
+    //           title: '小程序',
+    //           value: 'wxapp',
+    //           icon: 'anticon anticon-wechat'
+    //         },
+    //         {
+    //           title: '安卓app',
+    //           value: 'android',
+    //           icon: 'anticon anticon-android'
+    //         },
+    //         {
+    //           title: '苹果app',
+    //           value: 'ios',
+    //           icon: 'anticon anticon-apple'
+    //         }
+    //       ]);
+    //     }),
+    //     map((res: any) => res.setting),
+    //     // inputs
+    //     tap((res: any) => {
+    //       this.createField('inputs', 'inputs', '设置项目', res);
+    //     }),
+    //     // outputs
+    //     tap((res: any) => {
+    //       this.createField('outputs', 'outputs', '输出项目', res);
+    //     }),
+    //     // children
+    //     tap((res: any) => {
+    //       this.createField('children', 'children', '内部元素', res);
+    //     }),
+    //     tap(res => console.log(res)),
+    //     switchMap(res => {
+    //       return this._render.compiler(this.forms, setting);
+    //     }),
+    //     map((res: any) => res.data),
+    //     // tap
+    //     tap(res => console.log(res))
+    //   )
+    //   .subscribe(res => {
+    //     // sub.unsubscribe();
+    //   });
   }
 
   private createField(type, name, title, res, setting?: any) {

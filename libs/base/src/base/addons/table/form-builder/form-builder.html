@@ -41,7 +41,6 @@
         <label nz-radio nzValue="D">D</label>
       </nz-radio-group>
       <nz-checkbox-group *ngIf="item.type === 'checkbox'" [formControlName]="item.name"></nz-checkbox-group>
-      <nz-form-explain>{{item.tip}}{{item.type}}</nz-form-explain>
       <nz-select *ngIf="item.type === 'select'" style="min-width: 200px;" nzShowSearch nzAllowClear [nzPlaceHolder]="item.placeholder"
         [formControlName]="item.name">
         <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
@@ -63,8 +62,8 @@
       <div *ngIf="item.type === 'date'" class="inline" [ngStyle]="{ width: '300px', border: '1px solid #d9d9d9', borderRadius: '4px' }">
         <nz-calendar nzCard [formControlName]="item.name"></nz-calendar>
       </div>
+
+      <nz-form-explain>{{item.tip}}</nz-form-explain>
     </nz-form-control>
-
-
   </nz-form-item>
 </form>

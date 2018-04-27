@@ -27,6 +27,11 @@
         <button nz-button nzType="primary" (click)="saveTable()">保存数据</button>
       </nz-form-control>
     </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="danger" (click)="updateTable()">远程同步</button>
+      </nz-form-control>
+    </nz-form-item>
   </div>
 </div>
 <nz-tabset (nzSelectChange)="nzSelectChange($event)">
@@ -40,7 +45,7 @@
   <nz-table #fieldsTable [nzFooter]="footer" [nzData]="form.get('fields').value" nzSize="small">
     <thead>
       <tr>
-        <th style="width: 100px;">
+        <th style="width: 180px;">
           字段名
         </th>
         <th style="width: 180px;">字段类型</th>
@@ -100,7 +105,7 @@
           </nz-select>
         </td>
         <td>
-          <nz-select style="min-width: 240px;" nzMode="multiple" (ngModelChange)="indexChange($event, data)" [(ngModel)]="data.fields"
+          <nz-select style="min-width: 240px;" nzMode="multiple" (ngModelChange)="indexChange($event, data)" [(ngModel)]="data.rows"
             nzAllowClear nzPlaceHolder="请选择字段类型">
             <nz-option *ngFor="let item of form.get('fields').value" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
           </nz-select>

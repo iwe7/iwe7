@@ -66,5 +66,12 @@ export class TableList implements OnInit {
     });
   }
 
-  deleteTable() {}
+  deleteTable(item) {
+    this.builder.remove(item.$loki);
+    this.tables.map((res: any, index: number) => {
+      if (item === res) {
+        this.tables.splice(index, 1);
+      }
+    });
+  }
 }

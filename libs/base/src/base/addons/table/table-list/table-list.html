@@ -31,7 +31,7 @@
 </div>
 <nz-card nzTitle="所有数据库">
   <div nz-card-grid *ngFor="let item of tables" [ngStyle]="gridStyle">
-    <h3>{{item.title}}[{{item.name}}]</h3>
+    <h3>{{item.title}}</h3>
     <p>{{item.desc}}</p>
     <nz-dropdown style="margin-right: 5px;">
       <button nz-button nzType="primary" nzGhost nz-dropdown>
@@ -84,7 +84,7 @@
         </li>
       </ul>
     </nz-dropdown>
-    <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="deleteTable()">
+    <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="deleteTable(item)">
       <button nz-button nzGhost nzType="danger" nz-popconfirm>
         <i class="anticon anticon-delete"></i>
       </button>

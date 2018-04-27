@@ -5,6 +5,9 @@ import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'iwe7/antd/message';
 import { Subject } from 'rxjs';
+import { UrlService } from 'iwe7/utils';
+import { HttpClient } from '@angular/common/http';
+import { isArray, every, some } from 'underscore';
 @Component({
   selector: 'table-builder',
   templateUrl: './table-builder.html',
@@ -96,6 +99,14 @@ export class TableBuilder implements OnInit {
       value: 'decimal'
     },
     {
+      title: '配置项目',
+      value: 'inputs'
+    },
+    {
+      title: '输出项目',
+      value: 'inputs'
+    },
+    {
       title: '电话',
       value: 'mobile'
     },
@@ -183,7 +194,7 @@ export class TableBuilder implements OnInit {
       title: '时间',
       value: 'time'
     },
-    
+
     {
       title: '语音',
       value: 'audio'
@@ -273,7 +284,9 @@ export class TableBuilder implements OnInit {
     public builder: TableBuilderLoki,
     public fb: FormBuilder,
     public route: ActivatedRoute,
-    public message: NzMessageService
+    public message: NzMessageService,
+    public url: UrlService,
+    public http: HttpClient
   ) {
     this.route.queryParams.subscribe(res => {
       let { name } = res;
@@ -297,6 +310,10 @@ export class TableBuilder implements OnInit {
     this.table = this.builder.getData(item => {
       return item.name === this.name;
     });
+    this.refreshForm();
+  }
+
+  refreshForm() {
     if (this.table) {
       // 初始化
       let result = this.objToForm(this.table);
@@ -308,6 +325,7 @@ export class TableBuilder implements OnInit {
         }
       }
     }
+    console.log(this.form.value);
     this.tables = this.builder.where(item => {
       return true;
     });
@@ -324,9 +342,64 @@ export class TableBuilder implements OnInit {
     return this.activeTable;
   }
 
+  updateTable() {
+    let url = this.url.getUrl('elements/table', { table: this.name });
+    this.http.get(url).subscribe((res: any) => {
+      let { data } = res;
+      let { fields, indexes } = data;
+      // 初始化
+      let formFields = [];
+      for (let key in fields) {
+        let res = fields[key];
+        let field: TableField = {
+          name: res.name,
+          type: res.type,
+          length: res.length,
+          null: res.null,
+          ai: res.increment,
+          default: null
+        };
+        formFields.push(field);
+      }
+      this.table['fields'] = formFields;
+      // index
+      let formIndexes = [];
+      for (let key in indexes) {
+        let res = indexes[key];
+        let index = {
+          type: res.type.toUpperCase(),
+          rows: res.fields,
+          name: res.name
+        };
+        formIndexes.push(index);
+      }
+      this.table['indexs'] = formIndexes;
+    });
+    this.refreshForm();
+  }
+
+  isArrayLike(obj) {
+    let toString = Object.prototype.toString;
+    if (toString.call(obj) === '[object Array]') {
+      return true;
+    }
+    if (toString.call(obj) === '[object Object]') {
+      let err = every(Object.keys(obj), x => {
+        return !isNaN(parseInt(x, 10)); // 都是数字
+      });
+      return err;
+    }
+    return false;
+  }
+
   objToForm(objs: any) {
     let toString = Object.prototype.toString;
-    let newObj = { ...objs };
+    let newObj;
+    if (isArray(objs)) {
+      newObj = [...objs];
+    } else {
+      newObj = { ...objs };
+    }
     for (let key in objs) {
       if (
         toString.call(objs[key]) === '[object String]' ||
@@ -336,7 +409,8 @@ export class TableBuilder implements OnInit {
       ) {
         newObj[key] = this.fb.control(objs[key]);
       }
-      if (toString.call(objs[key]) === '[object Array]') {
+      // array like
+      if (this.isArrayLike(objs[key])) {
         let newArray = this.objToForm(objs[key]);
         let newCopy = [];
         for (let key in newArray) {

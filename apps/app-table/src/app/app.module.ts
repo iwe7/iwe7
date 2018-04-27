@@ -11,7 +11,6 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
 
 import { NgrxModule } from 'iwe7/ngrx';
-
 @NgModule({
   imports: [
     BrowserModule,
