@@ -1,0 +1,6 @@
+:host {
+    display: flex;
+    overflow: visible;
+    flex-direction: row;
+    position: relative;
+}

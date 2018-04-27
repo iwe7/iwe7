@@ -136,7 +136,7 @@ export class MeepoRender {
               let ret = {
                 view: view,
                 comp: comp,
-                instance: comp.instance,
+                instance: comp.instance
               };
               this.instanceMap.set(json.$loki, ret);
               return ret;
@@ -144,7 +144,7 @@ export class MeepoRender {
           );
         }
       }),
-      map(res=>{
+      map(res => {
         return res.instance;
       }),
       // 变换标题
@@ -270,19 +270,11 @@ export class MeepoRender {
         ...element.outputs,
         ...outputs
       };
-    } else {
-      let item = {
-        code: data.code,
-        title: data.title,
-        inputs: inputs || {},
-        outputs: outputs || {},
-        fid: 0,
-        selector: data.selector || 'base-meepo-modal'
-      };
-      element = this.data.insert(item);
+      this.remove(element.$loki);
+      return this.compiler(element, view || this.defaultView);
+    }else{
+      return new Subject();
     }
-    this.remove(element.$loki);
-    return this.compiler(element, view || this.defaultView);
   }
   // 移除
   remove(id: any) {

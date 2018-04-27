@@ -169,6 +169,10 @@
   version "6.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-6.0.0-beta.1.tgz#34e742e8c6a5730291f1e1f35798173ac0a93733"
 
+"@ngrx/entity@5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/entity/-/entity-5.2.0.tgz#68b90b3159bb46ec5b2d0de3fa0bf4e80e94972d"
+
 "@ngrx/router-store@6.0.0-beta.1":
   version "6.0.0-beta.1"
   resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-6.0.0-beta.1.tgz#1d43e47996a0a664d07aedbef66be640b63e8aa2"
@@ -180,6 +184,10 @@
 "@ngrx/schematics@6.0.0-beta.0":
   version "6.0.0-beta.0"
   resolved "https://registry.yarnpkg.com/@ngrx/schematics/-/schematics-6.0.0-beta.0.tgz#71b9faf114bd924a0532dae13811ef738dc3c30f"
+
+"@ngrx/store-devtools@6.0.0-beta.1":
+  version "6.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-6.0.0-beta.1.tgz#8bbac342c90340589c881577e193dbe67c487c5a"
 
 "@ngrx/store@6.0.0-beta.1":
   version "6.0.0-beta.1"

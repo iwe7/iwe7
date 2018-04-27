@@ -45,18 +45,14 @@ export class PageIndexComponent implements OnInit, OnDestroy {
     let { pid, code } = parse;
     if (!!pid) {
       this.pid = pid;
+      this.renderByPid();
     } else if (!!code) {
       this.code = code;
-    }
-    if (this.pid) {
-      this.renderByPid();
-    } else {
       this.renderByCode();
     }
   }
 
   renderByPid() {
-    console.log('renderByPid');
     this.render
       .showElement({ $loki: this.pid }, {}, {}, this.view)
       .subscribe((res: any) => {
@@ -71,7 +67,6 @@ export class PageIndexComponent implements OnInit, OnDestroy {
   }
 
   renderByCode() {
-    console.log('renderByCode');
     this.render
       .showElement({ code: this.code }, {}, {}, this.view)
       .subscribe((res: any) => {

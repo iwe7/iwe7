@@ -199,6 +199,13 @@
       "tags": []
     },
     {
+      "name": "ngrx",
+      "root": "libs/ngrx/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
       "name": "pages",
       "root": "libs/pages/src",
       "test": "../../../test.js",
