@@ -1,0 +1,23 @@
+<form nz-form [formGroup]="form" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="8" *ngFor="let item of filter" [style.display]="item.show?'block':'none'">
+      <nz-form-item nzFlex>
+        <nz-form-label [nzFor]="'field'+item.$loki">{{item.title}}</nz-form-label>
+        <nz-form-control>
+          <input nz-input placeholder="placeholder" [formControlName]="item.name" [attr.id]="'field'+item.$loki">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row>
+    <div nz-col [nzSpan]="24" style="text-align: right;">
+      <button nz-button [nzType]="'primary'" style="margin-right: 10px;">搜索</button>
+      <button nz-button (click)="resetForm()">重置</button>
+      <a style="margin-left:8px;font-size:12px;" (click)="toggleCollapse()">
+        <span *ngIf="isCollapse">展开</span>
+        <span *ngIf="!isCollapse">收起</span>
+        <i class="anticon" [class.anticon-down]="isCollapse" [class.anticon-up]="!isCollapse"></i>
+      </a>
+    </div>
+  </div>
+</form>

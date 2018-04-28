@@ -31,6 +31,7 @@ export class TableList implements OnInit {
       name: '',
       desc: '',
       title: '',
+      do: '',
       fields: [],
       indexs: [],
       foreigns: []
@@ -74,4 +75,8 @@ export class TableList implements OnInit {
       }
     });
   }
+
+  previewTable(item: any) {}
+
+  formTable(item: any) {}
 }

@@ -1,74 +1,54 @@
-import { OnInit, Component, Input } from '@angular/core';
-import { Table } from '../../interface';
-import { TableBuilderLoki } from '../../table-builder';
-import { MeepoRender } from 'iwe7/render';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
-
 import { ActivatedRoute } from '@angular/router';
 
 import { UrlService } from 'iwe7/utils';
 import { HttpClient } from '@angular/common/http';
+import { TableBuilderLoki } from '../../table-builder';
 import { isArray, every, some } from 'underscore';
-
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 @Component({
-  selector: 'table-preview',
-  templateUrl: './table-preview.html',
-  styleUrls: ['./table-preview.scss']
+  selector: 'table-search',
+  templateUrl: 'table-search.html',
+  styleUrls: ['./table-search.scss']
 })
-export class TablePreview implements OnInit {
-  name: string;
-  formObj: any[] = [];
+export class TableSearch implements OnInit {
   form: FormGroup;
-
-  @Input() change$: Subject<any> = new Subject();
-  @Input() update$: Subject<any> = new Subject();
+  controlArray: any = {};
+  filter: any = [];
+  isCollapse = true;
+  name: string;
   constructor(
-    public builder: TableBuilderLoki,
-    public router: Router,
     public fb: FormBuilder,
     public route: ActivatedRoute,
     public url: UrlService,
-    public http: HttpClient
+    public http: HttpClient,
+    public builder: TableBuilderLoki
   ) {
+    this.form = this.fb.group({});
     this.route.queryParams.subscribe(res => {
       let { name } = res;
       this.name = name || '';
     });
-    this.form = this.fb.group({
-      list: this.fb.array([]),
-      setting: this.fb.array([])
-    });
-  }
-  list: any[] = [];
-  ngOnInit() {
-    this.initForm();
-    this.update$.subscribe(res => {
-      this.initForm();
-    });
-    this.http
-      .get(this.url.getUrl('elements/table', { table: this.name, op: 'data' }))
-      .subscribe((res: any) => {
-        this.list = res.data;
-        this.refreshForm();
-      });
   }
 
-  initForm() {
+  ngOnInit() {
     let table = this.builder.getData(item => {
       return item.name === this.name;
     });
-    this.formObj = table['preview'] || [];
+    this.filter = table['filter'] || [];
+    let newObj = {};
+    this.filter.map(res => {
+      newObj[res.name] = res.value || '';
+    });
+    this.controlArray = newObj;
+    this.refreshForm();
   }
 
   refreshForm() {
     // 初始化
-    let result = this.objToForm({
-      list: this.list,
-      setting: this.formObj
-    });
+    let result = this.objToForm(this.controlArray);
     for (let key in result) {
       if (this.form.contains(key)) {
         this.form.setControl(key, result[key]);
@@ -76,6 +56,7 @@ export class TablePreview implements OnInit {
         this.form.addControl(key, result[key]);
       }
     }
+    console.log(this.form);
     this.form.valueChanges.pipe(debounceTime(200)).subscribe(res => {
       // 保存
       this.http
@@ -86,6 +67,17 @@ export class TablePreview implements OnInit {
         .subscribe(res => {
           console.log(res);
         });
+    });
+  }
+
+  resetForm() {
+    this.form.reset();
+  }
+
+  toggleCollapse() {
+    this.isCollapse = !this.isCollapse;
+    this.filter.forEach((c, index) => {
+      c.show = this.isCollapse ? index < 6 : true;
     });
   }
 

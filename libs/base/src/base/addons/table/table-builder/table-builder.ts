@@ -297,6 +297,7 @@ export class TableBuilder implements OnInit {
       name: [''],
       title: [''],
       desc: [''],
+      do: [''],
       fields: this.fb.array([]),
       indexs: this.fb.array([]),
       foreigns: this.fb.array([]),
@@ -305,6 +306,11 @@ export class TableBuilder implements OnInit {
       filter: this.fb.array([]),
       export: this.fb.array([])
     });
+  }
+
+  cloudTable(){
+    // 生成数据 并保存数据
+    console.log(this.form.value);
   }
   ngOnInit() {
     this.table = this.builder.getData(item => {
@@ -325,7 +331,6 @@ export class TableBuilder implements OnInit {
         }
       }
     }
-    console.log(this.form.value);
     this.tables = this.builder.where(item => {
       return true;
     });

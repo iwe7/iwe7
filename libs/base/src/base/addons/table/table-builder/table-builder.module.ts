@@ -17,7 +17,7 @@ import { SharedModule } from 'iwe7/shared';
 import { NzMessageModule } from 'iwe7/antd/message';
 import { TableFormBuilderModule } from '../form-builder/form-builder.module';
 import { TablePreviewModule } from '../table-preview/table-preview.module';
-
+import { TableSearchModule } from '../table-search/table-search.module';
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +35,8 @@ import { TablePreviewModule } from '../table-preview/table-preview.module';
     NzPopconfirmModule,
     NzMessageModule,
     TableFormBuilderModule,
-    TablePreviewModule
+    TablePreviewModule,
+    TableSearchModule
   ],
   declarations: [TableBuilder],
   entryComponents: [TableBuilder]

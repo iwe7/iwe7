@@ -1,11 +1,15 @@
-<nz-table #table nzSize="small">
+<table-search></table-search>
+<nz-table #table [nzData]="form.get('list').controls" nzSize="small">
   <thead>
     <tr>
       <th [nzShowSort]="item.isSort" *ngFor="let item of formObj">{{item.title}}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of table.data">
+    <tr *ngFor="let data of table.data" [formGroup]="data">
+      <td *ngFor="let item of formObj;">
+        <input type="text" nz-input [formControlName]="item.name" />
+      </td>
     </tr>
   </tbody>
 </nz-table>

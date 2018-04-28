@@ -24,12 +24,24 @@
     </nz-form-item>
     <nz-form-item>
       <nz-form-control>
+        <nz-input-group nzPrefixIcon="anticon anticon-profile">
+          <input nz-input formControlName="do" placeholder="入口操作">
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
         <button nz-button nzType="primary" (click)="saveTable()">保存数据</button>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-control>
         <button nz-button nzType="danger" (click)="updateTable()">远程同步</button>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button (click)="cloudTable()">提交上传</button>
       </nz-form-control>
     </nz-form-item>
   </div>
@@ -227,7 +239,7 @@
     <tbody>
       <tr *ngFor="let data of previewTable.data">
         <td>
-          <nz-select style="min-width: 140px;" [(ngModel)]="data.from" nzAllowClear nzPlaceHolder="请选择字段类型">
+          <nz-select style="min-width: 140px;" [(ngModel)]="data.name" nzAllowClear nzPlaceHolder="请选择字段类型">
             <nz-option *ngFor="let item of form.get('fields').value" [nzValue]="item.name" [nzLabel]="item.name"></nz-option>
           </nz-select>
         </td>
@@ -260,6 +272,7 @@
         <th style="width: 180px;">展示名</th>
         <th style="width: 180px;">类型</th>
         <th style="width: 180px;">可选数据</th>
+        <th style="width: 180px;">默认显示</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -279,6 +292,12 @@
           </nz-select>
         </td>
         <td>
+
+        </td>
+        <td>
+          <nz-switch [(ngModel)]="data.show"></nz-switch>
+        </td>
+        <td>
           <nz-popconfirm [nzTitle]="'您确定要删除此数据么？'" (nzOnConfirm)="confirmDelete(data,'filter')">
             <a nz-popconfirm>删除</a>
           </nz-popconfirm>
@@ -286,6 +305,7 @@
       </tr>
     </tbody>
   </nz-table>
+  <table-preview></table-preview>
 </div>
 <div *ngIf="nzSelectedIndex === 6">
   <nz-table #exportTable [nzFooter]="footer" nzSize="small" [nzData]="form.get('export').value" nzSize="small">

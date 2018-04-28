@@ -46,40 +46,22 @@
             编辑
           </a>
         </li>
-        <li nz-menu-item>
+        <li nz-menu-item (click)="previewTable(item)">
           <a>
             <i class="anticon anticon-profile"></i>
             管理
           </a>
         </li>
-        <li nz-menu-item>
+        <li nz-menu-item (click)="formTable(item)">
           <a>
             <i class="anticon anticon-file-add"></i>
-            添加
-          </a>
-        </li>
-        <li nz-menu-item>
-          <a>
-            <i class="anticon anticon-dot-chart"></i>
-            统计
+            表单
           </a>
         </li>
         <li nz-menu-item (click)="tableDesign(item)">
           <a>
             <i class="anticon anticon-database"></i>
-            结构
-          </a>
-        </li>
-        <li nz-menu-item>
-          <a>
-            <i class="anticon anticon-table"></i>
-            展示
-          </a>
-        </li>
-        <li nz-menu-item>
-          <a>
-            <i class="anticon anticon-form"></i>
-            表单
+            设置
           </a>
         </li>
       </ul>
