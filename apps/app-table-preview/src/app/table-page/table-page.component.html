@@ -1,0 +1,8 @@
+<nz-tabset>
+  <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
+    <ng-template #titleTemplate>
+      <i [ngClass]="tab.icon"></i>{{ tab.title }}
+    </ng-template>
+    {{ tab.title }}
+  </nz-tab>
+</nz-tabset>

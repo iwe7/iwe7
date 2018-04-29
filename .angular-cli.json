@@ -154,7 +154,7 @@
       "testTsconfig": "../../../tsconfig.spec.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.less"
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",
@@ -270,6 +270,13 @@
     {
       "name": "render",
       "root": "libs/render/src",
+      "test": "../../../test.js",
+      "appRoot": "",
+      "tags": []
+    },
+    {
+      "name": "render-preview",
+      "root": "libs/render-preview/src",
       "test": "../../../test.js",
       "appRoot": "",
       "tags": []

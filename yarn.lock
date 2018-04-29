@@ -39,6 +39,12 @@
   dependencies:
     tslib "^1.7.1"
 
+"@angular/cdk@^5.0.0":
+  version "5.2.5"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-5.2.5.tgz#cae2b12e1990a692dd267a73fdb1d49db37f9604"
+  dependencies:
+    tslib "^1.7.1"
+
 "@angular/cli@1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.7.1.tgz#3a9d0b8314d4c54226f941beeb53071385c294e0"
@@ -5305,6 +5311,13 @@ ng-packagr@^2.4.2:
     tar "^4.4.1"
     uglify-js "^3.3.20"
     update-notifier "^2.3.0"
+
+ng-zorro-antd@0.7.0-beta.4:
+  version "0.7.0-beta.4"
+  resolved "https://registry.yarnpkg.com/ng-zorro-antd/-/ng-zorro-antd-0.7.0-beta.4.tgz#e9c790f0f826f974ed1a29d748a1f28c1dc9cced"
+  dependencies:
+    "@angular/cdk" "^5.0.0"
+    date-fns "^1.29.0"
 
 ngrx-store-freeze@^0.2.1:
   version "0.2.2"

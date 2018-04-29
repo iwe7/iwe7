@@ -308,9 +308,14 @@ export class TableBuilder implements OnInit {
     });
   }
 
-  cloudTable(){
+  cloudTable() {
     // 生成数据 并保存数据
     console.log(this.form.value);
+    let url = this.url.getUrl('elements/page', { op: 'save' });
+    this.form.value['selector'] = 'table-page';
+    this.http.post(url, this.form.value).subscribe(res => {
+      console.log(res);
+    });
   }
   ngOnInit() {
     this.table = this.builder.getData(item => {
