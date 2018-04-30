@@ -82,7 +82,6 @@ import { NzUploadBtnComponent } from './nz-upload-btn.component';
 export class NzUploadComponent implements OnInit, OnChanges, OnDestroy {
   private inited = false;
   private progressTimer: any;
-  /** @private */
   @ViewChild('upload') upload: NzUploadBtnComponent;
   @Output()
   nzFileListChange: EventEmitter<UploadFile[]> = new EventEmitter<
@@ -180,7 +179,6 @@ export class NzUploadComponent implements OnInit, OnChanges, OnDestroy {
   @Input() nzRemove: ((file: UploadFile) => boolean) | Observable<boolean>;
   @Input() nzPreview: (file: UploadFile) => void;
 
-  /** @private */
   _btnOptions: ZipButtonOptions;
 
   private zipOptions(): this {

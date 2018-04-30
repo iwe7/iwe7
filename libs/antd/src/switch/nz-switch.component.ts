@@ -15,7 +15,6 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { toBoolean } from '../core/util/convert';
-import { MeepoRender } from 'meepo-render';
 
 export type NzSwitchSizeType = 'default' | 'small';
 
@@ -84,13 +83,13 @@ export class NzSwitchComponent implements OnInit, ControlValueAccessor {
   })
   unCheckedView: ViewContainerRef;
 
-  constructor(public render: MeepoRender) {}
+  constructor() {}
 
   setCheckView(e) {
     if(this.children){
       let { selector } = this.children.checkedView;
       if (selector) {
-        this.render.compiler(this.children.checkedView, e).subscribe();
+        // this.render.compiler(this.children.checkedView, e).subscribe();
       }
     }
   }
@@ -99,7 +98,7 @@ export class NzSwitchComponent implements OnInit, ControlValueAccessor {
     if(this.children){
       let { selector } = this.children.unCheckedView;
       if (selector) {
-        this.render.compiler(this.children.unCheckedView, e).subscribe();
+        // this.render.compiler(this.children.unCheckedView, e).subscribe();
       }
     }
   }

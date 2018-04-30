@@ -14,7 +14,6 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { toBoolean } from '../core/util/convert';
-import { MeepoRender } from 'meepo-render';
 
 @Component({
   selector: 'nz-rate',
@@ -307,7 +306,7 @@ export class NzRateComponent
     this.nzDisabled = isDisabled;
   }
 
-  constructor(private renderer: Renderer2, public meepo: MeepoRender) {}
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {
     this.setClassMap();
@@ -324,7 +323,7 @@ export class NzRateComponent
   setView(e: any) {
     if (this.children && this.children['selector']) {
       this.showStart = false;
-      this.meepo.compiler(this.children, e).subscribe();
+      // this.meepo.compiler(this.children, e).subscribe();
     }
   }
 }

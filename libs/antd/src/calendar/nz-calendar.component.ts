@@ -11,21 +11,23 @@ import {
   TemplateRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import * as addDays from 'date-fns/add_days';
-import * as differenceInCalendarDays from 'date-fns/difference_in_calendar_days';
-import * as differenceInCalendarMonths from 'date-fns/difference_in_calendar_months';
-import * as differenceInCalendarWeeks from 'date-fns/difference_in_calendar_weeks';
-import * as endOfMonth from 'date-fns/end_of_month';
-import * as isSameDay from 'date-fns/is_same_day';
-import * as isSameMonth from 'date-fns/is_same_month';
-import * as isSameYear from 'date-fns/is_same_year';
-import * as isThisMonth from 'date-fns/is_this_month';
-import * as isThisYear from 'date-fns/is_this_year';
-import * as setMonth from 'date-fns/set_month';
-import * as setYear from 'date-fns/set_year';
-import * as startOfMonth from 'date-fns/start_of_month';
-import * as startOfWeek from 'date-fns/start_of_week';
-import * as startOfYear from 'date-fns/start_of_year';
+import {
+  addDays,
+  differenceInCalendarDays,
+  differenceInCalendarMonths,
+  differenceInCalendarWeeks,
+  endOfMonth,
+  isSameDay,
+  isSameMonth,
+  isSameYear,
+  isThisMonth,
+  isThisYear,
+  setMonth,
+  setYear,
+  startOfMonth,
+  startOfWeek,
+  startOfYear
+} from 'date-fns';
 import { NzI18nService as I18n } from '../i18n/nz-i18n.service';
 import {
   NzDateCellDirective as DateCell,

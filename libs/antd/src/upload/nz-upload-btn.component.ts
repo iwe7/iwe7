@@ -42,7 +42,6 @@ import { UploadFile, UploadXHRArgs, ZipButtonOptions } from './interface';
   preserveWhitespaces: false
 })
 export class NzUploadBtnComponent implements OnInit, OnChanges, OnDestroy {
-  /** @private */
   reqs: { [key: string]: Subscription } = {};
   private inited = false;
   private destroy = false;
@@ -137,7 +136,6 @@ export class NzUploadBtnComponent implements OnInit, OnChanges, OnDestroy {
     return file;
   }
 
-  /** @private */
   uploadFiles(fileList: FileList | File[]): void {
     let postFiles: UploadFile[] = Array.prototype.slice.call(fileList);
     this.options.filters.forEach(f => (postFiles = f.fn(postFiles)));

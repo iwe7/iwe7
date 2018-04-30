@@ -84,10 +84,7 @@ export class NzAutocompleteTriggerDirective
   /** 用于绑定 nzAutocomplete 组件 */
   @Input() nzAutocomplete: NzAutocompleteComponent;
 
-  /**
-   * 当前被激活的 Option
-   * @returns {NzAutocompleteOptionComponent}
-   */
+
   get activeOption(): NzAutocompleteOptionComponent {
     if (this.nzAutocomplete && this.nzAutocomplete.options.length) {
       return this.nzAutocomplete.activeItem;
@@ -122,21 +119,12 @@ export class NzAutocompleteTriggerDirective
     }
   }
 
-  /**
-   * 订阅数据源改变事件
-   * @returns {Subscription}
-   */
   private subscribeOptionsChange(): Subscription {
     return this.nzAutocomplete.options.changes.pipe(delay(0)).subscribe(() => {
       this.resetActiveItem();
     });
   }
 
-  /**
-   * 订阅 option 选择事件
-   * 并设置值
-   * @returns {Subscription}
-   */
   private subscribeSelectionChange(): Subscription {
     return this.nzAutocomplete.selectionChange.subscribe(
       (option: NzAutocompleteOptionComponent) => {
@@ -145,11 +133,6 @@ export class NzAutocompleteTriggerDirective
     );
   }
 
-  /**
-   * 订阅组件外部的单击事件
-   * 并关闭弹窗
-   * @returns {Subscription}
-   */
   private subscribeOverlayBackdropClick(): Subscription {
     return merge(
       fromEvent(this._document, 'click'),
@@ -164,11 +147,6 @@ export class NzAutocompleteTriggerDirective
     });
   }
 
-  /**
-   * 订阅 Overlay 位置改变事件
-   * 并重新设置动画方向
-   * @returns {Subscription}
-   */
   private subscribeOverlayPositionChange(): Subscription {
     return this.positionStrategy.onPositionChange
       .pipe(

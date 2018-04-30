@@ -15,10 +15,6 @@ export class NzTreeService {
   checkedNodeList: NzTreeNode[] = [];
   matchedNodeList: NzTreeNode[] = [];
 
-  /**
-   * init data to NzTreeNode
-   * @param {any[]} root
-   */
   initTreeNodes(root: NzTreeNode[]): NzTreeNode[] {
     this.rootNodes = root;
     if (root.length > 0) {
@@ -30,11 +26,6 @@ export class NzTreeService {
     return this.rootNodes;
   }
 
-  /**
-   * init checkBox state
-   * @param {NzTreeNode} node
-   * @returns {NzTreeNode}
-   */
   initParentNode(node: NzTreeNode): void {
     if (node.children.length === 0) {
       // until root
@@ -134,11 +125,6 @@ export class NzTreeService {
     return this.matchedNodeList;
   }
 
-  /**
-   * keep selected state if isMultiple is true
-   * @param {NzTreeNode} node
-   * @param {boolean} isMultiple
-   */
   initNodeActive(node: NzTreeNode, isMultiple: boolean = false): void {
     if (node.isDisabled) {
       return;
@@ -161,10 +147,7 @@ export class NzTreeService {
     });
   }
 
-  /**
-   * click checkbox
-   * @param {NzTreeNode} checkedNode
-   */
+
   checkTreeNode(node: NzTreeNode, defaultValue?: boolean): void {
     node.isChecked =
       typeof defaultValue === 'undefined' ? !node.isChecked : defaultValue;
@@ -175,11 +158,7 @@ export class NzTreeService {
     this.setCheckedNodeList(node);
   }
 
-  /**
-   * reset child check state
-   * @param {NzTreeNode} node
-   * @param {boolean} value
-   */
+
   checkTreeNodeChildren(node: NzTreeNode, value: boolean): void {
     if (!node.isDisabled && !node.isDisableCheckbox) {
       node.isChecked = value;
@@ -193,13 +172,6 @@ export class NzTreeService {
     }
   }
 
-  /**
-   * 1、children half checked
-   * 2、children all checked, parent checked
-   * 3、no children checked
-   * @param node
-   * @returns {boolean}
-   */
   checkTreeNodeParents(node: NzTreeNode): void {
     const parentNode = node.getParentNode();
     if (parentNode) {
@@ -320,10 +292,6 @@ export class NzTreeService {
     }
   }
 
-  /**
-   * @param {DragEvent} e
-   * @returns {number}
-   */
   calcDropPosition(e: DragEvent): number {
     const { clientY } = e;
     const { top, bottom, height } = e.srcElement.getBoundingClientRect();

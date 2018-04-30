@@ -68,6 +68,7 @@
     "iwe7-core": "^1.0.1",
     "iwe7-devices": "^1.2.8",
     "iwe7-icss": "^1.0.0",
+    "iwe7-shared": "^0.0.1",
     "iwe7-utils": "^0.0.2",
     "jquery": "^3.3.1",
     "lokijs": "^1.5.3",

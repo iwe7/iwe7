@@ -4464,6 +4464,12 @@ iwe7-icss@^1.0.0:
   dependencies:
     tslib "^1.9.0"
 
+iwe7-shared@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/iwe7-shared/-/iwe7-shared-0.0.1.tgz#d78f434513e07d45e87f45a5a67dbb6c3571b4cb"
+  dependencies:
+    tslib "^1.9.0"
+
 iwe7-utils@^0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/iwe7-utils/-/iwe7-utils-0.0.2.tgz#a454314274adb6aeed3e6a87efbbfb8b872cd32e"

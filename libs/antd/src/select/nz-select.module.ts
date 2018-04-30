@@ -11,7 +11,7 @@ import { NzOptionPipe, NzSubOptionPipe } from './nz-option.pipe';
 import { NzSelectTopControlComponent } from './nz-select-top-control.component';
 import { NzSelectUnselectableDirective } from './nz-select-unselectable.directive';
 import { NzSelectComponent } from './nz-select.component';
-import { SharedModule } from 'iwe7/shared';
+import { SharedModule } from 'iwe7-shared';
 
 @NgModule({
   imports: [
